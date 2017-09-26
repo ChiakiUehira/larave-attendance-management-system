@@ -1,0 +1,73 @@
+{
+  "name": "adonis-app",
+  "version": "3.2.1",
+  "main": "server.js",
+  "scripts": {
+    "start": "echo \"\\033[31mWARN: 'start' will be depreciated soon. Instead use 'npm run serve'\" && npm run serve",
+    "dev": "echo \"\\033[31mWARN: 'dev' will be depreciated soon. Instead use 'npm run serve:dev'\" && npm run serve:dev",
+    "serve:dev": "nodemon --watch app --watch resources --watch bootstrap --watch config --watch .env -x node server.js",
+    "serve": "node server.js",
+    "nyan": "ava --tap | tap-nyan",
+    "test": "ava --verbose",
+    "lint": "standard",
+    "fixer": "standard --fix"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "adonis-ace": "^3.0.7",
+    "adonis-auth": "^1.0.5",
+    "adonis-commands": "^2.1.5",
+    "adonis-fold": "^3.0.3",
+    "adonis-framework": "^3.0.10",
+    "adonis-lucid": "^3.0.14",
+    "adonis-middleware": "^1.0.11",
+    "adonis-validation-provider": "^3.0.5",
+    "adonis-websocket": "^1.0.3",
+    "axios": "^0.16.2",
+    "element-ui": "^1.4.4",
+    "nuxt": "^1.0.0-rc11",
+    "pg": "^7.3.0",
+    "vue": "^2.3.3",
+    "youch": "^2.0.4"
+  },
+  "standard": {
+    "global": [
+      "use",
+      "make"
+    ],
+    "ignore": [
+      "/bootstrap",
+      "/config",
+      "/providers",
+      "/storage",
+      "/public"
+    ]
+  },
+  "ava": {
+    "files": [
+      "tests/**/*.js"
+    ]
+  },
+  "autoload": {
+    "App": "./app"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-env": "^1.5.1",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
+    "file-loader": "^0.9.0",
+    "nodemon": "^1.11.0",
+    "standard": "^10.0.1",
+    "tap-nyan": "^1.1.0",
+    "vue-loader": "^12.1.0",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}

@@ -1,0 +1,44 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:8.5.0
+      # specify the version you desire here
+      - image: postgres
+        environment:
+          POSTGRES_DB: root
+          POSTGRES_PASSWORD: root
+          POSTGRES_USER: root
+
+    working_directory: /var/www/html
+
+    steps:
+      - checkout
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: node -v
+      - run: yarn --varsion
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Initialize Database
+          command: |
+            if [ ! -e .env ] ; then cp .env.example .env ;fi
+            /var/www/html/./ace migration:refresh
+            /var/www/html/./ace db:seed
+      - run:
+          name: Sever Up
+          command: yarn serve:dev
+          background: true
+      - run: yarn test
+
+
