@@ -34,10 +34,6 @@ fixer:
 lint:
 	npm run lint
 
-# wabpack watch
-watch:
-	npm run watch
-
 # test
 test:
 	docker exec -it app ./ace migration:refresh
