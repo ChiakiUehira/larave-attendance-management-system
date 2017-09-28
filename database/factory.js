@@ -23,4 +23,5 @@ const Factory = use('Factory')
 */
 
 require('./factories/user')
+require('./factories/attendance')
 require('./factories/article')
