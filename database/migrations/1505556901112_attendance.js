@@ -10,6 +10,7 @@ class AttendancesTableSchema extends Schema {
       table.integer('company_id').unsigned()
       table.dateTime('started_at')
       table.dateTime('ended_at')
+      table.text('memo')
       table.timestamps()
       table.softDeletes()
     })

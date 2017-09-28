@@ -9,6 +9,7 @@ class CompaniesTableSchema extends Schema {
       table.string('company_name')
       table.string('company_name_kana')
       table.string('tel')
+      table.string('email')
       table.timestamps()
       table.softDeletes()
     })
