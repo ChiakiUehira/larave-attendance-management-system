@@ -23,13 +23,11 @@ Route.group('api', ()=>{
 
   Route.get('/article', 'ArticleController.index')
   Route.get('/article/:id', 'ArticleController.show')
-
-}).prefix('api/v1')
-
-Route.group('api auth', ()=>{
-
   Route.post('/article', 'ArticleController.store')
   Route.put('/article/:id', 'ArticleController.update')
   Route.delete('/article/:id', 'ArticleController.destroy')
 
-}).prefix('api/v1').middleware('auth')
+  Route.get('/user', 'UserController.index')
+  Route.get('/user/:id', 'UserController.show')
+
+}).prefix('api/v1')
