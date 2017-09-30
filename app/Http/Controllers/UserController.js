@@ -10,6 +10,16 @@ class UserController {
     const user = yield UserModel.find(id)
     res.json({user})
   }
+  * destroy (req, res) {
+    try {
+      const id = req.param('id')
+      const user = yield UserModel.find(id)
+      yield user.delete()
+      res.json({user})
+    } catch (error) {
+      throw error
+    }
+  }
 }
 
 module.exports = UserController
