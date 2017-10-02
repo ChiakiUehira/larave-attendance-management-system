@@ -17,6 +17,15 @@ make migration
 make seed
 ```
 
+## codeing style
+standard.jsに準拠する
+https://standardjs.com/
+
+```
+make fixer
+make lint
+```
+
 ## テスト
 ```
 make test
