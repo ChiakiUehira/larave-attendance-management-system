@@ -1,5 +1,4 @@
 const UserModel = use('App/Model/User')
-const Hash = use('Hash')
 
 class AuthController {
   * login (req, res) {
@@ -16,6 +15,9 @@ class AuthController {
     } catch (e) {
       res.unauthorized({success: false, error: e.message})
     }
+  }
+
+  * logout (req, res) {
   }
 }
 

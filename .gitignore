@@ -9,4 +9,4 @@ npm-debug.log
 .cache
 dist
 *.iml
-.idea
+.ideapackage-lock.json

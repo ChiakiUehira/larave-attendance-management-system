@@ -15,16 +15,7 @@
 | Route.resource('user', 'UserController')
 */
 
-const Route = use('Route')
+require('./routes/auth')
 
-Route.group('api', () => {
-  Route.post('/auth', 'AuthController.login')
-  Route.get('/article', 'ArticleController.index')
-  Route.get('/article/:id', 'ArticleController.show')
-  Route.post('/article', 'ArticleController.store')
-  Route.put('/article/:id', 'ArticleController.update')
-  Route.delete('/article/:id', 'ArticleController.destroy')
-  Route.get('/user', 'UserController.index')
-  Route.get('/user/:id', 'UserController.show')
-  Route.delete('/user/:id', 'UserController.destroy')
-}).prefix('api/v1')
+require('./routes/user')
+require('./routes/article')
