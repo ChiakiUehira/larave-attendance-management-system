@@ -13,6 +13,16 @@ class UserService {
     const user = yield UserModel.find(id)
     return user
   }
+
+  * store (company, context) {
+    const user = new UserModel(context)
+    if (user) {
+      yield company.users().save(user)
+      return user
+    } else {
+      return {}
+    }
+  }
 }
 
 module.exports = UserService
