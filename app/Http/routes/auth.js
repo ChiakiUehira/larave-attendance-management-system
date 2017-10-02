@@ -1,6 +1,6 @@
 const Route = use('Route')
 
-Route.group('api', () => {
+module.exports = Route.group('auth', () => {
   Route.post('/login', 'AuthController.login')
   Route.get('/logout', 'AuthController.logout')
 }).prefix('api/v1')

@@ -17,6 +17,14 @@ class UsersTableSchema extends Schema {
       table.string('manager_flag')
       table.text('thumbnail')
       table.string('email')
+      table.string('salary_type')
+      table.string('salary')
+      table.string('position')
+      table.string('address')
+      table.string('postal_code')
+      table.string('bank_account')
+      table.string('bank_name')
+      table.string('bank_branch')
       table.string('password')
       table.timestamps()
       table.softDeletes()
@@ -29,5 +37,3 @@ class UsersTableSchema extends Schema {
 }
 
 module.exports = UsersTableSchema
-
-

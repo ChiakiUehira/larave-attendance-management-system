@@ -1,6 +1,6 @@
 const Route = use('Route')
 
-Route.group('api', () => {
+module.exports = Route.group('article', () => {
   Route.get('/article', 'ArticleController.index')
   Route.get('/article/:id', 'ArticleController.show')
   Route.post('/article', 'ArticleController.store')

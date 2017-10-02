@@ -13,6 +13,14 @@ Factory.blueprint('App/Model/User', (fake) => {
     tel: fake.phone({ formatted: false }),
     email: fake.email(),
     password: 'pw',
+    salary_type: 'hourly',
+    salary: 1000,
+    position: 'バイト',
+    address: '大阪府大正区',
+    postal_code: '9999999',
+    bank_account: '9999999',
+    bank_name: 'ゆうちょ銀行',
+    bank_branch: '大正店'
   }
   const manager_flag = Math.floor(Math.random()*(20-0)+0) ? 'normal' : 'manager'
   return {...context,manager_flag}

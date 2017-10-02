@@ -6,6 +6,7 @@ class AuthController {
       const { email, password } = req.post()
       yield req.auth.validate(email, password)
       const isAuth = yield req.auth.attempt(email, password)
+      console.log(isAuth)
       if (isAuth) {
         const user = yield UserModel.query().where('email', email).first()
         const token = yield req.auth.generate(user)
