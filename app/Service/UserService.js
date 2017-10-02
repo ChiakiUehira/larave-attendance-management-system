@@ -23,6 +23,17 @@ class UserService {
       return {}
     }
   }
+
+  * update (id, context) {
+    const user = yield this.getUserById(id)
+    if (user) {
+      user.fill(context)
+      yield user.save()
+      return user
+    } else {
+      return {}
+    }
+  }
 }
 
 module.exports = UserService
