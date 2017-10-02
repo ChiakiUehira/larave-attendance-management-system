@@ -7,6 +7,12 @@ class User extends Lucid {
     super.boot()
     this.addHook('beforeCreate', 'User.encryptPassword')
   }
+  static get deleteTimestamp () {
+    return 'deleted_at'
+  }
+  company () {
+    return this.belongsTo('App/Model/Company')
+  }
 }
 
 module.exports = User
