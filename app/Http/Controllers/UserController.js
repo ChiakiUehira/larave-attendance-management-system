@@ -13,17 +13,40 @@ class UserController {
   * index (req, res) {
     const loginUser = yield req.auth.getUser()
     const users = yield this.userService.fetchUsersFromUser(loginUser)
-    res.json({users})
+    if (users) {
+      res.json({
+        success: true,
+        users
+      })
+    } else {
+      res.json({
+        success: false,
+        users: []
+      })
+    }
   }
   * show (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
-    if (isContain) {
-      const user = yield this.userService.getUserById(id)
-      res.json({user})
+    if (!isContain) {
+      res.json({
+        success: false,
+        user: null
+      })
+      return
+    }
+    const user = yield this.userService.getUserById(id)
+    if (user) {
+      res.json({
+        success: true,
+        user
+      })
     } else {
-      res.json({user: null})
+      res.json({
+        success: false,
+        user
+      })
     }
   }
   * store (req, res) {
