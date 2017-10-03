@@ -11,7 +11,7 @@ Factory.blueprint('App/Model/User', (fake) => {
     gender: fake.gender(),
     thumbnail: 'https://placehold.jp/300x300.png',
     tel: fake.phone({ formatted: false }),
-    email: fake.email(),
+    email: 'sisukai2017@gmail.com',
     password: 'pw',
     salary_type: 'hourly',
     salary: 1000,

@@ -18,5 +18,3 @@
 require('./routes/auth')
 
 require('./routes/user')
-
-require('./routes/article')

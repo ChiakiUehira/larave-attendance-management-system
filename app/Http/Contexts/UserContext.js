@@ -28,7 +28,7 @@ class UserContext {
     // @TODO 調整
     return {
       password: 'pw',
-      email: 'hacoco345@gmail.com',
+      email: 'sisukai2017@gmail.com',
       tel: req.input('tel'),
       last_name: req.input('last_name'),
       first_name: req.input('first_name'),
