@@ -8,6 +8,7 @@ class CompaniesTableSchema extends Schema {
       table.increments()
       table.string('company_name')
       table.string('company_name_kana')
+      table.string('address')
       table.string('tel')
       table.string('email')
       table.timestamps()
