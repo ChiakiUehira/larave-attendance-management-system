@@ -1,6 +1,6 @@
 const test = require('ava')
 const axios = require('axios')
-const { _loginInfo, _user } = require('../context')
+const { _loginInfo, _user } = require('../../context')
 var http
 
 test.before(t => {

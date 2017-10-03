@@ -1,5 +1,3 @@
-'use strict'
-
 const Env = use('Env')
 const Config = use('Config')
 const { Nuxt, Builder } = require('nuxt')

@@ -1,3 +1,4 @@
+require('ava')
 
 exports._loginInfo = {
   email: 'sisukai2017@gmail.com',

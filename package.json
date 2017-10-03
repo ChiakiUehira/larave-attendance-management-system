@@ -48,7 +48,7 @@
   },
   "ava": {
     "files": [
-      "tests/**/*.js"
+      "tests/api/**/*.js"
     ]
   },
   "autoload": {
