@@ -9,6 +9,10 @@ class AttendanceService {
       .whereBetween('started_at', [context.from, context.to])
     return attendances
   }
+  * getById (id) {
+    const attendance = yield attendanceModel.find(id)
+    return attendance
+  }
 }
 
 module.exports = AttendanceService

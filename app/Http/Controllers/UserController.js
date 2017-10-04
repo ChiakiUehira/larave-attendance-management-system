@@ -36,7 +36,7 @@ class UserController {
       })
       return
     }
-    const user = yield this.userService.getUserById(id)
+    const user = yield this.userService.getById(id)
     if (user) {
       res.json({
         success: true,
@@ -100,7 +100,7 @@ class UserController {
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
     if (isContain) {
-      const user = yield this.userService.getUserById(id)
+      const user = yield this.userService.getById(id)
       yield user.delete()
       res.json({success: true})
     } else {

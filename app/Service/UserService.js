@@ -9,7 +9,7 @@ class UserService {
     return users
   }
 
-  * getUserById (id) {
+  * getById (id) {
     const user = yield UserModel.find(id)
     return user
   }
@@ -21,7 +21,7 @@ class UserService {
   }
 
   * update (id, context) {
-    const user = yield this.getUserById(id)
+    const user = yield this.getById(id)
     if (user) {
       user.fill(context)
       yield user.save()

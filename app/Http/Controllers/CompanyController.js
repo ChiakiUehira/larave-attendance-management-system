@@ -1,12 +1,10 @@
 
-const UserService = require('../../Service/UserService')
 const CompanyService = require('../../Service/CompanyService')
 const CompanyContext = require('../Contexts/CompanyContext')
 const Validator = use('Validator')
 
 class CompanyController {
   constructor () {
-    this.userService = new UserService()
     this.companyService = new CompanyService()
     this.companyContext = new CompanyContext()
   }
