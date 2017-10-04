@@ -1,10 +1,10 @@
 const test = require('ava')
 const axios = require('axios')
-const { _loginInfo, _user } = require('../../context')
+const { _login, _user } = require('../../context')
 var http
 
 test.before(t => {
-  return axios.post('http://localhost:3333/api/v1/login', _loginInfo).then(({status, data}) => {
+  return axios.post('http://localhost:3333/api/v1/login', _login).then(({status, data}) => {
     http = axios.create({
       baseURL: 'http://localhost:3333/api/v1',
       headers: {
@@ -40,7 +40,7 @@ test('ユーザ編集', async t => {
 
 test('ユーザ削除', async t => {
   const { data } = await http.get('/user')
-  const user = data.users[0]
+  const user = data.users[2]
   const { status } = await http.delete(`/user/${user.id}`)
   t.is(status, 200)
 })

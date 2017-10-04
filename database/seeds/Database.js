@@ -19,6 +19,7 @@ class DatabaseSeeder {
     yield Factory.model('App/Model/Company').create(2)
     yield Factory.model('App/Model/User').create(30)
     yield Factory.model('App/Model/Attendance').create(100)
+    yield Factory.model('App/Model/News').create(20)
   }
 }
 

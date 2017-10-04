@@ -1,6 +1,6 @@
 require('ava')
 
-exports._loginInfo = {
+exports._login = {
   email: 'sisukai2017@gmail.com',
   password: 'pw'
 }
@@ -22,4 +22,9 @@ exports._company = {
   address: '大阪府堺市南区',
   tel: '08012341234',
   email: 'info@sisukai.com'
+}
+
+exports._news = {
+  title: '霧が深い夜のこと',
+  detail: '昨日は霧が深い夜だった。。。'
 }

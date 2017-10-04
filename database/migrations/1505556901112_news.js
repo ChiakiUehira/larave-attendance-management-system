@@ -6,8 +6,9 @@ class NewsTableSchema extends Schema {
   up () {
     this.create('news', (table) => {
       table.increments()
-      table.integer('user_id').unsigned()
-      table.string('detail')
+      table.integer('company_id').unsigned()
+      table.text('title')
+      table.text('detail')
       table.timestamps()
       table.softDeletes()
     })
@@ -19,5 +20,3 @@ class NewsTableSchema extends Schema {
 }
 
 module.exports = NewsTableSchema
-
-

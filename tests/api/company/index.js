@@ -1,10 +1,10 @@
 const test = require('ava')
 const axios = require('axios')
-const { _loginInfo, _company } = require('../../context')
+const { _login, _company } = require('../../context')
 var http
 
 test.before(t => {
-  return axios.post('http://localhost:3333/api/v1/login', _loginInfo).then(({status, data}) => {
+  return axios.post('http://localhost:3333/api/v1/login', _login).then(({status, data}) => {
     http = axios.create({
       baseURL: 'http://localhost:3333/api/v1',
       headers: {
