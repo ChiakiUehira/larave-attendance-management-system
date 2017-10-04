@@ -21,5 +21,3 @@ class AttendancesTableSchema extends Schema {
 }
 
 module.exports = AttendancesTableSchema
-
-
