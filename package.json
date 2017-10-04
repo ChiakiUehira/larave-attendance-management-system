@@ -28,6 +28,7 @@
     "adonis-websocket": "^1.0.3",
     "axios": "^0.16.2",
     "element-ui": "^1.4.4",
+    "moment": "^2.18.1",
     "nuxt": "^1.0.0-rc11",
     "pg": "^7.3.0",
     "vue": "^2.3.3",

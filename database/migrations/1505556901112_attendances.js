@@ -7,7 +7,6 @@ class AttendancesTableSchema extends Schema {
     this.create('attendances', (table) => {
       table.increments()
       table.integer('user_id').unsigned()
-      table.integer('company_id').unsigned()
       table.dateTime('started_at')
       table.dateTime('ended_at')
       table.text('memo')

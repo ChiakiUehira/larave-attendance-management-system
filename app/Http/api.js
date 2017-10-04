@@ -19,3 +19,4 @@ require('./routes/auth')
 
 require('./routes/user')
 require('./routes/company')
+require('./routes/attendance')
