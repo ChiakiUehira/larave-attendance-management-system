@@ -16,12 +16,8 @@ class UserService {
 
   * store (company, context) {
     const user = new UserModel(context)
-    if (user) {
-      yield company.users().save(user)
-      return user
-    } else {
-      return {}
-    }
+    yield company.users().save(user)
+    return user
   }
 
   * update (id, context) {

@@ -15,3 +15,11 @@ exports._user = {
   manager_flag: 'normal',
   salary_type: 'monthly'
 }
+
+exports._company = {
+  company_name: '株式会社 佐藤',
+  company_name_kana: 'カブシキガイシャ サトウ',
+  address: '大阪府堺市南区',
+  tel: '08012341234',
+  email: 'info@sisukai.com'
+}

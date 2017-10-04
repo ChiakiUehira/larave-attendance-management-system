@@ -28,7 +28,21 @@ class CompanyController {
   }
 
   * store (req, res) {
-
+    const rules = this.companyContext.storeRules()
+    const context = this.companyContext.storeContext(req)
+    const validation = yield Validator.validateAll(context, rules)
+    if (!validation.fails()) {
+      const company = yield this.companyService.store(context)
+      res.json({
+        success: true,
+        company
+      })
+    } else {
+      res.json({
+        success: false,
+        error: validation.messages()
+      })
+    }
   }
 
   * update (req, res) {

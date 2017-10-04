@@ -1,5 +1,7 @@
 'use strict'
 
+const CompanyModel = use('App/Model/Company')
+
 class CompanyService {
   * getCompanyFromUser (user) {
     const company = yield user.company().first()
@@ -12,6 +14,12 @@ class CompanyService {
     return users.some((user) => {
       return user.id === Number(id)
     })
+  }
+
+  * store (context) {
+    const company = new CompanyModel(context)
+    yield company.save()
+    return company
   }
 }
 
