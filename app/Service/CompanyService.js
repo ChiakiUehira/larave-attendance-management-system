@@ -21,6 +21,17 @@ class CompanyService {
     yield company.save()
     return company
   }
+
+  * update (user, context) {
+    const company = yield this.getCompanyFromUser(user)
+    if (company) {
+      company.fill(context)
+      yield company.save()
+      return company
+    } else {
+      return {}
+    }
+  }
 }
 
 module.exports = CompanyService

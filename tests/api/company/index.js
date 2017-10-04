@@ -24,12 +24,10 @@ test('会社登録', async t => {
   t.is(status, 200)
 })
 
-// test('会社編集', async t => {
-//   const { data } = await http.get('/user')
-//   const user = data.users[0]
-//   const { status } = await http.put(`/user/${user.id}`, _user)
-//   t.is(status, 200)
-// })
+test('会社編集', async t => {
+  const { status } = await http.put(`/company`, _company)
+  t.is(status, 200)
+})
 
 // test('会社削除', async t => {
 //   const { status } = await http.delete(`/company`)

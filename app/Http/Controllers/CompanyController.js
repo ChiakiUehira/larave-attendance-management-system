@@ -47,7 +47,6 @@ class CompanyController {
 
   * update (req, res) {
     const loginUser = yield req.auth.getUser()
-    const { id } = yield this.companyService.getCompanyFromUser(loginUser)
     const rules = this.companyContext.storeRules()
     const context = this.companyContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
@@ -58,7 +57,7 @@ class CompanyController {
       })
       return
     }
-    const company = yield this.companyService.update(id, context)
+    const company = yield this.companyService.update(loginUser, context)
     res.json({
       success: true,
       company
