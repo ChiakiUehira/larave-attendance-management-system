@@ -26,7 +26,6 @@ class NewsController {
     const context = this.newsContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (!validation.fails()) {
-      console.log(context);
       const news = yield this.newsService.store(company, context)
       res.json({
         success: true,
