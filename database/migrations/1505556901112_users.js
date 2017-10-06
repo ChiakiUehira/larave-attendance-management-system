@@ -16,7 +16,7 @@ class UsersTableSchema extends Schema {
       table.string('tel')
       table.string('manager_flag')
       table.text('thumbnail')
-      table.string('email')
+      table.string('email').notNullable()
       table.string('salary_type')
       table.string('salary')
       table.string('position')
