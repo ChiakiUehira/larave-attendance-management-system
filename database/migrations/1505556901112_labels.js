@@ -7,7 +7,7 @@ class LabelsTableSchema extends Schema {
     this.create('labels', (table) => {
       table.increments()
       table.integer('user_id').unsigned()
-      table.string('name')
+      table.string('name').notNullable()
       table.timestamps()
       table.softDeletes()
     })

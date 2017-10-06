@@ -8,8 +8,8 @@ class AnswersTableSchema extends Schema {
       table.increments()
       table.integer('question_id').unsigned()
       table.integer('user_id').unsigned()
-      table.string('title')
-      table.text('detail')
+      table.string('title').notNullable()
+      table.text('detail').notNullable()
       table.timestamps()
     })
   }

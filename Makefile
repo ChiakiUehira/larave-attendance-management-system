@@ -26,6 +26,11 @@ migration:
 seed:
 	docker exec -it app ./ace db:seed
 
+# DB setup
+setup:
+	docker exec -it app ./ace migration:refresh
+	docker exec -it app ./ace db:seed
+
 # standard --fix
 fixer:
 	npm run fixer
