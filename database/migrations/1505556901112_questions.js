@@ -7,8 +7,8 @@ class QuestionsTableSchema extends Schema {
     this.create('questions', (table) => {
       table.increments()
       table.integer('user_id').unsigned()
-      table.string('title')
-      table.string('text')
+      table.string('title').notNullable()
+      table.string('text').notNullable()
       table.timestamps()
       table.softDeletes()
     })

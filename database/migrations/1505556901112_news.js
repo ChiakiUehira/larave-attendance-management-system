@@ -7,8 +7,8 @@ class NewsTableSchema extends Schema {
     this.create('news', (table) => {
       table.increments()
       table.integer('company_id').unsigned()
-      table.text('title')
-      table.text('detail')
+      table.text('title').notNullable()
+      table.text('detail').notNullable()
       table.timestamps()
       table.softDeletes()
     })
