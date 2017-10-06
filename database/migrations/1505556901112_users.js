@@ -26,7 +26,6 @@ class UsersTableSchema extends Schema {
       table.string('bank_name')
       table.string('bank_branch')
       table.string('password').notNullable()
-      table.string('rfid')
       table.timestamps()
       table.softDeletes()
     })
