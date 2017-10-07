@@ -6,4 +6,4 @@ module.exports = Route.group('news', () => {
   Route.get('/news/:id', 'NewsController.show')
   Route.put('/news/:id', 'NewsController.update')
   Route.delete('/news/:id', 'NewsController.destroy')
-}).prefix('api/v1')
+}).prefix('api/v1').middleware('auth')

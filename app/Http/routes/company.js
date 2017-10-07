@@ -5,4 +5,4 @@ module.exports = Route.group('company', () => {
   Route.post('/company', 'CompanyController.store')
   Route.put('/company', 'CompanyController.update')
   Route.delete('/company', 'CompanyController.destroy')
-}).prefix('api/v1')
+}).prefix('api/v1').middleware('auth')

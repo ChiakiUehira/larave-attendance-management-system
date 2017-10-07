@@ -22,7 +22,5 @@ const Factory = use('Factory')
 |
 */
 
-require('./factories/company')
-require('./factories/user')
 require('./factories/attendance')
 require('./factories/news')
