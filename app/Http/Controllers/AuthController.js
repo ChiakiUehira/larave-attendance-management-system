@@ -13,11 +13,8 @@ class AuthController {
       }
       return res.json({success: false})
     } catch (e) {
-      res.unauthorized({success: false, error: e.message})
+      res.json({success: false, error: 'NO'})
     }
-  }
-
-  * logout (req, res) {
   }
 }
 
