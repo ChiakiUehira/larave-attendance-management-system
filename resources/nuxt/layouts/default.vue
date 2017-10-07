@@ -1,20 +1,29 @@
 <template>
   <div>
-    <my-header/>
-    <nuxt/>
-    <my-footer/>
+    <side-navi/>
+    <main id="main">
+      <nuxt/>
+    </main>
   </div>
 </template>
 
 <script>
-import MyHeader from '~/components/Header.vue'
-import MyFooter from '~/components/Footer.vue'
+import SideNavi from '~/components/SideNavi.vue'
 
 export default {
   components: {
-    MyHeader,
-    MyFooter
+    SideNavi
   }
 }
 </script>
+
+<style scoped>
+  #main {
+    margin-left: 220px;
+    height: 100vh;
+  }
+</style>
+
+
+
 
