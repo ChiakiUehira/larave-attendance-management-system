@@ -20,5 +20,3 @@ class AnswersTableSchema extends Schema {
 }
 
 module.exports = AnswersTableSchema
-
-
