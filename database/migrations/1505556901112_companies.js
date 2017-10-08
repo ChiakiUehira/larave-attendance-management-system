@@ -1,5 +1,3 @@
-'use strict'
-
 const Schema = use('Schema')
 
 class CompaniesTableSchema extends Schema {

@@ -33,11 +33,13 @@
 
 <script>
 export default {
+  data() {
+    return {}
+  },
   computed: {
     isCollapse () {
       if (typeof(window) !== 'undefined') {
-        // return window.innerWidth < 960
-        return true
+        return window.innerWidth < 960
       }
       return false
     }

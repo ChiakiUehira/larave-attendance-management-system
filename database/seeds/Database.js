@@ -19,13 +19,14 @@ const service = new FactoryService()
 
 const User = use('App/Model/User')
 const Company = use('App/Model/Company')
+const News = use('App/Model/News')
 
 class DatabaseSeeder {
   * run () {
     yield service.create(User, path.join('database/static/users.csv'))
     yield service.create(Company, path.join('database/static/companies.csv'))
+    yield service.create(News, path.join('database/static/news.csv'))
     yield Factory.model('App/Model/Attendance').create(100)
-    yield Factory.model('App/Model/News').create(20)
   }
 }
 
