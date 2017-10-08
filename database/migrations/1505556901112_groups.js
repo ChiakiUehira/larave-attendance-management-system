@@ -19,5 +19,3 @@ class GroupsTableSchema extends Schema {
 }
 
 module.exports = GroupsTableSchema
-
-

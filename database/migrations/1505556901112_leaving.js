@@ -22,5 +22,3 @@ class LeavingTableSchema extends Schema {
 }
 
 module.exports = LeavingTableSchema
-
-

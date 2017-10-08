@@ -19,5 +19,3 @@ class LabelsTableSchema extends Schema {
 }
 
 module.exports = LabelsTableSchema
-
-

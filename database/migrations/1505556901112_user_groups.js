@@ -18,5 +18,3 @@ class UserGroupsTableSchema extends Schema {
 }
 
 module.exports = UserGroupsTableSchema
-
-
