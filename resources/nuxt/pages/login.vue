@@ -19,6 +19,7 @@
       <el-button @click="reset">Reset</el-button>
       <el-button type="primary" @click="submit">Submit</el-button>
     </div>
+
   </section>
 </template>
 
@@ -27,8 +28,8 @@
     data(){
       return {
         context: {
-          email: '',
-          password: ''
+          email: 'sisukai2017@gmail.com',
+          password: 'pw'
         }
       }
     },
@@ -38,19 +39,16 @@
         this.context.password = ''
       },
       submit(){
-        this.$http.post('auth',this.context).then(({data})=>{
-          localStorage.setItem('token', data.token)
-          this.$store.commit('login')
-          this.$message.success('ログインしました');
+        this.$http.post('login',this.context).then(({data})=>{
+          this.$store.commit('SET_IS_LOGIN',true)
+          this.$store.commit('SET_TOKEN', data.token)
+          this.$store.commit('SET_IS_MANAGER', data.user.manager_flag)
+          document.cookie = `__t=${data.token}`
+          this.$notify.success('ログインしました')
           this.$router.push('/')
         }).catch((err)=>{
-          this.$message.error('メールアドレスかパスワードが間違っています');
+          this.$notify.error('メールアドレスかパスワードが間違っています');
         })
-      }
-    },
-    fetch({ store, redirect }){
-      if (store.state.auth) {
-        redirect('/')
       }
     }
   }
