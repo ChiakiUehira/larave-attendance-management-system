@@ -7,7 +7,7 @@ const instance = axios.create({
 
 export default ({app, store}) => {
   addHeader(instance, store)
-  app.http = instance
+  app.$http = instance
   clientSideHttpPlugin(instance,store)
 }
 
@@ -26,9 +26,7 @@ const addHeader = (instance, store) => {
 const clientSideHttpPlugin = (store) => {
   let http = {}
   http.install = (Vue) => {
-    Vue.prototype.$http = () => {
-      return instance
-    }
+    Vue.prototype.$http = instance
   }
   Vue.use(http)
 }
