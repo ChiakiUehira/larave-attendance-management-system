@@ -1,6 +1,7 @@
 const Route = use('Route')
 
 module.exports = Route.group('user', () => {
+  Route.get('/me', 'UserController.me')
   Route.get('/user', 'UserController.index')
   Route.post('/user', 'UserController.store')
   Route.get('/user/:id', 'UserController.show')

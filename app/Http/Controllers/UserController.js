@@ -10,6 +10,19 @@ class UserController {
     this.userContext = new UserContext()
     this.companyService = new CompanyService()
   }
+  * me (req, res) {
+    const loginUser = yield req.auth.getUser()
+    if (loginUser) {
+      res.json({
+        success: true,
+        loginUser
+      })
+    } else {
+      res.json({
+        success: false,
+      })
+    }
+  }
   * index (req, res) {
     const loginUser = yield req.auth.getUser()
     const users = yield this.userService.fetchUsersFromUser(loginUser)
