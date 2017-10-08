@@ -3,7 +3,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  SET_TOKEN(state, payload){
+  SET_TOKEN (state, payload) {
     state.token = payload
   }
 }

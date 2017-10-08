@@ -1,11 +1,17 @@
 import axios from 'axios'
 import Vue from 'vue'
 
-export default ({ store }) => {
-  const instance = axios.create({
-    baseURL: 'http://0.0.0.0:3333/api/v1'
-  });
+const instance = axios.create({
+  baseURL: 'http://0.0.0.0:3333/api/v1'
+})
 
+export default ({app, store}) => {
+  addHeader(instance, store)
+  app.http = instance
+  clientSideHttpPlugin(instance,store)
+}
+
+const addHeader = (instance, store) => {
   instance.interceptors.request.use((config) => {
     if (store.state.token) {
       config.headers.Authorization = `Bearer ${store.state.token}`
@@ -13,13 +19,18 @@ export default ({ store }) => {
     }
     return config
   }, function (error) {
-    return Promise.reject(error);
+    return Promise.reject(error)
   })
+}
 
+const clientSideHttpPlugin = (store) => {
   let http = {}
-  http.install = (Vue)=> {
-    Vue.prototype.$http = ()=>{ return instance}
+  http.install = (Vue) => {
+    Vue.prototype.$http = () => {
+      return instance
+    }
   }
   Vue.use(http)
 }
+
 
