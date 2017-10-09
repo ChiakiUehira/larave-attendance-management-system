@@ -1,13 +1,13 @@
-export default function ({ store, redirect, req, app}) {
-  if(!store.state.isLogin && getToken(req)){
-   store.commit('SET_TOKEN', getToken(req))
-   store.commit('SET_IS_LOGIN',true)
-   app.$http.get('me').then(({data}) => {
-     store.commit('SET_IS_MANAGER',data.loginUser.manager_flag)
-   })
+export default function ({store, redirect, req, app}) {
+  if (!store.state.isLogin && getToken(req)) {
+    store.commit('SET_TOKEN', getToken(req))
+    store.commit('SET_IS_LOGIN',true)
+    app.$http.get('me').then(({data}) => {
+      store.commit('SET_IS_MANAGER',data.loginUser.manager_flag === 'manager')
+    })
   }
-  if(!store.state.isLogin){
-   redirect('/login')
+  if (!store.state.isLogin){
+    redirect('/login')
   }
 }
 

@@ -41,12 +41,8 @@ lint:
 
 # test
 test:
-	docker exec -it app ./ace migration:refresh
-	docker exec -it app ./ace db:seed
 	docker exec -it app npm test
 
 # nyan
 nyan:
-	docker exec -it app ./ace migration:refresh
-	docker exec -it app ./ace db:seed
 	docker exec -it app npm run nyan

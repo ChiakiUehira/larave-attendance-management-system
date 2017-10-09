@@ -21,7 +21,7 @@ test('出勤一覧取得', async t => {
 
 test('出勤個別取得', async t => {
   const { data } = await http.get(`/attendance?from=2017-01-01`)
-  const attendance = data.attendances[0]
+  const [attendance] = data.attendances
   const { status } = await http.get(`/attendance/${attendance.id}`)
   t.is(status, 200)
 })

@@ -21,7 +21,7 @@ test('ユーザ一覧取得', async t => {
 
 test('ユーザ個別取得', async t => {
   const { data } = await http.get('/user')
-  const user = data.users[0]
+  const [user] = data.users
   const { status } = await http.get(`/user/${user.id}`)
   t.is(status, 200)
 })
@@ -33,14 +33,14 @@ test('ユーザ登録', async t => {
 
 test('ユーザ編集', async t => {
   const { data } = await http.get('/user')
-  const user = data.users[0]
+  const [user] = data.users
   const { status } = await http.put(`/user/${user.id}`, _user)
   t.is(status, 200)
 })
 
 test('ユーザ削除', async t => {
   const { data } = await http.get('/user')
-  const user = data.users[2]
+  const [user] = data.users
   const { status } = await http.delete(`/user/${user.id}`)
   t.is(status, 200)
 })

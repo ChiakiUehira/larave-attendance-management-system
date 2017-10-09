@@ -1,31 +1,29 @@
 <template>
   <div>
     <el-menu theme="dark" class="el-menu-vertical" :collapse="isCollapse">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-message"></i>
-          <span slot="title">Navigator One</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">Group One</span>
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">item four</span>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-submenu>
-      </el-submenu>
+      <el-menu-item index="1">
+        <i class="el-icon-star-off"></i>
+        <span slot="title">Me</span>
+      </el-menu-item>
       <el-menu-item index="2">
         <i class="el-icon-menu"></i>
-        <span slot="title">Navigator Two</span>
+        <span slot="title">Home</span>
       </el-menu-item>
       <el-menu-item index="3">
+        <i class="el-icon-information"></i>
+        <span slot="title">News</span>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <i class="el-icon-time"></i>
+        <span slot="title">State</span>
+      </el-menu-item>
+      <el-menu-item index="5">
+        <i class="el-icon-document"></i>
+        <span slot="title">Report</span>
+      </el-menu-item>
+      <el-menu-item index="6">
         <i class="el-icon-setting"></i>
-        <span slot="title">Navigator Three</span>
+        <span slot="title">Management</span>
       </el-menu-item>
     </el-menu>
   </div>

@@ -24,4 +24,4 @@ services:
     ports:
       - 3333:3333
     working_dir: /home/docker/app
-    command: bash -c "npm i && npm run serve:dev"
+    command: bash -c "npm i -g yarn && yarn && yarn run serve:dev"

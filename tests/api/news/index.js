@@ -21,7 +21,7 @@ test('ニュース一覧取得', async t => {
 
 test('ニュース個別取得', async t => {
   const { data } = await http.get('/news')
-  const news = data.news[0]
+  const [news] = data.news
   const { status } = await http.get(`/news/${news.id}`)
   t.is(status, 200)
 })
@@ -33,14 +33,14 @@ test('ニュース登録', async t => {
 
 test('ニュース編集', async t => {
   const { data } = await http.get('/news')
-  const news = data.news[0]
+  const [news] = data.news
   const { status } = await http.put(`/news/${news.id}`, _news)
   t.is(status, 200)
 })
 
 test('ニュース削除', async t => {
   const { data } = await http.get('/news')
-  const news = data.news[0]
+  const [news] = data.news
   const { status } = await http.delete(`/news/${news.id}`)
   t.is(status, 200)
 })

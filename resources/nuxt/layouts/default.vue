@@ -15,7 +15,7 @@ export default {
   middleware: 'auth',
   components: {
     SideNavi,
-    LogOut
+    LogOut,
   }
 }
 </script>
@@ -23,7 +23,7 @@ export default {
 <style scoped>
   #main {
     margin-left: 220px;
-    height: 100vh;
+    padding: 20px 50px;
   }
   .logout{
     position: absolute;
