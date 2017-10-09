@@ -41,11 +41,13 @@
       submit(){
         this.$http.post('login',this.context).then(({data})=>{
           this.$store.commit('SET_IS_LOGIN',true)
+          this.$store.commit('SET_ME',data.me)
           this.$store.commit('SET_TOKEN', data.token)
           this.$store.commit('SET_IS_MANAGER', data.user.manager_flag === 'manager')
           document.cookie = `__t=${data.token}`
           this.$notify.success('ログインしました')
           this.$router.push('/')
+          // @TODO company set
         }).catch((err)=>{
           this.$notify.error('メールアドレスかパスワードが間違っています');
         })

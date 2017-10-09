@@ -1,27 +1,27 @@
 <template>
   <div>
-    <el-menu theme="dark" class="el-menu-vertical" :collapse="isCollapse">
-      <el-menu-item index="1">
+    <el-menu theme="dark" class="el-menu-vertical" :router="true" :collapse="isCollapse">
+      <el-menu-item index="/me">
         <i class="el-icon-star-off"></i>
         <span slot="title">Me</span>
       </el-menu-item>
-      <el-menu-item index="2">
+      <el-menu-item index="/">
         <i class="el-icon-menu"></i>
         <span slot="title">Home</span>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="/news">
         <i class="el-icon-information"></i>
         <span slot="title">News</span>
       </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="/state">
         <i class="el-icon-time"></i>
         <span slot="title">State</span>
       </el-menu-item>
-      <el-menu-item index="5">
+      <el-menu-item index="/report">
         <i class="el-icon-document"></i>
         <span slot="title">Report</span>
       </el-menu-item>
-      <el-menu-item index="6">
+      <el-menu-item index="/management">
         <i class="el-icon-setting"></i>
         <span slot="title">Management</span>
       </el-menu-item>
@@ -46,6 +46,9 @@ export default {
 </script>
 
 <style>
+  .el-menu {
+    border-radius: 0;
+  }
   .el-menu-vertical {
     position: fixed;
     top: 0;

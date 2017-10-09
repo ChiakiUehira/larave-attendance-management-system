@@ -2,6 +2,7 @@
   <div>
     <side-navi/>
     <main id="main">
+      <my-header/>
       <nuxt/>
     </main>
     <log-out class="logout" v-if="$store.state.isLogin"/>
@@ -11,11 +12,13 @@
 <script>
 import SideNavi from '~/components/SideNavi.vue'
 import LogOut from '~/components/Logout.vue'
+import MyHeader from '~/components/MyHeader.vue'
 export default {
   middleware: 'auth',
   components: {
     SideNavi,
     LogOut,
+    MyHeader,
   }
 }
 </script>
@@ -23,7 +26,6 @@ export default {
 <style scoped>
   #main {
     margin-left: 220px;
-    padding: 20px 50px;
   }
   .logout{
     position: absolute;

@@ -15,7 +15,7 @@ class UserController {
     if (loginUser) {
       res.json({
         success: true,
-        loginUser
+        me: loginUser
       })
     } else {
       res.json({

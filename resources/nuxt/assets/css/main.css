@@ -28,7 +28,7 @@ body {
 	text-rendering: optimizeLegibility;
 	font-kerning: normal;
 	line-height: 1;
-	background:　#fff;
+  background-color: #ffffff;
 }
 ol, ul {
 	list-style: none;

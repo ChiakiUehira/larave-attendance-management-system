@@ -2,7 +2,10 @@ export const state = () => ({
   token: 0,
   isLogin: false,
   isManager: false,
-  users: []
+  me: null,
+  users: null,
+  company: null,
+  news: null
 })
 
 export const mutations = {
@@ -15,7 +18,16 @@ export const mutations = {
   SET_IS_MANAGER (state, payload) {
     state.isManager = payload
   },
+  SET_ME (state, payload) {
+    state.me = payload
+  },
   SET_USERS (state, payload) {
     state.users = payload
+  },
+  SET_COMPANY (state, payload) {
+    state.company = payload
+  },
+  SET_NEWS (state, payload) {
+    state.news = payload
   }
 }
