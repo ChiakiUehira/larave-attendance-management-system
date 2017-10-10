@@ -1,15 +1,15 @@
 'use strict'
 
 /*
-|--------------------------------------------------------------------------
-| Application Providers
-|--------------------------------------------------------------------------
-|
-| Here we configure the providers required to run adonis application. They
-| are registered only once and can be used inside any file using `use`
-| keyword.
-|
-*/
+ |--------------------------------------------------------------------------
+ | Application Providers
+ |--------------------------------------------------------------------------
+ |
+ | Here we configure the providers required to run adonis application. They
+ | are registered only once and can be used inside any file using `use`
+ | keyword.
+ |
+ */
 const providers = [
   'adonis-framework/providers/ConfigProvider',
   'adonis-framework/providers/EnvProvider',
@@ -31,17 +31,18 @@ const providers = [
   'adonis-auth/providers/AuthManagerProvider',
   'adonis-websocket/providers/WsProvider',
   'adonis-validation-provider/providers/ValidatorProvider',
+  'adonis-mail-provider/providers/MailProvider'
 ]
 
 /*
-|--------------------------------------------------------------------------
-| Ace Providers
-|--------------------------------------------------------------------------
-|
-| Ace providers are specific to ace, and are not registered when starting
-| http server. It helps in reducing boot time.
-|
-*/
+ |--------------------------------------------------------------------------
+ | Ace Providers
+ |--------------------------------------------------------------------------
+ |
+ | Ace providers are specific to ace, and are not registered when starting
+ | http server. It helps in reducing boot time.
+ |
+ */
 const aceProviders = [
   'adonis-lucid/providers/CommandsProvider',
   'adonis-lucid/providers/MigrationsProvider',
@@ -50,19 +51,19 @@ const aceProviders = [
   'adonis-ace/providers/CommandProvider',
   'adonis-commands/providers/GeneratorsProvider',
   'adonis-commands/providers/HelperCommandsProvider',
-  'adonis-commands/providers/ReplProvider'
+  'adonis-commands/providers/ReplProvider',
 ]
 
 /*
-|--------------------------------------------------------------------------
-| Namespace Aliases
-|--------------------------------------------------------------------------
-|
-| Each provider is registered with a long unique namespace. Here we alias
-| them with a short unique name to keep our import statements short and
-| sweet.
-|
-*/
+ |--------------------------------------------------------------------------
+ | Namespace Aliases
+ |--------------------------------------------------------------------------
+ |
+ | Each provider is registered with a long unique namespace. Here we alias
+ | them with a short unique name to keep our import statements short and
+ | sweet.
+ |
+ */
 const aliases = {
   Command: 'Adonis/Src/Command',
   Config: 'Adonis/Src/Config',
@@ -78,18 +79,19 @@ const aliases = {
   Schema: 'Adonis/Src/Schema',
   View: 'Adonis/Src/View',
   Ws: 'Adonis/Addons/Ws',
-  Validator: 'Adonis/Addons/Validator'
+  Validator: 'Adonis/Addons/Validator',
+  Mail: 'Adonis/Addons/Mail'
 }
 
 /*
-|--------------------------------------------------------------------------
-| Ace Commands
-|--------------------------------------------------------------------------
-|
-| Ace Commands are also are registered inside the IoC container. Here we
-| register with Ace Kernel using their unique namespace.
-|
-*/
+ |--------------------------------------------------------------------------
+ | Ace Commands
+ |--------------------------------------------------------------------------
+ |
+ | Ace Commands are also are registered inside the IoC container. Here we
+ | register with Ace Kernel using their unique namespace.
+ |
+ */
 const commands = [
   'App/Commands/Greet',
   'Adonis/Commands/Auth:Setup',
@@ -113,4 +115,4 @@ const commands = [
   'Adonis/Commands/Key:Generate'
 ]
 
-module.exports = { providers, aceProviders, aliases, commands }
+module.exports = {providers, aceProviders, aliases, commands}

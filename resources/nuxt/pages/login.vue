@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import {setToken} from '../utils/token'
   export default {
     layout: 'auth',
     data(){
@@ -48,7 +49,7 @@
             this.$store.commit('SET_ME',data.me)
             this.$store.commit('SET_TOKEN', data.token)
             this.$store.commit('SET_IS_MANAGER', data.user.manager_flag === 'manager')
-            document.cookie = `__t=${data.token}`
+            setToken(data.token)
             this.$http.get('company').then(({data})=>{
               this.$store.commit('SET_COMPANY',data.company)
               this.isSend = false
