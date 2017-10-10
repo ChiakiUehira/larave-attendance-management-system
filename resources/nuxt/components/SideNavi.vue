@@ -53,6 +53,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
+    /* important */
     height: 110%;
   }
   .el-menu-vertical:not(.el-menu--collapse) {

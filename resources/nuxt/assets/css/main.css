@@ -85,10 +85,3 @@ a:hover {
 {
   opacity: 0
 }
-
-.container {
-  max-width: 980px;
-  margin: 80px auto;
-  padding: 0 10px;
-  box-sizing: border-box;
-}
