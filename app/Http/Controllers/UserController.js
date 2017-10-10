@@ -22,7 +22,7 @@ class UserController {
       })
     } else {
       res.json({
-        success: false,
+        success: false
       })
     }
   }
@@ -76,7 +76,7 @@ class UserController {
     const validation = yield Validator.validateAll(context, rules)
     if (!validation.fails()) {
       const user = yield this.userService.store(company, context)
-      yield this.mailService.send(user)
+      yield this.mailService.invite(user)
       res.json({
         success: true,
         user
