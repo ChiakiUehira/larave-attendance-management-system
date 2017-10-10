@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="logout" @click="logout">
-      <span>LOGOUT</span>
+      <span>Logout</span>
     </div>
   </section>
 </template>

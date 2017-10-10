@@ -21,7 +21,7 @@
         <i class="el-icon-document"></i>
         <span slot="title">Report</span>
       </el-menu-item>
-      <el-menu-item index="/management">
+      <el-menu-item v-if="isManeger" index="/management">
         <i class="el-icon-setting"></i>
         <span slot="title">Management</span>
       </el-menu-item>
@@ -36,10 +36,13 @@ export default {
   },
   computed: {
     isCollapse () {
-      if (typeof(window) !== 'undefined') {
+      if (typeof window !== 'undefined') {
         return window.innerWidth < 960
       }
       return false
+    },
+    isManeger () {
+      return this.$store.state.isManager
     }
   }
 }
