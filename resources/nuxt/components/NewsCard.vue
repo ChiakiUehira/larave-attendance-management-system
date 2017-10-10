@@ -1,24 +1,24 @@
 <template>
-  <article class="article">
-    <nuxt-link :to="`/article/${article.id}`">
+  <div class="news">
+    <nuxt-link :to="`/news/${news.id}`">
       <div>
-        <h1>{{article.title}}</h1>
+        <h1>{{news.title}}</h1>
         <hr>
-        <p>{{article.content}}</p>
-        <span>{{article.updated_at}}</span>
+        <p>{{news.detail}}</p>
+        <span>{{news.updated_at}}</span>
       </div>
     </nuxt-link>
-  </article>
+  </div>
 </template>
 
 <script>
   export default {
-    props:['article']
+    props:['news']
   }
 </script>
 
 <style scoped>
-  .article {
+  .news {
     border: 1px solid #d1dbe5;
     border-radius: 2px;
     background-color: #fff;
@@ -28,28 +28,28 @@
     -moz-transition: ease .3s;
     transition: ease .3s;
   }
-  .article:hover {
+  .news:hover {
     box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
   }
-  .article hr {
+  .news hr {
     border:0;
     border-bottom: 2px solid #e4e4e4;
   }
-  .article a {
+  .news a {
     display: block;
     padding: 15px 25px;
   }
-  .article h1 {
+  .news h1 {
     font-size: 25px;
     color: #8a8a8a;
     letter-spacing: 1.5px;
     padding: 8px 0 15px;
   }
-  .article p {
+  .news p {
     padding: 10px 0;
     color: #8a8a8a;
   }
-  .article span {
+  .news span {
     color: #8a8a8a;
     display: block;
     text-align: right;

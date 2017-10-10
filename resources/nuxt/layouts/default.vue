@@ -2,7 +2,7 @@
   <div>
     <side-navi/>
     <main id="main">
-      <my-header class="my-header"/>
+      <my-header class="my-header" />
       <div class="container">
         <nuxt/>
       </div>
