@@ -1,41 +1,41 @@
-password,email,tel,last_name,first_name,last_name_kana,first_name_kana,gender,birthday,thumbnail,manager_flag,company_id,salary_type,salary,position,address,postal_code,bank_account,bank_name,bank_branch
-pw,sisukai2017@gmail.com,039-652-6030,横井,友也,よこい,ともや,male,1984-03-20,,manager,1,monthly,185000,,愛知県半田市宮本町3-13宮本町ダイヤモンド214,475-0925,8451205,ゆうちょ銀行,002
-pw,sisukai2018@gmail.com,054-491-5513,和田,裕司,わだ,ゆうじ,male,1958-02-04,,normal,2,monthly,165000,,岩手県奥州市水沢区川原小路3-5-20コート水沢区川原小路107,023-0046,8325410,三井住友銀行,025
-pw,yuasa_subaru@example.com,069-627-9968,湯浅 ,昴,ゆあさ,すばる,male,1993-03-27,,normal,1,monthly,145000,,鳥取県鳥取市本高3-10,680-1171,8199615,ゆうちょ銀行,048
-pw,gekidan_sachie@example.com,0 8-359-9932,劇団 ,知絵,げきだん,さちえ,female,1979-09-08,,normal,1,monthly,125000,,愛媛県大洲市成能3-5-13,795-0086,8073820,ゆうちょ銀行,071
-pw,oohara_saki@example.com,096-384-9673,大原,早紀,おおはら,さき,female,1973-02-16,,manager,1,hourly,1200,,青森県三沢市高野沢1-8-13,033-0165,7948025,三井住友銀行,094
-pw,teduka_meisa@example.com,028-351-6391,手塚,メイサ,てづか,めいさ,female,1986-11-27,,normal,2,monthly,180000,,奈良県桜井市和田4-7-3,633-0132,7822230,ゆうちょ銀行,117
-pw,komine_yoshimasa@example.com,034-866-8079,小峰,芳正,こみね,よしまさ,male,1992-11-20,,normal,1,monthly,215000,,愛知県名古屋市中村区鳥居通3-20-18鳥居通タワー409,453-0044,7696435,三井住友銀行,140
-pw,kawauchi_yukiya@example.com,040-567- 400,河内, 有起哉,かわうち,ゆきや,male,1974-02-01,,normal,1,monthly,250000,,長崎県諫早市川内町2-18-17,854-0037,7570640,ゆうちょ銀行,163
-pw,kurihara_karoku@example.com,068-528-3046,栗原,花緑,くりはら,かろく,male,1987-06-14,,manager,2,monthly,285000,,埼玉県羽生市下川崎4-5下川崎荘300,348-0034,7444845,ゆうちょ銀行,186
-pw,sannshi_kaoru@example.com,072- 36-7326,三枝,薫,さんし,かおる,male,1975-05-25,,normal,2,hourly,1450,,京都府京都市右京区嵯峨苅分町3-18-20ハウス嵯峨苅分町116,616-8342,7319050,三井住友銀行,209
-pw,kikuchi_aoi@example.com,074-247-9752,菊池,あおい,きくち,あおい,female,1979-05-08,,normal,2,monthly,215000,,鳥取県倉吉市荒神町4-5,682-0883,7193255,ゆうちょ銀行,232
-pw,tsumabuki_kei@example.com,077-157-7690,妻夫木 ,圭,つまぶき,けい,male,1959-09-17,,normal,1,monthly,200000,,徳島県小松島市小松島町4-12-3小松島町ランド109,773-0001,7067460,三井住友銀行,255
-pw,shiozawa_ryuunosuke@example.com,074-574-6547,塩沢,隆之介,しおざわ,りゅうのすけ,male,1988-04-27,,normal,1,monthly,190000,,富山県高岡市永楽町1-16-13,933-0843,6941665,ゆうちょ銀行,278
-pw,ichihara_myuu@example.com,013-138-6316,市原,美優,いちはら,みゅう,female,1997-06-30,,normal,2,monthly,210000,,愛知県豊明市大久伝町4-4-16コート大久伝町209,470-1111,6815870,ゆうちょ銀行,301
-pw,shirota_sansei@example.com,053-796-7686,城田,三省,しろた,さんせい,male,1976-01-10,,normal,2,monthly,225000,,北海道稚内市大黒4-1-11,097-0005,6690075,三井住友銀行,324
-pw,emoto_shingo@example.com,090-695-2583,柄本,真吾,えもと,しんご,male,1995-03-02,,normal,1,hourly,1100,,佐賀県杵島郡白石町福富下分1-2ガーデン福富下分203,849-0402,6564280,ゆうちょ銀行,347
-pw,yamamoto_asami@example.com,0 1-774-3748,山本,あさみ,やまもと,あさみ,female,1981-05-16,,normal,1,monthly,215000,,秋田県北秋田市浦田4-6-1浦田ヒル418,018-4302,6438485,三井住友銀行,370
-pw,yamauchi_kyouko@example.com,055-537-5707,山内,恭子,やまうち,きょうこ,female,1989-12-19,,normal,2,monthly,215000,,大分県宇佐市和気1-15-6,879-1135,6312690,ゆうちょ銀行,393
-pw,ichida_kousuke@example.com,066-566-6641,市田,功補,いちだ,こうすけ,male,1990-09-21,,normal,1,monthly,225000,,群馬県高崎市住吉町2-16住吉町コンフォート206,370-0804,6186895,ゆうちょ銀行,416
-pw,yamauchi_akira@example.com,021-612- 373,山内,明,やまうち,あきら,male,1992-10-28,,normal,1,monthly,230000,,新潟県魚沼市大浦新田2-9,946-0034,6061100,三井住友銀行,439
-pw,sugawara_satoshi@example.com,056-418-1977,菅原,悟志,すがわら,さとし,male,1958-08-19,,normal,2,monthly,245000,,鹿児島県姶良郡姶良町永瀬2-19,899-5404,5935305,ゆうちょ銀行,462
-pw,nagao_ann@example.com,056-196-9691,長尾,杏,ながお,あん,female,1979-01-25,,normal,2,monthly,165000,,東京都中央区東日本橋2-1-9スイート東日本橋302,103-0004,5809510,三井住友銀行,485
-pw,hatanaka_kousuke@example.com,052-844-2727,畠中,功補,はなたか,こうすけ,male,1997-09-03,,normal,2,monthly,155000,,群馬県利根郡みなかみ町東峰1-14-19東峰コーポ410,379-1417,5683715,ゆうちょ銀行,508
-pw,namata_shunji@example.com,055-243- 580,生田,俊二,なまた,しゅんじ,male,1960-07-16,,normal,1,monthly,185000,,富山県魚津市仏又2-19-16仏又スカイ102,937-0062,5557920,ゆうちょ銀行,531
-pw,morii_somegorou@example.com,043-917-7101,森井,染五郎,もりい,そめごろう,male,1965-07-26,,normal,1,monthly,190000,,佐賀県佐賀市蓮池町見島1-4-12,840-0002,5432125,三井住友銀行,554
-pw,miyakawa_sayuri@example.com,037-499- 859,宮川,さゆり,みやかわ,さゆり,female,1989-04-21,,normal,1,monthly,185000,,栃木県那須塩原市青木4-8-4,325-0103,5306330,ゆうちょ銀行,577
-pw,tokunaga_george@example.com,069-907-2657,徳永,譲治,とくなが,じょうじ,male,1966-07-28,,normal,1,annual,3100000,,神奈川県横浜市西区南軽井沢1-11-3パーク南軽井沢414,220-0002,5180535,三井住友銀行,600
-pw,fujiki_kanji@example.com,041-828-2855,藤木,寛治,ふじき,かんじ,male,1984-01-08,,normal,2,monthly,210000,,埼玉県川越市豊田新田4-1,350-1119,5054740,ゆうちょ銀行,623
-pw,yatsuda_ryou@example.com,061-506-1793,八田,涼,やつだ,りょう,female,1995-06-07,,normal,1,monthly,185000,,奈良県奈良市大安寺西3-14大安寺西荘408,630-8135,4928945,ゆうちょ銀行,646
-pw,miyoshi_motoki@example.com,012-483-8798,三好,扶樹,みよし,もとき,male,1986-06-14,,normal,1,monthly,215000,,岐阜県各務原市蘇原東栄町1-13,504-0815,4803150,三井住友銀行,669
-pw,misaki_atsushi@example.com,037-701-9827,水崎,淳,みさき,あつし,male,1969-01-20,,normal,2,monthly,200000,,栃木県那須烏山市中央4-19-17レジデンス中央102,321-0621,4677355,ゆうちょ銀行,692
-pw,gekidan_haruka@example.com,055-516-3133,劇団,遥,げきだん,はるか,female,1992-08-18,,normal,1,monthly,195000,,富山県富山市小谷2-11-8ヴィレッジ小谷209,930-1265,4551560,三井住友銀行,715
-pw,obata_masahiko@example.com,030-136-1448,小幡,雅彦,おばた,まさひこ,male,1997-06-18,,normal,2,monthly,165000,,大分県国東市武蔵町糸原2-1ロイヤル武蔵町糸原218,873-0421,4425765,ゆうちょ銀行,738
-pw,ooshima_satoshi@example.com,042-357-3692,大島,聡,おおしま,さとし,male,1987-05-18,,normal,2,monthly,185000,,大阪府吹田市芳野町1-1-14,564-0054,4299970,ゆうちょ銀行,761
-pw,togashi_norihito@example.com,014-484-9658,富樫,憲史,とがし,のりひと,male,1974-12-08,,normal,2,monthly,190000,,島根県雲南市大東町新庄3-7-12大東町新庄シティ204,699-1251,4174175,三井住友銀行,784
-pw,nakahara_natsuki@example.com,025-477- 991,中原,夏希,なかはら,なつき,female,1996-05-26,,normal,2,monthly,185000,,神奈川県川崎市麻生区上麻生3-3,215-0021,4048380,ゆうちょ銀行,807
-pw,aragaki_shouta@example.com,078-944- 777,新垣,翔太,あらがき,しょうた,male,1989-04-26,,normal,1,monthly,173500,,愛媛県宇和島市三間町北増穂3-13,798-1111,3922585,三井住友銀行,830
-pw,yamagishi_kogan@example.com,010- 81-4349,山岸,小雁,やまぎし,こがん,male,1986-03-07,,normal,2,monthly,175000,,東京都西多摩郡奥多摩町氷川1-14-19氷川コート411,198-0212,3796790,ゆうちょ銀行,853
-pw,iwai_takao@example.com,081-659-1394,岩井,たかお,いわい,たかお,male,1983-02-27,,normal,2,monthly,165000,,埼玉県入間郡毛呂山町目白台2-6-18,350-0439,3670995,ゆうちょ銀行,876
-pw,yamaoka_asami@example.com,067- 68-7775,山岡,あさみ,やまおか,あさみ,female,1970-08-18,,normal,2,minutely,20,,高知県幡多郡黒潮町伊与喜2-9-7伊与喜コーポ305,789-1713,3545200,三井住友銀行,899
+password,email,tel,last_name,first_name,last_name_kana,first_name_kana,gender,birthday,thumbnail,manager_flag,company_id,salary_type,salary,position,address,postal_code,bank_account,bank_name,bank_branch,registered
+pw,sisukai2017@gmail.com,039-652-6030,横井,友也,よこい,ともや,male,1984-03-20,,manager,1,monthly,185000,,愛知県半田市宮本町3-13宮本町ダイヤモンド214,475-0925,8451205,ゆうちょ銀行,002,true
+pw,sisukai2018@gmail.com,054-491-5513,和田,裕司,わだ,ゆうじ,male,1958-02-04,,normal,2,monthly,165000,,岩手県奥州市水沢区川原小路3-5-20コート水沢区川原小路107,023-0046,8325410,三井住友銀行,025,true
+pw,yuasa_subaru@example.com,069-627-9968,湯浅 ,昴,ゆあさ,すばる,male,1993-03-27,,normal,1,monthly,145000,,鳥取県鳥取市本高3-10,680-1171,8199615,ゆうちょ銀行,048,true
+pw,gekidan_sachie@example.com,0 8-359-9932,劇団 ,知絵,げきだん,さちえ,female,1979-09-08,,normal,1,monthly,125000,,愛媛県大洲市成能3-5-13,795-0086,8073820,ゆうちょ銀行,071,true
+pw,oohara_saki@example.com,096-384-9673,大原,早紀,おおはら,さき,female,1973-02-16,,manager,1,hourly,1200,,青森県三沢市高野沢1-8-13,033-0165,7948025,三井住友銀行,094,true
+pw,teduka_meisa@example.com,028-351-6391,手塚,メイサ,てづか,めいさ,female,1986-11-27,,normal,2,monthly,180000,,奈良県桜井市和田4-7-3,633-0132,7822230,ゆうちょ銀行,117,true
+pw,komine_yoshimasa@example.com,034-866-8079,小峰,芳正,こみね,よしまさ,male,1992-11-20,,normal,1,monthly,215000,,愛知県名古屋市中村区鳥居通3-20-18鳥居通タワー409,453-0044,7696435,三井住友銀行,140,true
+pw,kawauchi_yukiya@example.com,040-567- 400,河内, 有起哉,かわうち,ゆきや,male,1974-02-01,,normal,1,monthly,250000,,長崎県諫早市川内町2-18-17,854-0037,7570640,ゆうちょ銀行,163,true
+pw,kurihara_karoku@example.com,068-528-3046,栗原,花緑,くりはら,かろく,male,1987-06-14,,manager,2,monthly,285000,,埼玉県羽生市下川崎4-5下川崎荘300,348-0034,7444845,ゆうちょ銀行,186,true
+pw,sannshi_kaoru@example.com,072- 36-7326,三枝,薫,さんし,かおる,male,1975-05-25,,normal,2,hourly,1450,,京都府京都市右京区嵯峨苅分町3-18-20ハウス嵯峨苅分町116,616-8342,7319050,三井住友銀行,209,true
+pw,kikuchi_aoi@example.com,074-247-9752,菊池,あおい,きくち,あおい,female,1979-05-08,,normal,2,monthly,215000,,鳥取県倉吉市荒神町4-5,682-0883,7193255,ゆうちょ銀行,232,true
+pw,tsumabuki_kei@example.com,077-157-7690,妻夫木 ,圭,つまぶき,けい,male,1959-09-17,,normal,1,monthly,200000,,徳島県小松島市小松島町4-12-3小松島町ランド109,773-0001,7067460,三井住友銀行,255,true
+pw,shiozawa_ryuunosuke@example.com,074-574-6547,塩沢,隆之介,しおざわ,りゅうのすけ,male,1988-04-27,,normal,1,monthly,190000,,富山県高岡市永楽町1-16-13,933-0843,6941665,ゆうちょ銀行,278,true
+pw,ichihara_myuu@example.com,013-138-6316,市原,美優,いちはら,みゅう,female,1997-06-30,,normal,2,monthly,210000,,愛知県豊明市大久伝町4-4-16コート大久伝町209,470-1111,6815870,ゆうちょ銀行,301,true
+pw,shirota_sansei@example.com,053-796-7686,城田,三省,しろた,さんせい,male,1976-01-10,,normal,2,monthly,225000,,北海道稚内市大黒4-1-11,097-0005,6690075,三井住友銀行,324,true
+pw,emoto_shingo@example.com,090-695-2583,柄本,真吾,えもと,しんご,male,1995-03-02,,normal,1,hourly,1100,,佐賀県杵島郡白石町福富下分1-2ガーデン福富下分203,849-0402,6564280,ゆうちょ銀行,347,true
+pw,yamamoto_asami@example.com,0 1-774-3748,山本,あさみ,やまもと,あさみ,female,1981-05-16,,normal,1,monthly,215000,,秋田県北秋田市浦田4-6-1浦田ヒル418,018-4302,6438485,三井住友銀行,370,true
+pw,yamauchi_kyouko@example.com,055-537-5707,山内,恭子,やまうち,きょうこ,female,1989-12-19,,normal,2,monthly,215000,,大分県宇佐市和気1-15-6,879-1135,6312690,ゆうちょ銀行,393,true
+pw,ichida_kousuke@example.com,066-566-6641,市田,功補,いちだ,こうすけ,male,1990-09-21,,normal,1,monthly,225000,,群馬県高崎市住吉町2-16住吉町コンフォート206,370-0804,6186895,ゆうちょ銀行,416,true
+pw,yamauchi_akira@example.com,021-612- 373,山内,明,やまうち,あきら,male,1992-10-28,,normal,1,monthly,230000,,新潟県魚沼市大浦新田2-9,946-0034,6061100,三井住友銀行,439,true
+pw,sugawara_satoshi@example.com,056-418-1977,菅原,悟志,すがわら,さとし,male,1958-08-19,,normal,2,monthly,245000,,鹿児島県姶良郡姶良町永瀬2-19,899-5404,5935305,ゆうちょ銀行,462,true
+pw,nagao_ann@example.com,056-196-9691,長尾,杏,ながお,あん,female,1979-01-25,,normal,2,monthly,165000,,東京都中央区東日本橋2-1-9スイート東日本橋302,103-0004,5809510,三井住友銀行,485,true
+pw,hatanaka_kousuke@example.com,052-844-2727,畠中,功補,はなたか,こうすけ,male,1997-09-03,,normal,2,monthly,155000,,群馬県利根郡みなかみ町東峰1-14-19東峰コーポ410,379-1417,5683715,ゆうちょ銀行,508,true
+pw,namata_shunji@example.com,055-243- 580,生田,俊二,なまた,しゅんじ,male,1960-07-16,,normal,1,monthly,185000,,富山県魚津市仏又2-19-16仏又スカイ102,937-0062,5557920,ゆうちょ銀行,531,true
+pw,morii_somegorou@example.com,043-917-7101,森井,染五郎,もりい,そめごろう,male,1965-07-26,,normal,1,monthly,190000,,佐賀県佐賀市蓮池町見島1-4-12,840-0002,5432125,三井住友銀行,554,true
+pw,miyakawa_sayuri@example.com,037-499- 859,宮川,さゆり,みやかわ,さゆり,female,1989-04-21,,normal,1,monthly,185000,,栃木県那須塩原市青木4-8-4,325-0103,5306330,ゆうちょ銀行,577,true
+pw,tokunaga_george@example.com,069-907-2657,徳永,譲治,とくなが,じょうじ,male,1966-07-28,,normal,1,annual,3100000,,神奈川県横浜市西区南軽井沢1-11-3パーク南軽井沢414,220-0002,5180535,三井住友銀行,600,true
+pw,fujiki_kanji@example.com,041-828-2855,藤木,寛治,ふじき,かんじ,male,1984-01-08,,normal,2,monthly,210000,,埼玉県川越市豊田新田4-1,350-1119,5054740,ゆうちょ銀行,623,true
+pw,yatsuda_ryou@example.com,061-506-1793,八田,涼,やつだ,りょう,female,1995-06-07,,normal,1,monthly,185000,,奈良県奈良市大安寺西3-14大安寺西荘408,630-8135,4928945,ゆうちょ銀行,646,true
+pw,miyoshi_motoki@example.com,012-483-8798,三好,扶樹,みよし,もとき,male,1986-06-14,,normal,1,monthly,215000,,岐阜県各務原市蘇原東栄町1-13,504-0815,4803150,三井住友銀行,669,true
+pw,misaki_atsushi@example.com,037-701-9827,水崎,淳,みさき,あつし,male,1969-01-20,,normal,2,monthly,200000,,栃木県那須烏山市中央4-19-17レジデンス中央102,321-0621,4677355,ゆうちょ銀行,692,true
+pw,gekidan_haruka@example.com,055-516-3133,劇団,遥,げきだん,はるか,female,1992-08-18,,normal,1,monthly,195000,,富山県富山市小谷2-11-8ヴィレッジ小谷209,930-1265,4551560,三井住友銀行,715,true
+pw,obata_masahiko@example.com,030-136-1448,小幡,雅彦,おばた,まさひこ,male,1997-06-18,,normal,2,monthly,165000,,大分県国東市武蔵町糸原2-1ロイヤル武蔵町糸原218,873-0421,4425765,ゆうちょ銀行,738,true
+pw,ooshima_satoshi@example.com,042-357-3692,大島,聡,おおしま,さとし,male,1987-05-18,,normal,2,monthly,185000,,大阪府吹田市芳野町1-1-14,564-0054,4299970,ゆうちょ銀行,761,true
+pw,togashi_norihito@example.com,014-484-9658,富樫,憲史,とがし,のりひと,male,1974-12-08,,normal,2,monthly,190000,,島根県雲南市大東町新庄3-7-12大東町新庄シティ204,699-1251,4174175,三井住友銀行,784,true
+pw,nakahara_natsuki@example.com,025-477- 991,中原,夏希,なかはら,なつき,female,1996-05-26,,normal,2,monthly,185000,,神奈川県川崎市麻生区上麻生3-3,215-0021,4048380,ゆうちょ銀行,807,true
+pw,aragaki_shouta@example.com,078-944- 777,新垣,翔太,あらがき,しょうた,male,1989-04-26,,normal,1,monthly,173500,,愛媛県宇和島市三間町北増穂3-13,798-1111,3922585,三井住友銀行,830,true
+pw,yamagishi_kogan@example.com,010- 81-4349,山岸,小雁,やまぎし,こがん,male,1986-03-07,,normal,2,monthly,175000,,東京都西多摩郡奥多摩町氷川1-14-19氷川コート411,198-0212,3796790,ゆうちょ銀行,853,true
+pw,iwai_takao@example.com,081-659-1394,岩井,たかお,いわい,たかお,male,1983-02-27,,normal,2,monthly,165000,,埼玉県入間郡毛呂山町目白台2-6-18,350-0439,3670995,ゆうちょ銀行,876,true
+pw,yamaoka_asami@example.com,067- 68-7775,山岡,あさみ,やまおか,あさみ,female,1970-08-18,,normal,2,minutely,20,,高知県幡多郡黒潮町伊与喜2-9-7伊与喜コーポ305,789-1713,3545200,三井住友銀行,899,true

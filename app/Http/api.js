@@ -15,9 +15,10 @@
 | Route.resource('user', 'UserController')
 */
 
-require('./routes/auth')
+require('./routes/login')
 
 require('./routes/user')
 require('./routes/company')
 require('./routes/attendance')
 require('./routes/news')
+require('./routes/manager')
