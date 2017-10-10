@@ -1,6 +1,7 @@
 const UserService = require('../../Service/UserService')
 const CompanyService = require('../../Service/CompanyService')
 const UserContext = require('../Contexts/UserContext')
+const MailService = require('../../Service/MailService')
 
 const Validator = use('Validator')
 
@@ -9,7 +10,9 @@ class UserController {
     this.userService = new UserService()
     this.userContext = new UserContext()
     this.companyService = new CompanyService()
+    this.mailService = new MailService()
   }
+
   * me (req, res) {
     const loginUser = yield req.auth.getUser()
     if (loginUser) {
@@ -23,6 +26,7 @@ class UserController {
       })
     }
   }
+
   * index (req, res) {
     const loginUser = yield req.auth.getUser()
     const users = yield this.userService.fetchUsersFromUser(loginUser)
@@ -38,6 +42,7 @@ class UserController {
       })
     }
   }
+
   * show (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
@@ -62,6 +67,7 @@ class UserController {
       })
     }
   }
+
   * store (req, res) {
     const loginUser = yield req.auth.getUser()
     const company = yield this.companyService.getCompanyFromUser(loginUser)
@@ -70,7 +76,7 @@ class UserController {
     const validation = yield Validator.validateAll(context, rules)
     if (!validation.fails()) {
       const user = yield this.userService.store(company, context)
-      // @TODO メール送る
+      yield this.mailService.send(user)
       res.json({
         success: true,
         user
@@ -82,6 +88,7 @@ class UserController {
       })
     }
   }
+
   * update (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
@@ -108,6 +115,7 @@ class UserController {
       user
     })
   }
+
   * destroy (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
