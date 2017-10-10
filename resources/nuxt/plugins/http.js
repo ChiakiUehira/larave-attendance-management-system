@@ -8,7 +8,7 @@ const instance = axios.create({
 export default ({app, store}) => {
   addHeader(instance, store)
   app.$http = instance
-  clientSideHttpPlugin(instance,store)
+  clientSideHttpPlugin(instance, store)
 }
 
 const addHeader = (instance, store) => {
@@ -30,5 +30,3 @@ const clientSideHttpPlugin = (store) => {
   }
   Vue.use(http)
 }
-
-
