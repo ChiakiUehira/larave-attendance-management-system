@@ -4,24 +4,44 @@
       <div class="inner">
         <h1>{{company.company_name}}</h1>
       </div>
-      <log-out class="logout-elm" v-if="$store.state.isLogin"/>
+      <div class="timestamp">
+        <i class="el-icon-time"/>
+        {{timestamp}}
+      </div>
+      <log-out class="logout-elm"/>
     </header>
   </div>
 </template>
 
 <script>
+const FORMAT = 'YYYY年MM月DD日 HH:mm:ss'
 import LogOut from '~/components/Logout.vue'
+import moment from 'moment'
 export default {
+  data() {
+    return {
+      timestamp :null
+    }
+  },
   components: {
     LogOut,
   },
   computed:{
-    isLogin(){
-      return this.$store.state.isLogin
-    },
     company () {
       return this.$store.state.company
     }
+  },
+  methods: {
+    updateTime () {
+      this.timestamp = moment().format(FORMAT)
+    }
+  },
+  created () {
+    this.timestamp = moment().format(FORMAT)
+    setInterval(() => this.updateTime(), 1 * 100);
+  },
+  async fetch () {
+
   }
 }
 </script>
@@ -40,6 +60,14 @@ export default {
     color: #334257;
     font-size: 20px;
     font-weight: bold;
+  }
+  header .timestamp {
+    position: absolute;
+    top: 50%;
+    right: 150px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #344258;
   }
   .logout-elm {
     position: absolute;

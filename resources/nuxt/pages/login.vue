@@ -32,7 +32,8 @@
         context: {
           email: 'sisukai2017@gmail.com',
           password: 'pw'
-        }
+        },
+        isSend: false
       }
     },
     methods:{
@@ -41,18 +42,24 @@
         this.context.password = ''
       },
       submit(){
-        this.$http.post('login',this.context).then(({data})=>{
-          this.$store.commit('SET_IS_LOGIN',true)
-          this.$store.commit('SET_ME',data.me)
-          this.$store.commit('SET_TOKEN', data.token)
-          this.$store.commit('SET_IS_MANAGER', data.user.manager_flag === 'manager')
-          setToken(data.token)
-          this.$notify.success('ログインしました')
-          this.$router.push('/')
-          // @TODO company set
-        }).catch((err)=>{
-          this.$notify.error('メールアドレスかパスワードが間違っています');
-        })
+        if (!this.isSend) {
+          this.isSend = true
+          this.$http.post('login',this.context).then(({data})=>{
+            this.$store.commit('SET_IS_LOGIN',true)
+            this.$store.commit('SET_ME',data.me)
+            this.$store.commit('SET_TOKEN', data.token)
+            this.$store.commit('SET_IS_MANAGER', data.user.manager_flag === 'manager')
+            setToken(data.token)
+            this.$http.get('company').then(({data})=>{
+              this.$store.commit('SET_COMPANY',data.company)
+              this.isSend = false
+              this.$notify.success('ログインしました')
+              this.$router.push('/')
+            })
+          }).catch((err)=>{
+            this.$notify.error('メールアドレスかパスワードが間違っています');
+          })
+        }
       }
     }
   }
