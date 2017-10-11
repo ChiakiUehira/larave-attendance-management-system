@@ -27,7 +27,7 @@ export default {
     margin-left: 220px;
   }
   #main .container {
-    padding: 100px 20px 80px;
+    padding: 86px 30px 30px;
   }
   .logout{
     position: absolute;
@@ -39,5 +39,6 @@ export default {
     top: 0;
     right: 0;
     width: calc(100% - 220px);
+    z-index: 10;
   }
 </style>

@@ -33,7 +33,7 @@
 
 <style scoped>
   .timestamp {
-    font-size: 20px;
+    font-size: 16px;
     color: #344258;
     display: table;
     height: 100%;
@@ -41,6 +41,6 @@
   .timestamp div {
     display: table-cell;
     vertical-align: middle;
-    padding: 0 10px;
+    padding: 10px 20px;
   }
 </style>

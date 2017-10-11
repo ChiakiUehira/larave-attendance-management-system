@@ -33,12 +33,12 @@ export default {
     position: relative;
   }
   header .inner {
-    padding: 23px;
-    height: 20px;
+    padding: 19px;
+    height: 18px;
   }
   header h1 {
     color: #334257;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
   }
   .logout-elm {

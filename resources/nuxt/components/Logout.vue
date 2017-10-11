@@ -22,7 +22,7 @@
 
 <style scoped>
   .logout {
-    padding: 25px;
+    padding: 20px 25px;
     background-color: #334257;
     color: #b2bfcd;
     cursor: pointer;

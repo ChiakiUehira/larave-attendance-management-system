@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="column-2" v-for="user in users" :key="user.id">
+  <div class="page">
+    <div class="column-3" v-for="user in users" :key="user.id">
       <user-card :user="user" />
     </div>
   </div>
@@ -27,12 +27,17 @@
 </script>
 
 <style scoped>
-  .column-2 {
-    width: 49%;
+  .page {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  .column-3 {
+    width: 32%;
     display: inline-block;
   }
-  .column-2:nth-child(2n) {
-    margin-left: 2%;
+  .column-3:not(:nth-child(3n)) {
+    margin-right: 2%;
   }
 </style>
 
