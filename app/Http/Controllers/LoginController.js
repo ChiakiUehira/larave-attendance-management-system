@@ -1,6 +1,10 @@
 const UserModel = use('App/Model/User')
+const HttpService = require('../../Service/HttpService')
 
 class LoginController {
+  constructor () {
+    this.httpService = new HttpService()
+  }
   * login (req, res) {
     try {
       const { email, password } = req.post()
@@ -9,11 +13,11 @@ class LoginController {
       if (isAuth) {
         const user = yield UserModel.query().where('email', email).first()
         const token = yield req.auth.generate(user)
-        return res.json({success: true, user, token})
+        return this.httpService.success(res, {user, token})
       }
-      return res.json({success: false})
+      return this.httpService.failed(res, {error: 'NO'}, 401)
     } catch (e) {
-      res.json({success: false, error: 'NO'})
+      return this.httpService.failed(res, {error: 'NO'}, 401)
     }
   }
 }
