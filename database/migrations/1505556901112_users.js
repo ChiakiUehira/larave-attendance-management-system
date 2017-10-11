@@ -26,8 +26,10 @@ class UsersTableSchema extends Schema {
       table.string('bank_name')
       table.string('bank_branch')
       table.string('password').notNullable()
+      table.boolean('registered').defaultTo(false)
       table.timestamps()
       table.softDeletes()
+
     })
   }
 

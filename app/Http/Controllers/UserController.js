@@ -1,7 +1,6 @@
 const UserService = require('../../Service/UserService')
 const CompanyService = require('../../Service/CompanyService')
 const UserContext = require('../Contexts/UserContext')
-const MailService = require('../../Service/MailService')
 
 const Validator = use('Validator')
 
@@ -10,7 +9,6 @@ class UserController {
     this.userService = new UserService()
     this.userContext = new UserContext()
     this.companyService = new CompanyService()
-    this.mailService = new MailService()
   }
 
   * me (req, res) {
@@ -76,7 +74,6 @@ class UserController {
     const validation = yield Validator.validateAll(context, rules)
     if (!validation.fails()) {
       const user = yield this.userService.store(company, context)
-      yield this.mailService.invite(user)
       res.json({
         success: true,
         user

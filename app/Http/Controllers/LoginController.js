@@ -1,6 +1,6 @@
 const UserModel = use('App/Model/User')
 
-class AuthController {
+class LoginController {
   * login (req, res) {
     try {
       const { email, password } = req.post()
@@ -18,4 +18,4 @@ class AuthController {
   }
 }
 
-module.exports = AuthController
+module.exports = LoginController

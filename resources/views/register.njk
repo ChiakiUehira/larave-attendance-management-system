@@ -1,0 +1,116 @@
+<form action="/register" method="post">
+    <div class="invite-form">
+        <table>
+            <tr>
+                <th>苗字</th>
+                <td>
+                    <input placeholder="苗字" v-model="context.last_name">
+                </td>
+            </tr>
+            <tr>
+                <th>名前</th>
+                <td>
+                    <input placeholder="名前" value="太郎">
+                </td>
+            </tr>
+            <tr>
+                <th>苗字（カナ）</th>
+                <td>
+                    <input placeholder="苗字（カナ）" value="ヤマダ">
+                </td>
+            </tr>
+            <tr>
+                <th>名前（カナ）</th>
+                <td>
+                    <input placeholder="名前（カナ）" value="タロウ">
+                </td>
+            </tr>
+            <tr>
+                <th>Eメール</th>
+                <td>
+                    <input placeholder="Eメール" value="mailsend.manager@gmail.com">
+                </td>
+            </tr>
+            <tr>
+                <th>性別</th>
+                <td>
+                    男性<input type="radio" value="male">
+                    女性<input type="radio" value="male">
+                </td>
+            </tr>
+            <tr>
+                <th>給与</th>
+                <td>
+                    <input placeholder="給与" value="10000">
+                </td>
+            </tr>
+            <tr>
+                <th>マネージャフラグ</th>
+                <td>
+                    <input placeholder="マネージャフラグ" value="normal">
+                </td>
+            </tr>
+            <tr>
+                <th>給与タイプ</th>
+                <td>
+                    <select placeholder="給与タイプ" v-model="context.salary_type">
+                        <option value="monthly">月給</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="invite-button">
+            <input type="submit" value="登録">
+        </div>
+    </div>
+</form>
+<script>
+  export default{
+    data(){
+      return {
+        context: {
+          "last_name": "山田",
+          "first_name": "太郎",
+          "last_name_kana": "ヤマダ",
+          "first_name_kana": "タロウ",
+          "email": "mailsend.manager@gmail.com",
+          "gender": "male",
+          "salary": "10000",
+          "manager_flag": "normal",
+          "salary_type": "monthly"
+        }
+      }
+    }
+  }
+</script>
+
+<style scoped>
+    .invite-form {
+        margin: 0 auto;
+        width: 80%;
+        padding: 40px 120px;
+        position: relative;
+    }
+
+    .invite-form table {
+        width: 100%;
+    }
+
+    .invite-form table th {
+        border: 1px solid #d1dbe5;
+        width: 20%;
+    }
+
+    .invite-form table td {
+        padding: 15px;
+        border: 1px solid #d1dbe5;
+        width: 80%;
+    }
+
+    .invite-button {
+        margin-top: 20px;
+        margin-left: 90%;
+    }
+</style>
+
+
