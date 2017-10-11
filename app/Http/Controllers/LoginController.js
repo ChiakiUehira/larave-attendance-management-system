@@ -8,6 +8,7 @@ class LoginController {
       const isAuth = yield req.auth.attempt(email, password)
       if (isAuth) {
         const user = yield UserModel.query().where('email', email).first()
+        // todo userのregestered が false だったら本登録画面にリダイレクト
         const token = yield req.auth.generate(user)
         return res.json({success: true, user, token})
       }
