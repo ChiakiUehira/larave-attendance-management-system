@@ -2,12 +2,26 @@
   <div class="user">
     <nuxt-link :to="`/user/${user.id}`">
       <div class="cell image">
-        <img src="https://placehold.jp/100x100.png" alt="">
+        <img src="http://placehold.jp/324157/8a8a8a/125x125.png" alt="">
       </div>
       <div class="cell profile">
+        <span class="group">システム開発部 - アルバイト</span>
         <h1>{{`${user.last_name} ${user.first_name}`}}</h1>
         <hr>
-        <span>{{user.updated_at}}</span>
+        <div>
+          <div class="condition">
+            <el-tag class="tag" type="gray">退席中</el-tag>
+            <i class="icon-rate-face-1"></i>
+            不調
+          </div>
+        </div>
+        <!-- <el-rate
+          v-model="option"
+          :icon-classes="['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3']"
+          disabled-void-icon-class="icon-rate-face-off"
+          :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
+          disabled>
+        </el-rate> -->
       </div>
     </nuxt-link>
   </div>
@@ -17,6 +31,11 @@
   export default {
     props:['user'],
     name:'user-card',
+    data () {
+      return {
+        option: 2
+      }
+    }
   }
 </script>
 
@@ -41,7 +60,7 @@
     vertical-align: top;
   }
   .user .cell.image {
-    width: 100px;
+    width: 125px;
     position: absolute;
     top: 0;
     left: 0;
@@ -50,32 +69,48 @@
     width: 100%;
   }
   .user .cell.profile {
-    width: calc(100% - 100px);
-    margin-left: 100px;
-    padding: 10px 15px;
+    width: calc(100% - 125px);
+    margin-left: 125px;
+    padding: 15px 15px;
     box-sizing: border-box;
   }
   .user hr {
     border:0;
     border-bottom: 2px solid #f5f5f5;
+    margin-bottom: 15px;
   }
   .user a {
     display: block;
-    height: 100px;
+    height: 125px;
   }
   .user h1 {
     font-size: 17px;
     color: #8a8a8a;
     letter-spacing: 1.5px;
-    padding: 8px 0;
+    padding: 8px 10px;
+    position: relative;
   }
-  .user p {
-    padding: 10px 0;
-    color: #8a8a8a;
+  .user h1::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 50%;
+    background-color: #cccccc;
   }
-  .user span {
+  .user .group {
     color: #8a8a8a;
     display: block;
+    font-size: 12px;
+  }
+  .tag {
+    margin-right: 10px;
+  }
+  .condition {
+    color: #99A9BF;
     text-align: right;
   }
 </style>

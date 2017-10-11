@@ -1,16 +1,33 @@
 <template>
-  <div class="page">
-    <div class="column-3" v-for="user in users" :key="user.id">
-      <user-card :user="user" />
+  <div>
+    <contents-name name="ユーザ一覧" />
+    <div class="page">
+      <div class="controller">
+        <!-- <el-form ref="form" label-width="120px">
+          <el-form-item label="Activity zone">
+            <el-select placeholder="please select your zone">
+              <el-option label="Zone one" value="shanghai"></el-option>
+              <el-option label="Zone two" value="beijing"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form> -->
+      </div>
+      <div class="contents">
+        <div class="column-3" v-for="user in users" :key="user.id">
+          <user-card :user="user" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import UserCard from '@/components/UserCard.vue'
+  import ContentsName from '@/components/ContentsName.vue'
   export default {
     components: {
-      UserCard
+      UserCard,
+      ContentsName
     },
     computed: {
       users () {
@@ -28,9 +45,12 @@
 
 <style scoped>
   .page {
-    padding: 30px;
     background-color: #fff;
-    border-radius: 5px;
+    border-radius: 2px;
+  }
+
+  .contents {
+    padding: 30px;
   }
   .column-3 {
     width: 32%;
