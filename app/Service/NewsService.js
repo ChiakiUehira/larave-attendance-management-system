@@ -13,6 +13,13 @@ class NewsService {
     return news
   }
 
+  * contains (company, id) {
+    const news = yield company.news().fetch()
+    return news.some((news) => {
+      return news.id === Number(id)
+    })
+  }
+
   * store (company, context) {
     const news = new NewsModel(context)
     yield company.news().save(news)

@@ -1,15 +1,18 @@
+
 class HttpService {
-  * success (res, payload = null) {
-    yield res.status(200).json({
+  success (res, payload = null) {
+    res.status(200).json({
       success: true,
       ...payload
-    }).then(() => true).catch(() => false)
+    })
+    return true
   }
-  * failed (res, payload = null, statusCode = 404) {
-    yield res.status(statusCode).json({
+  failed (res, payload = null, statusCode = 404) {
+    res.status(statusCode).json({
       success: false,
       ...payload
-    }).then(() => true).catch(() => false)
+    })
+    return false
   }
 }
 

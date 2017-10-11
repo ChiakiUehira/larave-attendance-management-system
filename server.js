@@ -15,3 +15,7 @@ const http = require('./bootstrap/http')
 http(function () {
   use('Event').fire('Http.start')
 })
+
+// process.on('warning', (warning) => {
+//   console.log(warning)
+// })
