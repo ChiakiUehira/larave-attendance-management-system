@@ -16,6 +16,9 @@ class User extends Lucid {
   label () {
     return this.hasMany('App/Model/Label')
   }
+  attendances () {
+    return this.hasMany('App/Model/Attendance')
+  }
 }
 
 module.exports = User

@@ -19,10 +19,10 @@ test('会社個別取得', async t => {
   t.is(status, 200)
 })
 
-test('会社登録', async t => {
-  const { status } = await http.post(`/company`, _company)
-  t.is(status, 200)
-})
+// test('会社登録', async t => {
+//   const { status } = await http.post(`/company`, _company)
+//   t.is(status, 200)
+// })
 
 test('会社編集', async t => {
   const { status } = await http.put(`/company`, _company)

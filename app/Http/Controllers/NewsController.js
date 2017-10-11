@@ -26,7 +26,7 @@ class NewsController {
     const context = this.newsContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
-      return this.httpService.failed(res, {error: validation.messages()})
+      return this.httpService.failed(res, {error: validation.messages()}, 400)
     }
     const news = yield this.newsService.store(company, context)
     return this.httpService.success(res, {news})

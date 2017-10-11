@@ -13,6 +13,12 @@ class AttendanceService {
     const attendance = yield attendanceModel.find(id)
     return attendance
   }
+  * contains (user, id) {
+    const attendances = yield user.attendances().fetch()
+    return attendances.some((news) => {
+      return attendances.id === Number(id)
+    })
+  }
 }
 
 module.exports = AttendanceService

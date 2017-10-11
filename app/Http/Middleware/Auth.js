@@ -1,14 +1,12 @@
-'use strict'
-
+const HttpService = require('../../Service/HttpService')
 class Auth {
+  constructor () {
+    this.httpService = new HttpService()
+  }
   * handle (req, res, next) {
     const isLogin = yield req.auth.check()
     if (!isLogin) {
-      res.json({
-        success: false,
-        error: 'NO'
-      })
-      return
+      return this.httpService.failed(res, {error: "can't grant access"}, 401)
     }
     yield next
   }
