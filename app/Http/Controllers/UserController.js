@@ -26,7 +26,7 @@ class UserController {
   * show (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
-    const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
+    const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
       return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
@@ -53,7 +53,7 @@ class UserController {
     const rules = this.userContext.storeRules()
     const context = this.userContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
-    const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
+    const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
       return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
@@ -67,7 +67,7 @@ class UserController {
   * destroy (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
-    const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
+    const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
       return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }

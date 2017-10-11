@@ -8,7 +8,7 @@ class CompanyService {
     return company
   }
 
-  * checkSomeCompany (user, id) {
+  * contains (user, id) {
     const company = yield user.company().first()
     const users = yield company.users().fetch()
     return users.some((user) => {
