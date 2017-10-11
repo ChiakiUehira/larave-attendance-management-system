@@ -1,7 +1,7 @@
 const UserService = require('../../Service/UserService')
 const CompanyService = require('../../Service/CompanyService')
 const UserContext = require('../Contexts/UserContext')
-
+const HttpService = require('../../Service/HttpService')
 const Validator = use('Validator')
 
 class UserController {
@@ -9,36 +9,18 @@ class UserController {
     this.userService = new UserService()
     this.userContext = new UserContext()
     this.companyService = new CompanyService()
+    this.httpService = new HttpService()
   }
 
   * me (req, res) {
     const loginUser = yield req.auth.getUser()
-    if (loginUser) {
-      res.json({
-        success: true,
-        me: loginUser
-      })
-    } else {
-      res.json({
-        success: false
-      })
-    }
+    return this.httpService.success(res, {me: loginUser})
   }
 
   * index (req, res) {
     const loginUser = yield req.auth.getUser()
     const users = yield this.userService.fetchUsersFromUser(loginUser)
-    if (users) {
-      res.json({
-        success: true,
-        users
-      })
-    } else {
-      res.json({
-        success: false,
-        users: []
-      })
-    }
+    return this.httpService.success(res, {users})
   }
 
   * show (req, res) {
@@ -46,24 +28,10 @@ class UserController {
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
     if (!isContain) {
-      res.json({
-        success: false,
-        user: null
-      })
-      return
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
     const user = yield this.userService.getById(id)
-    if (user) {
-      res.json({
-        success: true,
-        user
-      })
-    } else {
-      res.json({
-        success: false,
-        user
-      })
-    }
+    return this.httpService.success(res, {user})
   }
 
   * store (req, res) {
@@ -73,17 +41,10 @@ class UserController {
     const context = this.userContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (!validation.fails()) {
-      const user = yield this.userService.store(company, context)
-      res.json({
-        success: true,
-        user
-      })
-    } else {
-      res.json({
-        success: false,
-        error: validation.messages()
-      })
+      return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
+    const user = yield this.userService.store(company, context)
+    return this.httpService.success(res, {user})
   }
 
   * update (req, res) {
@@ -94,36 +55,25 @@ class UserController {
     const validation = yield Validator.validateAll(context, rules)
     const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
     if (!isContain) {
-      res.json({
-        success: false
-      })
-      return
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
     if (validation.fails()) {
-      res.json({
-        success: false,
-        error: validation.messages()
-      })
-      return
+      return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
     const user = yield this.userService.update(id, context)
-    res.json({
-      success: true,
-      user
-    })
+    return this.httpService.success(res, {user})
   }
 
   * destroy (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.checkSomeCompany(loginUser, id)
-    if (isContain) {
-      const user = yield this.userService.getById(id)
-      yield user.delete()
-      res.json({success: true})
-    } else {
-      res.json({success: false})
+    if (!isContain) {
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
+    const user = yield this.userService.getById(id)
+    yield user.delete()
+    return this.httpService.success(res)
   }
 }
 

@@ -10,7 +10,7 @@ class CompanyService {
 
   * checkSomeCompany (user, id) {
     const company = yield user.company().first()
-    const users = yield company.users()
+    const users = yield company.users().fetch()
     return users.some((user) => {
       return user.id === Number(id)
     })
