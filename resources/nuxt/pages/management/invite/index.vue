@@ -98,12 +98,34 @@
             label: '月給'
           }]
         },
+        isSend:false
       }
     },
     methods: {
       async invite(){
-        const {data} = await this.$http.post('/manager/invite',this.context)
-        console.log({data})
+        if(!this.isSend) {
+          const {data} = await this.$http.post('/manager/invite', this.context)
+          this.isSend = true
+          if (data.success) {
+            this.isSend = false
+            this.clear()
+            this.$notify.success('招待メールの送信が完了しました')
+          } else {
+            this.isSend = false
+            this.$notify.error('招待メールの送信に失敗しました')
+          }
+        }
+      },
+      clear(){
+        this.context.last_name = ""
+        this.context.first_name = ""
+        this.context.last_name_kana = ""
+        this.context.first_name_kana = ""
+        this.context.email = ""
+        this.context.gender = ""
+        this.context.salary = ""
+        this.context.manager_flag = ""
+        this.context.salary_type = ""
       }
     }
   }
