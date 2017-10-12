@@ -13,13 +13,24 @@
             <el-form-item label="ユーザ検索">
               <el-autocomplete
                 class="inline-input"
-                v-model="searchWord"
+                v-model="search.word"
                 :fetch-suggestions="querySearch"
                 placeholder="name"
                 :trigger-on-focus="false"
                 @select="handleSelect"
                 icon="search"
               ></el-autocomplete>
+            </el-form-item>
+            <el-form-item label="グループ">
+              <el-select v-model="search.group" placeholder="グループ">
+                <el-option label="選択なし" value=""></el-option>
+                <el-option label="システム開発部" value="システム開発部"></el-option>
+                <el-option label="総務部" value="総務部"></el-option>
+                <el-option label="人事部" value="人事部"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="アクティブ">
+              <el-switch on-text="" off-text="" v-model="search.active"></el-switch>
             </el-form-item>
           </el-form>
         </div>
@@ -39,7 +50,11 @@
   export default {
     data () {
       return {
-        searchWord: ''
+        search: {
+          word: '',
+          group: '',
+          active: ''
+        }
       }
     },
     components: {
@@ -52,12 +67,12 @@
       },
       displayUsers () {
         const users = this.$store.state.users
-        if (!this.searchWord) {
+        if (!this.search.word) {
           return users
         }
         return users.filter((user) => {
           const fullName = this.fullName(user.first_name, user.last_name)
-          return fullName.indexOf(this.searchWord) >= 0
+          return fullName.indexOf(this.search.word) >= 0
         })
       },
       toValueFormUsers () {
@@ -87,7 +102,7 @@
         return cb(this.toValueFormUsers)
       },
       handleSelect(user) {
-        this.searchWord = user.value
+        this.search.word = user.value
       }
     },
     async fetch({app,store}){
@@ -105,7 +120,7 @@
     background-color: #fff;
     padding: 30px;
     margin-bottom: 10px;
-    width: calc(70% - 10px);
+    width: calc(100% - 10px - 380px);
     margin-right: 10px;
     display: inline-block;
     vertical-align: top;
@@ -113,9 +128,9 @@
   .controller {
     border-radius: 2px;
     background-color: #fff;
-    padding: 30px;
+    padding: 22px 10px 0px;
     margin-bottom: 10px;
-    width: 30%;
+    width: 380px;
     display: inline-block;
     vertical-align: top;
   }

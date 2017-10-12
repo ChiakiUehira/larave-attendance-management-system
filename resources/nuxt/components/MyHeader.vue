@@ -34,7 +34,6 @@ export default {
   }
   header .inner {
     padding: 19px;
-    height: 18px;
   }
   header h1 {
     color: #334257;
