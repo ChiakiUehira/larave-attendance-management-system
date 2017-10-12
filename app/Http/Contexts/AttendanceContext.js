@@ -1,6 +1,6 @@
 
 const moment = require('moment')
-const { isAccept } = require('../../../resources/util/Time')
+const { isAccept } = require('../../../utils/Time')
 
 class AttendanceContext {
   constructor () {

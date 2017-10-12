@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import {setToken} from '../utils/token'
+  import { setToken } from '../../../utils/Token'
   export default {
     layout: 'auth',
     data(){
@@ -57,6 +57,7 @@
               this.$router.push('/')
             })
           }).catch((err)=>{
+            this.isSend = false
             this.$notify.error('メールアドレスかパスワードが間違っています');
           })
         }

@@ -4,7 +4,7 @@ const resolve = require('path').resolve
 
 module.exports = {
   head: {
-    title: 'blog',
+    title: '勤怠管理',
     meta: [
       {
         charset: 'utf-8'
@@ -16,7 +16,7 @@ module.exports = {
       {
         hid: 'description',
         name: 'description',
-        content: 'blog project'
+        content: '勤怠管理'
       }
     ],
     link: [
@@ -45,5 +45,5 @@ module.exports = {
   /*
   ** Point to resources
   */
-  srcDir: resolve(__dirname,'../resources/nuxt')
+  srcDir: resolve(__dirname, '../resources/nuxt')
 }
