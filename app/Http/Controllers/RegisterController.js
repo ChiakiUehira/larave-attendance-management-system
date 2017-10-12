@@ -38,12 +38,10 @@ class RegisterController {
     context.registered = true
     context.manager_flag = user.manager_flag
 
-    //todo バリデーションエラーなおす
-
-    // const validation = yield Validator.validateAll(context, rules)
-    // if (!validation.fails()) {
-    //   return this.httpService.failed(res, {error: validation.messages()}, 403)
-    // }
+    const validation = yield Validator.validateAll(context, rules)
+    if (validation.fails()) {
+      return this.httpService.failed(res, {error: validation.messages()}, 403)
+    }
     user.fill(context)
     yield user.save()
 

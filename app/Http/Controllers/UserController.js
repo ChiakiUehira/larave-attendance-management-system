@@ -40,7 +40,7 @@ class UserController {
     const rules = this.userContext.storeRules()
     const context = this.userContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
-    if (!validation.fails()) {
+    if (validation.fails()) {
       return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
     const user = yield this.userService.store(company, context)

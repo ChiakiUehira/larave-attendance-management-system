@@ -14,8 +14,6 @@ class UserContext {
       // birthday: '',
       // thumbnail: '',
       manager_flag: 'required',
-      salary_type: 'required',
-      salary: 'required'
       // position: '',
       // address: '',
       // postal_code: '',
