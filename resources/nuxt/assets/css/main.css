@@ -60,17 +60,17 @@ a:hover {
 }
 
 ::selection {
-	background:#000;
+	background:#99a9bf;
 	color:#ffffff;
 }
 
 ::-moz-selection {
-	background:#000;
+	background:#99a9bf;
 	color:#ffffff;
 }
 
 ::-webkit-selection {
-	background:#000;
+	background:#99a9bf;
 	color:#ffffff;
 }
 
