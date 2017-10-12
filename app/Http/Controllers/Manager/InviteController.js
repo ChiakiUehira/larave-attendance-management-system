@@ -22,21 +22,18 @@ class InviteController {
     const company = yield this.companyService.getCompanyFromUser(loginUser)
     const rules = this.userContext.storeRules()
     const context = this.userContext.storeContext(req)
+
+    console.log(rules, context)
     const validation = yield Validator.validateAll(context, rules)
-    if (!validation.fails()) {
-      const user = yield this.userService.store(company, context)
-      const {user_id, token} = yield this.tokenService.storeUrlToken(user)
-      const results = yield this.mailService.invite(user_id,token,user.email)//todo エラー処理
-      res.json({
-        success: true,
-        results
-      })
-    } else {
-      res.json({
-        success: false,
-        error: validation.messages()
-      })
+
+    if (validation.fails()) {
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
+
+    const user = yield this.userService.store(company, context)
+    const {user_id, token} = yield this.tokenService.storeUrlToken(user)
+    yield this.mailService.invite(user_id, token, user.email)//todo エラー処理
+    return this.httpService.success(res)
   }
 }
 
