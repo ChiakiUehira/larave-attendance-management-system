@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="contents">
-        <div class="column-3" v-for="user in displayUsers" :key="user.id">
+        <div class="user-warp" v-for="user in displayUsers" :key="user.id">
           <user-card :user="user" />
         </div>
       </div>
@@ -141,12 +141,23 @@
     background-color: #fff;
     padding: 30px;
   }
-  .column-3 {
+  .user-warp {
     width: 32%;
     display: inline-block;
   }
-  .column-3:not(:nth-child(3n)) {
+  .user-warp:not(:nth-child(3n)) {
     margin-right: 2%;
+  }
+  @media screen and (max-width: 1440px){
+    .user-warp {
+      width: 49%;
+    }
+    .user-warp:not(:nth-child(3n)) {
+      margin-right: 0;
+    }
+    .user-warp:not(:nth-child(2n)) {
+      margin-right: 2%;
+    }
   }
 </style>
 

@@ -18,7 +18,22 @@ export default {
   components: {
     SideNavi,
     MyHeader,
-  }
+  },
+  methods: {
+    handleResize () {
+      const device = (window.innerWidth >= 960) ? 'pc'
+        : (window.innerWidth >= 768) ? 'table'
+        : 'sp'
+      this.$store.commit('SET_DEVICE', device)
+    }
+  },
+  mounted () {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.handleResize)
+  },
 }
 </script>
 
