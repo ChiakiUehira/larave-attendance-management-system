@@ -2,10 +2,10 @@
   <div class="user">
     <nuxt-link :to="`/user/${user.id}`">
       <div class="cell image">
-        <img src="http://placehold.jp/324157/8a8a8a/125x125.png" alt="">
+        <img :src="user.thumbnail" alt="">
       </div>
       <div class="cell profile">
-        <span class="group">システム開発部 - アルバイト</span>
+        <span class="group">システム開発部 - {{user.position}}</span>
         <h1>{{`${user.last_name} ${user.first_name}`}}</h1>
         <hr>
         <div>
@@ -15,13 +15,6 @@
             不調
           </div>
         </div>
-        <!-- <el-rate
-          v-model="option"
-          :icon-classes="['icon-rate-face-1', 'icon-rate-face-2', 'icon-rate-face-3']"
-          disabled-void-icon-class="icon-rate-face-off"
-          :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-          disabled>
-        </el-rate> -->
       </div>
     </nuxt-link>
   </div>
