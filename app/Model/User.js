@@ -7,17 +7,25 @@ class User extends Lucid {
     super.boot()
     this.addHook('beforeCreate', 'User.encryptPassword')
   }
+
   static get deleteTimestamp () {
     return 'deleted_at'
   }
+
   company () {
     return this.belongsTo('App/Model/Company')
   }
+
   label () {
     return this.hasMany('App/Model/Label')
   }
+
   attendances () {
     return this.hasMany('App/Model/Attendance')
+  }
+
+  urlToken () {
+    return this.hasOne('App/Model/UrlToken')
   }
 }
 

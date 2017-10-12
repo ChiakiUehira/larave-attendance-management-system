@@ -1,3 +1,4 @@
+{#todo userデータがあればそれを埋めてなければ空で設定する#}
 <form action="/register" method="post">
     <div class="invite-form">
         <table>
@@ -28,7 +29,7 @@
             <tr>
                 <th>Eメール</th>
                 <td>
-                    <input placeholder="Eメール" value="mailsend.manager@gmail.com">
+                    <input placeholder="Eメール" value="{{ user.email }}">
                 </td>
             </tr>
             <tr>
@@ -42,12 +43,6 @@
                 <th>給与</th>
                 <td>
                     <input placeholder="給与" value="10000">
-                </td>
-            </tr>
-            <tr>
-                <th>マネージャフラグ</th>
-                <td>
-                    <input placeholder="マネージャフラグ" value="normal">
                 </td>
             </tr>
             <tr>
