@@ -1,10 +1,21 @@
 <template>
-<div>
-  {{me}}
-</div>
+  <div>
+    <contents-name name="プロフィール" />
+    <div class="page">
+      <div class="controller">
+      </div>
+      <div class="contents">
+
+      </div>
+    </div>
+  </div>
 </template>
 <script>
+import ContentsName from '@/components/ContentsName.vue'
 export default {
+  components: {
+    ContentsName
+  },
   computed: {
     me () {
       return this.$store.state.me
@@ -20,4 +31,12 @@ export default {
 </script>
 
 <style scoped>
+  .page {
+    background-color: #fff;
+    border-radius: 2px;
+  }
+
+  .contents {
+    padding: 30px;
+  }
 </style>

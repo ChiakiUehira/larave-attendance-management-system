@@ -65,7 +65,6 @@
     width: calc(100% - 125px);
     margin-left: 125px;
     padding: 15px 15px;
-    box-sizing: border-box;
   }
   .user hr {
     border:0;
@@ -105,5 +104,14 @@
   .condition {
     color: #99A9BF;
     text-align: right;
+  }
+  @media screen and (max-width: 767px){
+    .user .cell.image {
+      width: 62.5px;
+    }
+    .user .cell.profile {
+      width: calc(100% - 62.5px);
+      margin-left: 62.5px;
+    }
   }
 </style>

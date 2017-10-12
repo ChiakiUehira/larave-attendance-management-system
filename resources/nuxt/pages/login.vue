@@ -24,7 +24,7 @@
 </template>
 
 <script>
-  import {setToken} from '../utils/token'
+  import { setToken } from '../../../utils/Token'
   export default {
     layout: 'auth',
     data(){
@@ -60,6 +60,7 @@
             if(err.response.data.message === 'notRegistered'){ //仮登録処理
               location.href = `/register?t=${err.response.data.t}&id=${err.response.data.id}`
             }
+            this.isSend = false
             this.$notify.error('メールアドレスかパスワードが間違っています');
           })
         }

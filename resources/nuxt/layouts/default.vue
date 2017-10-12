@@ -18,7 +18,22 @@ export default {
   components: {
     SideNavi,
     MyHeader,
-  }
+  },
+  methods: {
+    handleResize () {
+      const device = (window.innerWidth >= 960) ? 'pc'
+        : (window.innerWidth >= 768) ? 'table'
+        : 'sp'
+      this.$store.commit('SET_DEVICE', device)
+    }
+  },
+  mounted () {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.handleResize)
+  },
 }
 </script>
 
@@ -40,5 +55,13 @@ export default {
     right: 0;
     width: calc(100% - 220px);
     z-index: 10;
+  }
+  @media screen and (max-width: 959px){
+    #main {
+      margin-left: 64px;
+    }
+    .my-header {
+      width: calc(100% - 64px);
+    }
   }
 </style>
