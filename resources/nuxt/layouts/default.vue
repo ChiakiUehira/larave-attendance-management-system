@@ -56,4 +56,12 @@ export default {
     width: calc(100% - 220px);
     z-index: 10;
   }
+  @media screen and (max-width: 959px){
+    #main {
+      margin-left: 64px;
+    }
+    .my-header {
+      width: calc(100% - 64px);
+    }
+  }
 </style>

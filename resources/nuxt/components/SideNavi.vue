@@ -36,10 +36,7 @@ export default {
   },
   computed: {
     isCollapse () {
-      if (typeof window !== 'undefined') {
-        return window.innerWidth < 960
-      }
-      return false
+      return this.$store.state.device !== 'pc'
     },
     isManeger () {
       return this.$store.state.isManager
