@@ -19,6 +19,11 @@ class TokenService {
     const urlToken = yield user.urlToken().fetch()
     return urlToken.token === token
   }
+
+  * getUrlToken(user){
+    const urlToken = yield user.urlToken().fetch()
+    return urlToken.token
+  }
 }
 
 module.exports = TokenService

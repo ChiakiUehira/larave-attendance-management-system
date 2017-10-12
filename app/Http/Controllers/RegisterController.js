@@ -3,6 +3,7 @@ const User = use('App/Model/User')
 const UserService = require('../../Service/UserService')
 const TokenServce = require('../../Service/TokenService')
 const HttpService = require('../../Service/HttpService')
+const UserContext = require('../Contexts/UserContext')
 
 class RegisterController {
 
@@ -10,6 +11,7 @@ class RegisterController {
     this.userService = new UserService()
     this.tokenService = new TokenServce()
     this.httpService = new HttpService()
+    this.userContext = new UserContext()
   }
 
   * index (req, res) {
@@ -30,7 +32,22 @@ class RegisterController {
   }
 
   * store (req, res) {
-    //todo 本登録する
+    const user = yield this.userService.getById(req.input('user_id'))
+    const rules = this.userContext.storeRules()
+    const context = this.userContext.storeContext(req)
+    context.registered = true
+    context.manager_flag = user.manager_flag
+
+    //todo バリデーションエラーなおす
+
+    // const validation = yield Validator.validateAll(context, rules)
+    // if (!validation.fails()) {
+    //   return this.httpService.failed(res, {error: validation.messages()}, 403)
+    // }
+    user.fill(context)
+    yield user.save()
+
+    //todo urlトークンテーブルから消す
     res.redirect('/login')
   }
 }
