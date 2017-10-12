@@ -124,11 +124,13 @@
     margin-right: 10px;
     display: inline-block;
     vertical-align: top;
+    height: 200px;
+    color: #48576a;
   }
   .controller {
     border-radius: 2px;
     background-color: #fff;
-    padding: 22px 10px 0px;
+    padding: 23px 10px 2px;
     margin-bottom: 10px;
     width: 380px;
     display: inline-block;
