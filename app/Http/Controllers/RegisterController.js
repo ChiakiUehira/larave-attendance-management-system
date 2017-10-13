@@ -19,7 +19,7 @@ class RegisterController {
     const token = req.input('t')
     const user = yield this.userService.getById(id)
 
-    const hasUrlToken = yield this.tokenService.hasUrlToken(id,token)
+    const hasUrlToken = yield this.tokenService.hasUrlToken(id, token)
     if (!hasUrlToken) {
       return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
@@ -44,8 +44,8 @@ class RegisterController {
     }
     user.fill(context)
     yield user.save()
+    yield this.tokenService.deleteUrlToken(user.id)
 
-    //todo urlトークンテーブルから消す
     res.redirect('/login')
   }
 }

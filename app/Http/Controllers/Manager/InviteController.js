@@ -22,8 +22,6 @@ class InviteController {
     const company = yield this.companyService.getCompanyFromUser(loginUser)
     const rules = this.userContext.storeRules()
     const context = this.userContext.storeContext(req)
-
-    console.log(rules, context)
     const validation = yield Validator.validateAll(context, rules)
 
     if (validation.fails()) {
@@ -32,7 +30,8 @@ class InviteController {
 
     const user = yield this.userService.store(company, context)
     const {user_id, token} = yield this.tokenService.storeUrlToken(user)
-    yield this.mailService.invite(user_id, token, user.email)//todo エラー処理
+    yield this.mailService.invite(user_id, token, user.email)
+
     return this.httpService.success(res)
   }
 }
