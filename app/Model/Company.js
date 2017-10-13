@@ -12,6 +12,9 @@ class Company extends Lucid {
   news () {
     return this.hasMany('App/Model/News')
   }
+  groups (){
+    return this.hasMany('App/Model/Group')
+  }
 }
 
 module.exports = Company

@@ -28,6 +28,11 @@ class User extends Lucid {
   urlToken () {
     return this.hasOne('App/Model/UrlToken')
   }
+
+  group () {
+    return this.belongsTo('App/Model/Group')
+  }
+
 }
 
 module.exports = User
