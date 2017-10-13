@@ -5,55 +5,56 @@
             <tr>
                 <th>苗字</th>
                 <td>
-                    <input placeholder="苗字" v-model="context.last_name">
+                    <input placeholder="苗字" name="last_name" value="田中">
                 </td>
             </tr>
             <tr>
                 <th>名前</th>
                 <td>
-                    <input placeholder="名前" value="太郎">
+                    <input placeholder="名前" name="first_name" value="太郎">
                 </td>
             </tr>
             <tr>
                 <th>苗字（カナ）</th>
                 <td>
-                    <input placeholder="苗字（カナ）" value="ヤマダ">
+                    <input placeholder="苗字（カナ）" name="last_name_kana" value="ヤマダ">
                 </td>
             </tr>
             <tr>
                 <th>名前（カナ）</th>
                 <td>
-                    <input placeholder="名前（カナ）" value="タロウ">
+                    <input placeholder="名前（カナ）" name="first_name_kana" value="タロウ">
                 </td>
             </tr>
             <tr>
                 <th>Eメール</th>
                 <td>
-                    <input placeholder="Eメール" value="{{ user.email }}">
+                    <input placeholder="Eメール" name="email" value="{{ user.email }}">
                 </td>
             </tr>
             <tr>
                 <th>性別</th>
                 <td>
-                    男性<input type="radio" value="male">
-                    女性<input type="radio" value="male">
+                    男性<input type="radio" value="male" name="gender">
+                    女性<input type="radio" value="female" name="gender">
                 </td>
             </tr>
             <tr>
                 <th>給与</th>
                 <td>
-                    <input placeholder="給与" value="10000">
+                    <input placeholder="給与" value="10000" name="salary">
                 </td>
             </tr>
             <tr>
                 <th>給与タイプ</th>
                 <td>
-                    <select placeholder="給与タイプ" v-model="context.salary_type">
+                    <select placeholder="給与タイプ" v-model="context.salary_type" name="salary_type">
                         <option value="monthly">月給</option>
                     </select>
                 </td>
             </tr>
         </table>
+        <input type="hidden" value="{{ user.id }}" name="user_id">
         <div class="invite-button">
             <input type="submit" value="登録">
         </div>

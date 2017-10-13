@@ -80,7 +80,7 @@
           "first_name": "太郎",
           "last_name_kana": "ヤマダ",
           "first_name_kana": "タロウ",
-          "email":"mailsend.manager@gmail.com",
+          "email": "mailsend.manager@gmail.com",
           "gender": "male",
           "salary": "10000",
           "manager_flag": "normal",
@@ -98,33 +98,40 @@
             label: '月給'
           }]
         },
-        isSend:false
+        isSend: false
       }
     },
     methods: {
       async invite(){
-        if(!this.isSend) {
-          const {data} = await this.$http.post('/manager/invite', this.context)
-          this.isSend = true
+        if (!this.isSend) {
+          this.isSend = true;
+          const {data} = await this.$http.post('/manager/invite', this.context).catch(err => {
+            if (err.response.data.message === 'overlapping') {
+              this.isSend = false;
+              this.$notify.error('このEmailアドレスはすでに登録されています。')
+              return
+            }
+            if (!err.response.data.success) {
+              this.isSend = false;
+              this.$notify.error('招待メールの送信に失敗しました')
+            }
+          })
           if (data.success) {
-            this.isSend = false
-            this.clear()
+            this.isSend = false;
+            this.clear();
             this.$notify.success('招待メールの送信が完了しました')
-          } else {
-            this.isSend = false
-            this.$notify.error('招待メールの送信に失敗しました')
           }
         }
       },
       clear(){
-        this.context.last_name = ""
-        this.context.first_name = ""
-        this.context.last_name_kana = ""
-        this.context.first_name_kana = ""
-        this.context.email = ""
-        this.context.gender = ""
-        this.context.salary = ""
-        this.context.manager_flag = ""
+        this.context.last_name = "";
+        this.context.first_name = "";
+        this.context.last_name_kana = "";
+        this.context.first_name_kana = "";
+        this.context.email = "";
+        this.context.gender = "";
+        this.context.salary = "";
+        this.context.manager_flag = "";
         this.context.salary_type = ""
       }
     }

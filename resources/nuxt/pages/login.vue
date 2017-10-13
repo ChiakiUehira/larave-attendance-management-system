@@ -57,6 +57,9 @@
               this.$router.push('/')
             })
           }).catch((err)=>{
+            if(err.response.data.message === 'notRegistered'){ //仮登録時は登録ホームにリダイレクト
+              location.href = `/register?t=${err.response.data.t}&id=${err.response.data.id}`
+            }
             this.isSend = false
             this.$notify.error('メールアドレスかパスワードが間違っています');
           })

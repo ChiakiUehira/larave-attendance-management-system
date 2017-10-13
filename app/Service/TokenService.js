@@ -19,6 +19,17 @@ class TokenService {
     const urlToken = yield user.urlToken().fetch()
     return urlToken.token === token
   }
+
+  * getUrlToken(user){
+    const urlToken = yield user.urlToken().fetch()
+    return urlToken.token
+  }
+  * deleteUrlToken(id){
+    const user = yield User.find(id)
+    const urlToken = yield user.urlToken().fetch()
+    yield urlToken.delete()
+    return 
+  }
 }
 
 module.exports = TokenService
