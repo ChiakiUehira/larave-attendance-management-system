@@ -13,6 +13,10 @@ class UserService {
     const user = yield UserModel.find(id)
     return user
   }
+  * getByEmail (email){
+    const user = yield UserModel.findBy('email', email)
+    return user
+  }
 
   * store (company, context) {
     const user = new UserModel(context)

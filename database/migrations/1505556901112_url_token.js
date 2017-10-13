@@ -9,7 +9,6 @@ class UrlTokensTableSchema extends Schema {
       table.integer('user_id').unsigned()
       table.string('token').notNullable()
       table.timestamps()
-      table.softDeletes()
     })
   }
 
