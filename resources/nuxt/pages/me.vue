@@ -2,10 +2,10 @@
   <div>
     <contents-name name="プロフィール" />
     <div class="page">
-      <div class="controller">
-      </div>
       <div class="contents">
-
+        <div class="image">
+          <img :src="me.thumbnail" alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -34,9 +34,5 @@ export default {
   .page {
     background-color: #fff;
     border-radius: 2px;
-  }
-
-  .contents {
-    padding: 30px;
   }
 </style>
