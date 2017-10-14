@@ -1,6 +1,7 @@
 export const state = () => ({
   device: 'pc',
   token: 0,
+  isLoading: false,
   isLogin: false,
   isManager: false,
   me: null,
@@ -15,6 +16,9 @@ export const mutations = {
   },
   SET_TOKEN (state, payload) {
     state.token = payload
+  },
+  SET_IS_LOADING (state, payload) {
+    state.isLoading = payload
   },
   SET_IS_LOGIN (state, payload) {
     state.isLogin = payload

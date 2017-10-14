@@ -3,6 +3,7 @@
     <side-navi/>
     <main id="main">
       <my-header class="my-header" />
+      <loading id="loading" />
       <div class="container">
         <nuxt/>
       </div>
@@ -13,11 +14,13 @@
 <script>
 import SideNavi from '~/components/SideNavi.vue'
 import MyHeader from '~/components/MyHeader.vue'
+import Loading from '~/components/Loading.vue'
 export default {
   middleware: 'auth',
   components: {
     SideNavi,
     MyHeader,
+    Loading,
   },
   methods: {
     handleResize () {
@@ -38,11 +41,20 @@ export default {
 </script>
 
 <style scoped>
+
   #main {
     margin-left: 220px;
+    position: relative;
   }
   #main .container {
+    position: relative;
     padding: 86px 30px 30px;
+  }
+  #loading {
+    position: absolute;
+    top: calc(0px + 56px);
+    left: 0;
+    width: 100%;
   }
   .logout{
     position: absolute;

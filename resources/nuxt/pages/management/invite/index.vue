@@ -143,20 +143,24 @@
       async invite(){
         if (!this.isSend) {
           this.isSend = true;
+          this.$store.commit('SET_IS_LOADING', true)
           const {data} = await this.$http.post('/manager/invite', this.context).catch(err => {
             if (err.response.data.message === 'overlapping') {
               this.isSend = false;
+              this.$store.commit('SET_IS_LOADING', false)
               this.$notify.error('このEmailアドレスはすでに登録されています。')
               return
             }
             if (!err.response.data.success) {
               this.isSend = false;
+              this.$store.commit('SET_IS_LOADING', false)
               this.$notify.error('招待メールの送信に失敗しました')
             }
           })
           if (data.success) {
             this.isSend = false;
             this.clear();
+            this.$store.commit('SET_IS_LOADING', false)
             this.$notify.success('招待メールの送信が完了しました')
           }
         }
