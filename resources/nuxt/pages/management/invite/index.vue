@@ -40,26 +40,63 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>給与</th>
-                    <td>
-                        <el-input placeholder="給与" v-model="context.salary"></el-input>
-                    </td>
-                </tr>
-                <tr>
                     <th>マネージャフラグ</th>
                     <td>
                         <el-input placeholder="マネージャフラグ" v-model="context.manager_flag"></el-input>
                     </td>
                 </tr>
                 <tr>
-                    <th>給与タイプ</th>
+                    <th>電話番号</th>
                     <td>
-                        <el-select placeholder="給与タイプ" v-model="context.salary_type">
+                        <el-input placeholder="電話番号" v-model="context.tel"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>サムネイル</th>
+                    <td>
+                        <label class="upload-file">
+                            <h1><i class="el-icon-plus"></i></h1>
+                            <div class="photo">
+                                <img :src="context.thumbnail" alt="">
+                            </div>
+                            <input type="file" @change="preview" required>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>住所</th>
+                    <td>
+                        <el-input placeholder="住所" v-model="context.address"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>郵便番号</th>
+                    <td>
+                        <el-input placeholder="郵便番号" v-model="context.postal_code"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>パスワード</th>
+                    <td>
+                        <el-input placeholder="パスワード" v-model="context.password"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>役職</th>
+                    <td>
+                        <el-input placeholder="役職" v-model="context.position"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>グループ</th>
+                    <td>
+                        <el-select v-model="context.group" placeholder="Select">
                             <el-option
-                                    v-for="salary in options.salary"
-                                    :key="salary.value"
-                                    :label="salary.label"
-                                    :value="salary.value">
+                                    v-for="item in options.groups"
+                                    action="http://0.0.0.0:3333"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
                             </el-option>
                         </el-select>
                     </td>
@@ -73,6 +110,10 @@
 </template>
 <script>
   export default {
+    async asyncData({app}){
+//      const {data} = await app.$http.get('groups')
+//      console.log(data)
+    },
     data() {
       return {
         context: {
@@ -82,20 +123,25 @@
           "first_name_kana": "タロウ",
           "email": "mailsend.manager@gmail.com",
           "gender": "male",
-          "salary": "10000",
           "manager_flag": "normal",
-          "salary_type": "monthly"
+          "password": "pw",
+          "postal_code": "000-0000",
+          "address": "大阪府大阪市ほげほげ町",
+          "thumbnail": "",
+          "tel": "123-4567",
+          "position": "係長",
+          "group": "総務部"
         },
         options: {
-          salary: [{
-            value: 'Option1',
-            label: '分給'
+          groups: [{
+            value: '1',
+            label: '営業部'
           }, {
-            value: 'Option2',
-            label: '日給'
+            value: '1',
+            label: '人事部'
           }, {
-            value: 'monthly',
-            label: '月給'
+            value: '1',
+            label: '総務部'
           }]
         },
         isSend: false
@@ -124,15 +170,29 @@
         }
       },
       clear(){
-        this.context.last_name = "";
-        this.context.first_name = "";
-        this.context.last_name_kana = "";
-        this.context.first_name_kana = "";
-        this.context.email = "";
-        this.context.gender = "";
-        this.context.salary = "";
-        this.context.manager_flag = "";
-        this.context.salary_type = ""
+        this.context.last_name = ""
+        this.context.first_name = ""
+        this.context.last_name_kana = ""
+        this.context.first_name_kana = ""
+        this.context.email = ""
+        this.context.gender = ""
+        this.context.manager_flag = ""
+        this.context.password = ""
+        this.context.postal_code = ""
+        this.context.address = ""
+        this.context.thumbnail = ""
+        this.context.tel = ""
+        this.context.position = ""
+        this.context.group = ""
+      },
+      preview (e) {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          this.context.thumbnail = reader.result
+        }
+        if (file) reader.readAsDataURL(file)
+        e.target.value = null
       }
     }
   }
@@ -141,23 +201,25 @@
 <style scoped>
     .invite-form {
         margin: 0 auto;
-        width: 80%;
+        width: 100%;
         padding: 40px 120px;
         position: relative;
     }
 
     .invite-form table {
         width: 100%;
+        background: #fff;
     }
 
     .invite-form table th {
-        border: 1px solid #d1dbe5;
+        border: 1px solid #ccc;
         width: 20%;
+        color: #777;
     }
 
     .invite-form table td {
         padding: 15px;
-        border: 1px solid #d1dbe5;
+        border: 1px solid #ccc;
         width: 80%;
     }
 
@@ -165,4 +227,43 @@
         margin-top: 20px;
         margin-left: 90%;
     }
+
+    .upload-file {
+        max-height: 330px;
+        min-height:330px;
+        max-width: 330px;
+        min-width:330px;
+        border: solid 1px #bfcbd9;
+        display: block;
+        margin: 40px auto;
+        border-radius: 3px;
+        position: relative;
+    }
+    .upload-file:hover {
+        border: solid 1px #8391a5;
+    }
+    .upload-file h1 {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+    .upload-file input {
+        display: none;
+    }
+
+    .photo {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+        z-index: 999;
+    }
+    .photo img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
 </style>
