@@ -1,23 +1,23 @@
 <template>
-    <div>
+    <div class="management">
         <nuxt-link to="/management/invite">
-            <div class="management">
+            <div class="management-item">
                 <el-card>
                     <p>ユーザ招待</p>
                 </el-card>
             </div>
         </nuxt-link>
-        <div class="management">
+        <div class="management-item">
             <el-card>
                 <p>打刻申請</p>
             </el-card>
         </div>
-        <div class="management">
+        <div class="management-item">
             <el-card>
                 <p>グループ作成</p>
             </el-card>
         </div>
-        <div class="management">
+        <div class="management-item">
             <el-card>
                 <p>ユーザ情報変更</p>
             </el-card>
@@ -41,18 +41,22 @@
 </script>
 
 <style scoped>
-    .management {
+    .management-item {
         width: 49%;
         display: inline-block;
         margin-bottom: 25px;
-        border:1px solid #d1dbe5;
         box-sizing: border-box;
+        -webkit-transition: ease .3s;
+        -moz-transition: ease .3s;
+        transition: ease .3s;
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+        border-radius: 4px;
     }
-    .management:hover{
+    .management-item:hover{
         box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
     }
 
-    .management:nth-child(2n) {
+    .management-item:nth-child(2n) {
         margin-left: 2%;
     }
 
