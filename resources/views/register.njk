@@ -1,105 +1,167 @@
 {#todo userデータがあればそれを埋めてなければ空で設定する#}
-<form action="/register" method="post">
-    <div class="invite-form">
-        <table>
-            <tr>
-                <th>苗字</th>
-                <td>
-                    <input placeholder="苗字" name="last_name" value="田中">
-                </td>
-            </tr>
-            <tr>
-                <th>名前</th>
-                <td>
-                    <input placeholder="名前" name="first_name" value="太郎">
-                </td>
-            </tr>
-            <tr>
-                <th>苗字（カナ）</th>
-                <td>
-                    <input placeholder="苗字（カナ）" name="last_name_kana" value="ヤマダ">
-                </td>
-            </tr>
-            <tr>
-                <th>名前（カナ）</th>
-                <td>
-                    <input placeholder="名前（カナ）" name="first_name_kana" value="タロウ">
-                </td>
-            </tr>
-            <tr>
-                <th>Eメール</th>
-                <td>
-                    <input placeholder="Eメール" name="email" value="{{ user.email }}">
-                </td>
-            </tr>
-            <tr>
-                <th>性別</th>
-                <td>
-                    男性<input type="radio" value="male" name="gender">
-                    女性<input type="radio" value="female" name="gender">
-                </td>
-            </tr>
-            <tr>
-                <th>給与</th>
-                <td>
-                    <input placeholder="給与" value="10000" name="salary">
-                </td>
-            </tr>
-            <tr>
-                <th>給与タイプ</th>
-                <td>
-                    <select placeholder="給与タイプ" v-model="context.salary_type" name="salary_type">
-                        <option value="monthly">月給</option>
-                    </select>
-                </td>
-            </tr>
-        </table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-default/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+<div id="app" class="container">
+    <form action="/register" method="post">
         <input type="hidden" value="{{ user.id }}" name="user_id">
-        <div class="invite-button">
-            <input type="submit" value="登録">
+        <div class="invite-form">
+            <table>
+                <tr>
+                    <th>苗字</th>
+                    <td>
+                        <el-input placeholder="苗字" name="last_name" v-model="context.last_name"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>名前</th>
+                    <td>
+                        <el-input placeholder="名前" name="first_name" v-model="context.first_name"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>苗字（カナ）</th>
+                    <td>
+                        <el-input placeholder="苗字（カナ）" name="last_name_kana" v-model="context.last_name_kana"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>名前（カナ）</th>
+                    <td>
+                        <el-input placeholder="名前（カナ）" name="first_name_kana" v-model="context.first_name_kana"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Eメール</th>
+                    <td>
+                        <el-input placeholder="Eメール" name="email" v-model="context.email"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>性別</th>
+                    <td>
+                        <el-radio class="radio" v-model="context.gender" name="gender" label="male">男性</el-radio>
+                        <el-radio class="radio" v-model="context.gender" name="gender" label="female">女性</el-radio>
+                    </td>
+                </tr>
+                <tr>
+                    <th>電話番号</th>
+                    <td>
+                        <el-input placeholder="電話番号" v-model="context.tel" name="tel"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>サムネイル</th>
+                    <td>
+                        <label class="upload-file">
+                            <h1><i class="el-icon-plus"></i></h1>
+                            <div class="photo">
+                                <img :src="context.thumbnail" alt="">
+                            </div>
+                            {#todo dataが送られない#}
+                            <input type="file" @change="preview" name="thumbnail">
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <th>住所</th>
+                    <td>
+                        <el-input placeholder="住所" v-model="context.address" name="address"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>郵便番号</th>
+                    <td>
+                        <el-input placeholder="郵便番号" v-model="context.postal_code" name="postal_code"></el-input>
+                    </td>
+                </tr>
+                <tr>
+                    <th>パスワード</th>
+                    <td>
+                        <el-input placeholder="パスワード" v-model="context.password" name="password"></el-input>
+                    </td>
+                </tr>
+            </table>
         </div>
-    </div>
-</form>
+        <div class="invite-button">
+            <el-button @click="register">登録</el-button>
+        </div>
+    </form>
+</div>
 <script>
-  export default{
-    data(){
-      return {
-        context: {
-          "last_name": "山田",
-          "first_name": "太郎",
-          "last_name_kana": "ヤマダ",
-          "first_name_kana": "タロウ",
-          "email": "mailsend.manager@gmail.com",
-          "gender": "male",
-          "salary": "10000",
-          "manager_flag": "normal",
-          "salary_type": "monthly"
+  const app = new Vue({
+    el: '#app',
+    data: {
+      context: {
+        "last_name": "山田",
+        "first_name": "太郎",
+        "last_name_kana": "ヤマダ",
+        "first_name_kana": "タロウ",
+        "email": "mailsend.manager@gmail.com",
+        "gender": "male",
+        "password": "pw",
+        "postal_code": "000-0000",
+        "address": "大阪府大阪市ほげほげ町",
+        "thumbnail": "",
+        "tel": "123-4567"
+      }
+    },
+    methods:{
+      preview (e) {
+        const file = e.target.files[0]
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          this.context.thumbnail = reader.result
         }
+        if (file) reader.readAsDataURL(file)
+        e.target.value = null
+      },
+      register(){
+        const form = document.querySelector('form')
+        form.submit()
       }
     }
-  }
+  })
+
 </script>
 
 <style scoped>
+    body{
+        background: #F9F9F9
+    }
+    .container{
+        width:960px;
+        margin:0 auto;
+    }
     .invite-form {
         margin: 0 auto;
-        width: 80%;
-        padding: 40px 120px;
+        width: 100%;
         position: relative;
     }
 
     .invite-form table {
         width: 100%;
+        background: #fff;
+        border-collapse: collapse;
+        border-spacing: 0;
     }
 
     .invite-form table th {
-        border: 1px solid #d1dbe5;
+        border: 1px solid #ccc;
         width: 20%;
+        color: #777;
     }
 
     .invite-form table td {
         padding: 15px;
-        border: 1px solid #d1dbe5;
+        border: 1px solid #ccc;
         width: 80%;
     }
 
@@ -107,6 +169,49 @@
         margin-top: 20px;
         margin-left: 90%;
     }
+
+    .upload-file {
+        max-height: 330px;
+        min-height: 330px;
+        max-width: 330px;
+        min-width: 330px;
+        border: solid 1px #bfcbd9;
+        display: block;
+        margin: 40px auto;
+        border-radius: 3px;
+        position: relative;
+    }
+
+    .upload-file:hover {
+        border: solid 1px #8391a5;
+    }
+
+    .upload-file h1 {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+
+    .upload-file input {
+        display: none;
+    }
+
+    .photo {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+        margin-bottom: 50px;
+        z-index: 999;
+    }
+
+    .photo img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+
 </style>
-
-
+</body>
+</html>

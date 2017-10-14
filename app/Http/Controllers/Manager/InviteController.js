@@ -16,7 +16,6 @@ class InviteController {
     this.httpService = new HttpService()
   }
 
-  //todo test
   * store (req, res) {
     const loginUser = yield req.auth.getUser()
     const company = yield this.companyService.getCompanyFromUser(loginUser)
