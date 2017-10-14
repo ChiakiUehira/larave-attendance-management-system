@@ -14,6 +14,7 @@ class UserContext {
       // birthday: '',
       // thumbnail: '',
       manager_flag: 'required',
+      group_id: 'required',
       // position: '',
       // address: '',
       // postal_code: '',
@@ -25,7 +26,7 @@ class UserContext {
   storeContext (req) {
     // @TODO 調整
     return {
-      password: 'pw',
+      password: req.input('password'),
       email: req.input('email'),
       tel: req.input('tel'),
       last_name: req.input('last_name'),
@@ -36,14 +37,10 @@ class UserContext {
       birthday: req.input('birthday'),
       thumbnail: req.input('thumbnail'),
       manager_flag: req.input('manager_flag'),
-      salary_type: req.input('salary_type'),
-      salary: req.input('salary'),
       position: req.input('position'),
       address: req.input('address'),
       postal_code: req.input('postal_code'),
-      bank_account: req.input('bank_account'),
-      bank_name: req.input('bank_name'),
-      bank_branch: req.input('bank_branch')
+      group_id: req.input('group_id')
     }
   }
 }

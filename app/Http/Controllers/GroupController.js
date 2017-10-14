@@ -10,8 +10,8 @@ class CompanyController {
 
   * index (req, res) {
     const loginUser = yield req.auth.getUser()
-    const groups = this.groupService.getGroups(loginUser)
-    return this.httpService.success(res, groups)
+    const groups = yield this.groupService.getGroups(loginUser)
+    return this.httpService.success(res, {groups:groups})
   }
 }
 

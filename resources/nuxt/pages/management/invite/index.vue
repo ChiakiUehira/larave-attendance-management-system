@@ -90,9 +90,9 @@
                 <tr>
                     <th>グループ</th>
                     <td>
-                        <el-select v-model="context.group" placeholder="Select">
+                        <el-select v-model="context.group_id" placeholder="Select">
                             <el-option
-                                    v-for="item in options.groups"
+                                    v-for="item in groups"
                                     action="http://0.0.0.0:3333"
                                     :key="item.value"
                                     :label="item.label"
@@ -111,8 +111,12 @@
 <script>
   export default {
     async asyncData({app}){
-//      const {data} = await app.$http.get('groups')
-//      console.log(data)
+      const {data} = await app.$http.get('groups')
+      var groups = []
+      data.groups.forEach((group,index) => {
+        groups[index] = {value:group.id, label:group.name}
+      })
+      return {groups: groups}
     },
     data() {
       return {
@@ -130,19 +134,7 @@
           "thumbnail": "",
           "tel": "123-4567",
           "position": "係長",
-          "group": "総務部"
-        },
-        options: {
-          groups: [{
-            value: '1',
-            label: '営業部'
-          }, {
-            value: '1',
-            label: '人事部'
-          }, {
-            value: '1',
-            label: '総務部'
-          }]
+          "group_id": ""
         },
         isSend: false
       }
@@ -183,7 +175,7 @@
         this.context.thumbnail = ""
         this.context.tel = ""
         this.context.position = ""
-        this.context.group = ""
+        this.context.group_id = ""
       },
       preview (e) {
         const file = e.target.files[0]

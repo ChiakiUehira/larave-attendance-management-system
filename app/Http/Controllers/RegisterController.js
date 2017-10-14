@@ -37,6 +37,7 @@ class RegisterController {
     const context = this.userContext.storeContext(req)
     context.registered = true
     context.manager_flag = user.manager_flag
+    context.group_id = user.group_id
 
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
@@ -45,7 +46,6 @@ class RegisterController {
     user.fill(context)
     yield user.save()
     yield this.tokenService.deleteUrlToken(user.id)
-
     res.redirect('/login')
   }
 }

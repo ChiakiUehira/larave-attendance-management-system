@@ -1,6 +1,6 @@
 
 const Group = use('App/Model/Group')
-const CompanyService = require('../../Service/CompanyService')
+const CompanyService = require('../Service/CompanyService')
 
 
 class AttendanceService {
@@ -9,8 +9,9 @@ class AttendanceService {
   }
 
   * getGroups (user) {
-    const company = yield this.companyService.getCompanyFromUser(loginUser)
-    return company.groups().fetch()
+    const company = yield this.companyService.getCompanyFromUser(user)
+    const groups =  yield company.groups().fetch()
+    return groups
   }
 }
 
