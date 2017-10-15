@@ -7,7 +7,8 @@ export const state = () => ({
   me: null,
   users: null,
   company: null,
-  news: null
+  news: null,
+  groups: null
 })
 
 export const mutations = {
@@ -31,6 +32,9 @@ export const mutations = {
   },
   SET_USERS (state, payload) {
     state.users = payload
+  },
+  SET_GROUPS (state, payload) {
+    state.groups = payload
   },
   SET_COMPANY (state, payload) {
     state.company = payload

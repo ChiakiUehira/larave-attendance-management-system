@@ -5,7 +5,7 @@
         <img :src="user.thumbnail" alt="">
       </div>
       <div class="cell profile">
-        <span class="group">システム開発部 - {{user.position}}</span>
+        <span class="group">{{user.group.name}} - {{user.position}}</span>
         <h1>{{`${user.last_name} ${user.first_name}`}}</h1>
         <hr>
         <div>

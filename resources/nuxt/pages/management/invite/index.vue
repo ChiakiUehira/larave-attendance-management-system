@@ -111,7 +111,7 @@
 <script>
   export default {
     async asyncData({app}){
-      const {data} = await app.$http.get('groups')
+      const {data} = await app.$http.get('group')
       var groups = []
       data.groups.forEach((group,index) => {
         groups[index] = {value:group.id, label:group.name}

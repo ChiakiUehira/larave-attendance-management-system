@@ -24,9 +24,7 @@
             <el-form-item label="グループ">
               <el-select v-model="search.group" placeholder="グループ">
                 <el-option label="選択なし" value=""></el-option>
-                <el-option label="システム開発部" value="システム開発部"></el-option>
-                <el-option label="総務部" value="総務部"></el-option>
-                <el-option label="人事部" value="人事部"></el-option>
+                <el-option v-for="group in toValueFromGroups" :label="group.label" :value="group.value" :key="group.id"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="アクティブ">
@@ -62,18 +60,34 @@
       ContentsName
     },
     computed: {
-      Users () {
+      groups () {
+        return this.$store.state.groups
+      },
+      toValueFromGroups () {
+        const groups = this.$store.state.groups
+        return groups.map((group) => {
+          return {
+            value: group.id,
+            label: group.name
+          }
+        })
+      },
+      users () {
         return this.$store.state.users
       },
       displayUsers () {
-        const users = this.$store.state.users
-        if (!this.search.word) {
-          return users
-        }
-        return users.filter((user) => {
+        let users = this.$store.state.users
+
+        users = users.filter((user) => {
           const fullName = this.fullName(user.first_name, user.last_name)
           return fullName.indexOf(this.search.word) >= 0
         })
+
+        users = users.filter((user) => {
+          return this.search.group ? user.group.id === this.search.group : true
+        })
+
+        return users
       },
       toValueFormUsers () {
         const users = this.$store.state.users
@@ -109,6 +123,10 @@
       if (!store.state.users) {
         const { data } = await app.$http.get('/user')
         store.commit('SET_USERS', data.users)
+      }
+      if (!store.state.groups) {
+        const { data } = await app.$http.get('/group')
+        store.commit('SET_GROUPS', data.groups)
       }
     }
   }
