@@ -5,12 +5,12 @@ const UserModel = use('App/Model/User')
 class UserService {
   * fetchUsersFromUser (user) {
     const company = yield user.company().first()
-    const users = yield company.users().fetch()
+    const users = yield company.users().with('group').fetch()
     return users
   }
 
   * getById (id) {
-    const user = yield UserModel.find(id)
+    const user = yield UserModel.query().where('id', id).with('group').fetch()
     return user
   }
   * getByEmail (email){
