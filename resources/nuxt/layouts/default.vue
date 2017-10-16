@@ -3,7 +3,7 @@
     <side-navi/>
     <main id="main">
       <my-header class="my-header" />
-      <loading id="loading" />
+      <loading/>
       <div class="container">
         <nuxt/>
       </div>
@@ -49,12 +49,6 @@ export default {
   #main .container {
     position: relative;
     padding: 86px 30px 30px;
-  }
-  #loading {
-    position: absolute;
-    top: calc(0px + 56px);
-    left: 0;
-    width: 100%;
   }
   .logout{
     position: absolute;
