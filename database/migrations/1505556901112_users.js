@@ -6,14 +6,14 @@ class UsersTableSchema extends Schema {
   up () {
     this.create('users', (table) => {
       table.increments()
-      table.integer('company_id').unsigned()
+      table.integer('company_id').unsigned().notNullable()
       table.integer('group_id').unsigned().notNullable()
-      table.string('last_name')
-      table.string('first_name')
+      table.string('last_name').notNullable()
+      table.string('first_name').notNullable()
       table.string('last_name_kana')
       table.string('first_name_kana')
       table.dateTime('birthday')
-      table.string('gender')
+      table.string('gender').notNullable()
       table.string('tel')
       table.string('manager_flag').notNullable()
       table.text('thumbnail')
