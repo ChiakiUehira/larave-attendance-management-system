@@ -1,4 +1,6 @@
 
+const moment = require('moment')
+
 class UserContext {
   storeRules () {
     // @TODO 調整
@@ -34,7 +36,7 @@ class UserContext {
       last_name_kana: req.input('last_name_kana'),
       first_name_kana: req.input('first_name_kana'),
       gender: req.input('gender'),
-      birthday: req.input('birthday'),
+      birthday: moment(req.input('birthday')).format(),
       thumbnail: req.input('thumbnail'),
       manager_flag: req.input('manager_flag'),
       position: req.input('position'),
