@@ -4,7 +4,14 @@
     <div class="page">
       <div class="contents">
         <div class="image">
-          <img :src="context.thumbnail" alt="">
+          <el-upload
+          class="avatar-uploader"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
         </div>
         <div class="profile">
           <el-form ref="form" label-width="120px">
@@ -48,10 +55,10 @@
               <el-input placeholder="Please input" v-model="context.manager_flag" :disabled="true"></el-input>
             </el-form-item>
           </el-form>
-          <div class="btns">
-            <el-button>Cancel</el-button>
-            <el-button type="primary" @click="onSubmit">Update</el-button>
-          </div>
+        </div>
+        <div class="btns">
+          <el-button @click="onCancel">Cancel</el-button>
+          <el-button type="primary" @click="onSubmit">Update</el-button>
         </div>
       </div>
     </div>
@@ -86,6 +93,9 @@ export default {
       }).catch(() => {
         this.$notify.error('失敗しました')
       })
+    },
+    onCancel () {
+      this.$router.push('/me')
     }
   },
   computed: {
@@ -116,6 +126,7 @@ export default {
     padding: 20px;
   }
   .btns {
+    margin-top: 20px;
     text-align: right;
   }
 </style>
