@@ -1,7 +1,6 @@
 const HttpService = require('../../Service/HttpService')
 const ImgService = require('../../Service/ImageService')
 const uid = require('rand-token').uid
-const Jimp = require("jimp");
 const fs = require('fs');
 
 
@@ -22,7 +21,7 @@ class ImageController {
       if (err) {
         this.httpService.failed(res, {error: err})
       }
-      const dataUrl = `data:${img.mimeType()};base64,${data.toString("base64")}`
+      const dataUrl = `data:${img.mimeType()};base64,${data.toString('base64')}`//todo 要修正　再現性はないが、たまにバグる
       this.httpService.success(res, {dataUrl: dataUrl})
     })
   }

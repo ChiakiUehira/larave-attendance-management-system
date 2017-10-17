@@ -35,7 +35,7 @@ class UserContext {
       first_name_kana: req.input('first_name_kana'),
       gender: req.input('gender'),
       birthday: req.input('birthday'),
-      thumbnail: req.input('thumbnail'),
+      thumbnail: req.input('file'),
       manager_flag: req.input('manager_flag'),
       position: req.input('position'),
       address: req.input('address'),
