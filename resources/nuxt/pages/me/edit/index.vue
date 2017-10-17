@@ -34,7 +34,11 @@
               <el-input placeholder="Please input" v-model="context.address"></el-input>
             </el-form-item>
             <el-form-item label="生年月日" required>
-              <el-input placeholder="Please input" v-model="context.birthday"></el-input>
+              <el-date-picker
+                v-model="context.birthday"
+                type="date"
+                placeholder="Please input">
+              </el-date-picker>
             </el-form-item>
             <el-form-item label="性別" required>
               <el-radio-group v-model="context.gender">
@@ -68,13 +72,18 @@
 import ContentsName from '@/components/ContentsName.vue'
 import moment from 'moment'
 export default {
+  data () {
+    return {
+      isSend: false
+    }
+  },
   components: {
     ContentsName
   },
   async asyncData ({app}) {
     const { data } = await app.$http.get('/me')
     let context = data.me
-    context.birthday = moment(context.birthday).format("YYYY/MM/DD")
+    context.birthday = moment(context.birthday).format("YYYY-MM-DD")
     return {
       context
     }
@@ -87,15 +96,25 @@ export default {
   },
   methods: {
     onSubmit () {
-      this.$http.put(`/user/${this.me.id}`, this.context).then(({data}) => {
-        this.$notify.success('編集しました')
-        this.$router.push('/me')
-      }).catch(() => {
-        this.$notify.error('失敗しました')
-      })
+      if (!this.isSend) {
+        this.isSend = true
+        this.$http.put(`/user/${this.me.id}`, this.context).then(({data}) => {
+          this.isSend = false
+          this.fetchMe()
+          this.$notify.success('編集しました')
+          this.$router.push('/me')
+        }).catch(() => {
+          this.isSend = false
+          this.$notify.error('失敗しました')
+        })
+      }
     },
     onCancel () {
       this.$router.push('/me')
+    },
+    async fetchMe () {
+      const { data } = await this.$http.get('/me')
+      this.$store.commit('SET_ME', data.me)
     }
   },
   computed: {
