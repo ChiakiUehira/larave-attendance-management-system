@@ -54,13 +54,16 @@
                 <tr>
                     <th>サムネイル</th>
                     <td>
-                        <label class="upload-file">
-                            <h1><i class="el-icon-plus"></i></h1>
-                            <div class="photo">
-                                <img :src="context.thumbnail" alt="">
-                            </div>
-                            <input type="file" @change="preview" required>
-                        </label>
+                        <el-upload
+                                class="avatar-uploader"
+                                action="//0.0.0.0:3333/api/v1/image/resize"
+                                :show-file-list="false"
+                                :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
+                            <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        </el-upload>
+
                     </td>
                 </tr>
                 <tr>
@@ -113,8 +116,8 @@
     async asyncData({app}){
       const {data} = await app.$http.get('group')
       var groups = []
-      data.groups.forEach((group,index) => {
-        groups[index] = {value:group.id, label:group.name}
+      data.groups.forEach((group, index) => {
+        groups[index] = {value: group.id, label: group.name}
       })
       return {groups: groups}
     },
@@ -181,14 +184,21 @@
         this.context.position = ""
         this.context.group_id = ""
       },
-      preview (e) {
-        const file = e.target.files[0]
-        const reader = new FileReader()
-        reader.onload = (e) => {
-          this.context.thumbnail = reader.result
+      handleAvatarSuccess(res, file) {
+        console.log(res)
+        this.context.thumbnail = res.dataUrl
+      },
+      beforeAvatarUpload(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('Avatar picture must be JPG format!');
         }
-        if (file) reader.readAsDataURL(file)
-        e.target.value = null
+        if (!isLt2M) {
+          this.$message.error('Avatar picture size can not exceed 2MB!');
+        }
+        return isJPG && isLt2M;
       }
     }
   }
@@ -223,43 +233,33 @@
         margin-top: 20px;
         margin-left: 90%;
     }
+</style>
 
-    .upload-file {
-        max-height: 330px;
-        min-height:330px;
-        max-width: 330px;
-        min-width:330px;
-        border: solid 1px #bfcbd9;
-        display: block;
-        margin: 40px auto;
-        border-radius: 3px;
+<style>
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
         position: relative;
-    }
-    .upload-file:hover {
-        border: solid 1px #8391a5;
-    }
-    .upload-file h1 {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        z-index: -1;
-    }
-    .upload-file input {
-        display: none;
+        overflow: hidden;
     }
 
-    .photo {
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        margin-bottom: 50px;
-        z-index: 999;
-    }
-    .photo img {
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
+    .avatar-uploader .el-upload:hover {
+        border-color: #20a0ff;
     }
 
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
 </style>
