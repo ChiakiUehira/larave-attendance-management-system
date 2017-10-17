@@ -33,7 +33,7 @@
             <el-form-item label="住所">
               <el-input placeholder="Please input" v-model="context.address"></el-input>
             </el-form-item>
-            <el-form-item label="生年月日" required>
+            <el-form-item label="生年月日">
               <el-date-picker
                 v-model="context.birthday"
                 type="date"
@@ -46,17 +46,11 @@
                 <el-radio label="female">女性</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="メールアドレス" required>
-              <el-input placeholder="Please input" v-model="context.email" :disabled="true"></el-input>
-            </el-form-item>
             <el-form-item label="電話番号">
               <el-input placeholder="Please input" v-model="context.tel"></el-input>
             </el-form-item>
             <el-form-item label="役職">
               <el-input placeholder="Please input" v-model="context.position"></el-input>
-            </el-form-item>
-            <el-form-item label="権限" required>
-              <el-input placeholder="Please input" v-model="context.manager_flag" :disabled="true"></el-input>
             </el-form-item>
           </el-form>
         </div>
