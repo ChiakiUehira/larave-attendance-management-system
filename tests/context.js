@@ -10,7 +10,7 @@ exports._user = {
   first_name: '太郎',
   last_name_kana: 'ヤマダ',
   first_name_kana: 'タロウ',
-  email: 'hoge@hoge.com',
+  email: 'mailsend.manager@gmail.com',
   password: 'pw',
   gender: 'male',
   group_id: '1',
