@@ -1,13 +1,12 @@
 <template>
     <section>
         <div class="management-item">
-            <nuxt-link to="/management/news/create">
+            <nuxt-link to="/management/user/invite">
                 <el-card>
-                    <p>投稿</p>
+                    <p>招待</p>
                 </el-card>
             </nuxt-link>
         </div>
-
         <div class="management-item">
             <nuxt-link to="/management/user/edit">
                 <el-card>
@@ -18,7 +17,7 @@
         <div class="management-item">
             <nuxt-link to="/management/user/delete">
                 <el-card>
-                    <p>削除</p>
+                    <p>退社</p>
                 </el-card>
             </nuxt-link>
         </div>
