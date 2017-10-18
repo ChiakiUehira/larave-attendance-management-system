@@ -11,7 +11,7 @@
     <div class="input">
       <el-row :gutter="20">
         <el-col :span="12" :offset="6">
-          <el-input placeholder="password" v-model="context.password"></el-input>
+          <el-input type="password" placeholder="password" v-model="context.password"></el-input>
         </el-col>
       </el-row>
     </div>
@@ -42,6 +42,7 @@
         this.context.password = ''
       },
       submit(){
+        // @todo asyncに書き換える
         if (!this.isSend) {
           this.isSend = true
           this.$http.post('login',this.context).then(({data})=>{
@@ -52,9 +53,12 @@
             setToken(data.token)
             this.$http.get('company').then(({data})=>{
               this.$store.commit('SET_COMPANY',data.company)
-              this.isSend = false
-              this.$notify.success('ログインしました')
-              this.$router.push('/')
+              this.$http.get('me').then(({data})=>{
+                this.$store.commit('SET_ME',data.me)
+                this.isSend = false
+                this.$notify.success('ログインしました')
+                this.$router.push('/')
+              })
             })
           }).catch((err)=>{
             if(err.response.data.message === 'notRegistered'){ //仮登録時は登録ホームにリダイレクト

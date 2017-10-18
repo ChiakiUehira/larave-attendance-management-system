@@ -50,8 +50,8 @@ class UserController {
   * update (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()
-    const rules = this.userContext.storeRules()
-    const context = this.userContext.storeContext(req)
+    const rules = this.userContext.updateRules()
+    const context = this.userContext.updateContext(req)
     const validation = yield Validator.validateAll(context, rules)
     const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {

@@ -10,10 +10,10 @@ class UserService {
   }
 
   * getById (id) {
-    const user = yield UserModel.query().where('id', id).with('group').fetch()
+    const user = yield UserModel.query().where('id', Number(id)).with('group').first()
     return user
   }
-  * getByEmail (email){
+  * getByEmail (email) {
     const user = yield UserModel.findBy('email', email)
     return user
   }

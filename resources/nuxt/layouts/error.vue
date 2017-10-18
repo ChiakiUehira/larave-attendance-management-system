@@ -1,19 +1,17 @@
-{{{{raw}}}}
 <template>
   <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" />
-    <h1 class="title">
-      {{ error.statusCode }}
-    </h1>
-    <h2 class="info">
-      {{ error.message }}
-    </h2>
-    <nuxt-link class="button" to="/" v-if="error.statusCode === 404">
-      Homepage
-    </nuxt-link>
+    <div class="inner">
+      <div class="contents">
+        <h1 class="title">
+          {{ error.statusCode }}
+        </h1>
+        <h2 class="info">
+          {{ error.message }}
+        </h2>
+      </div>
+    </div>
   </section>
 </template>
-{{{{/raw}}}}
 <script>
 export default {
   props: ['error']
@@ -21,19 +19,27 @@ export default {
 </script>
 
 <style scoped>
-.title
-{
-  margin-top: 15px;
-  font-size: 5em;
+.container {
+  background: #f9f9f9;
+  width: 100vw;
+  height: 100vh;
+  display: table;
 }
-.info
-{
-  font-weight: 300;
-  color: #9aabb1;
-  margin: 0;
+.container .inner {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
-.button
-{
-  margin-top: 50px;
+.container .contents {
+  background: #324157;
+  max-width: 800px;
+  width: 100%;
+  display: inline-block;
+  padding: 30px;
+  color: #fff;
+}
+.container .title {
+  font-size: 2rem;
+  margin-bottom: 30px;
 }
 </style>

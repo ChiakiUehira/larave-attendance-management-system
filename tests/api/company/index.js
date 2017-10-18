@@ -4,9 +4,9 @@ const { _login, _company } = require('../../context')
 var http
 
 test.before(t => {
-  return axios.post('http://localhost:3333/api/v1/login', _login).then(({status, data}) => {
+  return axios.post('http://0.0.0.0:3333/api/v1/login', _login).then(({status, data}) => {
     http = axios.create({
-      baseURL: 'http://localhost:3333/api/v1',
+      baseURL: 'http://0.0.0.0:3333/api/v1',
       headers: {
         'Authorization': `Bearer ${data.token}`
       }

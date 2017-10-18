@@ -1,10 +1,13 @@
 <template>
   <div>
     <el-menu theme="dark" class="el-menu-vertical" :router="true" :collapse="isCollapse">
-      <el-menu-item index="/me">
-        <i class="el-icon-star-off"></i>
-        <span slot="title">Me</span>
-      </el-menu-item>
+      <div class="profile">
+        <div class="profile__image">
+          <nuxt-link :to="`/me`">
+            <img :src="me.thumbnail" alt="">
+          </nuxt-link>
+        </div>
+      </div>
       <el-menu-item index="/">
         <i class="el-icon-menu"></i>
         <span slot="title">Home</span>
@@ -40,11 +43,13 @@ export default {
     },
     isManeger () {
       return this.$store.state.isManager
+    },
+    me () {
+      return this.$store.state.me
     }
   }
 }
 </script>
-
 <style>
   .el-menu {
     border-radius: 0;
@@ -58,5 +63,21 @@ export default {
   }
   .el-menu-vertical:not(.el-menu--collapse) {
     width: 220px;
+  }
+</style>
+
+<style scoped>
+  .profile {
+    text-align: center;
+    padding: 20px 0 20px;
+    background: #2d3a4c;
+  }
+  .profile__image {
+    width: 100px;
+    display: inline-block;
+  }
+  .profile__image img {
+    border: 5px solid #334257;
+    border-radius: 100%;
   }
 </style>
