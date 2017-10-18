@@ -4,9 +4,9 @@ const { _login, _user } = require('../../context')
 var http
 
 test.before(t => {
-  return axios.post('http://localhost:3333/api/v1/login', _login).then(({status, data}) => {
+  return axios.post('http://0.0.0.0:3333/api/v1/login', _login).then(({status, data}) => {
     http = axios.create({
-      baseURL: 'http://localhost:3333/api/v1',
+      baseURL: 'http://0.0.0.0:3333/api/v1',
       headers: {
         'Authorization': `Bearer ${data.token}`
       }
@@ -38,9 +38,9 @@ test('ユーザ編集', async t => {
   t.is(status, 200)
 })
 
-test('ユーザ削除', async t => {
-  const { data } = await http.get('/user')
-  const [user] = data.users
-  const { status } = await http.delete(`/user/${user.id}`)
-  t.is(status, 200)
-})
+// test('ユーザ削除', async t => {
+//   const { data } = await http.get('/user')
+//   const [user] = data.users
+//   const { status } = await http.delete(`/user/${user.id}`)
+//   t.is(status, 200)
+// })

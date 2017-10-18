@@ -1,10 +1,10 @@
 <template>
   <div>
-    <contents-name name="ユーザ詳細" />
+    <contents-name name="マイページ" />
     <div class="page">
       <div class="contents">
         <div class="image">
-          <img :src="user.thumbnail" alt="">
+          <img :src="me.thumbnail" alt="">
         </div>
         <div class="profile">
           <div class="rows">
@@ -45,6 +45,11 @@
                 <div>{{authority}}</div>
               </div>
           </div>
+          <div class="btns">
+            <div>
+              <nuxt-link :to="`/me/edit`"><el-button type="primary" icon="edit"></el-button></nuxt-link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -58,42 +63,41 @@ export default {
     ContentsName
   },
   computed: {
+    me () {
+      return this.$store.state.me
+    },
     fullname () {
-      return `${this.user.last_name} ${this.user.first_name}`
+      return `${this.me.last_name} ${this.me.first_name}`
     },
     fullnameKana () {
-      return `${this.user.last_name_kana} ${this.user.first_name_kana}`
+      return `${this.me.last_name_kana} ${this.me.first_name_kana}`
     },
     position () {
-      return this.user.position
+      return this.me.position
     },
     email () {
-      return this.user.email
+      return this.me.email
     },
     tel () {
-      return this.user.tel
+      return this.me.tel
     },
     gender () {
-      return this.user.gender === 'male' ? '男性' : '女性'
+      return this.me.gender === 'male' ? '男性' : '女性'
     },
     authority () {
-      return this.user.manager_flag === 'manager' ? 'マネージャー' : '一般ユーザ'
+      return this.me.manager_flag === 'manager' ? 'マネージャー' : '一般ユーザ'
     },
     address () {
-      return `〒${this.user.postal_code} ${this.user.address}`
+      return `〒${this.me.postal_code} ${this.me.address}`
     },
     birthday () {
-      return moment(this.user.birthday).format("YYYY年MM月DD日")
-    },
-    user () {
-      const id = this.$route.params.id
-      return this.$store.state.users.find(user => user.id === Number(id))
-    },
+      return moment(this.me.birthday).format("YYYY年MM月DD日")
+    }
   },
-  async fetch({app,store}){
-    if (!store.state.users) {
-      const { data } = await app.$http.get('/user')
-      store.commit('SET_USERS', data.users)
+  async fetch ({app, store}) {
+    if (!store.state.me) {
+      const { data } = await app.$http.get('/me')
+      store.commit('SET_ME', data.me)
     }
   }
 }
@@ -132,5 +136,9 @@ export default {
   }
   .profile .row div:last-child {
     padding: 15px 10px;
+  }
+  .btns {
+    margin-top: 10px;
+    text-align: right;
   }
 </style>
