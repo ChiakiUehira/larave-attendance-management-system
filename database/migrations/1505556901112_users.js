@@ -8,6 +8,7 @@ class UsersTableSchema extends Schema {
       table.increments()
       table.integer('company_id').unsigned().notNullable()
       table.integer('group_id').unsigned().notNullable()
+      table.integer('url_token_id').unsigned()
       table.string('last_name').notNullable()
       table.string('first_name').notNullable()
       table.string('last_name_kana')
