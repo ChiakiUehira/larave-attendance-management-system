@@ -1,5 +1,6 @@
 const Validator = use('Validator')
 const User = use('App/Model/User')
+const UrlToken = use('App/Model/UrlToken')
 const UserService = require('../../Service/UserService')
 const TokenServce = require('../../Service/TokenService')
 const HttpService = require('../../Service/HttpService')
@@ -15,12 +16,10 @@ class RegisterController {
   }
 
   * index (req, res) {
-    const id = req.input('id')
-    const token = req.input('t')
-    const user = yield User.find(id)
+    const token = yield UrlToken.findBy('token',req.input('t'))
+    const user = yield token.user().fetch()
 
-    const hasUrlToken = yield this.tokenService.hasUrlToken(id, token)
-    if (!hasUrlToken) {
+    if (!user) {
       return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
 

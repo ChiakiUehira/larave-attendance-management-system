@@ -11,24 +11,22 @@ class TokenService {
     urltoken.user_id = user.id
     urltoken.token = uid(16)
     yield urltoken.save()
+    yield urltoken.user().save(user)
     return urltoken
-  }
-
-  * hasUrlToken(id,token){
-    const user = yield User.find(id)
-    const urlToken = yield user.urlToken().fetch()
-    return urlToken.token === token
   }
 
   * getUrlToken(user){
     const urlToken = yield user.urlToken().fetch()
     return urlToken.token
   }
+
   * deleteUrlToken(id){
     const user = yield User.find(id)
     const urlToken = yield user.urlToken().fetch()
-    yield urlToken.delete()
-    return 
+    if(urlToken){
+      yield urlToken.delete()
+    }
+    return
   }
 }
 
