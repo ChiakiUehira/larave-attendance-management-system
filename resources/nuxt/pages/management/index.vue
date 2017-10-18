@@ -1,40 +1,33 @@
 <template>
     <div class="management">
         <div class="management-item">
-            <nuxt-link to="/management/invite">
+            <nuxt-link to="/management/user">
                 <el-card>
-                    <p>ユーザ招待</p>
+                    <p>ユーザ管理</p>
                 </el-card>
             </nuxt-link>
         </div>
         <div class="management-item">
             <nuxt-link to="/management/news">
                 <el-card>
-                    <p>ニュース投稿</p>
+                    <p>ニュース管理</p>
                 </el-card>
             </nuxt-link>
         </div>
         <div class="management-item">
-            <el-card>
-                <p>打刻申請</p>
-            </el-card>
+            <nuxt-link to="/management/company">
+                <el-card>
+                    <p>企業管理</p>
+                </el-card>
+            </nuxt-link>
         </div>
         <div class="management-item">
-            <el-card>
-                <p>企業情報変更</p>
-            </el-card>
+            <nuxt-link to="/management/clockin">
+                <el-card>
+                    <p>打刻管理</p>
+                </el-card>
+            </nuxt-link>
         </div>
-        <div class="management-item">
-            <el-card>
-                <p>ユーザ情報変更</p>
-            </el-card>
-        </div>
-        <div class="management-item">
-            <el-card>
-                <p>退会</p>
-            </el-card>
-        </div>
-
     </div>
 </template>
 <script>
