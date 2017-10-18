@@ -63,7 +63,6 @@
                             <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
                             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
-
                     </td>
                 </tr>
                 <tr>
@@ -185,7 +184,6 @@
         this.context.group_id = ""
       },
       handleAvatarSuccess(res, file) {
-        console.log(res)
         this.context.thumbnail = res.dataUrl
       },
       beforeAvatarUpload(file) {

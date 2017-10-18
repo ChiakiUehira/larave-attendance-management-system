@@ -17,7 +17,7 @@ class RegisterController {
   * index (req, res) {
     const id = req.input('id')
     const token = req.input('t')
-    const user = yield this.userService.getById(id)
+    const user = yield User.find(id)
 
     const hasUrlToken = yield this.tokenService.hasUrlToken(id, token)
     if (!hasUrlToken) {
@@ -32,7 +32,7 @@ class RegisterController {
   }
 
   * store (req, res) {
-    const user = yield this.userService.getById(req.input('user_id'))
+    const user = yield User.find(req.input('user_id'))
     const rules = this.userContext.storeRules()
     const context = this.userContext.storeContext(req)
     context.registered = true

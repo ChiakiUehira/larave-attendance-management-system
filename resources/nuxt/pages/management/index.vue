@@ -1,12 +1,19 @@
 <template>
     <div class="management">
-        <nuxt-link to="/management/invite">
-            <div class="management-item">
+        <div class="management-item">
+            <nuxt-link to="/management/invite">
                 <el-card>
                     <p>ユーザ招待</p>
                 </el-card>
-            </div>
-        </nuxt-link>
+            </nuxt-link>
+        </div>
+        <div class="management-item">
+            <nuxt-link to="/management/news">
+                <el-card>
+                    <p>ニュース投稿</p>
+                </el-card>
+            </nuxt-link>
+        </div>
         <div class="management-item">
             <el-card>
                 <p>打刻申請</p>
@@ -14,7 +21,7 @@
         </div>
         <div class="management-item">
             <el-card>
-                <p>グループ作成</p>
+                <p>企業情報変更</p>
             </el-card>
         </div>
         <div class="management-item">
@@ -22,6 +29,12 @@
                 <p>ユーザ情報変更</p>
             </el-card>
         </div>
+        <div class="management-item">
+            <el-card>
+                <p>退会</p>
+            </el-card>
+        </div>
+
     </div>
 </template>
 <script>
@@ -49,11 +62,12 @@
         -webkit-transition: ease .3s;
         -moz-transition: ease .3s;
         transition: ease .3s;
-        box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
         border-radius: 4px;
     }
-    .management-item:hover{
-        box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+
+    .management-item:hover {
+        box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
     }
 
     .management-item:nth-child(2n) {
@@ -69,6 +83,6 @@
         text-align: center;
         font-size: 20px;
         letter-spacing: 2px;
-        color:#8a8a8a;
+        color: #8a8a8a;
     }
 </style>
