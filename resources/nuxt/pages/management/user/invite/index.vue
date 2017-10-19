@@ -114,9 +114,8 @@
   export default {
     async asyncData({app}){
       const {data} = await app.$http.get('group')
-      var groups = []
-      data.groups.forEach((group, index) => {
-        groups[index] = {value: group.id, label: group.name}
+      const groups = data.groups.map((group) => {
+          return {value: group.id, label: group.name}
       })
       return {groups: groups}
     },
