@@ -40,5 +40,12 @@ jobs:
           command: yarn serve:dev
           background: true
       - run: yarn test
+      - run:
+          name: Heroku Upload
+          command:
+            git init
+            git add -A
+            git commit -m 'heroku'
+            pit push https://git.heroku.com/job-dev.git master
 
 
