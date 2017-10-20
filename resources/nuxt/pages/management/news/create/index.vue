@@ -1,5 +1,7 @@
 <template>
     <section name="news" class="news">
+        <el-button @click="post">投稿</el-button>
+        <el-input placeholder="タイトル" v-model="title"></el-input>
         <h3>※投稿はマークダウン形式になります</h3>
         <div class="before">
             <textarea name="" rows="28" class="before-edit" v-model="before">
@@ -19,6 +21,7 @@
   export default{
     data(){
       return {
+        title: '',
         before: `## 今日のお話
 うんたらかんたらうんたらかんたら<br>
 こんな感じで記事をかく
@@ -40,11 +43,25 @@
       after(){
         return marked(this.before)
       }
+    },
+    methods:{
+      async post(){
+        const {data} = await this.$http.post('news',{title:this.title, detail:this.after})
+        if(data.success){
+          // 投稿したニュースの詳細ページに飛ばす
+        }
+      }
     }
   }
 </script>
 
 <style scoped>
+    .el-button{
+        margin-bottom:10px;
+    }
+    .el-input{
+        margin-bottom:20px;
+    }
     h3 {
         color: rgb(131, 145, 165);
         margin-bottom: 10px;
