@@ -40,8 +40,3 @@ jobs:
           command: yarn serve:dev
           background: true
       - run: yarn test
-      - deployment:
-          staging:
-            branch: dev
-            heroku:
-              appname: job-dev
