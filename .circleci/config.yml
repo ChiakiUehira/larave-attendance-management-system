@@ -43,9 +43,9 @@ jobs:
       - run:
           name: Heroku Upload
           command:
-            git init
-            git add -A
-            git commit -m 'heroku'
-            pit push https://git.heroku.com/job-dev.git master
+            - git init
+            - git add -A
+            - git commit -m 'heroku'
+            - git push https://git.heroku.com/job-dev.git master
 
 
