@@ -40,3 +40,5 @@ jobs:
           command: yarn serve:dev
           background: true
       - run: yarn test
+    heroku:
+      appname: job-dev

@@ -1,5 +1,0 @@
-deployment:
-  staging:
-    branch: dev
-    heroku:
-      appname: job-dev
