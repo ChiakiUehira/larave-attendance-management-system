@@ -34,8 +34,15 @@
         </div>
       </div>
       <div class="contents">
-        <div class="user-warp" v-for="user in displayUsers" :key="user.id">
-          <user-card :user="user" />
+        <div v-if="displayUsers.length">
+          <div class="user-warp" v-for="user in displayUsers" :key="user.id">
+            <user-card :user="user" />
+          </div>
+        </div>
+        <div v-else>
+          <div class="inner">
+            hoge
+          </div>
         </div>
       </div>
     </div>

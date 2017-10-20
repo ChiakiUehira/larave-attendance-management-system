@@ -8,42 +8,7 @@
         </div>
         <div class="profile">
           <div class="rows">
-              <div class="row">
-                <div>名前</div>
-                <div>{{fullname}}</div>
-              </div>
-              <div class="row">
-                <div>名前 (かな)</div>
-                <div>{{fullnameKana}}</div>
-              </div>
-              <div class="row">
-                <div>住所</div>
-                <div>{{address}}</div>
-              </div>
-              <div class="row">
-                <div>生年月日</div>
-                <div>{{birthday}}</div>
-              </div>
-              <div class="row">
-                <div>性別</div>
-                <div>{{gender}}</div>
-              </div>
-              <div class="row">
-                <div>メールアドレス</div>
-                <div>{{email}}</div>
-              </div>
-              <div class="row">
-                <div>電話番号</div>
-                <div>{{tel}}</div>
-              </div>
-              <div class="row">
-                <div>役職</div>
-                <div>{{position}}</div>
-              </div>
-              <div class="row">
-                <div>権限</div>
-                <div>{{authority}}</div>
-              </div>
+            <my-row v-for="data in toObjects" :key="data.id" :data="data" />
           </div>
           <div class="btns">
             <div>
@@ -57,10 +22,12 @@
 </template>
 <script>
 import ContentsName from '@/components/ContentsName.vue'
+import MyRow from '@/components/MyRow.vue'
 import moment from 'moment'
 export default {
   components: {
-    ContentsName
+    ContentsName,
+    MyRow
   },
   computed: {
     me () {
@@ -91,7 +58,47 @@ export default {
       return `〒${this.me.postal_code} ${this.me.address}`
     },
     birthday () {
-      return moment(this.me.birthday).format("YYYY年MM月DD日")
+      return
+    },
+    toObjects () {
+      return [
+        {
+          label: '名前',
+          value: this.fullname,
+        },
+        {
+          label: '名前 (かな)',
+          value: this.fullnameKana,
+        },
+        {
+          label: '住所',
+          value: this.address,
+        },
+        {
+          label: '生年月日',
+          value: this.birthday,
+        },
+        {
+          label: '性別',
+          value: this.gender,
+        },
+        {
+          label: 'メールアドレス',
+          value: this.email,
+        },
+        {
+          label: '電話番号',
+          value: this.tel,
+        },
+        {
+          label: '役職',
+          value: this.position,
+        },
+        {
+          label: '権限',
+          value: this.authority,
+        }
+      ]
     }
   },
   async fetch ({app, store}) {
@@ -119,23 +126,6 @@ export default {
     display: inline-block;
     width: calc(100% - 300px - 10px);
     vertical-align: top;
-  }
-  .profile .row {
-    background: #fff;
-    letter-spacing: 1px;
-  }
-  .profile .row:not(:last-child) {
-    margin-bottom: 10px;
-  }
-  .profile .row div {
-    padding: 10px;
-  }
-  .profile .row div:first-child {
-    font-size: 12px;
-    background: #efefef;
-  }
-  .profile .row div:last-child {
-    padding: 15px 10px;
   }
   .btns {
     margin-top: 10px;
