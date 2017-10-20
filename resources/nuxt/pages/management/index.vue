@@ -1,81 +1,65 @@
 <template>
-    <div class="management">
-        <div class="management-item">
-            <nuxt-link to="/management/user">
-                <el-card>
-                    <p>ユーザ管理</p>
-                </el-card>
-            </nuxt-link>
+  <section>
+    <contents-name name="マネジメント" />
+    <div class="page">
+      <div class="contents">
+        <div class="management">
+          <div class="management-item" v-for="link in links" :key="link.id">
+            <my-link-card :link="link" />
+          </div>
         </div>
-        <div class="management-item">
-            <nuxt-link to="/management/news">
-                <el-card>
-                    <p>ニュース管理</p>
-                </el-card>
-            </nuxt-link>
-        </div>
-        <div class="management-item">
-            <nuxt-link to="/management/company">
-                <el-card>
-                    <p>企業管理</p>
-                </el-card>
-            </nuxt-link>
-        </div>
-        <div class="management-item">
-            <nuxt-link to="/management/clockin">
-                <el-card>
-                    <p>打刻管理</p>
-                </el-card>
-            </nuxt-link>
-        </div>
+      </div>
     </div>
+  </section>
 </template>
 <script>
-  export default {
-    computed: {
-      me () {
-        return this.$store.state.me
-      }
-    },
-    async fetch ({app, store}) {
-      if (!store.state.me) {
-        const {data} = await app.$http.get('/me')
-        store.commit('SET_ME', data.me)
-      }
+import ContentsName from '@/components/ContentsName.vue'
+import MyLinkCard from '@/components/MyLinkCard.vue'
+export default {
+  components: {
+      MyLinkCard,
+      ContentsName
+  },
+  computed: {
+    links () {
+      return [
+        {
+          name: 'ユーザ管理',
+          href: '/management/user'
+        },
+        {
+          name: 'ニュース管理',
+          href: '/management/news'
+        },
+        {
+          name: '企業管理',
+          href: '/management/company'
+        },
+        {
+          name: '打刻管理',
+          href: '/management/clockin'
+        },
+      ]
     }
   }
+}
 </script>
 
 <style scoped>
-    .management-item {
-        width: 49%;
-        display: inline-block;
-        margin-bottom: 25px;
-        box-sizing: border-box;
-        -webkit-transition: ease .3s;
-        -moz-transition: ease .3s;
-        transition: ease .3s;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-        border-radius: 4px;
-    }
-
-    .management-item:hover {
-        box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-    }
-
-    .management-item:nth-child(2n) {
-        margin-left: 2%;
-    }
-
-    .el-card {
-        width: 100%;
-        padding: 60px 0px;
-    }
-
-    .el-card p {
-        text-align: center;
-        font-size: 20px;
-        letter-spacing: 2px;
-        color: #8a8a8a;
-    }
+  .page {
+    border-radius: 2px;
+  }
+  .management {
+    background: #fff;
+    padding: 30px;
+    padding-bottom: 5px;
+  }
+  .management-item {
+      width: 49%;
+      display: inline-block;
+      margin-bottom: 25px;
+  }
+  .management-item:nth-child(2n) {
+      margin-left: 2%;
+  }
 </style>
