@@ -1,9 +1,8 @@
 'use strict'
 
-const Jimp = require("jimp");
+const Jimp = require('jimp')
 
 class ImageService {
-
   * resize (readPath, savePath) {
     yield Jimp.read(readPath).then((image) => {
       image

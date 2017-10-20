@@ -7,7 +7,6 @@ const HttpService = require('../../Service/HttpService')
 const UserContext = require('../Contexts/UserContext')
 
 class RegisterController {
-
   constructor () {
     this.userService = new UserService()
     this.tokenService = new TokenServce()
@@ -16,7 +15,7 @@ class RegisterController {
   }
 
   * index (req, res) {
-    const token = yield UrlToken.findBy('token',req.input('t'))
+    const token = yield UrlToken.findBy('token', req.input('t'))
     const user = yield token.user().fetch()
 
     if (!user) {

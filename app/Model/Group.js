@@ -10,7 +10,7 @@ class Group extends Lucid {
   users () {
     return this.hasMany('App/Model/User')
   }
-  company (){
+  company () {
     return this.belongsTo('App/Model/Company')
   }
 }

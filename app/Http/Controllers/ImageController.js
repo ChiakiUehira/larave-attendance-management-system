@@ -1,8 +1,7 @@
 const HttpService = require('../../Service/HttpService')
 const ImgService = require('../../Service/ImageService')
 const uid = require('rand-token').uid
-const fs = require('fs');
-
+const fs = require('fs')
 
 class ImageController {
   constructor () {
@@ -15,13 +14,14 @@ class ImageController {
     const token = uid(16)
     const randPath = `/tmp/${token}.${img.extension()}`
 
-    yield this.imgService.resize(img.tmpPath(),randPath)
+    yield this.imgService.resize(img.tmpPath(), randPath)
 
     fs.readFile(randPath, (err, data) => {
       if (err) {
         this.httpService.failed(res, {error: err})
       }
-      const dataUrl = `data:${img.mimeType()};base64,${data.toString('base64')}`//todo 要修正　再現性はないが、たまにバグる
+      // todo 要修正!再現性はないが、たまにバグる
+      const dataUrl = `data:${img.mimeType()};base64,${data.toString('base64')}`
       this.httpService.success(res, {dataUrl: dataUrl})
     })
   }

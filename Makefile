@@ -37,7 +37,7 @@ fixer:
 
 #  standard
 lint:
-	npm run lint
+	docker exec -it app npm run lint
 
 # test
 test:

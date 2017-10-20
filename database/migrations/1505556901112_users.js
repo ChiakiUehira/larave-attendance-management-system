@@ -26,7 +26,6 @@ class UsersTableSchema extends Schema {
       table.boolean('registered').defaultTo(false)
       table.timestamps()
       table.softDeletes()
-
     })
   }
 

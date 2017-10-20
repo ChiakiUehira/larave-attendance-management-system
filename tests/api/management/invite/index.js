@@ -18,4 +18,3 @@ test('ユーザ招待', async t => {
   const { data } = await http.post('manager/invite', _user)
   t.is(data.success, true)
 })
-

@@ -28,7 +28,7 @@ exports._company = {
   company_name_kana: 'カブシキガイシャ サトウ',
   address: '大阪府堺市南区',
   tel: '08012341234',
-  email: 'info@sisukai.com',
+  email: 'info@sisukai.com'
 }
 
 exports._news = {

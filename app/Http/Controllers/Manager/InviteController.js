@@ -26,12 +26,12 @@ class InviteController {
       return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
 
-    if(user){
-      if(user.registered) {
-        //本登録済み
+    if (user) {
+      if (user.registered) {
+        // 本登録済み
         return this.httpService.failed(res, {message: 'overlapping'}, 403)
-      }else{
-        //仮登録状態の場合レコードを上書きして招待メールを送る
+      } else {
+        // 仮登録状態の場合レコードを上書きして招待メールを送る
         yield this.tokenService.deleteUrlToken(user.id)
         user.fill(context)
         yield user.save()

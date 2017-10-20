@@ -17,7 +17,7 @@ class LoginController {
         const user = yield UserModel.query().where('email', email).first()
         if (!user.registered) {
           const urlToken = yield this.tokenService.getUrlToken(user)
-          return this.httpService.failed(res, {message: 'notRegistered',t:urlToken, id:user.id}, 401)
+          return this.httpService.failed(res, {message: 'notRegistered', t: urlToken, id: user.id}, 401)
         }
         const token = yield req.auth.generate(user)
         return this.httpService.success(res, {user, token})

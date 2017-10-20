@@ -5,7 +5,6 @@ const uid = require('rand-token').uid
 const UrlToken = require('../Model/UrlToken')
 
 class TokenService {
-
   * storeUrlToken (user) {
     const urltoken = new UrlToken()
     urltoken.user_id = user.id
@@ -15,18 +14,17 @@ class TokenService {
     return urltoken
   }
 
-  * getUrlToken(user){
+  * getUrlToken (user) {
     const urlToken = yield user.urlToken().fetch()
     return urlToken.token
   }
 
-  * deleteUrlToken(id){
+  * deleteUrlToken (id) {
     const user = yield User.find(id)
     const urlToken = yield user.urlToken().fetch()
-    if(urlToken){
+    if (urlToken) {
       yield urlToken.delete()
     }
-    return
   }
 }
 

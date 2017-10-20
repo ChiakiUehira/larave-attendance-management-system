@@ -12,7 +12,7 @@ class Company extends Lucid {
   news () {
     return this.hasMany('App/Model/News')
   }
-  groups (){
+  groups () {
     return this.hasMany('App/Model/Group')
   }
 }
