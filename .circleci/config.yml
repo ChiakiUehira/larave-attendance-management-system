@@ -42,10 +42,10 @@ jobs:
       - run: yarn test
       - run:
           name: Heroku Upload
-          commands:
-            - git init
-            - git add -A
-            - git commit -m 'heroku'
-            - git push https://git.heroku.com/job-dev.git master
+          command: |
+            git init
+            git add -A
+            git commit -m 'heroku'
+            git push https://git.heroku.com/job-dev.git master
 
 
