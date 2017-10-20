@@ -9,6 +9,9 @@
           </div>
           <div class="btns">
             <div>
+              <el-button type="danger" icon="delete" @click="open"></el-button>
+            </div>
+            <div>
               <nuxt-link :to="`/management/company/edit`"><el-button type="primary" icon="edit"></el-button></nuxt-link>
             </div>
           </div>
@@ -30,6 +33,27 @@ export default {
     if (!store.state.company) {
       const { data } = await app.$http.get('/company')
       store.commit('SET_COMPANY', data.company)
+    }
+  },
+  methods: {
+    open () {
+        this.$confirm('会社を削除するとアプリケーションが使えなくなります', '会社を削除しますか？', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$http.delete('company').then(({data}) => {
+            this.$message({
+              type: 'success',
+              message: '削除しました',
+              onClose () {
+                window.location = '/'
+              }
+            });
+          })
+        }).catch(() => {
+          this.$message({type: 'warning',message: 'キャンセルしました'});
+        });
     }
   },
   computed: {
@@ -74,5 +98,9 @@ export default {
   .btns {
     margin-top: 10px;
     text-align: right;
+  }
+  .btns div {
+    display: inline-block;
+    margin-left: 10px;
   }
 </style>
