@@ -46,8 +46,9 @@ jobs:
             git init
             git config --global user.email "heroku.testaccount@oicjob.local"
             git config --global user.name "Heroku"
+            git remote add origin https://git.heroku.com/job-dev.git
             git add -A
             git commit -m 'heroku'
-            git push https://git.heroku.com/job-dev.git dev
+            git push -f origin dev
 
 
