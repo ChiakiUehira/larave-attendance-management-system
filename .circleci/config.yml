@@ -43,12 +43,9 @@ jobs:
       - run:
           name: Heroku Upload
           command: |
-            git init
             git config --global user.email "heroku.testaccount@oicjob.local"
             git config --global user.name "Heroku"
             git remote add heroku https://git.heroku.com/job-dev.git
-            git add -A
-            git commit -m 'heroku'
             git push -f heroku dev
 
 
