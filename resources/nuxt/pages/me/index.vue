@@ -58,7 +58,7 @@ export default {
       return `〒${this.me.postal_code} ${this.me.address}`
     },
     birthday () {
-      return
+      return moment(this.me.birthday).format("YYYY年MM月DD日")
     },
     toObjects () {
       return [

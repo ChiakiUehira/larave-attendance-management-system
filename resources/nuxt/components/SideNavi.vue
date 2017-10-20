@@ -80,4 +80,9 @@ export default {
     border: 5px solid #334257;
     border-radius: 100%;
   }
+  @media screen and (max-width: 959px){
+    .profile__image {
+      width: 50px;
+    }
+  }
 </style>
