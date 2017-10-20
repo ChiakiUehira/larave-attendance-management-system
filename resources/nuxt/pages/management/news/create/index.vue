@@ -1,6 +1,5 @@
 <template>
     <section name="news" class="news">
-        <el-button @click="post">投稿</el-button>
         <el-input placeholder="タイトル" v-model="title"></el-input>
         <h3>※投稿はマークダウン形式になります</h3>
         <div class="before">
@@ -11,6 +10,7 @@
         <div class="after markdown-body" v-html="after">
 
         </div>
+        <el-button @click="post">投稿</el-button>
     </section>
 </template>
 
@@ -57,7 +57,7 @@
 
 <style scoped>
     .el-button{
-        margin-bottom:10px;
+        margin-top:10px;
     }
     .el-input{
         margin-bottom:20px;
@@ -99,11 +99,12 @@
     .after {
         display: inline-block;
         width: 49.5%;
-        height: 100%;
+        height: 82vh;
         margin-left: 1%;
         vertical-align: top;
         letter-spacing: 2px;
         color:#334257;
+        overflow: scroll;
     }
 </style>
 <style>
