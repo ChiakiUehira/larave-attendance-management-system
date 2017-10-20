@@ -1,60 +1,34 @@
 <template>
-    <section>
-        <div class="management-item">
-            <nuxt-link to="/management/news/create">
-                <el-card>
-                    <p>投稿</p>
-                </el-card>
-            </nuxt-link>
-        </div>
-
-        <div class="management-item">
-            <nuxt-link to="/management/user/edit">
-                <el-card>
-                    <p>編集</p>
-                </el-card>
-            </nuxt-link>
-        </div>
-        <div class="management-item">
-            <nuxt-link to="/management/user/delete">
-                <el-card>
-                    <p>削除</p>
-                </el-card>
-            </nuxt-link>
-        </div>
-    </section>
+  <div>
+    <nuxt-link to="/management/news/create">
+      <el-button type="primary" icon="edit"></el-button>
+    </nuxt-link>
+      <news-card v-for="item in news" :key="item.id" :news="item" type="management"/>
+  </div>
 </template>
+<script>
+  import NewsCard from '~/components/NewsCard'
+  export default {
+    components: {
+      NewsCard
+    },
+    computed: {
+      news () {
+        return this.$store.state.news
+      }
+    },
+    async fetch ({app, store}) {
+      if (!store.state.news) {
+        const {data} = await app.$http.get('/news')
+        store.commit('SET_NEWS', data.news)
+      }
+    }
+  }
+</script>
 
 <style scoped>
-    .management-item {
-        width: 49%;
-        display: inline-block;
-        margin-bottom: 25px;
-        box-sizing: border-box;
-        -webkit-transition: ease .3s;
-        -moz-transition: ease .3s;
-        transition: ease .3s;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-        border-radius: 4px;
-    }
-
-    .management-item:hover {
-        box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-    }
-
-    .management-item:nth-child(2n) {
-        margin-left: 2%;
-    }
-
-    .el-card {
-        width: 100%;
-        padding: 60px 0px;
-    }
-
-    .el-card p {
-        text-align: center;
-        font-size: 20px;
-        letter-spacing: 2px;
-        color: #8a8a8a;
+    .el-button {
+        margin-bottom: 10px;
+        margin-left: calc(100% - 46px);
     }
 </style>
