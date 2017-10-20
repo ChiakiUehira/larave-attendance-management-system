@@ -1,6 +1,14 @@
 <template>
   <div class="news">
-    <nuxt-link :to="`/news/${news.id}`">
+    <nuxt-link :to="`/management/news/${news.id}`" v-if="type === 'management'">
+      <div>
+        <h1>{{news.title}}</h1>
+        <hr>
+        <p>{{news.detail}}</p>
+        <span>{{news.updated_at}}</span>
+      </div>
+    </nuxt-link>
+    <nuxt-link :to="`/news/${news.id}`" v-else>
       <div>
         <h1>{{news.title}}</h1>
         <hr>
@@ -13,7 +21,7 @@
 
 <script>
   export default {
-    props:['news']
+    props:['news','type']
   }
 </script>
 
