@@ -48,6 +48,6 @@ jobs:
             git config --global user.name "Heroku"
             git add -A
             git commit -m 'heroku'
-            git push https://git.heroku.com/job-dev.git master
+            git push https://git.heroku.com/job-dev.git dev
 
 
