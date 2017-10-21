@@ -4,7 +4,7 @@
             <nuxt-link :to="`/management/news/edit/${news.id}`" class="edit">
                 <el-button icon="edit"></el-button>
             </nuxt-link>
-            <el-button icon="delete"></el-button>
+            <el-button icon="delete" @click="deleteNews"></el-button>
         </div>
         <div class="markdown-body">
             <h1>{{news.title}}</h1>
@@ -30,6 +30,33 @@
       if (!store.state.news) {
         const {data} = await app.$http.get('/news')
         store.commit('SET_NEWS', data.news)
+      }
+    },
+    methods:{
+      deleteNews(){
+        this.open()
+      },
+      open () {
+        this.$confirm('削除するとこのニュースは見れなくなります','ニュースを削除しますか？', {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$http.delete(`/news/${this.news.id}`).then(({data}) => {
+            this.$message({
+              type: 'success',
+              message: '削除しました',
+            });
+            this.fetchNews()
+            this.$router.push('/management/news')
+          })
+        }).catch(() => {
+          this.$message({type: 'warning',message: 'キャンセルしました'});
+        });
+      },
+      async fetchNews (){
+        const {data} = await this.$http.get('/news')
+        this.$store.commit('SET_NEWS', data.news)
       }
     }
   }
