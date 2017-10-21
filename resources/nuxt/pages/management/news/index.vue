@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <nuxt-link to="/management/news/create">
-      <el-button type="primary" icon="edit"></el-button>
-    </nuxt-link>
-      <news-card v-for="item in news" :key="item.id" :news="item" type="management"/>
-  </div>
+    <div>
+        <nuxt-link to="/management/news/create">
+            <el-button icon="edit"></el-button>
+        </nuxt-link>
+        <news-card v-for="item in news" :key="item.id" :news="item" type="management"/>
+    </div>
 </template>
 <script>
   import NewsCard from '~/components/NewsCard'
