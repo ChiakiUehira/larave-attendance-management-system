@@ -4,16 +4,14 @@
       <div>
         <h1>{{news.title}}</h1>
         <hr>
-        <p>{{news.detail}}</p>
-        <span>{{news.updated_at}}</span>
+        <!--<span>{{news.updated_at}}</span>-->
       </div>
     </nuxt-link>
     <nuxt-link :to="`/news/${news.id}`" v-else>
       <div>
         <h1>{{news.title}}</h1>
         <hr>
-        <p>{{news.detail}}</p>
-        <span>{{news.updated_at}}</span>
+        <!--<span>{{news.updated_at}}</span>-->
       </div>
     </nuxt-link>
   </div>
