@@ -7,14 +7,13 @@
 </template>
 
 <script>
+  import { remove } from '../../../utils/Token'
   export default {
     name: 'logout',
     methods: {
       logout(){
-        this.$store.commit('SET_IS_LOGIN', false)
-        this.$store.commit('SET_TOKEN', false)
-        document.cookie = '__t='
-        location.href = '/login'
+        remove()
+        window.location.reload()
       }
     }
   }

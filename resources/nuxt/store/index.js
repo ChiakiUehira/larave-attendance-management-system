@@ -1,6 +1,6 @@
 export const state = () => ({
   device: 'pc',
-  token: 0,
+  token: null,
   isLoading: false,
   isLogin: false,
   isManager: false,

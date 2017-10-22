@@ -24,6 +24,7 @@
 import ContentsName from '@/components/ContentsName.vue'
 import MyRow from '@/components/MyRow.vue'
 import moment from 'moment'
+import { remove } from '../../../../../utils/Token'
 export default {
   components: {
     ContentsName,
@@ -47,6 +48,7 @@ export default {
               type: 'success',
               message: '削除しました',
               onClose () {
+                remove()
                 window.location = '/'
               }
             });

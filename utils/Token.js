@@ -1,19 +1,19 @@
 
+const cookie = require('cookie')
+const jsCookie = require('js-cookie')
+
 export const setToken = (token) => {
-  document.cookie = `__t=${token}`
+  return jsCookie.set('__t', token)
 }
 
 export const getToken = (req) => {
-  if (!req.headers.cookie) return ''
-  const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('__t='))
-  if (!jwtCookie) return ''
-  const token = jwtCookie.split('=')[1]
-  return token
+  return cookie.parse(req.headers.cookie).__t
 }
 
 export const hasToken = (req) => {
-  if (!req.headers.cookie) return false
-  const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('__t='))
-  if (!jwtCookie) return false
-  return true
+  return Boolean(cookie.parse(req.headers.cookie).__t)
+}
+
+export const remove = () => {
+  return jsCookie.remove('__t')
 }
