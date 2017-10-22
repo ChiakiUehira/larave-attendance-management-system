@@ -47,10 +47,10 @@ class CompanyController {
   * destroy (req, res) {
     const loginUser = yield req.auth.getUser()
     const company = yield this.companyService.getCompanyFromUser(loginUser)
-    if (!company) {
+    const isSuccess = yield this.companyService.destroy(company)
+    if (!isSuccess) {
       return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
-    yield company.delete()
     return this.httpService.success(res)
   }
 }

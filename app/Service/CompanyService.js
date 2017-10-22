@@ -32,6 +32,12 @@ class CompanyService {
       return {}
     }
   }
+
+  * destroy (company) {
+    yield company.users().delete()
+    yield company.delete()
+    return true
+  }
 }
 
 module.exports = CompanyService
