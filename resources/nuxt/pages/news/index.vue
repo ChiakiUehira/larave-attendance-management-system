@@ -38,6 +38,6 @@ export default {
   .contents {
     border-radius: 2px;
     background-color: #fff;
-    padding: 30px;
+    padding: 30px 30px 1px;
   }
 </style>
