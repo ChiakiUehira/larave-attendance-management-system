@@ -1,6 +1,6 @@
 <template>
 <div>
-  <contents-name :name="`ニュース / ${news.title}`" />
+  <contents-name :name="`ニュース一覧 / ${news.title}`" />
     <div class="page">
       <div class="contents">
         {{news.detail}}

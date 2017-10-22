@@ -1,6 +1,6 @@
 <template>
 <div>
-  <contents-name name="ニュース" />
+  <contents-name name="ニュース一覧" />
     <div class="page">
       <div class="contents">
         <div v-for="item in news" :key="item.id" >

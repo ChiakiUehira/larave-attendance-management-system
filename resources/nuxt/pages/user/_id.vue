@@ -1,6 +1,6 @@
 <template>
   <div>
-    <contents-name name="ユーザ詳細" />
+    <contents-name :name="`ユーザ一覧 / ${fullname}`" />
     <div class="page">
       <div class="contents">
         <div class="image">
