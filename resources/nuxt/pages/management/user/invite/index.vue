@@ -184,6 +184,7 @@
       },
       handleAvatarSuccess(res, file) {
         this.context.thumbnail = res.dataUrl
+        this.$store.commit('SET_IS_LOADING', false)
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -195,6 +196,7 @@
         if (!isLt2M) {
           this.$message.error('Avatar picture size can not exceed 2MB!');
         }
+        this.$store.commit('SET_IS_LOADING', true)
         return isJPG && isLt2M;
       }
     }

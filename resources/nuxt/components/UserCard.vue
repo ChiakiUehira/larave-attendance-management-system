@@ -1,6 +1,23 @@
 <template>
   <div class="user">
-    <nuxt-link :to="`/user/${user.id}`">
+    <nuxt-link :to="`/management/user/${user.id}`" v-if="isManagament">
+      <div class="cell image">
+        <img :src="user.thumbnail" alt="">
+      </div>
+      <div class="cell profile">
+        <span class="group">{{user.group.name}} - {{user.position}}</span>
+        <h1>{{`${user.last_name} ${user.first_name}`}}</h1>
+        <hr>
+        <div>
+          <div class="condition">
+            <el-tag class="tag" type="gray">退席中</el-tag>
+            <i class="icon-rate-face-1"></i>
+            不調
+          </div>
+        </div>
+      </div>
+    </nuxt-link>
+    <nuxt-link :to="`/user/${user.id}`" v-else>
       <div class="cell image">
         <img :src="user.thumbnail" alt="">
       </div>
@@ -22,11 +39,16 @@
 
 <script>
   export default {
-    props:['user'],
+    props:['user', 'type'],
     name:'user-card',
     data () {
       return {
         option: 2
+      }
+    },
+    computed:{
+      isManagament(){
+        return this.type === 'management'
       }
     }
   }
