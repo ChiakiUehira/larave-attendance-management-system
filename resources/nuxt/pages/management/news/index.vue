@@ -3,7 +3,11 @@
         <nuxt-link to="/management/news/create">
             <el-button icon="edit"></el-button>
         </nuxt-link>
-        <news-card v-for="item in news" :key="item.id" :news="item" type="management"/>
+        <div v-for="item in news" :key="item.id" >
+          <nuxt-link :to="`/management/news/${item.id}`">
+            <news-card :news="item"/>
+          </nuxt-link>
+        </div>
     </div>
 </template>
 <script>

@@ -1,38 +1,26 @@
 <template>
   <div class="news">
-    <nuxt-link :to="`/management/news/${news.id}`" v-if="type === 'management'">
-      <div>
-        <h1>{{news.title}}</h1>
-        <hr>
-        <!--<span>{{news.updated_at}}</span>-->
-      </div>
-    </nuxt-link>
-    <nuxt-link :to="`/news/${news.id}`" v-else>
-      <div>
-        <h1>{{news.title}}</h1>
-        <hr>
-        <!--<span>{{news.updated_at}}</span>-->
-      </div>
-    </nuxt-link>
+    <h1>{{news.title}}</h1>
+    <hr>
+    <span>{{news.updated_at}}</span>
   </div>
 </template>
 
 <script>
   export default {
-    props:['news','type']
+    props:['news']
   }
 </script>
 
 <style scoped>
   .news {
-    border: 1px solid #d1dbe5;
+    border: 1px solid #ccc;
     border-radius: 2px;
     background-color: #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
     margin-bottom: 30px;
-    -webkit-transition: ease .3s;
-    -moz-transition: ease .3s;
-    transition: ease .3s;
+    transition: .3s ease;
+    padding: 15px 25px;
   }
   .news:hover {
     box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
@@ -40,10 +28,6 @@
   .news hr {
     border:0;
     border-bottom: 2px solid #e4e4e4;
-  }
-  .news a {
-    display: block;
-    padding: 15px 25px;
   }
   .news h1 {
     font-size: 25px;

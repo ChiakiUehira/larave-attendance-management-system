@@ -1,13 +1,24 @@
 <template>
 <div>
-  <news-card v-for="item in news" :key="item.id" :news="item"/>
+  <contents-name name="ニュース" />
+    <div class="page">
+      <div class="contents">
+        <div v-for="item in news" :key="item.id" >
+          <nuxt-link :to="`/news/${item.id}`">
+            <news-card :news="item"/>
+          </nuxt-link>
+        </div>
+      </div>
+    </div>
 </div>
 </template>
 <script>
 import NewsCard from '~/components/NewsCard'
+import ContentsName from '@/components/ContentsName.vue'
 export default {
   components: {
-    NewsCard
+    NewsCard,
+    ContentsName
   },
   computed: {
     news () {
@@ -24,4 +35,9 @@ export default {
 </script>
 
 <style scoped>
+  .contents {
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 30px;
+  }
 </style>
