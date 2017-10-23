@@ -1,121 +1,96 @@
 <template>
     <section>
+        <contents-name name="ユーザ招待"></contents-name>
         <div class="invite-form">
-            <table>
-                <tr>
-                    <th>苗字</th>
-                    <td>
-                        <el-input placeholder="苗字" v-model="context.last_name"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>名前</th>
-                    <td>
-                        <el-input placeholder="名前" v-model="context.first_name"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>苗字（カナ）</th>
-                    <td>
-                        <el-input placeholder="苗字（カナ）" v-model="context.last_name_kana"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>名前（カナ）</th>
-                    <td>
-                        <el-input placeholder="名前（カナ）" v-model="context.first_name_kana"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Eメール</th>
-                    <td>
-                        <el-input placeholder="Eメール" v-model="context.email"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>性別</th>
-                    <td>
-                        <el-radio class="radio" v-model="context.gender" label="male">男性</el-radio>
-                        <el-radio class="radio" v-model="context.gender" label="female">女性</el-radio>
-                    </td>
-                </tr>
-                <tr>
-                    <th>マネージャフラグ</th>
-                    <td>
-                        <el-input placeholder="マネージャフラグ" v-model="context.manager_flag"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>電話番号</th>
-                    <td>
-                        <el-input placeholder="電話番号" v-model="context.tel"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>サムネイル</th>
-                    <td>
-                        <el-upload
-                                class="avatar-uploader"
-                                action="//0.0.0.0:3333/api/v1/image/resize"
-                                :show-file-list="false"
-                                :on-success="handleAvatarSuccess"
-                                :before-upload="beforeAvatarUpload">
-                            <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
-                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                        </el-upload>
-                    </td>
-                </tr>
-                <tr>
-                    <th>住所</th>
-                    <td>
-                        <el-input placeholder="住所" v-model="context.address"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>郵便番号</th>
-                    <td>
-                        <el-input placeholder="郵便番号" v-model="context.postal_code"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>パスワード</th>
-                    <td>
-                        <el-input placeholder="パスワード" v-model="context.password"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>役職</th>
-                    <td>
-                        <el-input placeholder="役職" v-model="context.position"></el-input>
-                    </td>
-                </tr>
-                <tr>
-                    <th>グループ</th>
-                    <td>
-                        <el-select v-model="context.group_id" placeholder="Select">
-                            <el-option
-                                    v-for="item in groups"
-                                    action="http://0.0.0.0:3333"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </td>
-                </tr>
-            </table>
-            <div class="invite-button">
-                <el-button @click="invite">招待</el-button>
-            </div>
+            <el-form ref="form" label-width="150px">
+                <el-form-item label="苗字" required>
+                    <el-input placeholder="Please input" v-model="context.last_name"></el-input>
+                </el-form-item>
+                <el-form-item label="名前" required>
+                    <el-input placeholder="Please input" v-model="context.first_name"></el-input>
+                </el-form-item>
+                <el-form-item label="苗字 (カナ)">
+                    <el-input placeholder="Please input" v-model="context.last_name_kana"></el-input>
+                </el-form-item>
+                <el-form-item label="名前 (カナ)">
+                    <el-input placeholder="Please input" v-model="context.first_name_kana"></el-input>
+                </el-form-item>
+                <el-form-item label="郵便番号">
+                    <el-input placeholder="Please input" v-model="context.postal_code"></el-input>
+                </el-form-item>
+                <el-form-item label="住所">
+                    <el-input placeholder="Please input" v-model="context.address"></el-input>
+                </el-form-item>
+                <el-form-item label="Eメール">
+                    <el-input placeholder="Eメール" name="email" v-model="context.email"></el-input>
+                </el-form-item>
+                <el-form-item label="サムネイル">
+                    <el-upload
+                            class="avatar-uploader"
+                            action="//0.0.0.0:3333/api/v1/image/resize"
+                            :show-file-list="false"
+                            :on-success="handleAvatarSuccess"
+                            :before-upload="beforeAvatarUpload"
+                            name="thumbnail"
+                    >
+                        <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </el-form-item>
+                <el-form-item label="生年月日">
+                    <el-date-picker
+                            v-model="context.birthday"
+                            type="date"
+                            placeholder="Please input">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="性別" required>
+                    <el-radio-group v-model="context.gender">
+                        <el-radio label="male">男性</el-radio>
+                        <el-radio label="female">女性</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="電話番号">
+                    <el-input placeholder="Please input" v-model="context.tel"></el-input>
+                </el-form-item>
+                <el-form-item label="役職">
+                    <el-input placeholder="Please input" v-model="context.position"></el-input>
+                </el-form-item>
+                <el-form-item label="グループ">
+                    <el-select v-model="context.group_id" placeholder="Select">
+                        <el-option
+                                v-for="item in groups"
+                                action="http://0.0.0.0:3333"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="パスワード">
+                    <el-input placeholder="パスワード" v-model="context.password"></el-input>
+                </el-form-item>
+                <el-form-item label="マネージャフラグ">
+                    <el-input placeholder="マネージャフラグ" v-model="context.manager_flag"></el-input>
+                </el-form-item>
+                <div class="invite-button">
+                    <el-button @click="invite" type="primary">招待</el-button>
+                </div>
+            </el-form>
         </div>
     </section>
 </template>
 <script>
+  import ContentsName from '~/components/ContentsName.vue'
+  import moment from 'moment'
   export default {
+    components: {
+      ContentsName
+    },
     async asyncData({app}){
       const {data} = await app.$http.get('group')
       const groups = data.groups.map((group) => {
-          return {value: group.id, label: group.name}
+        return {value: group.id, label: group.name}
       })
       return {groups: groups}
     },
@@ -135,7 +110,8 @@
           "thumbnail": "",
           "tel": "123-4567",
           "position": "係長",
-          "group_id": ""
+          "group_id": "",
+          "birthday": ""
         },
         isSend: false
       }
@@ -145,6 +121,7 @@
         if (!this.isSend) {
           this.isSend = true;
           this.$store.commit('SET_IS_LOADING', true)
+          this.context.birthday = this.birthdayFormat(this.context.birthday)
           const {data} = await this.$http.post('/manager/invite', this.context).catch(err => {
             if (err.response.data.message === 'overlapping') {
               this.isSend = false;
@@ -166,6 +143,9 @@
           }
         }
       },
+      birthdayFormat(birthday){
+        return moment(birthday).format("YYYY-MM-DD")
+      },
       clear(){
         this.context.last_name = ""
         this.context.first_name = ""
@@ -181,6 +161,7 @@
         this.context.tel = ""
         this.context.position = ""
         this.context.group_id = ""
+        this.context.birthday = ""
       },
       handleAvatarSuccess(res, file) {
         this.context.thumbnail = res.dataUrl
@@ -207,30 +188,17 @@
     .invite-form {
         margin: 0 auto;
         width: 100%;
-        padding: 40px 120px;
         position: relative;
-    }
-
-    .invite-form table {
-        width: 100%;
         background: #fff;
+        box-sizing: border-box;
     }
 
-    .invite-form table th {
-        border: 1px solid #ccc;
-        width: 20%;
-        color: #777;
-    }
-
-    .invite-form table td {
-        padding: 15px;
-        border: 1px solid #ccc;
-        width: 80%;
+    .el-form {
+        padding: 20px;
     }
 
     .invite-button {
-        margin-top: 20px;
-        margin-left: 90%;
+        margin-left: calc(100% - 60px);
     }
 </style>
 

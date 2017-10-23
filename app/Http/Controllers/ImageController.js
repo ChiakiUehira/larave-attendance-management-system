@@ -10,7 +10,7 @@ class ImageController {
   }
 
   * resize (req, res) {
-    const img = req.file('file')
+    const img = req.file('thumbnail')
     const token = uid(16)
     const randPath = `/tmp/${token}.${img.extension()}`
 
