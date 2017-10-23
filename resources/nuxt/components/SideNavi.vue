@@ -9,23 +9,23 @@
         </div>
       </div>
       <el-menu-item index="/">
-        <i class="el-icon-menu"></i>
+        <i class="fa fa-home"></i>
         <span slot="title">Home</span>
       </el-menu-item>
       <el-menu-item index="/news">
-        <i class="el-icon-information"></i>
+        <i class="fa fa-th-list"></i>
         <span slot="title">News</span>
       </el-menu-item>
       <el-menu-item index="/state">
-        <i class="el-icon-time"></i>
+        <i class="fa fa-clock-o"></i>
         <span slot="title">State</span>
       </el-menu-item>
       <el-menu-item index="/report">
-        <i class="el-icon-document"></i>
+        <i class="fa fa-bar-chart"></i>
         <span slot="title">Report</span>
       </el-menu-item>
       <el-menu-item v-if="isManeger" index="/management">
-        <i class="el-icon-setting"></i>
+        <i class="fa fa-cog"></i>
         <span slot="title">Management</span>
       </el-menu-item>
     </el-menu>
@@ -67,6 +67,11 @@ export default {
 </style>
 
 <style scoped>
+  i.fa {
+    margin-right: 5px;
+    width: 24px;
+    text-align: center;
+  }
   .profile {
     text-align: center;
     padding: 20px 0 20px;
