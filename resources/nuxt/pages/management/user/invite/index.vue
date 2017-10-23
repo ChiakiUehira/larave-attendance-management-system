@@ -25,17 +25,7 @@
                     <el-input placeholder="Eメール" name="email" v-model="context.email"></el-input>
                 </el-form-item>
                 <el-form-item label="サムネイル">
-                    <el-upload
-                            class="avatar-uploader"
-                            action="//0.0.0.0:3333/api/v1/image/resize"
-                            :show-file-list="false"
-                            :on-success="handleAvatarSuccess"
-                            :before-upload="beforeAvatarUpload"
-                            name="thumbnail"
-                    >
-                        <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                    <uploader :thumbnail="context.thumbnail" @uploaded="uploaded"></uploader>
                 </el-form-item>
                 <el-form-item label="生年月日">
                     <el-date-picker
@@ -82,10 +72,12 @@
 </template>
 <script>
   import ContentsName from '~/components/ContentsName.vue'
+  import Uploader from '~/components/Uploader.vue'
   import moment from 'moment'
   export default {
     components: {
-      ContentsName
+      ContentsName,
+      Uploader
     },
     async asyncData({app}){
       const {data} = await app.$http.get('group')
@@ -179,6 +171,9 @@
         }
         this.$store.commit('SET_IS_LOADING', true)
         return isJPG && isLt2M;
+      },
+      uploaded(dataUrl){
+        this.context.thumbnail = dataUrl
       }
     }
   }
@@ -199,34 +194,5 @@
 
     .invite-button {
         margin-left: calc(100% - 60px);
-    }
-</style>
-
-<style>
-    .avatar-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .avatar-uploader .el-upload:hover {
-        border-color: #20a0ff;
-    }
-
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
-    }
-
-    .avatar {
-        width: 178px;
-        height: 178px;
-        display: block;
     }
 </style>

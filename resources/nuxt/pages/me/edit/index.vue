@@ -4,14 +4,7 @@
     <div class="page">
       <div class="contents">
         <div class="image">
-          <el-upload
-          class="avatar-uploader"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          :before-upload="beforeAvatarUpload">
-          <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+          <uploader :thumbnail="context.thumbnail" @uploaded="uploaded"></uploader>
         </div>
         <div class="profile">
           <el-form ref="form" label-width="120px">
@@ -63,7 +56,8 @@
   </div>
 </template>
 <script>
-import ContentsName from '@/components/ContentsName.vue'
+import ContentsName from '~/components/ContentsName.vue'
+import Uploader from '~/components/Uploader.vue'
 import moment from 'moment'
 export default {
   data () {
@@ -72,7 +66,8 @@ export default {
     }
   },
   components: {
-    ContentsName
+    ContentsName,
+    Uploader
   },
   async asyncData ({app}) {
     const { data } = await app.$http.get('/me')
@@ -95,6 +90,7 @@ export default {
         this.$http.put(`/user/${this.me.id}`, this.context).then(({data}) => {
           this.isSend = false
           this.fetchMe()
+          this.fetchUsers()
           this.$notify.success('編集しました')
           this.$router.push('/me')
         }).catch(() => {
@@ -109,6 +105,13 @@ export default {
     async fetchMe () {
       const { data } = await this.$http.get('/me')
       this.$store.commit('SET_ME', data.me)
+    },
+    async fetchUsers () {
+      const { data } = await this.$http.get('user')
+      this.$store.commit('SET_USERS', data.users)
+    },
+    uploaded(dataUrl){
+      this.context.thumbnail = dataUrl
     }
   },
   computed: {
