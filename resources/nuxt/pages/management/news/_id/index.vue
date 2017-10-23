@@ -1,13 +1,13 @@
 <template>
     <section>
+        <contents-name :name="`ニュース一覧 / ${news.title}`" />
         <div class="nav">
             <nuxt-link :to="`/management/news/edit/${news.id}`" class="edit">
                 <el-button icon="edit"></el-button>
             </nuxt-link>
             <el-button icon="delete" @click="deleteNews"></el-button>
         </div>
-        <div class="markdown-body">
-            <h1>{{news.title}}</h1>
+        <div class="markdown-body content">
             <div v-html="detail"></div>
         </div>
     </section>
@@ -16,7 +16,11 @@
 <script>
   import mdCss from 'github-markdown-css'
   import marked from 'marked'
+  import ContentsName from '../../../../components/ContentsName.vue'
   export default{
+    components:{
+      ContentsName
+    },
     computed: {
       news () {
         const id = this.$route.params.id
@@ -62,24 +66,27 @@
   }
 </script>
 <style scoped>
+    .content{
+        padding:40px;
+        background-color: #fff;
+        box-sizing: border-box;
+    }
     .nav{
-        margin-left:83%;
-        padding-bottom:10px;
+        margin-left: calc(100% - 120px);
+        margin-bottom:10px;
+        min-width: 120px;
+        max-width: 120px;
+        text-align: center;
     }
     .edit{
         margin-right:15px;
     }
 
     .markdown-body {
+        color: #334257;
         box-sizing: border-box;
-        min-width: 200px;
-        max-width: 980px;
+        min-width: 100%;
+        max-width: 100%;
         margin: 0 auto;
-    }
-
-    @media (max-width: 767px) {
-        .markdown-body {
-            padding: 15px;
-        }
     }
 </style>
