@@ -20,5 +20,3 @@
 |
 */
 
-require('./factories/attendance')
-require('./factories/news')

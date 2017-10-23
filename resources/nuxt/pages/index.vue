@@ -166,7 +166,7 @@
   .contents {
     border-radius: 2px;
     background-color: #fff;
-    padding: 30px;
+    padding: 30px 30px 0;
   }
   .user-warp {
     width: 32%;

@@ -1,13 +1,26 @@
 <template>
-<div>
-  {{me}}
-</div>
+  <div>
+    <contents-name name="ステート" />
+    <div class="page">
+      <div class="contents">
+        <el-button type="primary" @click="start">出勤</el-button>
+        <el-button type="primary">退勤</el-button>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
+import ContentsName from '@/components/ContentsName.vue'
 export default {
+  components: {
+    ContentsName
+  },
   computed: {
-    me () {
-      return this.$store.state.me
+
+  },
+  methods: {
+    start () {
+
     }
   },
   async fetch ({app, store}) {
@@ -20,4 +33,9 @@ export default {
 </script>
 
 <style scoped>
+  .contents {
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 30px;
+  }
 </style>
