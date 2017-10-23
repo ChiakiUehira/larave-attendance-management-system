@@ -40,7 +40,9 @@
             <div class="contents">
                 <div v-if="displayUsers.length">
                     <div class="user-warp" v-for="user in displayUsers" :key="user.id">
-                        <user-card :user="user" type="management"/>
+                        <nuxt-link :to="`/management/user/${user.id}`">
+                            <user-card :user="user" type="management"/>
+                        </nuxt-link>
                     </div>
                 </div>
                 <div v-else>
@@ -144,9 +146,10 @@
 </script>
 
 <style scoped>
-    .invite{
-        margin-top:30px;
+    .invite {
+        margin-top: 30px;
     }
+
     .info {
         border-radius: 2px;
         background-color: #fff;

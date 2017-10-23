@@ -36,7 +36,9 @@
       <div class="contents">
         <div v-if="displayUsers.length">
           <div class="user-warp" v-for="user in displayUsers" :key="user.id">
-            <user-card :user="user" />
+            <nuxt-link :to="`/user/${user.id}`">
+              <user-card :user="user" />
+            </nuxt-link>
           </div>
         </div>
         <div v-else>
