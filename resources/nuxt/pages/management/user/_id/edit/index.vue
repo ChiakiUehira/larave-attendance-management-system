@@ -1,17 +1,10 @@
 <template>
     <div>
-        <contents-name name="ユーザ編集" />
+        <contents-name name="ユーザ編集"/>
         <div class="page">
             <div class="contents">
                 <div class="image">
-                    <el-upload
-                            class="avatar-uploader"
-                            :show-file-list="false"
-                            :on-success="handleAvatarSuccess"
-                            :before-upload="beforeAvatarUpload">
-                        <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
+                    <uploader :thumbnail="context.thumbnail" @uploaded="uploaded"></uploader>
                 </div>
                 <div class="profile">
                     <el-form ref="form" label-width="120px">
@@ -63,7 +56,8 @@
     </div>
 </template>
 <script>
-  import ContentsName from '@/components/ContentsName.vue'
+  import ContentsName from '~/components/ContentsName.vue'
+  import Uploader from '~/components/Uploader'
   import moment from 'moment'
   export default {
     data () {
@@ -72,10 +66,11 @@
       }
     },
     components: {
-      ContentsName
+      ContentsName,
+      Uploader
     },
-    async asyncData ({app,params}) {
-      const { data } = await app.$http.get(`/user/${params.id}`)
+    async asyncData ({app, params}) {
+      const {data} = await app.$http.get(`/user/${params.id}`)
       let context = data.user
       context.birthday = moment(context.birthday).format("YYYY-MM-DD")
       return {
@@ -101,17 +96,17 @@
         this.$router.push(`/management/user/${this.$route.params.id}`)
       },
       async fetchUser () {
-        const { data } = await this.$http.get('user')
+        const {data} = await this.$http.get('user')
         this.$store.commit('SET_USERS', data.users)
+      },
+      uploaded(dataUrl){
+        this.context.thumbnail = dataUrl
       }
     }
   }
 </script>
 
 <style scoped>
-    .page {
-        border-radius: 2px;
-    }
     .image {
         width: 300px;
         padding: 25px;
@@ -119,6 +114,10 @@
         background: #fff;
         vertical-align: top;
     }
+    .page {
+        border-radius: 2px;
+    }
+
     .profile {
         margin-left: 10px;
         display: inline-block;
@@ -127,6 +126,7 @@
         background: #fff;
         padding: 20px;
     }
+
     .btns {
         margin-top: 20px;
         text-align: right;

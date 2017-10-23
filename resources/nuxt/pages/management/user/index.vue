@@ -8,7 +8,7 @@
                     <p>アクティグユーザ数: 100</p>
                     <p>アクティグユーザ数: 100</p>
                     <nuxt-link to="/management/user/invite">
-                        <el-button icon="message" class="invite"></el-button>
+                        <div class="invite el-icon-message"></div>
                     </nuxt-link>
                 </div>
                 <div class="controller">
@@ -147,7 +147,19 @@
 
 <style scoped>
     .invite {
-        margin-top: 30px;
+        padding: 20px 20px;
+        background-color: #334257;
+        color: #b2bfcd;
+        cursor: pointer;
+        transition: .3s;
+        position: absolute;
+        bottom:0;
+        right:0;
+    }
+    .invite:hover{
+        background-color: #b2bfcd;
+        color:#334257;
+        box-sizing: border-box;
     }
 
     .info {
@@ -161,6 +173,7 @@
         vertical-align: top;
         height: 200px;
         color: #48576a;
+        position: relative;
     }
 
     .controller {
