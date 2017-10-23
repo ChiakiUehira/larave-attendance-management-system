@@ -1,5 +1,6 @@
 <template>
     <section>
+        <contents-name name="勤怠履歴"></contents-name>
         <el-tabs @tab-click="handleClick" v-model="activeName">
             <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
             <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
@@ -12,6 +13,7 @@
 <script>
   import LineChart from './_ChartComponent/Line.vue'
   import PieChart from './_ChartComponent/Pie.vue'
+  import ContentsName from '~/components/ContentsName.vue'
   export default{
     data(){
       return {
@@ -26,7 +28,8 @@
     },
     components: {
       LineChart,
-      PieChart
+      PieChart,
+      ContentsName
     },
     computed: {
       me () {
@@ -49,6 +52,6 @@
         padding:10px;
     }
     .el-card{
-        padding:80px 0px;
+        padding:40px 0px;
     }
 </style>
