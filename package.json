@@ -31,6 +31,7 @@
     "chart.js": "^2.7.0",
     "cookie": "^0.3.1",
     "csv": "^1.1.1",
+    "dotenv": "^4.0.0",
     "element-ui": "^1.4.4",
     "github-markdown-css": "^2.9.0",
     "jimp": "^0.2.28",
