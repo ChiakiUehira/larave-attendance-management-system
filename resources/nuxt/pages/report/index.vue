@@ -1,14 +1,18 @@
 <template>
     <section>
-        <contents-name name="勤怠履歴"></contents-name>
-        <el-tabs @tab-click="handleClick" v-model="activeName">
-            <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
-            <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
-        </el-tabs>
-        <el-card>
-        <components :is="currentView"></components>
-        </el-card>
-    </section>
+      <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>レポート</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+      <el-tabs @tab-click="handleClick" v-model="activeName">
+          <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
+          <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
+      </el-tabs>
+      <el-card>
+      <components :is="currentView"></components>
+      </el-card>
+  </section>
 </template>
 <script>
   import LineChart from './_ChartComponent/Line.vue'
