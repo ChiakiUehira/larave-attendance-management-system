@@ -16,13 +16,12 @@ class ImageController {
 
     yield this.imgService.resize(img.tmpPath(), randPath)
 
-    fs.readFile(randPath, (err, data) => {
+    yield fs.readFile(randPath, 'base64',(err, data) => {
       if (err) {
-        this.httpService.failed(res, {error: err})
+        return this.httpService.failed(res, {error: err})
       }
-      // todo 要修正!再現性はないが、たまにバグる
-      const dataUrl = `data:${img.mimeType()};base64,${data.toString('base64')}`
-      this.httpService.success(res, {dataUrl: dataUrl})
+      const dataUrl = `data:${img.mimeType()};base64,${data}`
+      return this.httpService.success(res, {dataUrl: dataUrl})
     })
   }
 }
