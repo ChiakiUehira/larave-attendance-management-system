@@ -1,6 +1,10 @@
 <template>
   <div>
-    <contents-name name="ステート" />
+    <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>ステート</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
     <div class="page">
       <div class="contents">
         <el-button type="primary" @click="start">出勤</el-button>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import Vue from 'vue'
 
 const instance = axios.create({
-  baseURL: 'http://0.0.0.0:3333/api/v1'
+  baseURL: `${process.env.API_URL}/api/v1/`
 })
 
 export default ({app, store}) => {

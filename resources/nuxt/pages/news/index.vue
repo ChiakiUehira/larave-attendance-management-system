@@ -1,15 +1,19 @@
 <template>
 <div>
-  <contents-name name="ニュース一覧" />
-    <div class="page">
-      <div class="contents">
-        <div v-for="item in news" :key="item.id" >
-          <nuxt-link :to="`/news/${item.id}`">
-            <news-card :news="item"/>
-          </nuxt-link>
-        </div>
+  <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>ニュース一覧</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+  <div class="page">
+    <div class="contents">
+      <div v-for="item in news" :key="item.id" >
+        <nuxt-link :to="`/news/${item.id}`">
+          <news-card :news="item"/>
+        </nuxt-link>
       </div>
     </div>
+  </div>
 </div>
 </template>
 <script>

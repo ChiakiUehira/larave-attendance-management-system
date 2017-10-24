@@ -1,12 +1,17 @@
 <template>
-<div>
-  <contents-name :name="`ニュース一覧 / ${news.title}`" />
+  <div>
+    <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/news' }">ニュース一覧</el-breadcrumb-item>
+        <el-breadcrumb-item>{{news.title}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
     <div class="page">
       <div class="contents markdown-body">
         <div v-html="detail"></div>
       </div>
     </div>
-</div>
+  </div>
 </template>
 <script>
 import marked from 'marked'
@@ -22,7 +27,7 @@ export default {
       return this.$store.state.news.find(news => news.id === Number(id))
     },
     detail (){
-      return marked(this.news.detail)
+      return marked(this.detail.detail)
     }
   },
   async fetch ({app, store}) {

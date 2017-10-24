@@ -1,6 +1,7 @@
 'use strict'
 
 const resolve = require('path').resolve
+require('dotenv').config()
 
 module.exports = {
   head: {
@@ -31,6 +32,9 @@ module.exports = {
     '~/plugins/element-ui.js',
     '~plugins/http.js'
   ],
+  env: {
+    API_URL: process.env.API_URL || 'http://localhost:3333'
+  },
   /*
   ** Global CSS
   */

@@ -1,6 +1,10 @@
 <template>
   <div>
-    <contents-name name="マイページ" />
+    <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>マイページ</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
     <div class="page">
       <div class="contents">
         <div class="image">

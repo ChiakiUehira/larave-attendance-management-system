@@ -1,6 +1,10 @@
 <template>
   <section>
-    <contents-name name="マネジメント" />
+    <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>マネジメント</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
     <div class="page">
       <div class="contents">
         <div class="management">
