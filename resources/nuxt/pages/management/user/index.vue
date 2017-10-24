@@ -3,37 +3,36 @@
         <contents-name name="ユーザ一覧"/>
         <div class="page">
             <div class="column-2">
-                <div class="info">
-                    <p>ユーザ数: 100</p>
-                    <p>アクティグユーザ数: 100</p>
-                    <p>アクティグユーザ数: 100</p>
-                    <nuxt-link to="/management/user/invite">
-                        <div class="invite el-icon-message"></div>
-                    </nuxt-link>
-                </div>
                 <div class="controller">
                     <el-form label-width="120px">
-                        <el-form-item label="ユーザ検索">
-                            <el-autocomplete
-                                    class="inline-input"
-                                    v-model="search.word"
-                                    :fetch-suggestions="querySearch"
-                                    placeholder="name"
-                                    :trigger-on-focus="false"
-                                    @select="handleSelect"
-                                    icon="search"
-                            ></el-autocomplete>
-                        </el-form-item>
-                        <el-form-item label="グループ">
-                            <el-select v-model="search.group" placeholder="グループ">
-                                <el-option label="選択なし" value=""></el-option>
-                                <el-option v-for="group in toValueFromGroups" :label="group.label" :value="group.value"
-                                           :key="group.id"></el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="アクティブ">
-                            <el-switch on-text="" off-text="" v-model="search.active"></el-switch>
-                        </el-form-item>
+                        <div class="util">
+                            <el-form-item label="ユーザ検索">
+                                <el-autocomplete
+                                        class="inline-input"
+                                        v-model="search.word"
+                                        :fetch-suggestions="querySearch"
+                                        placeholder="name"
+                                        :trigger-on-focus="false"
+                                        @select="handleSelect"
+                                        icon="search"
+                                ></el-autocomplete>
+                            </el-form-item>
+                        </div>
+                        <div class="util">
+                            <el-form-item label="グループ">
+                                <el-select v-model="search.group" placeholder="グループ">
+                                    <el-option label="選択なし" value=""></el-option>
+                                    <el-option v-for="group in toValueFromGroups" :label="group.label"
+                                               :value="group.value"
+                                               :key="group.id"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </div>
+                        <div class="util">
+                            <nuxt-link to="/management/user/invite">
+                                <div class="invite el-icon-message"> ユーザ招待</div>
+                            </nuxt-link>
+                        </div>
                     </el-form>
                 </div>
             </div>
@@ -146,42 +145,32 @@
 </script>
 
 <style scoped>
+    .util {
+        display: inline-block;
+    }
     .invite {
-        padding: 20px 20px;
         background-color: #334257;
         color: #b2bfcd;
         cursor: pointer;
         transition: .3s;
-        position: absolute;
-        bottom:0;
-        right:0;
-    }
-    .invite:hover{
-        background-color: #b2bfcd;
-        color:#334257;
-        box-sizing: border-box;
+        margin-left: 380px;
+        padding: 15px;
+        border-radius: 3px;
+        font-size:14px;
     }
 
-    .info {
-        border-radius: 2px;
-        background-color: #fff;
-        padding: 30px;
-        margin-bottom: 10px;
-        width: calc(100% - 10px - 380px);
-        margin-right: 10px;
-        display: inline-block;
-        vertical-align: top;
-        height: 200px;
-        color: #48576a;
-        position: relative;
+    .invite:hover {
+        background-color: #b2bfcd;
+        color: #334257;
+        box-sizing: border-box;
     }
 
     .controller {
         border-radius: 2px;
         background-color: #fff;
-        padding: 23px 10px 2px;
         margin-bottom: 10px;
-        width: 380px;
+        padding-top:16px;
+        width: 100%;
         display: inline-block;
         vertical-align: top;
     }
