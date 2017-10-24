@@ -33,7 +33,7 @@ module.exports = {
     '~plugins/http.js'
   ],
   env: {
-    API_URL: process.env.API_URL || 'http://localhost:3333'
+    API_URL: process.env.API_URL || 'http://0.0.0.0:3333'
   },
   /*
   ** Global CSS
