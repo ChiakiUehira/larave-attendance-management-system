@@ -74,7 +74,14 @@ module.exports = {
       user: Env.get('DB_USER', 'root'),
       password: Env.get('DB_PASSWORD', ''),
       database: Env.get('DB_DATABASE', 'adonis'),
+      timezone: 'Asia/Tokyo'
+    },
+    pool: {
+      afterCreate (connection, callback) {
+        connection.query('SET timezone="Asia/Tokyo";', (err) => {
+          callback(err, connection)
+        })
+      }
     }
   }
-
 }

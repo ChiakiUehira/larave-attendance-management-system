@@ -4,6 +4,7 @@ COPY . /home/docker/app
 
 ENV NODEJS_VERSION=v8.4.0
 ENV PATH=/apps/node/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin
+ENV TZ=Asia/Tokyo
 
 RUN yum -y install make gcc gcc-c++ && yum -y clean all
 RUN yum -y install git unzip zlib1g-dev libpq-dev

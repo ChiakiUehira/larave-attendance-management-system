@@ -12,6 +12,7 @@ services:
       - POSTGRES_DB=root
       - POSTGRES_PASSWORD=root
       - POSTGRES_USER=root
+      - TZ=Asia/Tokyo
   app:
     container_name: app
     build: ./
