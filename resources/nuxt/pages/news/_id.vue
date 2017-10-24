@@ -27,7 +27,7 @@ export default {
       return this.$store.state.news.find(news => news.id === Number(id))
     },
     detail (){
-      return marked(this.news.detail)
+      return marked(this.detail.detail)
     }
   },
   async fetch ({app, store}) {
