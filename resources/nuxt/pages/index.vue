@@ -1,6 +1,10 @@
 <template>
   <div>
-    <contents-name name="ユーザ一覧" />
+    <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>ユーザ一覧</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
     <div class="page">
       <div class="column-2">
         <div class="info">
