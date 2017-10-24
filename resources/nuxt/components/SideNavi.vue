@@ -9,23 +9,23 @@
         </div>
       </div>
       <el-menu-item index="/">
-        <i class="fa fa-home"></i>
+        <icon name="home"></icon>
         <span slot="title">Home</span>
       </el-menu-item>
       <el-menu-item index="/news">
-        <i class="fa fa-th-list"></i>
+        <icon name="list"></icon>
         <span slot="title">News</span>
       </el-menu-item>
       <el-menu-item index="/state">
-        <i class="fa fa-clock-o"></i>
+        <icon name="clock-o"></icon>
         <span slot="title">State</span>
       </el-menu-item>
       <el-menu-item index="/report">
-        <i class="fa fa-bar-chart"></i>
+        <icon name="bar-chart"></icon>
         <span slot="title">Report</span>
       </el-menu-item>
       <el-menu-item v-if="isManeger" index="/management">
-        <i class="fa fa-cog"></i>
+        <icon name="cog"></icon>
         <span slot="title">Management</span>
       </el-menu-item>
     </el-menu>
@@ -33,7 +33,12 @@
 </template>
 
 <script>
+  import 'vue-awesome/icons'
+  import Icon from 'vue-awesome/components/Icon'
 export default {
+  components: {
+    Icon
+  },
   data() {
     return {}
   },
@@ -67,7 +72,13 @@ export default {
 </style>
 
 <style scoped>
-  i.fa {
+  .fa-icon {
+    width: auto;
+    height: 1em; /* or any other relative font sizes */
+
+    /* You would have to include the following two lines to make this work in Safari */
+    max-width: 100%;
+    max-height: 100%;
     margin-right: 5px;
     width: 24px;
     text-align: center;
