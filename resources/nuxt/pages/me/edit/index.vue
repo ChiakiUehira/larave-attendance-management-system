@@ -1,6 +1,11 @@
 <template>
   <div>
-    <contents-name name="マイページ" />
+    <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/me' }">マイページ</el-breadcrumb-item>
+        <el-breadcrumb-item>編集</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
     <div class="page">
       <div class="contents">
         <div class="image">
