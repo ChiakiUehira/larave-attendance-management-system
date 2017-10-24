@@ -1,13 +1,19 @@
 <template>
     <section>
-        <contents-name :name="`ニュース一覧 / ${news.title}`" />
-        <div class="nav">
-            <nuxt-link :to="`/management/news/edit/${news.id}`" class="edit">
-                <el-button icon="edit"></el-button>
-            </nuxt-link>
-            <el-button icon="delete" @click="deleteNews"></el-button>
-        </div>
+        <contents-name :name="`ニュース一覧 / ${news.title}`"/>
         <div class="markdown-body content">
+            <div class="btns">
+                <div class="edit">
+                    <nuxt-link :to="`/management/news/${news.id}/edit/`" class="el-icon-edit">
+                        <span>編集</span>
+                    </nuxt-link>
+                </div>
+                <div class="delete" @click="deleteNews">
+                    <a href="#" class="el-icon-delete">
+                        <span>削除</span>
+                    </a>
+                </div>
+            </div>
             <div v-html="detail"></div>
         </div>
     </section>
@@ -18,7 +24,7 @@
   import marked from 'marked'
   import ContentsName from '../../../../components/ContentsName.vue'
   export default{
-    components:{
+    components: {
       ContentsName
     },
     computed: {
@@ -36,12 +42,12 @@
         store.commit('SET_NEWS', data.news)
       }
     },
-    methods:{
+    methods: {
       deleteNews(){
         this.open()
       },
       open () {
-        this.$confirm('削除するとこのニュースは見れなくなります','ニュースを削除しますか？', {
+        this.$confirm('削除するとこのニュースは見れなくなります', 'ニュースを削除しますか？', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -55,7 +61,7 @@
             this.$router.push('/management/news')
           })
         }).catch(() => {
-          this.$message({type: 'warning',message: 'キャンセルしました'});
+          this.$message({type: 'warning', message: 'キャンセルしました'});
         });
       },
       async fetchNews (){
@@ -66,22 +72,71 @@
   }
 </script>
 <style scoped>
-    .content{
-        padding:40px;
+    .content {
+        padding: 40px;
         background-color: #fff;
         box-sizing: border-box;
     }
-    .nav{
-        margin-left: calc(100% - 120px);
-        margin-bottom:10px;
-        min-width: 120px;
-        max-width: 120px;
-        text-align: center;
+    .btns{
+        width:190px;
+        margin-left:calc(100% - 190px);
     }
-    .edit{
-        margin-right:15px;
+    .edit {
+        margin-bottom: 10px;
+        background-color: #334257;
+        cursor: pointer;
+        width: 90px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #b2bfcd;
+        display: inline-block;
     }
 
+    .edit a {
+        display: block;
+        padding: 15px;
+        color: #b2bfcd;
+        transition: .3s;
+        text-decoration: none;
+    }
+
+    .edit a:hover {
+        color: #334257;
+        background: #b2bfcd;
+        border-radius: 3px;
+    }
+
+    .edit span {
+        padding-left: 10px;
+    }
+
+    .delete {
+        margin-bottom: 10px;
+        background-color: #334257;
+        cursor: pointer;
+        width: 90px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #b2bfcd;
+        display: inline-block;
+        margin-left:10px;
+    }
+    .delete a{
+        display: block;
+        width:100%;
+        padding: 15px;
+        color: #b2bfcd;
+        transition: .3s;
+        text-decoration: none;
+    }
+    .delete a:hover {
+        color: #334257;
+        background: #b2bfcd;
+        border-radius: 3px;
+    }
+    .delete span {
+        padding-left: 10px;
+    }
     .markdown-body {
         color: #334257;
         box-sizing: border-box;
