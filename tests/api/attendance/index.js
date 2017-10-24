@@ -1,11 +1,10 @@
 
-require('dotenv').config()
-
 const test = require('ava')
 const axios = require('axios')
 const { _login, _attendance_start } = require('../../context')
 let http
 
+require('dotenv').config()
 test.before(t => {
   return axios.post(`${process.env.API_URL}/api/v1/login`, _login).then(({status, data}) => {
     http = axios.create({
