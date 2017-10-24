@@ -40,7 +40,6 @@ module.exports = {
   */
   css: [
     '~assets/css/main.css',
-    '~assets/font-awesome/css/font-awesome.min.css',
     'element-ui/lib/theme-default/index.css'
   ],
   /*

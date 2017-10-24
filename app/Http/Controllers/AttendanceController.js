@@ -33,6 +33,12 @@ class AttendanceController {
     const attendance = yield this.attendanceService.start(loginUser, context)
     return this.httpService.success(res, {attendance})
   }
+  * end (req, res) {
+    const loginUser = yield req.auth.getUser()
+    const context = this.attendanceContext.endContext(req)
+    const attendance = yield this.attendanceService.end(loginUser, context)
+    return this.httpService.success(res, {attendance})
+  }
 }
 
 module.exports = AttendanceController

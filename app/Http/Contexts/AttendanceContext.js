@@ -21,6 +21,12 @@ class AttendanceContext {
       memo: req.input('memo')
     }
   }
+  endContext (req) {
+    return {
+      ended_at: moment().format('YYYY-MM-DD HH:mm'),
+      memo: req.input('memo')
+    }
+  }
 }
 
 module.exports = AttendanceContext

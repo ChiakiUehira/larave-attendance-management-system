@@ -39,5 +39,8 @@ exports._news = {
 
 exports._attendance_start = {
   memo: '今日も楽しかったです',
-  started_at: moment().format('YYYY-MM-DD HH:mm')
+}
+
+exports._attendance_end = {
+  memo: '今日も楽しかったです',
 }
