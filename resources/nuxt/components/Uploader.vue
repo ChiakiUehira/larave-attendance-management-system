@@ -1,40 +1,43 @@
 <template>
-        <el-upload
-                class="avatar-uploader"
-                :show-file-list="false"
-                action="//0.0.0.0:3333/api/v1/image/resize"
-                :on-success="handleAvatarSuccess"
-                :before-upload="beforeAvatarUpload"
-                name="thumbnail"
-        >
-            <img v-if="thumbnail" :src="thumbnail" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+    <el-upload
+            class="avatar-uploader"
+            :show-file-list="false"
+            action="//0.0.0.0:3333/api/v1/image/resize"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+            name="thumbnail"
+    >
+        <img v-if="thumbnail" :src="thumbnail" class="avatar">
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    </el-upload>
 </template>
 
 <script>
-    export default{
-      props:["thumbnail"],
-      methods:{
+  export default{
+    props: ["thumbnail"],
+    methods: {
       handleAvatarSuccess(res, file) {
         this.$emit('uploaded', res.dataUrl)
         this.$store.commit('SET_IS_LOADING', false)
       },
       beforeAvatarUpload(file) {
+        this.$store.commit('SET_IS_LOADING', true)
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
 
         if (!isJPG) {
-          this.$message.error('Avatar picture must be JPG format!');
+          this.$store.commit('SET_IS_LOADING', false)
+          this.$message.error('Avatar picture must be JPG or PNG format!');
+          return isJPG
         }
         if (!isLt2M) {
+          this.$store.commit('SET_IS_LOADING', false)
           this.$message.error('Avatar picture size can not exceed 2MB!');
+          return isLt2M
         }
-        this.$store.commit('SET_IS_LOADING', true)
-        return isJPG && isLt2M;
-      }
       }
     }
+  }
 </script>
 
 <style>
@@ -60,8 +63,8 @@
     }
 
     .avatar {
-        width: 178px;
-        height: 178px;
+        width: 250px;
+        height: 250px;
         display: block;
     }
 </style>
