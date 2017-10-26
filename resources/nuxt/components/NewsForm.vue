@@ -12,7 +12,6 @@
         </div>
 
         <div class="after markdown-body" v-html="after">
-
         </div>
         <el-button @click="edit" v-if="isEdit">編集</el-button>
         <el-button @click="post" v-else>投稿</el-button>
@@ -26,7 +25,7 @@
     props: ["type", "news"],
     computed: {
       after(){
-        return marked(this.news.detail)
+        return this.news.detail.length ? marked(this.news.detail) : "<h1>No Text</h1>"
       },
       isEdit(){
         return this.type === 'edit'
@@ -73,12 +72,16 @@
     h3 {
         color: rgb(131, 145, 165);
         margin-bottom: 10px;
+        font-size:14px;
     }
 
     .news {
-        max-width: 90%;
+        max-width: 100%;
         margin: 0 auto;
         position: relative;
+        background: #fff;
+        padding:20px;
+        box-sizing: border-box;
     }
 
     .before {

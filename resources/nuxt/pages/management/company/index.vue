@@ -1,6 +1,11 @@
 <template>
   <div>
-    <contents-name name="企業管理" />
+    <contents-name name="企業詳細">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+          <el-breadcrumb-item>企業詳細</el-breadcrumb-item>
+        </el-breadcrumb>
+    </contents-name>
     <div class="page">
       <div class="contents">
         <div class="profile">
