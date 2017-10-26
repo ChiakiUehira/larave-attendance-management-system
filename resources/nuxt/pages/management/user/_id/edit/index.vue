@@ -1,6 +1,12 @@
 <template>
     <div>
-        <contents-name name="ユーザ編集"/>
+        <contents-name name="ユーザ編集">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/management/user'}">ユーザ詳細</el-breadcrumb-item>
+                <el-breadcrumb-item>ユーザ編集</el-breadcrumb-item>
+            </el-breadcrumb>
+        </contents-name>
         <div class="page">
             <div class="contents">
                 <div class="image">

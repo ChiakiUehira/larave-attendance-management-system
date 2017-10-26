@@ -1,6 +1,12 @@
 <template>
     <section>
-        <contents-name name="ユーザ招待"></contents-name>
+        <contents-name name="ユーザ招待">
+                <el-breadcrumb separator="/">
+                    <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: '/management/user/'}">ユーザ一覧</el-breadcrumb-item>
+                    <el-breadcrumb-item>ユーザ招待</el-breadcrumb-item>
+                </el-breadcrumb>
+        </contents-name>
         <div class="invite-form">
             <el-form ref="form" label-width="150px">
                 <el-form-item label="苗字" required>
