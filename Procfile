@@ -1,2 +1,1 @@
-release: node ./ace migration:refresh && node ./ace db:seed
-web: npm run serve
+web: node ./ace migration:refresh && node ./ace db:seed && npm run serve
