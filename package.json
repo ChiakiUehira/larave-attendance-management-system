@@ -15,7 +15,7 @@
     "test": "ava --verbose",
     "lint": "standard",
     "fixer": "standard --fix",
-    "heroku-postbuild": "node ./ace nuxtbuild && NODE_ENV=production node server.js"
+    "heroku-postbuild": "node ./ace nuxtbuild"
   },
   "author": "",
   "license": "MIT",
