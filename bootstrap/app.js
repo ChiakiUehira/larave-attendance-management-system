@@ -94,6 +94,7 @@ const aliases = {
  */
 const commands = [
   'App/Commands/Greet',
+  'App/Commands/NuxtBuild',
   'Adonis/Commands/Auth:Setup',
   'Adonis/Commands/Repl',
   'Adonis/Commands/Route:List',
