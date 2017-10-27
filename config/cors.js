@@ -10,7 +10,7 @@ module.exports = {
   | define multiple origins as string.
   |
   */
-  origin: false,
+  origin: true,
 
   /*
   |--------------------------------------------------------------------------
