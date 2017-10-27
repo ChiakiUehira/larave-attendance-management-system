@@ -2,6 +2,10 @@
   "name": "adonis-app",
   "version": "3.2.1",
   "main": "server.js",
+  "engines": {
+    "node": "8.5.0",
+    "yarn": "1.0.2"
+  },
   "scripts": {
     "start": "echo \"\\033[31mWARN: 'start' will be depreciated soon. Instead use 'npm run serve'\" && npm run serve",
     "dev": "echo \"\\033[31mWARN: 'dev' will be depreciated soon. Instead use 'npm run serve:dev'\" && npm run serve:dev",
@@ -42,9 +46,10 @@
     "nuxt": "^1.0.0-rc11",
     "pg": "^7.3.0",
     "rand-token": "^0.3.0",
-    "vue": "^2.3.3",
+    "vue": "2.4.2",
     "vue-awesome": "^2.3.3",
     "vue-chartjs": "^3.0.0",
+    "vue-server-renderer":"2.4.2",
     "youch": "^2.0.4"
   },
   "standard": {

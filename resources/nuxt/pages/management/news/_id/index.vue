@@ -1,6 +1,12 @@
 <template>
     <section>
-        <contents-name :name="`ニュース一覧 / ${news.title}`"/>
+        <contents-name name="ニュース詳細">
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/management/news' }">ニュース一覧</el-breadcrumb-item>
+                <el-breadcrumb-item >ニュース詳細</el-breadcrumb-item>
+            </el-breadcrumb>
+        </contents-name>
         <div class="markdown-body content">
             <div class="btns">
                 <div class="edit">
