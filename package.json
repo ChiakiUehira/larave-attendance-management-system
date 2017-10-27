@@ -15,7 +15,7 @@
     "test": "ava --verbose",
     "lint": "standard",
     "fixer": "standard --fix",
-    "heroku-postbuild": "node ./ace nuxtbuild && cross-env NODE_ENV=production node server.js"
+    "heroku-postbuild": "node ./ace nuxtbuild && NODE_ENV=production node server.js"
   },
   "author": "",
   "license": "MIT",
@@ -46,10 +46,8 @@
     "nuxt": "^1.0.0-rc11",
     "pg": "^7.3.0",
     "rand-token": "^0.3.0",
-    "vue": "2.4.2",
     "vue-awesome": "^2.3.3",
     "vue-chartjs": "^3.0.0",
-    "vue-server-renderer":"2.4.2",
     "youch": "^2.0.4"
   },
   "standard": {
@@ -89,8 +87,6 @@
     "nodemon": "^1.11.0",
     "standard": "^10.0.1",
     "tap-nyan": "^1.1.0",
-    "vue-loader": "^12.1.0",
-    "vue-template-compiler":"2.4.2",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   }
