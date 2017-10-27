@@ -1,4 +1,3 @@
-
 const moment = require('moment')
 
 class UserContext {
@@ -13,6 +12,7 @@ class UserContext {
       group_id: 'required'
     }
   }
+
   updateRules () {
     return {
       last_name: 'required',
@@ -20,6 +20,7 @@ class UserContext {
       gender: 'required'
     }
   }
+
   storeContext (req) {
     return {
       password: req.input('password'),
@@ -39,6 +40,7 @@ class UserContext {
       group_id: req.input('group_id')
     }
   }
+
   updateContext (req) {
     return {
       tel: req.input('tel'),
@@ -51,9 +53,28 @@ class UserContext {
       thumbnail: req.input('thumbnail'),
       position: req.input('position'),
       address: req.input('address'),
-      postal_code: req.input('postal_code')
+      postal_code: req.input('postal_code'),
+      password: req.input('password') ? req.input('password') : ''
+    }
+  }
+
+  returnContext (user) {
+    return {
+      id: user.id,
+      tel: user.tel,
+      last_name: user.last_name,
+      first_name: user.first_name,
+      last_name_kana: user.last_name_kana,
+      first_name_kana: user.first_name_kana,
+      gender: user.gender,
+      birthday: user.birthday,
+      thumbnail: user.thumbnail,
+      position: user.position,
+      address: user.address,
+      postal_code: user.postal_code,
+      email: user.email,
+      password: ''
     }
   }
 }
-
 module.exports = UserContext
