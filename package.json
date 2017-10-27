@@ -15,7 +15,8 @@
     "nyan": "ava --tap | tap-nyan",
     "test": "ava --verbose",
     "lint": "standard",
-    "fixer": "standard --fix"
+    "fixer": "standard --fix",
+    "heroku-postbuild": "npm run build && npm run serve"
   },
   "author": "",
   "license": "MIT",
