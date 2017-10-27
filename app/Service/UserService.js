@@ -1,6 +1,7 @@
 'use strict'
 
 const UserModel = use('App/Model/User')
+const Hash = use('Hash')
 
 class UserService {
   * fetchUsersFromUser (user) {
@@ -26,6 +27,13 @@ class UserService {
 
   * update (id, context) {
     const user = yield this.getById(id)
+
+    if (!context.password.length) {
+      context.password = user.password
+    }else{
+      context.password = yield Hash.make(context.password)
+    }
+
     if (user) {
       user.fill(context)
       yield user.save()

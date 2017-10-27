@@ -14,7 +14,8 @@ class UserController {
 
   * me (req, res) {
     const loginUser = yield req.auth.getUser()
-    return this.httpService.success(res, {me: loginUser})
+    const context = this.userContext.returnContext(loginUser)
+    return this.httpService.success(res, {me: context})
   }
 
   * index (req, res) {

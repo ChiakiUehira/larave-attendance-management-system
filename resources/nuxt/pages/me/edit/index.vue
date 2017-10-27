@@ -50,6 +50,9 @@
             <el-form-item label="役職">
               <el-input placeholder="Please input" v-model="context.position"></el-input>
             </el-form-item>
+            <el-form-item label="パスワード">
+            <el-input placeholder="Please input" v-model="context.password"></el-input>
+          </el-form-item>
           </el-form>
         </div>
         <div class="btns">
