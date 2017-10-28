@@ -1,7 +1,6 @@
 'use strict'
 
 const resolve = require('path').resolve
-require('dotenv').config()
 
 module.exports = {
   head: {
