@@ -4,20 +4,21 @@
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{ path: '/management/news' }">ニュース一覧</el-breadcrumb-item>
-                <el-breadcrumb-item >ニュース詳細</el-breadcrumb-item>
+                <el-breadcrumb-item>ニュース詳細</el-breadcrumb-item>
             </el-breadcrumb>
         </contents-name>
         <div class="markdown-body content">
             <div v-html="detail"></div>
             <div class="btns">
-                <el-button type="primary" class="edit">
-                    <nuxt-link :to="`/management/news/${news.id}/edit/`" class="el-icon-edit">
-                    </nuxt-link>
-                </el-button>
-                <el-button type="danger" class="delete" @click="deleteNews">
-                    <a href="#" class="el-icon-delete">
-                    </a>
-                </el-button>
+                <nuxt-link :to="`/management/news/${news.id}/edit/`" class="edit">
+                    <el-button type="primary" class="el-icon-edit">
+                    </el-button>
+                </nuxt-link>
+                <a href="#" class="delete">
+                    <el-button type="danger" class="el-icon-delete" @click="deleteNews">
+                    </el-button>
+                </a>
+
             </div>
         </div>
     </section>
@@ -81,26 +82,23 @@
         background-color: #fff;
         box-sizing: border-box;
     }
-    .btns{
+
+    .btns {
         background: #fff;
-        margin-bottom:10px;
+        margin-bottom: 10px;
         position: relative;
-        margin-left:calc(100% - 102px);
+        margin-left: calc(100% - 102px);
     }
-    .btns a{
+
+    .btns a {
+        display: inline-block;
         text-decoration: none;
-        color:#fff;
+        color: #fff;
+    }
+    .delete{
+        margin-left:10px;
     }
 
-    .edit span {
-        padding-left: 10px;
-        letter-spacing: 2px;
-    }
-
-    .delete span {
-        padding-left: 10px;
-        letter-spacing: 2px;
-    }
     .markdown-body {
         color: #334257;
         box-sizing: border-box;
