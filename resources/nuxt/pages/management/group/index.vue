@@ -129,7 +129,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .groups {
         background: #fff;
         padding: 20px;
