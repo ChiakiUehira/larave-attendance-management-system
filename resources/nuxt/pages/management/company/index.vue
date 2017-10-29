@@ -6,6 +6,11 @@
           <el-breadcrumb-item>企業詳細</el-breadcrumb-item>
         </el-breadcrumb>
     </contents-name>
+    <div class="btns">
+      <nuxt-link to="/management/group" class="group-management el-icon-edit">
+        <span>グループ管理</span>
+      </nuxt-link>
+    </div>
     <div class="page">
       <div class="contents">
         <div class="profile">
@@ -96,6 +101,30 @@ export default {
 </script>
 
 <style scoped>
+  .btns{
+    background: #fff;
+    margin-bottom:10px;
+    padding:25px;
+    position: relative;
+  }
+  .group-management{
+    display: block;
+    width:150px;
+    padding: 18px;
+    background: #334257;
+    right:0px;
+    top:0px;
+    color:#b2bfcd;
+    font-size:14px;
+    position: absolute;
+    transition: ease .3s;
+  }
+  .group-management:hover{
+    background-color:#48576a;
+  }
+  .group-management span{
+    margin-left:10px;
+  }
   .page {
     border-radius: 2px;
   }

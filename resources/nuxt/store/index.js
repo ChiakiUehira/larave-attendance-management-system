@@ -36,6 +36,12 @@ export const mutations = {
   SET_GROUPS (state, payload) {
     state.groups = payload
   },
+  UPDATE_GROUPS (state, payload) {
+    state.groups.push(payload)
+  },
+  REMOVE_GROUP (state, payload) {
+    state.groups.splice(payload, 1)
+  },
   SET_COMPANY (state, payload) {
     state.company = payload
   },
