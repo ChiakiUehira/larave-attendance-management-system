@@ -56,7 +56,7 @@
                         <nuxt-link :to="`/management/user/${user.id}/edit`">
                             <el-button type="primary" icon="edit"></el-button>
                         </nuxt-link>
-                        <el-button type="primary" icon="delete" @click="open" class="delete"></el-button>
+                        <el-button type="danger" icon="delete" @click="open" class="delete"></el-button>
                     </div>
                 </div>
             </div>

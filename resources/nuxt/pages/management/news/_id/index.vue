@@ -8,19 +8,17 @@
             </el-breadcrumb>
         </contents-name>
         <div class="markdown-body content">
-            <div class="btns">
-                <div class="edit">
-                    <nuxt-link :to="`/management/news/${news.id}/edit/`" class="el-icon-edit">
-                        <span>編集</span>
-                    </nuxt-link>
-                </div>
-                <div class="delete" @click="deleteNews">
-                    <a href="#" class="el-icon-delete">
-                        <span>削除</span>
-                    </a>
-                </div>
-            </div>
             <div v-html="detail"></div>
+            <div class="btns">
+                <el-button type="primary" class="edit">
+                    <nuxt-link :to="`/management/news/${news.id}/edit/`" class="el-icon-edit">
+                    </nuxt-link>
+                </el-button>
+                <el-button type="danger" class="delete" @click="deleteNews">
+                    <a href="#" class="el-icon-delete">
+                    </a>
+                </el-button>
+            </div>
         </div>
     </section>
 </template>
@@ -84,64 +82,24 @@
         box-sizing: border-box;
     }
     .btns{
-        width:190px;
-        margin-left:calc(100% - 190px);
+        background: #fff;
+        margin-bottom:10px;
+        position: relative;
+        margin-left:calc(100% - 102px);
     }
-    .edit {
-        margin-bottom: 10px;
-        background-color: #334257;
-        cursor: pointer;
-        width: 90px;
-        border-radius: 3px;
-        font-size: 14px;
-        color: #b2bfcd;
-        display: inline-block;
-    }
-
-    .edit a {
-        display: block;
-        padding: 15px;
-        color: #b2bfcd;
-        transition: .3s;
+    .btns a{
         text-decoration: none;
-    }
-
-    .edit a:hover {
-        color: #334257;
-        background: #b2bfcd;
-        border-radius: 3px;
+        color:#fff;
     }
 
     .edit span {
         padding-left: 10px;
+        letter-spacing: 2px;
     }
 
-    .delete {
-        margin-bottom: 10px;
-        background-color: #334257;
-        cursor: pointer;
-        width: 90px;
-        border-radius: 3px;
-        font-size: 14px;
-        color: #b2bfcd;
-        display: inline-block;
-        margin-left:10px;
-    }
-    .delete a{
-        display: block;
-        width:100%;
-        padding: 15px;
-        color: #b2bfcd;
-        transition: .3s;
-        text-decoration: none;
-    }
-    .delete a:hover {
-        color: #334257;
-        background: #b2bfcd;
-        border-radius: 3px;
-    }
     .delete span {
         padding-left: 10px;
+        letter-spacing: 2px;
     }
     .markdown-body {
         color: #334257;

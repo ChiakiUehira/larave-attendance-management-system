@@ -19,10 +19,10 @@
           </div>
           <div class="btns">
             <div>
-              <el-button type="danger" icon="delete" @click="open"></el-button>
+              <nuxt-link :to="`/management/company/edit`"><el-button type="primary" icon="edit"></el-button></nuxt-link>
             </div>
             <div>
-              <nuxt-link :to="`/management/company/edit`"><el-button type="primary" icon="edit"></el-button></nuxt-link>
+              <el-button type="danger" icon="delete" @click="open"></el-button>
             </div>
           </div>
         </div>

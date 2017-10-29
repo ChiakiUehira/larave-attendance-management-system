@@ -77,6 +77,7 @@
         width:70%;
         transition: ease .3s;
         box-shadow: 3px 3px 3px black;
+        cursor: pointer;
     }
     .contents .attendance-btn:hover{
       transform: rotate(1deg);

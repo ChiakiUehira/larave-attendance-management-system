@@ -195,7 +195,7 @@
     }
 
     .el-form {
-        padding: 30px 20px;
+        padding: 40px 80px 30px 10px;
     }
 
     .invite-button {

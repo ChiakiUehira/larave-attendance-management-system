@@ -7,12 +7,14 @@
             </el-breadcrumb>
         </contents-name>
         <div class="page">
-            <div class="contents">
-                <div class="post" >
+            <div class="btn">
+                <div class="post">
                     <nuxt-link to="/management/news/create" class="el-icon-plus">
                         <span>投稿</span>
                     </nuxt-link>
                 </div>
+            </div>
+            <div class="contents">
                 <div v-for="item in news" :key="item.id">
                     <nuxt-link :to="`/management/news/${item.id}`">
                         <news-card :news="item"/>
@@ -45,30 +47,34 @@
 </script>
 
 <style scoped>
+    .btn{
+        background: #fff;
+    }
     .post {
         margin-left: calc(100% - 90px);
         display: block;
         margin-bottom: 10px;
         background-color: #334257;
         cursor: pointer;
-        width:90px;
-        border-radius: 3px;
+        width: 90px;
         font-size: 14px;
         color: #b2bfcd;
     }
-    .post a{
-        display:block;
+
+    .post a {
+        display: block;
         padding: 15px;
         color: #b2bfcd;
         transition: .3s;
     }
-    .post a:hover{
-        color: #334257;
-        background:#b2bfcd;
-        border-radius: 3px;
+
+    .post a:hover {
+        background: #48576a;
     }
-    .post span{
-        padding-left:10px;
+
+    .post span {
+        padding-left: 10px;
+        letter-spacing: 2px;
     }
 
     .contents {

@@ -33,9 +33,9 @@
       return {
         value4: null,
         tags: [
-          {name: '外出中', type: ''},
+          {name: '外出中', type: 'warning'},
           {name: '帰ったらどうぶつの森する', type: 'success'},
-          {name: 'ほげほげ', type: 'info'},
+          {name: 'ほげほげ', type: 'danger'},
           {name: 'ぴよぴよ', type: 'warning'},
           {name: 'ふがふが', type: 'danger'}
         ]
