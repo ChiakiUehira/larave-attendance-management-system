@@ -20,16 +20,11 @@
 
 <script>
   export default {
-    props:['user', 'type'],
+    props:['user'],
     name:'user-card',
     data () {
       return {
         option: 2
-      }
-    },
-    computed:{
-      isManagament(){
-        return this.type === 'management'
       }
     }
   }
