@@ -1,7 +1,6 @@
 <template>
     <section name="news" class="news">
         <el-input placeholder="タイトル" v-model="news.title"></el-input>
-        <h3>※投稿はマークダウン形式になります</h3>
         <div class="before">
             <el-input
                     type="textarea"
@@ -25,7 +24,7 @@
     props: ["type", "news"],
     computed: {
       after(){
-        return this.news.detail.length ? marked(this.news.detail) : "<h1>No Text</h1>"
+        return this.news.detail.length ? marked(this.news.detail) : "<h1>No Text</h1>　<strong>マークダウン形式の投稿が可能です</strong>"
       },
       isEdit(){
         return this.type === 'edit'
@@ -62,55 +61,33 @@
 
 <style scoped>
     .el-button {
-        margin-top: 10px;
+        margin-top: 20px;
+        margin-left:calc(100% - 60px);
     }
 
     .el-input {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
 
-    h3 {
-        color: rgb(131, 145, 165);
-        margin-bottom: 10px;
-        font-size:14px;
-    }
 
     .news {
         max-width: 100%;
         margin: 0 auto;
         position: relative;
         background: #fff;
-        padding:20px;
+        padding:30px 30px;
         box-sizing: border-box;
     }
 
     .before {
         display: inline-block;
-        width: 49.5%;
+        width: 49%;
         letter-spacing: 2px;
-    }
-
-    .before-edit {
-        resize: none;
-        width: 100%;
-        border-color: rgb(191, 203, 217);
-        border-radius: 3px;
-        outline: none;
-        transition: ease .3s;
-        box-sizing: border-box;
-        font-size: 15px;
-        color: #334257;
-        padding: 15px;
-    }
-
-    .before-edit:hover {
-        border-color: rgb(131, 145, 165);
     }
 
     .after {
         display: inline-block;
-        width: 49.5%;
-        margin-left: 1%;
+        width: 49%;
         vertical-align: top;
         letter-spacing: 2px;
         color: #334257;
@@ -121,6 +98,7 @@
         min-width: 200px;
         max-width: 980px;
         margin: 0 auto;
+        margin-left: 2%;
         font-size: 13px;
         padding: 0 20px;
     }

@@ -1,18 +1,20 @@
 <template>
-    <section>
-      <contents-name >
+  <div>
+    <contents-name >
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>レポート</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-      <el-tabs @tab-click="handleClick" v-model="activeName">
-          <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
-          <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
-      </el-tabs>
-      <el-card>
-      <components :is="currentView"></components>
-      </el-card>
-  </section>
+        <el-tabs @tab-click="handleClick" v-model="activeName">
+            <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
+            <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
+         </el-tabs>
+      <div class="contents">
+        <el-card>
+          <components :is="currentView"></components>
+        </el-card>
+      </div>
+  </div>
 </template>
 <script>
   import LineChart from './_ChartComponent/Line.vue'
@@ -50,6 +52,10 @@
 </script>
 
 <style>
+    .contents{
+        background: #fff;
+        padding:30px;
+    }
     .el-tabs{
         margin-bottom:10px;
         background: #fff;

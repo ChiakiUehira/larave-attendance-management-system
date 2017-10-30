@@ -157,7 +157,7 @@
         line-height: normal;
         font-size: 14px;
         padding: 10px;
-        background: #2E3B4C;
+        background: #334257;
     }
 
     .button-new-tag {

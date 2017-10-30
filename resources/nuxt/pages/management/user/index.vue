@@ -152,22 +152,27 @@
 <style scoped>
     .util {
         display: inline-block;
+        width:25%;
+    }
+    .util:last-child{
+        width:50%;
     }
     .invite {
         background-color: #334257;
         color: #b2bfcd;
         cursor: pointer;
         transition: .3s;
-        margin-left: 380px;
         padding: 15px;
         border-radius: 3px;
         font-size:14px;
+        margin-right:40px;
+        margin-left:auto;
+        width:120px;
+        display: block;
     }
 
     .invite:hover {
-        background-color: #b2bfcd;
-        color: #334257;
-        box-sizing: border-box;
+        background-color: #48576a;
     }
 
     .controller {
