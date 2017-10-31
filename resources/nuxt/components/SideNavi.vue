@@ -33,12 +33,7 @@
 </template>
 
 <script>
-  import 'vue-awesome/icons'
-  import Icon from 'vue-awesome/components/Icon'
 export default {
-  components: {
-    Icon
-  },
   data() {
     return {}
   },

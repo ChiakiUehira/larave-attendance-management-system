@@ -1,6 +1,7 @@
 'use strict'
 
 const resolve = require('path').resolve
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   head: {
@@ -27,9 +28,22 @@ module.exports = {
       }
     ]
   },
+  build: {
+    extend (config, { isServer }) {
+      if (isServer) {
+        config.externals = [
+          nodeExternals({
+            whitelist: [/^vue-awesome/]
+          })
+        ]
+      }
+    },
+    vendor: ['vue-awesome']
+  },
   plugins: [
     '~/plugins/element-ui.js',
-    '~plugins/http.js'
+    '~/plugins/http.js',
+    '~/plugins/vue-awesome.js'
   ],
   router: {
     middleware: ['auth']

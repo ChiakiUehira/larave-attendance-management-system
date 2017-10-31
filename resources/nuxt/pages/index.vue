@@ -55,8 +55,6 @@
 </template>
 
 <script>
-  import 'vue-awesome/icons'
-  import Icon from 'vue-awesome/components/Icon'
   import UserCard from '@/components/UserCard.vue'
   import ContentsName from '@/components/ContentsName.vue'
   export default {
@@ -71,8 +69,7 @@
     },
     components: {
       UserCard,
-      ContentsName,
-      Icon
+      ContentsName
     },
     computed: {
       groups () {
