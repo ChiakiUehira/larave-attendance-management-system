@@ -12,7 +12,7 @@
 
         <div class="after markdown-body" v-html="after">
         </div>
-        <el-button @click="edit" v-if="isEdit">編集</el-button>
+        <el-button @click="edit" v-if="isEdit">更新</el-button>
         <el-button @click="post" v-else>投稿</el-button>
     </section>
 </template>
