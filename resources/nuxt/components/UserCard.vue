@@ -62,7 +62,7 @@
   .user .cell.profile {
     width: calc(100% - 125px);
     margin-left: 125px;
-    padding: 15px 15px;
+    padding: 15.5px;
   }
   .user hr {
     border:0;

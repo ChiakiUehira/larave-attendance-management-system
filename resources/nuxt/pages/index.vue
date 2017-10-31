@@ -8,9 +8,7 @@
     <div class="page">
       <div class="column-2">
         <div class="info">
-          <p>ユーザ数: 100</p>
-          <p>アクティグユーザ数: 100</p>
-          <p>アクティグユーザ数: 100</p>
+
         </div>
         <div class="controller">
           <el-form label-width="120px">
