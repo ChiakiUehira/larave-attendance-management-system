@@ -9,10 +9,10 @@ module.exports = {
       {
         charset: 'utf-8'
       },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1'
-      },
+      // {
+      //   name: 'viewport',
+      //   content: 'width=device-width, initial-scale=1'
+      // },
       {
         hid: 'description',
         name: 'description',
@@ -31,6 +31,9 @@ module.exports = {
     '~/plugins/element-ui.js',
     '~plugins/http.js'
   ],
+  router: {
+    middleware: ['auth']
+  },
   env: {
     API_URL: process.env.API_URL || 'http://0.0.0.0:3333'
   },

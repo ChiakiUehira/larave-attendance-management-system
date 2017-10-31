@@ -16,7 +16,6 @@ import SideNavi from '~/components/SideNavi.vue'
 import MyHeader from '~/components/MyHeader.vue'
 import Loading from '~/components/Loading.vue'
 export default {
-  middleware: 'auth',
   components: {
     SideNavi,
     MyHeader,

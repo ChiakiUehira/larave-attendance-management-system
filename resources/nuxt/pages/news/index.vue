@@ -6,6 +6,14 @@
       </el-breadcrumb>
     </contents-name>
   <div class="page">
+    <div class="controllers">
+      <div class="btns">
+        <el-button-group>
+          <el-button type="primary" icon="arrow-left">Previous Page</el-button>
+          <el-button type="primary">Next Page<i class="el-icon-arrow-right el-icon-right"></i></el-button>
+        </el-button-group>
+      </div>
+    </div>
     <div class="contents">
       <div v-for="item in news" :key="item.id" >
         <nuxt-link :to="`/news/${item.id}`">
@@ -43,5 +51,13 @@ export default {
     border-radius: 2px;
     background-color: #fff;
     padding: 30px 30px 1px;
+  }
+  .controllers {
+    margin-bottom: 10px;
+    text-align: right;
+  }
+  .btns {
+    background-color: #fff;
+    padding: 10px;
   }
 </style>
