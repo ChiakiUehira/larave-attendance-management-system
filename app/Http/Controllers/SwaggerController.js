@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-yaml = require('js-yaml');
+const yaml = require('js-yaml');
 
 class SwaggerController {
   * index (req, res) {

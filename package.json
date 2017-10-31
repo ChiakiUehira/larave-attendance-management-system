@@ -47,7 +47,6 @@
     "path": "^0.12.7",
     "pg": "^7.3.0",
     "rand-token": "^0.3.0",
-    "swagger-ui-dist": "^3.4.2",
     "vue-awesome": "^2.3.3",
     "vue-chartjs": "^3.0.0",
     "youch": "^2.0.4"
