@@ -18,7 +18,6 @@
 const Route = use('Route')
 
 require('./api')
-
 require('./routes/register')
 require('./routes/swagger')
 
