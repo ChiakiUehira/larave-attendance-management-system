@@ -4,7 +4,7 @@ const NewsModel = use('App/Model/News')
 class NewsService {
   * fetchNewsFromUser (user) {
     const company = yield user.company().first()
-    const news = yield company.news().fetch()
+    const news = yield company.news().orderBy('created_at', 'desc').fetch()
     return news
   }
 
