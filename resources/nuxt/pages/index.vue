@@ -1,6 +1,6 @@
 <template>
   <div>
-    <contents-name >
+    <contents-name>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>ユーザ一覧</el-breadcrumb-item>
       </el-breadcrumb>
@@ -8,9 +8,7 @@
     <div class="page">
       <div class="column-2">
         <div class="info">
-          <p>ユーザ数: 100</p>
-          <p>アクティグユーザ数: 100</p>
-          <p>アクティグユーザ数: 100</p>
+
         </div>
         <div class="controller">
           <el-form label-width="120px">
@@ -46,8 +44,9 @@
           </div>
         </div>
         <div v-else>
-          <div class="inner">
-            hoge
+          <div class="err">
+            <p>User Not Found !</p>
+            <icon scale="8" name="frown-o"></icon>
           </div>
         </div>
       </div>
@@ -56,6 +55,8 @@
 </template>
 
 <script>
+  import 'vue-awesome/icons'
+  import Icon from 'vue-awesome/components/Icon'
   import UserCard from '@/components/UserCard.vue'
   import ContentsName from '@/components/ContentsName.vue'
   export default {
@@ -70,7 +71,8 @@
     },
     components: {
       UserCard,
-      ContentsName
+      ContentsName,
+      Icon
     },
     computed: {
       groups () {
@@ -178,6 +180,17 @@
   }
   .user-warp:not(:nth-child(3n)) {
     margin-right: 2%;
+  }
+  .err {
+    text-align: center;
+    color: #334257;
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+  .err p {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
   }
   @media screen and (max-width: 1440px){
     .user-warp {

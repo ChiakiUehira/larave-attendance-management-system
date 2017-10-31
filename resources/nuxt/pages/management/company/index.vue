@@ -48,24 +48,25 @@ export default {
   },
   methods: {
     open () {
-        this.$confirm('会社を削除するとアプリケーションが使えなくなります', '会社を削除しますか？', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$http.delete('company').then(({data}) => {
-            this.$message({
-              type: 'success',
-              message: '削除しました',
-              onClose () {
-                remove()
-                window.location = '/'
-              }
-            });
-          })
-        }).catch(() => {
-          this.$message({type: 'warning',message: 'キャンセルしました'});
-        });
+      this.$prompt('会社を削除するとアプリケーションが使えなくなります。それでもよろしいなら会社名を入力してください', '会社を削除しますか？', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        inputPattern: new RegExp(this.company.company_name),
+        inputErrorMessage: '会社名を入力してください'
+      }).then(value => {
+        this.$http.delete('company').then(({data}) => {
+          this.$message({
+            type: 'success',
+            message: '削除しました',
+            onClose () {
+              remove()
+              window.location = '/'
+            }
+          });
+        })
+      }).catch(() => {
+        this.$message({type: 'warning',message: 'キャンセルしました'});
+      });
     }
   },
   computed: {

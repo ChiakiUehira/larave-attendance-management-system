@@ -9,17 +9,16 @@
         </contents-name>
         <div class="markdown-body content">
             <div v-html="detail"></div>
-            <div class="btns">
-                <nuxt-link :to="`/management/news/${news.id}/edit/`" class="edit">
-                    <el-button type="primary" class="el-icon-edit">
-                    </el-button>
-                </nuxt-link>
-                <a href="#" class="delete">
-                    <el-button type="danger" class="el-icon-delete" @click="deleteNews">
-                    </el-button>
-                </a>
-
-            </div>
+        </div>
+        <div class="controllers">
+          <div class="btns">
+            <nuxt-link :to="`/management/news/${news.id}/edit/`" class="edit">
+                <el-button type="primary" class="el-icon-edit"></el-button>
+            </nuxt-link>
+            <a href="#" class="delete">
+                <el-button type="danger" class="el-icon-delete" @click="deleteNews"></el-button>
+            </a>
+          </div>
         </div>
     </section>
 </template>
@@ -81,13 +80,20 @@
         padding: 40px;
         background-color: #fff;
         box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .controllers {
+        text-align: right;
+        margin-top: 10px;
     }
 
     .btns {
-        background: #fff;
-        margin-bottom: 10px;
-        position: relative;
-        margin-left: calc(100% - 102px);
+      display: inline-block;
+      border-radius: 2px;
+      background-color: #fff;
+      padding: 10px;
+      vertical-align: top;
     }
 
     .btns a {

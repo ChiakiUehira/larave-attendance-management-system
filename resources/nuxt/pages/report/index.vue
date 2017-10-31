@@ -51,7 +51,7 @@
   }
 </script>
 
-<style>
+<style scoped>
     .contents{
         background: #fff;
         padding:30px;
