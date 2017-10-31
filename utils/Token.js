@@ -6,12 +6,12 @@ export const setToken = (token) => {
   return jsCookie.set('__t', token)
 }
 
-export const getToken = (req) => {
-  return cookie.parse(req.headers.cookie).__t
+export const getToken = (cookieString) => {
+  return cookie.parse(cookieString).__t
 }
 
-export const hasToken = (req) => {
-  return Boolean(cookie.parse(req.headers.cookie).__t)
+export const hasToken = (cookieString) => {
+  return Boolean(cookie.parse(cookieString).__t)
 }
 
 export const remove = () => {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <contents-name >
+    <contents-name>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>ユーザ一覧</el-breadcrumb-item>
       </el-breadcrumb>

@@ -18,6 +18,6 @@
 const Route = use('Route')
 
 require('./api')
-require('./routes/register')
+// require('./routes/register')
 
 Route.any('*', 'NuxtController.render')

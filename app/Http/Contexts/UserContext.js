@@ -71,6 +71,7 @@ class UserContext {
       thumbnail: user.thumbnail,
       position: user.position,
       address: user.address,
+      manager_flag: user.manager_flag,
       postal_code: user.postal_code,
       email: user.email,
       password: ''

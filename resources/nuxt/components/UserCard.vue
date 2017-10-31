@@ -21,7 +21,7 @@
 <script>
   export default {
     props:['user'],
-    name:'user-card',
+    name: 'user-card',
     data () {
       return {
         option: 2
