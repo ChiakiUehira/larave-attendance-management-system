@@ -7,11 +7,14 @@
             </el-breadcrumb>
         </contents-name>
         <div class="page">
-            <div class="btn">
-                <div class="post">
-                    <nuxt-link to="/management/news/create" class="el-icon-plus">
-                        <span>投稿</span>
-                    </nuxt-link>
+            <div class="controllers">
+                <div></div>
+                <div>
+                    <div class="create">
+                        <nuxt-link to="/management/news/create">
+                            <el-button type="primary">投稿</el-button>
+                        </nuxt-link>
+                    </div>
                 </div>
             </div>
             <div class="contents">
@@ -47,39 +50,33 @@
 </script>
 
 <style scoped>
-    .btn{
-        background: #fff;
-    }
-    .post {
-        margin-left: calc(100% - 90px);
-        display: block;
-        margin-bottom: 10px;
-        background-color: #334257;
-        cursor: pointer;
-        width: 90px;
-        font-size: 14px;
-        color: #b2bfcd;
-    }
-
-    .post a {
-        display: block;
-        padding: 15px;
-        color: #b2bfcd;
-        transition: .3s;
-    }
-
-    .post a:hover {
-        background: #48576a;
-    }
-
-    .post span {
-        padding-left: 10px;
-        letter-spacing: 2px;
-    }
-
     .contents {
         border-radius: 2px;
         background-color: #fff;
         padding: 30px 30px 1px;
+    }
+    .controllers {
+        margin-bottom: 10px;
+        text-align: right;
+    }
+    .controllers > div:first-child{
+        border-radius: 2px;
+        background-color: #fff;
+        padding: 10px;
+        width: 100%;
+        display: inline-block;
+        width: calc(100% - 100px - 10px);
+        margin-right: 10px;
+        height: 56px;
+        vertical-align: top;
+    }
+    .controllers > div:last-child{
+        border-radius: 2px;
+        background-color: #fff;
+        padding: 10px;
+        display: inline-block;
+        width: 100px;
+        vertical-align: top;
+        text-align: center;
     }
 </style>
