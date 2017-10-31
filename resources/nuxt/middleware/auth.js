@@ -1,10 +1,13 @@
 import { getToken, hasToken } from '../../../utils/Token'
 
-export default async function ({isServer, store, redirect, route, req, app}) {
-
-  if (isServer && !req) return
-
-  const token = isServer ? getToken(req.headers.cookie) : getToken(window.document.cookie)
+export default async ({isServer, isClient, store, redirect, route, req, app}) => {
+  let token
+  if(isServer && hasToken(req.headers.cookie)){
+      token = getToken(req.headers.cookie)
+  }
+  if(isClient && hasToken(window.document.cookie)){
+      token = getToken(window.document.cookie)
+  }
 
   if (!store.state.isLogin && token) {
     if (route.name === 'login') {
@@ -20,10 +23,7 @@ export default async function ({isServer, store, redirect, route, req, app}) {
 
     const _company = await app.$http.get('company')
     store.commit('SET_COMPANY', _company.data.company)
-
-    return
   }
-
   if (!store.state.isLogin) {
     return redirect('/login')
   }
