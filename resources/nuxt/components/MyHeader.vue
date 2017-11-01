@@ -36,7 +36,7 @@
         padding: 19px;
     }
     header h1 {
-        color: #334257;
+        color: #6b6b6b;
         font-size: 18px;
         font-weight: bold;
     }
@@ -48,7 +48,7 @@
     .timestamp-elm {
         position: absolute;
         top: 0;
-        right: 105px;
+        right: 75px;
         height: 100%;
     }
 </style>

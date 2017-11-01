@@ -34,7 +34,7 @@
 <style scoped>
   .timestamp {
     font-size: 16px;
-    color: #344258;
+    color: #6b6b6b;
     display: table;
     height: 100%;
   }

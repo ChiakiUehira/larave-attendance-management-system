@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="logout" @click="logout">
-      <span>Logout</span>
+      <icon name="sign-out" scale="2"></icon>
     </div>
   </section>
 </template>
@@ -21,13 +21,14 @@
 
 <style scoped>
   .logout {
-    padding: 20px 25px;
-    background-color: #334257;
-    color: #b2bfcd;
+    padding: 11px 20px 11px 25px;
+    background-color: #58a8ff;
+    color: #fff;
     cursor: pointer;
-    transition: .3s;
   }
   .logout:hover {
-    background-color: #48576a;
+    background: #66b1ff;
+    border-color: #66b1ff;
+    color: #fff;
   }
 </style>

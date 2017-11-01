@@ -81,14 +81,14 @@ export default {
   .profile {
     text-align: center;
     padding: 20px 0 20px;
-    background: #2d3a4c;
+    background: #ffffff;
   }
   .profile__image {
     width: 100px;
     display: inline-block;
   }
   .profile__image img {
-    border: 5px solid #334257;
+    border: 5px solid #eeeeee;
     border-radius: 100%;
   }
   @media screen and (max-width: 959px){
