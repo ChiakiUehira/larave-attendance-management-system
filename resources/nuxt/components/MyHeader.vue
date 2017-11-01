@@ -4,7 +4,7 @@
             <div class="inner">
                 <h1>{{company.company_name}}</h1>
             </div>
-            <timestamp class="timestamp-elm"/>
+            <!-- <timestamp class="timestamp-elm"/> -->
             <log-out class="logout-elm"/>
         </header>
     </div>
