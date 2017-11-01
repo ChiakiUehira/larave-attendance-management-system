@@ -32,7 +32,7 @@
 
 <style scoped>
   .user {
-    border: 1px solid #cccccc;
+    border: 1px solid #e6e6e6;
     border-radius: 2px;
     background-color: #fff;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
