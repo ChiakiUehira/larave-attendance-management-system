@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu theme="dark" class="el-menu-vertical" :router="true" :collapse="isCollapse">
+    <el-menu theme="dark" class="el-menu-vertical" :router="true" :collapse="isCollapse" text-color="#8a8a8a">
       <div class="profile">
         <div class="profile__image">
           <nuxt-link :to="`/me`">
@@ -81,7 +81,8 @@ export default {
   .profile {
     text-align: center;
     padding: 20px 0 20px;
-    background: #ffffff;
+    background: #f9f9f9;
+    border-bottom: 1px solid #e6e6e6;
   }
   .profile__image {
     width: 100px;

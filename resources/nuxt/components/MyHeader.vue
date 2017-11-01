@@ -28,17 +28,17 @@
 
 <style scoped>
     header {
-        background-color: #eeeeee;
+        background-color: #fff;
         width: 100%;
         position: relative;
+        border-bottom: 1px solid #e6e6e6;
     }
     header .inner {
         padding: 19px;
     }
     header h1 {
-        color: #6b6b6b;
+        color: #7c8085;
         font-size: 18px;
-        font-weight: bold;
     }
     .logout-elm {
         position: absolute;
