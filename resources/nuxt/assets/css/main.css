@@ -30,6 +30,7 @@ body {
 	font-kerning: normal;
 	line-height: 1;
 	background-color: #f9f9f9;
+	font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
 }
 ol, ul {
 	list-style: none;

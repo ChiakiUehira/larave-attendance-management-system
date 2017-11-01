@@ -25,6 +25,11 @@ module.exports = {
         rel: 'icon',
         type: 'image/x-icon',
         href: 'favicon.ico'
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href: '//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto%20Mono'
       }
     ]
   },
