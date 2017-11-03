@@ -1,5 +1,30 @@
 <template>
   <section class="container">
+    <div class="content">
+      <div class="content__inner">
+        <div class="content__name">
+          <h1>ログイン</h1>
+        </div>
+        <div class="content__body">
+          <el-form :label-position="labelPosition" label-width="120px" :model="formLabelAlign">
+            <el-form-item label="メールアドレス">
+              <el-input v-model="context.email"></el-input>
+            </el-form-item>
+            <el-form-item label="パスワード">
+              <el-input type="password" v-model="context.password"></el-input>
+            </el-form-item>
+          </el-form>
+          <div class="btns">
+            <el-button @click="reset">リセット</el-button>
+            <el-button type="primary" @click="submit">ログイン</el-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+  <!-- <section class="container">
     <h1>ログイン</h1>
     <div class="input">
       <el-row :gutter="20">
@@ -19,9 +44,7 @@
       <el-button @click="reset">Reset</el-button>
       <el-button type="primary" @click="submit">Submit</el-button>
     </div>
-
-  </section>
-</template>
+  </section> -->
 
 <script>
   import { setToken } from '../../../utils/Token'
@@ -75,18 +98,36 @@
 
 <style scoped>
   .container {
-    margin: 200px auto;
+    display: table;
+    width: 100vw;
+    height: 100vh;
   }
-  h1 {
-    text-align: center;
+  .content {
+    vertical-align: middle;
+    display: table-cell;
+  }
+  .content__inner {
+    width: 700px;
+    margin: 0 auto;
+    border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+  }
+  .content__name {
+    background-color: #419dff;
+    padding: 50px 40px;
+  }
+  .content__name h1{
     font-size: 25px;
-    color: #324157;
+    color: #fff;
+    letter-spacing: 2px;
   }
-  .input {
-    margin: 25px 0;
+  .content__body {
+    padding: 50px 50px 30px;
   }
   .btns {
-    text-align: center;
+    text-align: right;
   }
 </style>
 
