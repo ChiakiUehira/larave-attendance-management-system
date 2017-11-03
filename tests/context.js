@@ -1,5 +1,4 @@
 require('ava')
-const moment = require('moment')
 
 exports._login = {
   email: 'sisukai2017@gmail.com',
@@ -38,9 +37,9 @@ exports._news = {
 }
 
 exports._attendance_start = {
-  memo: '今日も楽しかったです',
+  memo: '今日も楽しかったです'
 }
 
 exports._attendance_end = {
-  memo: '今日も楽しかったです',
+  memo: '今日も楽しかったです'
 }

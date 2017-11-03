@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
-const yaml = require('js-yaml');
-const JsonRefs = require('json-refs')
+// const yaml = require('js-yaml')
+// const JsonRefs = require('json-refs')
 
 class SwaggerController {
   * index (req, res) {
@@ -9,7 +9,7 @@ class SwaggerController {
   }
 
   * show (req, res) {
-    //　showの修正完了したら消す
+    // showの修正完了したら消す
     const filePath = path.resolve(__dirname, '../../../document/result/app.json')
     const doc = fs.readFileSync(filePath, 'utf8')
     res.json(doc)
@@ -33,4 +33,3 @@ class SwaggerController {
 }
 
 module.exports = SwaggerController
-

@@ -37,8 +37,8 @@ class InviteController {
         yield this.mailService.invite(user_id, token, user.email)
         return this.httpService.success(res)
       }
-    }else{
-      //未登録
+    } else {
+      // 未登録
       const loginUser = yield req.auth.getUser()
       const company = yield this.companyService.getCompanyFromUser(loginUser)
       const newUser = yield this.userService.store(company, context)

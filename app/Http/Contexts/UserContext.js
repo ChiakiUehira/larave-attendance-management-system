@@ -42,7 +42,7 @@ class UserContext {
       first_name_kana: req.input('first_name_kana'),
       gender: req.input('gender') ? req.input('gender') : null,
       birthday: req.input('birthday') ? moment(req.input('birthday')).format() : null,
-      thumbnail: req.input('thumbnail') ? req.input('thumbnail'): null,
+      thumbnail: req.input('thumbnail') ? req.input('thumbnail') : null,
       position: req.input('position'),
       address: req.input('address') ? req.input('address') : null,
       postal_code: req.input('postal_code') ? req.input('postal') : null,

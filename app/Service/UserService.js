@@ -30,7 +30,7 @@ class UserService {
 
     if (!context.password.length) {
       context.password = user.password
-    }else{
+    } else {
       context.password = yield Hash.make(context.password)
     }
 

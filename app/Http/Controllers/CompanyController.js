@@ -15,9 +15,9 @@ class CompanyController {
     const loginUser = yield req.auth.getUser()
     const company = yield this.companyService.getCompanyFromUser(loginUser)
     if (!company) {
-      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
+      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
     }
-    return this.httpService.success(res, {company})
+    return this.httpService.success(res, { company })
   }
 
   // apiではいらない
@@ -38,10 +38,10 @@ class CompanyController {
     const context = this.companyContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
-      return this.httpService.failed(res, {error: validation.messages()}, 400)
+      return this.httpService.failed(res, { error: validation.messages() }, 400)
     }
     const company = yield this.companyService.update(loginUser, context)
-    return this.httpService.success(res, {company})
+    return this.httpService.success(res, { company })
   }
 
   * destroy (req, res) {
