@@ -180,7 +180,7 @@
   }
   .err {
     text-align: center;
-    color: #334257;
+    color: #58a8ff;
     padding-top: 20px;
     padding-bottom: 50px;
   }
