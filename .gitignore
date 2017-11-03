@@ -10,3 +10,4 @@ npm-debug.log
 dist
 *.iml
 package-lock.json
+document/result/app.json
