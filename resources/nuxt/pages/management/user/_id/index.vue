@@ -9,7 +9,12 @@
         <div class="page">
             <div class="contents">
                 <div class="image">
-                    <img :src="user.thumbnail" alt="">
+                    <div v-if="user.thumbnail">
+                        <img :src="user.thumbnail" alt="">
+                    </div>
+                    <div v-else>
+                        <img src="~assets/imgs/noimage.png" alt="">
+                    </div>
                 </div>
                 <div class="profile">
                     <div class="rows">
@@ -54,9 +59,9 @@
                 <div class="btns">
                     <div>
                         <nuxt-link :to="`/management/user/${user.id}/edit`">
-                            <el-button type="primary" icon="edit"></el-button>
+                            <el-button type="primary" icon="el-icon-edit"></el-button>
                         </nuxt-link>
-                        <el-button type="danger" icon="delete" @click="open" class="delete"></el-button>
+                        <el-button type="danger" icon="el-icon-delete" @click="open" class="delete"></el-button>
                     </div>
                 </div>
             </div>

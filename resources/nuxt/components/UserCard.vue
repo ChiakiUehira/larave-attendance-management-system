@@ -1,7 +1,12 @@
 <template>
   <div class="user">
       <div class="cell image">
-        <img :src="user.thumbnail" alt="">
+        <div v-if="user.thumbnail">
+          <img :src="user.thumbnail" alt="">
+        </div>
+        <div v-else>
+          <img src="~assets/imgs/noimage.png" alt="">
+        </div>
       </div>
       <div class="cell profile">
         <span class="group">{{user.group.name}} - {{user.position}}</span>
