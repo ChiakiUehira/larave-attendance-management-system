@@ -6,7 +6,7 @@
             </el-breadcrumb>
         </contents-name>
         <div class="page">
-            <el-steps :active="active" finish-status="success" simple>
+            <el-steps :active="active" finish-status="success">
                 <el-step title="出勤" icon="el-icon-edit-outline"></el-step>
                 <el-step title="休憩" icon="el-icon-more"></el-step>
                 <el-step title="退勤" icon="el-icon-time"></el-step>
@@ -77,7 +77,7 @@
         width: 100%;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 50px;
+        margin-bottom: 30px;
     }
     .el-card{
         padding:40px 20px;

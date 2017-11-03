@@ -9,7 +9,8 @@
         datasets: [
           {
             label: 'Data One',
-            backgroundColor: '#f87979',
+            borderColor: '#2988F6',
+            backgroundColor: '#F1F8FF',
             data: [40, 39, 10, 40, 39, 80, 40]
           }
         ]

@@ -9,10 +9,10 @@
         datasets: [
           {
             backgroundColor: [
-              '#41B883',
-              '#E46651',
-              '#00D8FF',
-              '#DD1B16'
+              '#F1F8FF',
+              '#F1F8dd',
+              '#F1F8af',
+              '#F1F8dd'
             ],
             data: [40, 20, 80, 10]
           }
