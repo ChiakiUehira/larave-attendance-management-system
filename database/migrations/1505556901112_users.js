@@ -14,7 +14,7 @@ class UsersTableSchema extends Schema {
       table.string('last_name_kana')
       table.string('first_name_kana')
       table.dateTime('birthday')
-      table.string('gender').notNullable()
+      table.string('gender')
       table.string('tel')
       table.string('manager_flag').notNullable()
       table.text('thumbnail')

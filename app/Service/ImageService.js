@@ -3,11 +3,11 @@
 const Jimp = require('jimp')
 
 class ImageService {
-  * resize (readPath, savePath) {
-    return yield Jimp.read(readPath).then((image) => {
+  * resize (path) {
+    return yield Jimp.read(path).then((image) => {
       image
         .resize(250, 250)
-        .write(savePath)
+        .write(path)
     })
   }
 }
