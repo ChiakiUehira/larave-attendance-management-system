@@ -43,7 +43,6 @@ class InviteController {
       const company = yield this.companyService.getCompanyFromUser(loginUser)
       const newUser = yield this.userService.store(company, context)
       const { token } = yield this.tokenService.storeUrlToken(newUser)
-      console.log(newUser);
       yield this.mailService.invite(newUser, company, token)
       return this.httpService.success(res)
     }

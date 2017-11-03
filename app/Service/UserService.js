@@ -6,7 +6,7 @@ const Hash = use('Hash')
 class UserService {
   * fetchUsersFromUser (user) {
     const company = yield user.company().first()
-    const users = yield company.users().with('group').fetch()
+    const users = yield company.users().registered().with('group').fetch()
     return users
   }
 

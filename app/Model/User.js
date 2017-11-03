@@ -8,6 +8,10 @@ class User extends Lucid {
     this.addHook('beforeCreate', 'User.encryptPassword')
   }
 
+  static scopeRegistered (builder) {
+    builder.where('registered', true)
+  }
+
   static get deleteTimestamp () {
     return 'deleted_at'
   }
