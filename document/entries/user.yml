@@ -1,0 +1,20 @@
+get:
+  summary: ユーザ情報操作
+  description: |
+    ユーザ情報の取得など
+  parameters:
+    -
+      name: payload
+      in: body
+      schema:
+        type: object
+        properties:
+        example:
+  responses:
+    200:
+      type: object
+      schema:
+        type: object
+        example:
+          status: "OK"
+          user: []

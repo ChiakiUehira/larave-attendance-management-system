@@ -1,0 +1,12 @@
+swagger: 2.0
+info:
+  version: 0.0.1
+  title: JobApi
+host: 0.0.0.0
+basePath: /api/v1
+paths:
+  # api url と file参照 url
+  /user:
+     $ref: "./entries/user.yml"
+  /manager:
+  /news:

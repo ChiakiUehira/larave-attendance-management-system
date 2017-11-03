@@ -46,3 +46,7 @@ test:
 # nyan
 nyan:
 	docker exec -it app npm run nyan
+
+# swagger
+swagger:
+	npm run swagger
