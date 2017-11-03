@@ -30,12 +30,9 @@
 </template>
 <script>
   import ContentsName from '@/components/ContentsName.vue'
-  import Me from './_Component/Me.vue'
-  import Attendance from './_Component/Attendance.vue'
   export default {
     components: {
       ContentsName,
-      Attendance
     },
     async fetch ({app, store}) {
       if (!store.state.me) {
