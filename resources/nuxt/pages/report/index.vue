@@ -59,7 +59,7 @@
     .el-tabs{
         margin-bottom:10px;
         background: #fff;
-        padding:10px;
+        padding:10px 20px;
     }
     .el-card{
         padding:40px 0px;
