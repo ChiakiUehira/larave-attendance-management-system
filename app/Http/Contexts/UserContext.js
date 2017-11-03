@@ -3,11 +3,9 @@ const moment = require('moment')
 class UserContext {
   storeRules () {
     return {
-      password: 'required',
       email: 'required|email',
       last_name: 'required',
       first_name: 'required',
-      gender: 'required',
       manager_flag: 'required',
       group_id: 'required'
     }
@@ -23,38 +21,32 @@ class UserContext {
 
   storeContext (req) {
     return {
-      password: req.input('password'),
       email: req.input('email'),
-      tel: req.input('tel'),
       last_name: req.input('last_name'),
       first_name: req.input('first_name'),
       last_name_kana: req.input('last_name_kana'),
       first_name_kana: req.input('first_name_kana'),
-      gender: req.input('gender'),
-      birthday: req.input('birthday') ? moment(req.input('birthday')).format() : null,
-      thumbnail: req.input('thumbnail'),
       manager_flag: req.input('manager_flag'),
       position: req.input('position'),
-      address: req.input('address'),
-      postal_code: req.input('postal_code'),
-      group_id: req.input('group_id')
+      group_id: req.input('group_id'),
+      password: 'pw'
     }
   }
 
   updateContext (req) {
     return {
-      tel: req.input('tel'),
+      tel: req.input('tel') ? req.input('tel') : null,
       last_name: req.input('last_name'),
       first_name: req.input('first_name'),
       last_name_kana: req.input('last_name_kana'),
       first_name_kana: req.input('first_name_kana'),
-      gender: req.input('gender'),
+      gender: req.input('gender') ? req.input('gender') : null,
       birthday: req.input('birthday') ? moment(req.input('birthday')).format() : null,
-      thumbnail: req.input('thumbnail'),
+      thumbnail: req.input('thumbnail') ? req.input('thumbnail'): null,
       position: req.input('position'),
-      address: req.input('address'),
-      postal_code: req.input('postal_code'),
-      password: req.input('password') ? req.input('password') : ''
+      address: req.input('address') ? req.input('address') : null,
+      postal_code: req.input('postal_code') ? req.input('postal') : null,
+      password: req.input('password') ? req.input('password') : null
     }
   }
 
