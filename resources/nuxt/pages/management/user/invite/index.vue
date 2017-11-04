@@ -251,7 +251,7 @@
     }
 
     .inviting-user span {
-        color: #5A5E66;
+        color:#8A8A8A;
         display: block;
         margin-bottom: 10px;
         font-size: 16px;
