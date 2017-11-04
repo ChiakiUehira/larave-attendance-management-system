@@ -12,10 +12,18 @@
             <div class="inviting-users">
                 <div class="search">
                     <h3 class="title">招待中のユーザ検索</h3>
-                    <el-input placeholder="name"></el-input>
-                    <el-input placeholder="email"></el-input>
+                    <el-autocomplete
+                            class="inline-input"
+                            v-model="search.name"
+                            :fetch-suggestions="querySearch"
+                            placeholder="name"
+                            :trigger-on-focus="false"
+                            @select="handleSelect"
+                            icon="search"
+                    ></el-autocomplete>
+                    <el-input placeholder="email" v-model="search.email"></el-input>
                 </div>
-                <div class="inviting-user" v-for="user in users" :key="user.id">
+                <div class="inviting-user" v-for="user in displayUsers" :key="user.id">
                     <span>{{ user.last_name }}{{ user.first_name }}</span>
                     <span>{{ user.email }}</span>
                 </div>
@@ -29,10 +37,10 @@
                 <el-form-item label="名前" required>
                     <el-input placeholder="Please input" v-model="context.first_name"></el-input>
                 </el-form-item>
-                <el-form-item label="苗字 (カナ)">
+                <el-form-item label="苗字 (かな)">
                     <el-input placeholder="Please input" v-model="context.last_name_kana"></el-input>
                 </el-form-item>
-                <el-form-item label="名前 (カナ)">
+                <el-form-item label="名前 (かな)">
                     <el-input placeholder="Please input" v-model="context.first_name_kana"></el-input>
                 </el-form-item>
                 <el-form-item label="Eメール">
@@ -72,13 +80,40 @@
       ContentsName,
       Uploader
     },
+    async fetch({app, store}){
+        const {data} = await app.$http.get('/manager/invite')
+        store.commit('SET_INVITING_USERS', data.users)
+    },
     async asyncData({app}){
       const {data} = await app.$http.get('group')
       const groups = data.groups.map((group) => {
         return {value: group.id, label: group.name}
       })
-      const obj = await app.$http.get('/manager/invite')
-      return {groups: groups, users: obj.data.users}
+      return {groups: groups}
+    },
+    computed: {
+      displayUsers(){
+        let users = this.$store.state.invitingUsers
+
+        users = users.filter((user) => {
+          return this.fullName(user.last_name,user.first_name).indexOf(this.search.name) >= 0 ||
+            this.fullName(user.last_name_kana, user.first_name_kana).indexOf(this.search.name) >= 0
+        })
+        users = users.filter((user) => {
+          return user.email.indexOf(this.search.email) > -1
+        })
+
+        return users
+      },
+      toValueFormUsers () {
+        const users = this.$store.state.invitingUsers
+        return users.map((user) => {
+          return {
+            value: this.fullName(user.last_name, user.first_name),
+            nameKana: this.fullName(user.last_name_kana, user.first_name_kana)
+          }
+        })
+      }
     },
     data() {
       return {
@@ -92,10 +127,32 @@
           "position": "係長",
           "group_id": "",
         },
-        isSend: false
+        isSend: false,
+        search: {
+          "name": "",
+          "email": ""
+        }
       }
     },
     methods: {
+      fullName (last, first) {
+        return `${last}${first}`
+      },
+      querySearch(queryString, cb) {
+        let results = this.toValueFormUsers
+        if (queryString) {
+          results = this.toValueFormUsers.filter((user) => {
+            return (user.value.indexOf(queryString) >= 0 || user.nameKana.indexOf(queryString) >= 0)
+          })
+        }
+        if (results.length) {
+          return cb(results)
+        }
+        return cb(this.toValueFormUsers)
+      },
+      handleSelect(user) {
+        this.search.name = user.value
+      },
       async invite(){
         if (!this.isSend) {
           this.isSend = true;
@@ -116,7 +173,7 @@
           if (data.success) {
             this.isSend = false;
             this.clear();
-            const { data } = await this.$http.get('/manager/invite')
+            const {data} = await this.$http.get('/manager/invite')
             this.users = data.users
             this.$store.commit('SET_IS_LOADING', false)
             this.$notify.success('招待メールの送信が完了しました')
@@ -146,22 +203,20 @@
         margin-bottom: 10px;
     }
 
-    .search .el-input {
-        margin-bottom: 10px;
+    .search .el-autocomplete{
+        width:100%;
+        margin-bottom:10px;
     }
 
-    .search .el-input:last-child {
-        margin: 0;
-    }
     .search .title {
         text-align: center;
         color: gray;
         box-sizing: border-box;
-        margin-bottom:10px;
+        margin-bottom: 10px;
     }
 
     .inviting {
-        min-height:auto;
+        min-height: auto;
         max-height: 80vh;
         width: 29%;
         display: inline-block;
