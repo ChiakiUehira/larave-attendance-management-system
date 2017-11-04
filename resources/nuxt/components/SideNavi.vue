@@ -12,17 +12,21 @@
         <icon name="home"></icon>
         <span slot="title">Home</span>
       </el-menu-item>
-      <el-menu-item index="/news">
-        <icon name="list"></icon>
-        <span slot="title">News</span>
-      </el-menu-item>
       <el-menu-item index="/state">
         <icon name="clock-o"></icon>
         <span slot="title">State</span>
       </el-menu-item>
+      <el-menu-item index="/user">
+        <icon name="user"></icon>
+        <span slot="title">Users</span>
+      </el-menu-item>
       <el-menu-item index="/report">
         <icon name="bar-chart"></icon>
         <span slot="title">Report</span>
+      </el-menu-item>
+      <el-menu-item index="/news">
+        <icon name="list"></icon>
+        <span slot="title">News</span>
       </el-menu-item>
       <el-menu-item v-if="isManeger" index="/management">
         <icon name="cog"></icon>
