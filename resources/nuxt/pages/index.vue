@@ -6,50 +6,6 @@
       </el-breadcrumb>
     </contents-name>
     <div class="page">
-      <div class="column-2">
-        <div class="info">
-
-        </div>
-        <div class="controller">
-          <el-form label-width="120px">
-            <el-form-item label="ユーザ検索">
-              <el-autocomplete
-                      class="inline-input"
-                      v-model="search.word"
-                      :fetch-suggestions="querySearch"
-                      placeholder="name"
-                      :trigger-on-focus="false"
-                      @select="handleSelect"
-                      icon="search"
-              ></el-autocomplete>
-            </el-form-item>
-            <el-form-item label="グループ">
-              <el-select v-model="search.group" placeholder="グループ">
-                <el-option label="選択なし" value=""></el-option>
-                <el-option v-for="group in toValueFromGroups" :label="group.label" :value="group.value" :key="group.id"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="アクティブ">
-              <el-switch on-text="" off-text="" v-model="search.active"></el-switch>
-            </el-form-item>
-          </el-form>
-        </div>
-      </div>
-      <div class="contents">
-        <div v-if="displayUsers.length">
-          <div class="user-warp" v-for="user in displayUsers" :key="user.id">
-            <nuxt-link :to="`/user/${user.id}`">
-              <user-card :user="user" />
-            </nuxt-link>
-          </div>
-        </div>
-        <div v-else>
-          <div class="err">
-            <p>User Not Found !</p>
-            <icon scale="8" name="frown-o"></icon>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -63,67 +19,6 @@
     },
     components: {
       ContentsName
-    },
-    computed: {
-      groups () {
-        return this.$store.state.groups
-      },
-      toValueFromGroups () {
-        const groups = this.$store.state.groups
-        return groups.map((group) => {
-          return {
-            value: group.id,
-            label: group.name
-          }
-        })
-      },
-      users () {
-        return this.$store.state.users
-      },
-      displayUsers () {
-        let users = this.$store.state.users
-
-        users = users.filter((user) => {
-          const fullName = this.fullName(user.first_name, user.last_name)
-          const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
-          return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
-        })
-
-        users = users.filter((user) => {
-          return this.search.group ? user.group.id === this.search.group : true
-        })
-
-        return users
-      },
-      toValueFormUsers () {
-        const users = this.$store.state.users
-        return users.map((user) => {
-          return {
-            value: this.fullName(user.first_name, user.last_name),
-            nameKana: this.fullName(user.first_name_kana, user.last_name_kana)
-          }
-        })
-      }
-    },
-    methods: {
-      fullName (first,last) {
-        return `${last}${first}`
-      },
-      querySearch(queryString, cb) {
-        let results = this.toValueFormUsers
-        if (queryString) {
-          results = this.toValueFormUsers.filter((user) => {
-            return (user.value.indexOf(queryString) >= 0 || user.nameKana.indexOf(queryString) >= 0)
-          })
-        }
-        if (results.length) {
-          return cb(results)
-        }
-        return cb(this.toValueFormUsers)
-      },
-      handleSelect(user) {
-        this.search.word = user.value
-      }
     },
     async fetch({app,store}){
       if (!store.state.users) {
@@ -139,6 +34,4 @@
 </script>
 
 <style scoped>
-
 </style>
-
