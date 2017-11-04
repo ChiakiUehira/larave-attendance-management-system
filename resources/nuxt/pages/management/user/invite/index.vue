@@ -227,7 +227,7 @@
     .inviting {
         min-height: auto;
         max-height: 80vh;
-        width: 29%;
+        width: 39%;
         display: inline-block;
         box-sizing: border-box;
         background: #fff;
@@ -263,7 +263,7 @@
 
     .invite-form {
         margin-left: 1%;
-        width: 70%;
+        width: 60%;
         display: inline-block;
         vertical-align: top;
         position: relative;
