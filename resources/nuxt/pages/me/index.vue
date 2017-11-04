@@ -21,7 +21,7 @@
           </div>
           <div class="btns">
             <div>
-              <nuxt-link :to="`/me/edit`"><el-button type="primary" icon="edit"></el-button></nuxt-link>
+              <nuxt-link :to="`/me/edit`"><el-button type="primary" icon="el-icon-edit"></el-button></nuxt-link>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@ export default {
       return `〒${this.me.postal_code} ${this.me.address}`
     },
     birthday () {
-      return moment(this.me.birthday).format("YYYY年MM月DD日")
+      return this.me.birthday ? moment(this.me.birthday).format("YYYY年MM月DD日") : ''
     },
     toObjects () {
       return [
