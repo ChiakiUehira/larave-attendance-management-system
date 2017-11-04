@@ -7,18 +7,33 @@
                 <el-breadcrumb-item>グループ管理</el-breadcrumb-item>
             </el-breadcrumb>
         </contents-name>
+        <div class="group-users">
+            <div class="search">
+                <span class="title">所属グループ: </span>
+                <el-select v-model="search.group" placeholder="グループ">
+                    <el-option label="選択なし" value=""></el-option>
+                    <el-option v-for="group in toValueFromGroups" :label="group.label"
+                               :value="group.value"
+                               :key="group.id">
+                    </el-option>
+                </el-select>
+            </div>
+            <div v-if="displayUsers.length">
+                <div class="group-user" v-for="user in displayUsers" :key="user.id">
+                    <span>{{ user.last_name }}{{ user.first_name }}</span>
+                    <span>{{ user.email }}</span>
+                </div>
+            </div>
+            <div v-else>
+                <div class="err">
+                    <p>User Not Found !</p>
+                    <icon scale="8" name="frown-o"></icon>
+                </div>
+            </div>
+        </div>
 
         <div class="groups">
             <div class="group">
-                <el-tag class="group-elm"
-                        :key="group.id"
-                        v-for="(group,index) in groups"
-                        closable
-                        :disable-transitions="false"
-                        @close="handleClose(index)"
-                >
-                    {{group.name}}
-                </el-tag>
                 <el-input
                         class="input-new-tag"
                         v-if="inputVisible"
@@ -30,23 +45,23 @@
                 >
                 </el-input>
                 <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 新しく作る</el-button>
+                <el-card class="group-elm" :key="group.id" v-for="(group,index) in groups">
+                    <span class="name">{{group.name}}</span>
+                    <el-button class="delete" icon="el-icon-delete" @click="centerDialogVisible = true"></el-button>
+                </el-card>
             </div>
         </div>
-
-        <div class="users">
-            <div class="search">
-                <el-select v-model="search.group" placeholder="グループ">
-                    <el-option label="選択なし" value=""></el-option>
-                    <el-option v-for="group in toValueFromGroups" :label="group.label"
-                               :value="group.value"
-                               :key="group.id">
-                    </el-option>
-                </el-select>
-            </div>
-            <div v-for="user in displayUsers" :key="user.id" class="user-wrap">
-                <user-card :user="user"></user-card>
-            </div>
-        </div>
+        <el-dialog
+                title="グループを削除しますか？"
+                :visible.sync="centerDialogVisible"
+                width="30%"
+                center>
+            <span>グループに所属しているユーザがいる場合、そのユーザは未所属になります。</span>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="centerDialogVisible = false">キャンセル</el-button>
+                <el-button type="primary" @click="centerDialogVisible = false">確認</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -92,7 +107,8 @@
         inputValue: '',
         search: {
           group: ''
-        }
+        },
+        centerDialogVisible: false
       }
     },
     components: {
@@ -100,14 +116,11 @@
       UserCard
     },
     methods: {
-      handleClose(tag) {
-        this.$store.commit('REMOVE_GROUP', tag)
-      },
       showInput() {
         this.inputVisible = true;
         this.$nextTick(_ => {
           this.$refs.saveTagInput.$refs.input.focus();
-        });
+      });
       },
       handleInputConfirm() {
         let inputValue = this.inputValue;
@@ -118,7 +131,7 @@
             deleted_at: null,
             detail: "",
             id: 5,
-            name: "営業部",
+            name: inputValue,
             updated_at: "2017-10-28 01:55:15",
           });
         }
@@ -134,6 +147,10 @@
         background: #fff;
         padding: 20px;
         margin-bottom: 10px;
+        display: inline-block;
+        width: 60%;
+        margin-left: 1%;
+        vertical-align: top;
     }
 
     .group {
@@ -141,23 +158,21 @@
         margin: 0 auto;
     }
 
-    .group-elm {
-        /*width: 32%;*/
-        /*margin-left:2%;*/
-        /*display: inline-block;*/
-        /*text-align: center;*/
-        /*margin-bottom:10px;*/
+    .group .el-input {
+        margin-bottom: 10px;
     }
 
-    .el-tag {
-        margin-left: 10px;
-        margin-bottom: 5px;
-        margin-top: 5px;
-        height: auto;
-        line-height: normal;
-        font-size: 14px;
-        padding: 10px;
-        background: #334257;
+    .group .el-card {
+        margin-bottom: 10px;
+    }
+
+    .group .name {
+        width: 80%;
+        display: inline-block;
+    }
+
+    .group .delete {
+        width: 20%;
     }
 
     .button-new-tag {
@@ -167,34 +182,58 @@
         padding-top: 0;
         padding-bottom: 0;
         margin-bottom: 10px;
-        margin-top:10px;
+        margin-top: 10px;
     }
 
     .input-new-tag {
         width: 90px;
         margin-left: 10px;
-        margin-top:10px;
+        margin-top: 10px;
     }
 
-    .search{
-        margin-bottom:20px;
-        /*margin-right:auto;*/
-        margin-left:auto;
-        width:20%;
-    }
-
-    .users {
-        padding: 30px;
-        background: #fff;
-    }
-
-    .user-wrap {
+    .group-users {
+        min-height: auto;
+        max-height: 80vh;
+        width: 39%;
         display: inline-block;
-        width: 49%;
+        box-sizing: border-box;
+        background: #fff;
+        overflow: auto;
+        padding: 15px;
+        box-sizing: border-box;
     }
 
-    .user-wrap:nth-child(odd) {
-        margin-left:2%;
+    .group-users .search {
+        text-align: center;
+        padding: 15px;
     }
+
+    .search .title {
+        color: gray;
+        font-size: 14px;
+    }
+
+    .group-user {
+        text-align: center;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #e6e6e6;
+        border-bottom: solid 5px gray;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .group-user span {
+        color: #5A5E66;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .group-user span:last-child {
+        margin: 0;
+    }
+
 </style>
 
