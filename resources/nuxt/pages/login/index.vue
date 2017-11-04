@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import { setToken } from '../../../utils/Token'
+  import { setToken } from '../../../../utils/Token'
   export default {
     layout: 'auth',
     data(){
