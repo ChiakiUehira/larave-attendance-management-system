@@ -50,8 +50,9 @@
                     </div>
                 </div>
                 <div v-else>
-                    <div class="inner">
-                        hoge
+                    <div class="err">
+                        <p>User Not Found !</p>
+                        <icon scale="8" name="frown-o"></icon>
                     </div>
                 </div>
             </div>
@@ -153,11 +154,13 @@
 <style scoped>
     .util {
         display: inline-block;
-        width:25%;
+        width: 25%;
     }
-    .util:last-child{
-        width:50%;
+
+    .util:last-child {
+        width: 50%;
     }
+
     .invite {
         background-color: #334257;
         color: #b2bfcd;
@@ -165,10 +168,10 @@
         transition: .3s;
         padding: 15px;
         border-radius: 3px;
-        font-size:14px;
-        margin-right:40px;
-        margin-left:auto;
-        width:120px;
+        font-size: 14px;
+        margin-right: 40px;
+        margin-left: auto;
+        width: 120px;
         display: block;
     }
 
@@ -180,7 +183,7 @@
         border-radius: 2px;
         background-color: #fff;
         margin-bottom: 10px;
-        padding-top:16px;
+        padding-top: 16px;
         width: 100%;
         display: inline-block;
         vertical-align: top;
@@ -199,6 +202,19 @@
 
     .user-warp:not(:nth-child(3n)) {
         margin-right: 2%;
+    }
+
+    .err {
+        text-align: center;
+        color: #334257;
+        padding-top: 20px;
+        padding-bottom: 50px;
+    }
+
+    .err p {
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
     }
 
     @media screen and (max-width: 1440px) {

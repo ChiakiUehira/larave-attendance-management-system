@@ -11,7 +11,7 @@
         <div class="inviting">
             <div class="inviting-users">
                 <div class="search">
-                    <h3 class="title">招待中のユーザ検索</h3>
+                    <h3 class="title">招待中のユーザ</h3>
                     <el-autocomplete
                             class="inline-input"
                             v-model="search.name"
@@ -23,9 +23,17 @@
                     ></el-autocomplete>
                     <el-input placeholder="email" v-model="search.email"></el-input>
                 </div>
-                <div class="inviting-user" v-for="user in displayUsers" :key="user.id">
-                    <span>{{ user.last_name }}{{ user.first_name }}</span>
-                    <span>{{ user.email }}</span>
+                <div v-if="displayUsers.length">
+                    <div class="inviting-user" v-for="user in displayUsers" :key="user.id">
+                        <span>{{ user.last_name }}{{ user.first_name }}</span>
+                        <span>{{ user.email }}</span>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="err">
+                        <p>User Not Found !</p>
+                        <icon scale="8" name="frown-o"></icon>
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,8 +89,8 @@
       Uploader
     },
     async fetch({app, store}){
-        const {data} = await app.$http.get('/manager/invite')
-        store.commit('SET_INVITING_USERS', data.users)
+      const {data} = await app.$http.get('/manager/invite')
+      store.commit('SET_INVITING_USERS', data.users)
     },
     async asyncData({app}){
       const {data} = await app.$http.get('group')
@@ -96,7 +104,7 @@
         let users = this.$store.state.invitingUsers
 
         users = users.filter((user) => {
-          const fullName = this.fullName(user.last_name,user.first_name)
+          const fullName = this.fullName(user.last_name, user.first_name)
           const fullNameKana = this.fullName(user.last_name_kana, user.first_name_kana)
           return fullName.indexOf(this.search.name) >= 0 || fullNameKana.indexOf(this.search.name) >= 0
         })
@@ -204,9 +212,9 @@
         margin-bottom: 10px;
     }
 
-    .search .el-autocomplete{
-        width:100%;
-        margin-bottom:10px;
+    .search .el-autocomplete {
+        width: 100%;
+        margin-bottom: 10px;
     }
 
     .search .title {
@@ -274,5 +282,16 @@
 
     .invite-button {
         margin-left: calc(100% - 70px);
+    }
+    .err {
+        text-align: center;
+        color: #334257;
+        padding-top: 20px;
+        padding-bottom: 50px;
+    }
+    .err p {
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
     }
 </style>
