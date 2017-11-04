@@ -37,8 +37,7 @@ class RegisterController {
     if (validation.fails()) {
       return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
-    user.fill(context)
-    yield user.save()
+    yield this.userService.update(user.id, context)
     yield this.tokenService.deleteUrlToken(user.id)
     res.redirect('/login')
   }

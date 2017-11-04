@@ -28,7 +28,7 @@ class UserService {
   * update (id, context) {
     const user = yield this.getById(id)
 
-    if (!context.password.length) {
+    if (!context.password) {
       context.password = user.password
     }else{
       context.password = yield Hash.make(context.password)
