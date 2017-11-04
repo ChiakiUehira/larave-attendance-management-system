@@ -241,7 +241,7 @@
 
     .inviting-user {
         text-align: center;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         border-radius: 5px;
         border: 1px solid #e6e6e6;
         border-bottom: solid 5px gray;
