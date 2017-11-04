@@ -51,8 +51,10 @@
               <el-input placeholder="Please input" v-model="context.position"></el-input>
             </el-form-item>
             <el-form-item label="パスワード">
-            <el-input placeholder="Please input" v-model="context.password"></el-input>
-          </el-form-item>
+              <el-input placeholder="Please input" type="password" v-model="dammyPasswordString" disabled>
+                <el-button @click="passwordEditOpen" slot="append" type="primary" icon="el-icon-edit"></el-button>
+              </el-input>
+            </el-form-item>
           </el-form>
         </div>
         <div class="btns">
@@ -70,7 +72,8 @@ import moment from 'moment'
 export default {
   data () {
     return {
-      isSend: false
+      isSend: false,
+      dammyPasswordString: 'p@sswr0d'
     }
   },
   components: {
@@ -120,6 +123,17 @@ export default {
     },
     uploaded(dataUrl){
       this.context.thumbnail = dataUrl
+    },
+    passwordEditOpen () {
+      this.$alert('This is a message', 'Title', {
+        confirmButtonText: 'OK',
+        callback: action => {
+          this.$message({
+            type: 'info',
+            message: `action: ${ action }`
+          });
+        }
+      });
     }
   },
   computed: {

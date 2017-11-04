@@ -21,7 +21,7 @@ class UserController {
   * index (req, res) {
     const loginUser = yield req.auth.getUser()
     const users = yield this.userService.fetchUsersFromUser(loginUser)
-    return this.httpService.success(res, {users})
+    return this.httpService.success(res, { users })
   }
 
   * show (req, res) {
@@ -42,10 +42,10 @@ class UserController {
     const context = this.userContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
-      return this.httpService.failed(res, {error: validation.messages()}, 403)
+      return this.httpService.failed(res, { error: validation.messages() }, 403)
     }
     const user = yield this.userService.store(company, context)
-    return this.httpService.success(res, {user})
+    return this.httpService.success(res, { user })
   }
 
   * update (req, res) {

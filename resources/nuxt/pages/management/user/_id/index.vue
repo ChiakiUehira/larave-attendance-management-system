@@ -9,7 +9,12 @@
         <div class="page">
             <div class="contents">
                 <div class="image">
-                    <img :src="user.thumbnail" alt="">
+                    <div v-if="user.thumbnail">
+                        <img :src="user.thumbnail" alt="">
+                    </div>
+                    <div v-else>
+                        <img src="~assets/imgs/noimage.png" alt="">
+                    </div>
                 </div>
                 <div class="profile">
                     <div class="rows">

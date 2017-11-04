@@ -41,13 +41,13 @@ class InviteController {
         yield this.mailService.invite(user_id, token, user.email)
         return this.httpService.success(res)
       }
-    }else{
-      //未登録
+    } else {
+      // 未登録
       const loginUser = yield req.auth.getUser()
       const company = yield this.companyService.getCompanyFromUser(loginUser)
       const newUser = yield this.userService.store(company, context)
-      let {user_id, token} = yield this.tokenService.storeUrlToken(newUser)
-      yield this.mailService.invite(user_id, token, newUser.email)
+      const { token } = yield this.tokenService.storeUrlToken(newUser)
+      yield this.mailService.invite(newUser, company, token)
       return this.httpService.success(res)
     }
   }

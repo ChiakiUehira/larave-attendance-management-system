@@ -6,7 +6,7 @@
           <h1>ログイン</h1>
         </div>
         <div class="content__body">
-          <el-form :label-position="labelPosition" label-width="120px" :model="formLabelAlign">
+          <el-form label-width="120px">
             <el-form-item label="メールアドレス">
               <el-input v-model="context.email"></el-input>
             </el-form-item>
@@ -24,30 +24,8 @@
   </section>
 </template>
 
-  <!-- <section class="container">
-    <h1>ログイン</h1>
-    <div class="input">
-      <el-row :gutter="20">
-        <el-col :span="12" :offset="6">
-          <el-input placeholder="email" v-model="context.email"></el-input>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="input">
-      <el-row :gutter="20">
-        <el-col :span="12" :offset="6">
-          <el-input type="password" placeholder="password" v-model="context.password"></el-input>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="btns">
-      <el-button @click="reset">Reset</el-button>
-      <el-button type="primary" @click="submit">Submit</el-button>
-    </div>
-  </section> -->
-
 <script>
-  import { setToken } from '../../../utils/Token'
+  import { setToken } from '../../../../utils/Token'
   export default {
     layout: 'auth',
     data(){

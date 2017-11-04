@@ -2,7 +2,7 @@
   <div>
     <contents-name>
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>ホーム</el-breadcrumb-item>
+        <el-breadcrumb-item>ユーザ一覧</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
     <div class="page">
@@ -14,13 +14,13 @@
           <el-form label-width="120px">
             <el-form-item label="ユーザ検索">
               <el-autocomplete
-                      class="inline-input"
-                      v-model="search.word"
-                      :fetch-suggestions="querySearch"
-                      placeholder="name"
-                      :trigger-on-focus="false"
-                      @select="handleSelect"
-                      icon="search"
+                class="inline-input"
+                v-model="search.word"
+                :fetch-suggestions="querySearch"
+                placeholder="name"
+                :trigger-on-focus="false"
+                @select="handleSelect"
+                icon="search"
               ></el-autocomplete>
             </el-form-item>
             <el-form-item label="グループ">
@@ -55,13 +55,20 @@
 </template>
 
 <script>
+  import UserCard from '@/components/UserCard.vue'
   import ContentsName from '@/components/ContentsName.vue'
   export default {
     data () {
       return {
+        search: {
+          word: '',
+          group: '',
+          active: ''
+        }
       }
     },
     components: {
+      UserCard,
       ContentsName
     },
     computed: {
@@ -85,8 +92,7 @@
 
         users = users.filter((user) => {
           const fullName = this.fullName(user.first_name, user.last_name)
-          const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
-          return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
+          return fullName.indexOf(this.search.word) >= 0
         })
 
         users = users.filter((user) => {
@@ -139,6 +145,60 @@
 </script>
 
 <style scoped>
-
+  .info {
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 30px;
+    margin-bottom: 10px;
+    width: calc(100% - 10px - 380px);
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: top;
+    height: 200px;
+    color: #48576a;
+  }
+  .controller {
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 23px 10px 2px;
+    margin-bottom: 10px;
+    width: 380px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  .contents {
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 30px 30px 0;
+  }
+  .user-warp {
+    width: 32%;
+    display: inline-block;
+  }
+  .user-warp:not(:nth-child(3n)) {
+    margin-right: 2%;
+  }
+  .err {
+    text-align: center;
+    color: #58a8ff;
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+  .err p {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  @media screen and (max-width: 1440px){
+    .user-warp {
+      width: 49%;
+    }
+    .user-warp:not(:nth-child(3n)) {
+      margin-right: 0;
+    }
+    .user-warp:not(:nth-child(2n)) {
+      margin-right: 2%;
+    }
+  }
 </style>
 

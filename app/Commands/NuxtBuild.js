@@ -5,7 +5,6 @@ const Config = use('Config')
 const { Nuxt, Builder } = require('nuxt')
 
 class NuxtBuild extends Command {
-
   /**
    * signature defines the requirements and name
    * of command.
@@ -40,7 +39,6 @@ class NuxtBuild extends Command {
     this.info('Building nuxt.js application...')
     yield new Builder(this.nuxt).build()
   }
-
 }
 
 module.exports = NuxtBuild

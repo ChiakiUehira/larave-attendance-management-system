@@ -8,7 +8,12 @@
     <div class="page">
       <div class="contents">
         <div class="image">
-          <img :src="me.thumbnail" alt="">
+          <div v-if="me.thumbnail">
+            <img :src="me.thumbnail" alt="">
+          </div>
+          <div v-else>
+            <img src="~assets/imgs/noimage.png" alt="">
+          </div>
         </div>
         <div class="profile">
           <div class="rows">
@@ -62,7 +67,7 @@ export default {
       return `〒${this.me.postal_code} ${this.me.address}`
     },
     birthday () {
-      return moment(this.me.birthday).format("YYYY年MM月DD日")
+      return this.me.birthday ? moment(this.me.birthday).format("YYYY年MM月DD日") : ''
     },
     toObjects () {
       return [

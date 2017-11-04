@@ -8,7 +8,9 @@
             </el-breadcrumb>
         </contents-name>
         <div class="markdown-body content">
-            <div v-html="detail"></div>
+          <div class="title">{{title}}</div>
+          <div v-html="detail"></div>
+          <div class="createdAt">{{createdAt}}</div>
         </div>
         <div class="controllers">
           <div class="btns">
@@ -27,6 +29,7 @@
   import mdCss from 'github-markdown-css'
   import marked from 'marked'
   import ContentsName from '../../../../components/ContentsName.vue'
+  import moment from 'moment'
   export default{
     components: {
       ContentsName
@@ -38,6 +41,12 @@
       },
       detail (){
         return marked(this.news.detail)
+      },
+      createdAt () {
+        return moment(this.news.created_at).format("YYYY年MM月DD日 HH時mm分")
+      },
+      title () {
+        return this.news.title
       }
     },
     async fetch ({app, store}) {
@@ -112,4 +121,26 @@
         max-width: 100%;
         margin: 0 auto;
     }
+      .title {
+    margin-bottom: 20px;
+    padding-left: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+  }
+  .title::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 5px;
+    height: 70%;
+    background-color: #58a7ff;
+    border-radius: 1px 0 0 0;
+    transform: translateY(-50%);
+  }
+  .createdAt {
+    text-align: right;
+  }
 </style>

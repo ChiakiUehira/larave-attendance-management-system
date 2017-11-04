@@ -17,12 +17,12 @@ test.before(t => {
 })
 
 test('勤怠一覧取得', async t => {
-  const { status } = await http.get(`/attendance`)
+  const { status } = await http.get(`/attendance?from=2017-10-01`)
   t.is(status, 200)
 })
 
 test('勤怠個別取得', async t => {
-  const { data } = await http.get(`/attendance`)
+  const { data } = await http.get(`/attendance?from=2017-10-01`)
   const [attendance] = data.attendances
   const { status } = await http.get(`/attendance/${attendance.id}`)
   t.is(status, 200)

@@ -19,4 +19,3 @@
 | this blueprint inside your seeds to generate dummy data.
 |
 */
-

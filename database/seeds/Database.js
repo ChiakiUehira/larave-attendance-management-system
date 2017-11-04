@@ -13,7 +13,6 @@
 */
 
 const path = require('path')
-const Factory = use('Factory')
 const FactoryService = require('../service/FactoryService')
 const service = new FactoryService()
 

@@ -2,13 +2,14 @@
 
 const Mail = use('Mail')
 const Env = use('Env')
+const host = Env.get('HOST_URL')
 
 class MailService {
-  * invite (userId, token, email) {
-    return yield Mail.send('emails.welcome', {user_id: userId, token: token}, (message) => {
-      message.to(email)
+  * invite (user, company, token) {
+    return yield Mail.send('mails.invite', { user, company, token, host }, (message) => {
+      message.to(user.email)
       message.from(Env.get('MAIL_USERNAME'))
-      message.subject('Welcome to the Kitten\'s World')
+      message.subject('勤怠管理システムに招待されました')
     })
   }
 }
