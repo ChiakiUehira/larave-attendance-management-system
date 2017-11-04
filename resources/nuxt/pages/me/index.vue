@@ -16,7 +16,7 @@
           </div>
           <div class="btns">
             <div>
-              <nuxt-link :to="`/me/edit`"><el-button type="primary" icon="edit"></el-button></nuxt-link>
+              <nuxt-link :to="`/me/edit`"><el-button type="primary" icon="el-icon-edit"></el-button></nuxt-link>
             </div>
           </div>
         </div>
