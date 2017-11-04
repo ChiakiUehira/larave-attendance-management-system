@@ -1,12 +1,26 @@
 <template>
     <section>
         <contents-name name="ユーザ招待">
-                <el-breadcrumb separator="/">
-                    <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                    <el-breadcrumb-item :to="{ path: '/management/user/'}">ユーザ一覧</el-breadcrumb-item>
-                    <el-breadcrumb-item>ユーザ招待</el-breadcrumb-item>
-                </el-breadcrumb>
+            <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/management/user/'}">ユーザ一覧</el-breadcrumb-item>
+                <el-breadcrumb-item>ユーザ招待</el-breadcrumb-item>
+            </el-breadcrumb>
         </contents-name>
+
+        <div class="inviting">
+            <div class="inviting-users">
+                <div class="search">
+                    <h3 class="title">招待中のユーザ検索</h3>
+                    <el-input placeholder="name"></el-input>
+                    <el-input placeholder="email"></el-input>
+                </div>
+                <div class="inviting-user" v-for="i in 10">
+                    <span>hoge</span>
+                    <span>hogehoge.com</span>
+                </div>
+            </div>
+        </div>
         <div class="invite-form">
             <el-form ref="form" label-width="150px">
                 <el-form-item label="苗字" required>
@@ -46,6 +60,7 @@
                 </div>
             </el-form>
         </div>
+
     </section>
 </template>
 <script>
@@ -121,19 +136,84 @@
 </script>
 
 <style scoped>
+    .search {
+        padding: 15px 30px;
+        box-sizing: border-box;
+        background: #fff;
+        margin-bottom: 10px;
+    }
+
+    .search .el-input {
+        margin-bottom: 10px;
+    }
+
+    .search .el-input:last-child {
+        margin: 0;
+    }
+    .search .title {
+        text-align: center;
+        color: gray;
+        box-sizing: border-box;
+        margin-bottom:10px;
+    }
+
+    .inviting {
+        min-height:auto;
+        max-height: 80vh;
+        width: 29%;
+        display: inline-block;
+        box-sizing: border-box;
+        background: #fff;
+        overflow: auto;
+    }
+
+    .inviting-users {
+        box-sizing: border-box;
+        padding: 15px;
+    }
+
+    .inviting-user {
+        text-align: center;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        border: 1px solid #e6e6e6;
+        border-bottom: solid 5px gray;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .inviting-user span {
+        color: #5A5E66;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    .inviting-user span:last-child {
+        margin: 0;
+    }
+
     .invite-form {
-        margin: 0 auto;
-        width: 100%;
+        margin-left: 1%;
+        width: 70%;
+        display: inline-block;
+        vertical-align: top;
         position: relative;
         background: #fff;
         box-sizing: border-box;
     }
 
+    .el-pagination {
+        text-align: center;
+        padding: 10px;
+    }
+
     .el-form {
-        padding: 40px 80px 30px 10px;
+        padding: 80px 80px 30px 10px;
     }
 
     .invite-button {
-        margin-left: calc(100% - 60px);
+        margin-left: calc(100% - 70px);
     }
 </style>
