@@ -4,6 +4,11 @@ const UserModel = use('App/Model/User')
 const Hash = use('Hash')
 
 class UserService {
+  * fetchInvitingUser () {
+    const users = yield UserModel.query().where('registered',false)
+    return users
+  }
+
   * fetchUsersFromUser (user) {
     const company = yield user.company().first()
     const users = yield company.users().with('group').fetch()
