@@ -15,9 +15,9 @@
                     <el-input placeholder="name"></el-input>
                     <el-input placeholder="email"></el-input>
                 </div>
-                <div class="inviting-user" v-for="i in 10">
-                    <span>hoge</span>
-                    <span>hogehoge.com</span>
+                <div class="inviting-user" v-for="user in users" :key="user.id">
+                    <span>{{ user.last_name }}{{ user.first_name }}</span>
+                    <span>{{ user.email }}</span>
                 </div>
             </div>
         </div>
@@ -77,7 +77,8 @@
       const groups = data.groups.map((group) => {
         return {value: group.id, label: group.name}
       })
-      return {groups: groups}
+      const obj = await app.$http.get('/manager/invite')
+      return {groups: groups, users: obj.data.users}
     },
     data() {
       return {
@@ -115,6 +116,8 @@
           if (data.success) {
             this.isSend = false;
             this.clear();
+            const { data } = await this.$http.get('/manager/invite')
+            this.users = data.users
             this.$store.commit('SET_IS_LOADING', false)
             this.$notify.success('招待メールの送信が完了しました')
           }
