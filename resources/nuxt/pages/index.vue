@@ -92,7 +92,8 @@
 
         users = users.filter((user) => {
           const fullName = this.fullName(user.first_name, user.last_name)
-          return fullName.indexOf(this.search.word) >= 0
+          const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
+          return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
         })
 
         users = users.filter((user) => {

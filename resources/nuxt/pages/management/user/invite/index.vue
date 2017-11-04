@@ -96,8 +96,9 @@
         let users = this.$store.state.invitingUsers
 
         users = users.filter((user) => {
-          return this.fullName(user.last_name,user.first_name).indexOf(this.search.name) >= 0 ||
-            this.fullName(user.last_name_kana, user.first_name_kana).indexOf(this.search.name) >= 0
+          const fullName = this.fullName(user.last_name,user.first_name)
+          const fullNameKana = this.fullName(user.last_name_kana, user.first_name_kana)
+          return fullName.indexOf(this.search.name) >= 0 || fullNameKana.indexOf(this.search.name) >= 0
         })
         users = users.filter((user) => {
           return user.email.indexOf(this.search.email) > -1
