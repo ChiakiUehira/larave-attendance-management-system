@@ -1,10 +1,15 @@
 <template>
   <div>
-    <el-menu theme="dark" class="el-menu-vertical" :router="true" :collapse="isCollapse" text-color="#8a8a8a">
+    <el-menu class="el-menu-vertical" :router="true" :collapse="isCollapse" text-color="#8a8a8a">
       <div class="profile">
         <div class="profile__image">
           <nuxt-link :to="`/me`">
-            <img :src="me.thumbnail" alt="">
+            <div v-if="me.thumbnail">
+              <img :src="me.thumbnail" alt="">
+            </div>
+            <div v-else>
+              <img src="~assets/imgs/noimage.png" alt="">
+            </div>
           </nuxt-link>
         </div>
       </div>
