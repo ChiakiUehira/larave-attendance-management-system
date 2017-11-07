@@ -122,18 +122,11 @@
           this.$refs.saveTagInput.$refs.input.focus();
       });
       },
-      handleInputConfirm() {
+      async handleInputConfirm() {
         let inputValue = this.inputValue;
         if (inputValue) {
-          this.$store.commit('UPDATE_GROUPS', {
-            company_id: 1,
-            created_at: "2017-10-28 01:55:15",
-            deleted_at: null,
-            detail: "",
-            id: 5,
-            name: inputValue,
-            updated_at: "2017-10-28 01:55:15",
-          });
+          const { data } = await this.$http.post('group',{name: inputValue})
+          this.$store.commit('UPDATE_GROUPS', data.group)
         }
         this.inputVisible = false;
         this.inputValue = '';
