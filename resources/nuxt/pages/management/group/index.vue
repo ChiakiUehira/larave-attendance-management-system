@@ -92,14 +92,12 @@
         })
       },
       displayUsers () {
-        let users = this.$store.state.users
-
+        let users = this.users
         users = users.filter((user) => {
-          if(this.search.group === '未所属' || this.search.group === ''){
+          if (!this.search.group) {
             return user.group_id === null
-          }else {
-            return this.search.group ? user.group_id === this.search.group : true
           }
+          return user.group_id === this.search.group
         })
 
         return users
@@ -141,10 +139,16 @@
         this.group_id = id
       },
       async deleteGroup(){
-        await this.$http.delete(`group/${this.group_id}`)
+        await this.$http.delete(`group/${this.group_id}`).catch((e)=>{
+          return this.$message.error('グループの削除に失敗しました')
+        })
         const {data} = await this.$http.get('group')
         this.$store.commit('SET_GROUPS', data.groups)
+        const res = await this.$http.get('user')
+        this.$store.commit('SET_USERS', res.data.users)
+        this.search.group = ''
         this.centerDialogVisible = false
+        this.$message.success('グループを削除しました。')
       }
     }
   }
@@ -241,6 +245,19 @@
 
     .group-user span:last-child {
         margin: 0;
+    }
+
+    .err {
+        text-align: center;
+        color: #334257;
+        padding-top: 20px;
+        padding-bottom: 50px;
+    }
+
+    .err p {
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: bold;
     }
 
 </style>

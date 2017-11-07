@@ -9,7 +9,8 @@
         </div>
       </div>
       <div class="cell profile">
-        <span class="group">{{user.group.name}} - {{user.position}}</span>
+        <span class="group" v-if="user.group">{{user.group.name}} - {{user.position}}</span>
+        <span class="group" v-else>未所属</span>
         <h1>{{`${user.last_name} ${user.first_name}`}}</h1>
         <hr>
         <div>
