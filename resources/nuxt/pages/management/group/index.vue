@@ -11,7 +11,7 @@
             <div class="search">
                 <span class="title">所属グループ: </span>
                 <el-select v-model="search.group" placeholder="グループ">
-                    <el-option label="選択なし" value=""></el-option>
+                    <el-option label="未所属" value=""></el-option>
                     <el-option v-for="group in toValueFromGroups" :label="group.label"
                                :value="group.value"
                                :key="group.id">
@@ -95,7 +95,11 @@
         let users = this.$store.state.users
 
         users = users.filter((user) => {
-          return this.search.group ? user.group.id === this.search.group : true
+          if(this.search.group === '未所属' || this.search.group === ''){
+            return user.group_id === null
+          }else {
+            return this.search.group ? user.group_id === this.search.group : true
+          }
         })
 
         return users
