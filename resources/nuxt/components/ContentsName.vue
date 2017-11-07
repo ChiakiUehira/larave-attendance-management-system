@@ -6,13 +6,12 @@
 </template>
 
 <script>
-export default {
-  name: 'contents-name',
-  data() {
-    return {
+  export default {
+    name: 'contents-name',
+    data() {
+      return {}
     }
   }
-}
 </script>
 
 
@@ -23,6 +22,7 @@ export default {
     margin-bottom: 10px;
     border-radius: 2px;
   }
+
   .name h1 {
     color: #777777;
     font-weight: bold;

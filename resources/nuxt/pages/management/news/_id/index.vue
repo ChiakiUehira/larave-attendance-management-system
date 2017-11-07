@@ -1,28 +1,28 @@
 <template>
-    <section>
-        <contents-name name="ニュース詳細">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{ path: '/management/news' }">ニュース一覧</el-breadcrumb-item>
-                <el-breadcrumb-item>ニュース詳細</el-breadcrumb-item>
-            </el-breadcrumb>
-        </contents-name>
-        <div class="markdown-body content">
-          <div class="title">{{title}}</div>
-          <div v-html="detail"></div>
-          <div class="createdAt">{{createdAt}}</div>
-        </div>
-        <div class="controllers">
-          <div class="btns">
-            <nuxt-link :to="`/management/news/${news.id}/edit/`" class="edit">
-                <el-button type="primary" class="el-icon-edit"></el-button>
-            </nuxt-link>
-            <a href="#" class="delete">
-                <el-button type="danger" class="el-icon-delete" @click="deleteNews"></el-button>
-            </a>
-          </div>
-        </div>
-    </section>
+  <section>
+    <contents-name name="ニュース詳細">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/news' }">ニュース一覧</el-breadcrumb-item>
+        <el-breadcrumb-item>ニュース詳細</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+    <div class="markdown-body content">
+      <div class="title">{{title}}</div>
+      <div v-html="detail"></div>
+      <div class="createdAt">{{createdAt}}</div>
+    </div>
+    <div class="controllers">
+      <div class="btns">
+        <nuxt-link :to="`/management/news/${news.id}/edit/`" class="edit">
+          <el-button type="primary" class="el-icon-edit"></el-button>
+        </nuxt-link>
+        <a href="#" class="delete">
+          <el-button type="danger" class="el-icon-delete" @click="deleteNews"></el-button>
+        </a>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -85,49 +85,52 @@
   }
 </script>
 <style scoped>
-    .content {
-        padding: 40px;
-        background-color: #fff;
-        box-sizing: border-box;
-        margin-bottom: 10px;
-    }
+  .content {
+    padding: 40px;
+    background-color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
 
-    .controllers {
-        text-align: right;
-        margin-top: 10px;
-    }
+  .controllers {
+    text-align: right;
+    margin-top: 10px;
+  }
 
-    .btns {
-      display: inline-block;
-      border-radius: 2px;
-      background-color: #fff;
-      padding: 10px;
-      vertical-align: top;
-    }
+  .btns {
+    display: inline-block;
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 10px;
+    vertical-align: top;
+  }
 
-    .btns a {
-        display: inline-block;
-        text-decoration: none;
-        color: #fff;
-    }
-    .delete{
-        margin-left:10px;
-    }
+  .btns a {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+  }
 
-    .markdown-body {
-        color: #334257;
-        box-sizing: border-box;
-        min-width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-    }
-      .title {
+  .delete {
+    margin-left: 10px;
+  }
+
+  .markdown-body {
+    color: #334257;
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .title {
     margin-bottom: 20px;
     padding-left: 10px;
     font-size: 25px;
     font-weight: bold;
     position: relative;
   }
+
   .title::after {
     content: "";
     display: block;
@@ -140,6 +143,7 @@
     border-radius: 1px 0 0 0;
     transform: translateY(-50%);
   }
+
   .createdAt {
     text-align: right;
   }

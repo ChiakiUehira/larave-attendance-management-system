@@ -6,13 +6,13 @@
 </template>
 
 <script>
-export default {
-  computed: {
-    isLoading() {
-      return this.$store.state.isLoading
+  export default {
+    computed: {
+      isLoading() {
+        return this.$store.state.isLoading
+      }
     }
   }
-}
 </script>
 
 <style scoped>

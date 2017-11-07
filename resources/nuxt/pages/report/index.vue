@@ -1,19 +1,19 @@
 <template>
   <div>
-    <contents-name >
+    <contents-name>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>レポート</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-        <el-tabs @tab-click="handleClick" v-model="activeName">
-            <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
-            <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
-         </el-tabs>
-      <div class="contents">
-        <el-card>
-          <components :is="currentView"></components>
-        </el-card>
-      </div>
+    <el-tabs @tab-click="handleClick" v-model="activeName">
+      <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
+      <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
+    </el-tabs>
+    <div class="contents">
+      <el-card>
+        <components :is="currentView"></components>
+      </el-card>
+    </div>
   </div>
 </template>
 <script>
@@ -24,10 +24,10 @@
     data(){
       return {
         currentView: "LineChart",
-        activeName:""
+        activeName: ""
       }
     },
-    methods:{
+    methods: {
       handleClick(tab, event){
         this.currentView = this.activeName
       }
@@ -52,16 +52,18 @@
 </script>
 
 <style scoped>
-    .contents{
-        background: #fff;
-        padding:30px;
-    }
-    .el-tabs{
-        margin-bottom:10px;
-        background: #fff;
-        padding:10px 20px;
-    }
-    .el-card{
-        padding:40px 0px;
-    }
+  .contents {
+    background: #fff;
+    padding: 30px;
+  }
+
+  .el-tabs {
+    margin-bottom: 10px;
+    background: #fff;
+    padding: 10px 20px;
+  }
+
+  .el-card {
+    padding: 40px 0px;
+  }
 </style>

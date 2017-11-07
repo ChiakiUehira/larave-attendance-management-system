@@ -37,7 +37,7 @@
         isSend: false
       }
     },
-    methods:{
+    methods: {
       reset(){
         this.context.email = ''
         this.context.password = ''
@@ -46,23 +46,23 @@
         // @todo asyncに書き換える
         if (!this.isSend) {
           this.isSend = true
-          this.$http.post('login',this.context).then(({data})=>{
-            this.$store.commit('SET_IS_LOGIN',true)
-            this.$store.commit('SET_ME',data.me)
+          this.$http.post('login', this.context).then(({data}) => {
+            this.$store.commit('SET_IS_LOGIN', true)
+            this.$store.commit('SET_ME', data.me)
             this.$store.commit('SET_TOKEN', data.token)
             this.$store.commit('SET_IS_MANAGER', data.user.manager_flag === 'manager')
             setToken(data.token)
-            this.$http.get('company').then(({data})=>{
-              this.$store.commit('SET_COMPANY',data.company)
-              this.$http.get('me').then(({data})=>{
-                this.$store.commit('SET_ME',data.me)
+            this.$http.get('company').then(({data}) => {
+              this.$store.commit('SET_COMPANY', data.company)
+              this.$http.get('me').then(({data}) => {
+                this.$store.commit('SET_ME', data.me)
                 this.isSend = false
                 this.$notify.success('ログインしました')
                 this.$router.push('/')
               })
             })
-          }).catch((err)=>{
-            if(err.response.data.message === 'notRegistered'){ //仮登録時は登録ホームにリダイレクト
+          }).catch((err) => {
+            if (err.response.data.message === 'notRegistered') { //仮登録時は登録ホームにリダイレクト
               location.href = `/register?t=${err.response.data.t}&id=${err.response.data.id}`
             }
             this.isSend = false
@@ -80,30 +80,36 @@
     width: 100vw;
     height: 100vh;
   }
+
   .content {
     vertical-align: middle;
     display: table-cell;
   }
+
   .content__inner {
     width: 700px;
     margin: 0 auto;
     border: 1px solid #e6e6e6;
     border-radius: 2px;
     background-color: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
   }
+
   .content__name {
     background-color: #419dff;
     padding: 50px 40px;
   }
-  .content__name h1{
+
+  .content__name h1 {
     font-size: 25px;
     color: #fff;
     letter-spacing: 2px;
   }
+
   .content__body {
     padding: 50px 50px 30px;
   }
+
   .btns {
     text-align: right;
   }
