@@ -58,8 +58,8 @@
           </el-form>
         </div>
         <div class="btns">
-          <el-button @click="onCancel">Cancel</el-button>
-          <el-button type="primary" @click="onSubmit">Update</el-button>
+          <el-button @click="onCancel">戻る</el-button>
+          <el-button type="primary" @click="onSubmit">更新</el-button>
         </div>
       </div>
     </div>
@@ -76,8 +76,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="isPasswordDialog = false">Cancel</el-button>
-        <el-button type="primary" @click="onPasswordUpdate">Update</el-button>
+        <el-button @click="isPasswordDialog = false">戻る</el-button>
+        <el-button type="primary" @click="onPasswordUpdate">更新</el-button>
       </span>
     </el-dialog>
   </div>

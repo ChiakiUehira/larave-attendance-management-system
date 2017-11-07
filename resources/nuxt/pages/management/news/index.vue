@@ -8,21 +8,28 @@
         </contents-name>
         <div class="page">
             <div class="controllers">
-                <div></div>
-                <div>
-                    <div class="create">
-                        <nuxt-link to="/management/news/create">
-                            <el-button type="primary">投稿</el-button>
-                        </nuxt-link>
-                    </div>
-                </div>
+              <div class="btns">
+                <nuxt-link to="/management/news/create">
+                  <el-button type="primary" icon="el-icon-plus"></el-button>
+                </nuxt-link>
+              </div>
             </div>
             <div class="contents">
-                <div v-for="item in news" :key="item.id">
+                <div v-for="item in displayNews" :key="item.id">
                     <nuxt-link :to="`/management/news/${item.id}`">
                         <news-card :news="item"/>
                     </nuxt-link>
                 </div>
+            </div>
+            <div class="pagination">
+              <el-pagination
+                layout="prev, pager, next"
+                :total="maxCount"
+                :page-size="per"
+                :current-page="p"
+                @current-change="handleCurrentChange"
+              >
+              </el-pagination>
             </div>
         </div>
     </div>
@@ -38,6 +45,31 @@
     computed: {
       news () {
         return this.$store.state.news
+      },
+      p () {
+        return this.$route.query.p ? Number(this.$route.query.p) : 1
+      },
+      per () {
+        return 5
+      },
+      offset () {
+        return (this.p - 1) * this.per
+      },
+      maxCount () {
+        return this.$store.state.news.length
+      },
+      maxPage () {
+        return Math.ceil(this.maxCount / this.per)
+      },
+      displayNews () {
+        return this.news.slice(this.offset, this.offset + this.per)
+      },
+    },
+    methods: {
+      handleCurrentChange (page) {
+        return this.$router.push({
+          query: { p: page }
+        })
       }
     },
     async fetch ({app, store}) {
@@ -50,33 +82,21 @@
 </script>
 
 <style scoped>
-    .contents {
-        border-radius: 2px;
-        background-color: #fff;
-        padding: 30px 30px 1px;
-    }
-    .controllers {
-        margin-bottom: 10px;
-        text-align: right;
-    }
-    .controllers > div:first-child{
-        border-radius: 2px;
-        background-color: #fff;
-        padding: 10px;
-        width: 100%;
-        display: inline-block;
-        width: calc(100% - 100px - 10px);
-        margin-right: 10px;
-        height: 56px;
-        vertical-align: top;
-    }
-    .controllers > div:last-child{
-        border-radius: 2px;
-        background-color: #fff;
-        padding: 10px;
-        display: inline-block;
-        width: 100px;
-        vertical-align: top;
-        text-align: center;
-    }
+  .contents {
+      border-radius: 2px;
+      background-color: #fff;
+      padding: 30px 30px 1px;
+  }
+  .controllers {
+    margin-bottom: 10px;
+    text-align: right;
+    background-color: #fff;
+    padding: 10px;
+  }
+  .pagination {
+    margin-top: 10px;
+    text-align: center;
+    background-color: #fff;
+    padding: 10px;
+  }
 </style>
