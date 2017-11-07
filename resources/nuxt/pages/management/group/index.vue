@@ -47,7 +47,7 @@
                 <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 新しく作る</el-button>
                 <el-card class="group-elm" :key="group.id" v-for="(group,index) in groups">
                     <span class="name">{{group.name}}</span>
-                    <el-button class="delete" icon="el-icon-delete" @click="centerDialogVisible = true"></el-button>
+                    <el-button class="delete" icon="el-icon-delete" @click="dialogVisible(group.id)"></el-button>
                 </el-card>
             </div>
         </div>
@@ -59,7 +59,7 @@
             <span>グループに所属しているユーザがいる場合、そのユーザは未所属になります。</span>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="centerDialogVisible = false">キャンセル</el-button>
-                <el-button type="primary" @click="centerDialogVisible = false">確認</el-button>
+                <el-button type="primary" @click="deleteGroup()">確認</el-button>
             </span>
         </el-dialog>
     </div>
@@ -108,7 +108,8 @@
         search: {
           group: ''
         },
-        centerDialogVisible: false
+        centerDialogVisible: false,
+        group_id:''
       }
     },
     components: {
@@ -130,6 +131,16 @@
         }
         this.inputVisible = false;
         this.inputValue = '';
+      },
+      dialogVisible(id){
+        this.centerDialogVisible = true
+        this.group_id = id
+      },
+      async deleteGroup(){
+        await this.$http.delete(`group/${this.group_id}`)
+        const {data} = await this.$http.get('group')
+        this.$store.commit('SET_GROUPS', data.groups)
+        this.centerDialogVisible = false
       }
     }
   }
