@@ -19,6 +19,13 @@ class UserContext {
     }
   }
 
+  passwordUpdateRules () {
+    return {
+      password: 'required',
+      newPassword: 'required'
+    }
+  }
+
   storeContext (req) {
     return {
       email: req.input('email'),
@@ -50,6 +57,13 @@ class UserContext {
     }
   }
 
+  passwordUpdateContext (req) {
+    return {
+      password: req.input('password'),
+      newPassword: req.input('newPassword')
+    }
+  }
+
   returnMeContext (user) {
     return {
       id: user.id,
@@ -67,7 +81,6 @@ class UserContext {
       postal_code: user.postal_code,
       email: user.email,
       group_id: user.group_id,
-      password: ''
     }
   }
 }

@@ -2,6 +2,7 @@ const UserService = require('../../Service/UserService')
 const CompanyService = require('../../Service/CompanyService')
 const UserContext = require('../Contexts/UserContext')
 const HttpService = require('../../Service/HttpService')
+const AuthService = require('../../Service/AuthService')
 const Validator = use('Validator')
 
 class UserController {
@@ -10,6 +11,7 @@ class UserController {
     this.userContext = new UserContext()
     this.companyService = new CompanyService()
     this.httpService = new HttpService()
+    this.authService = new AuthService()
   }
 
   * me (req, res) {
@@ -77,17 +79,28 @@ class UserController {
     return this.httpService.success(res)
   }
 
-  * passWordCheck (req, res) {
+  * passwordCheck (req, res) {
     const password = req.input('password')
     const { email } = yield req.auth.getUser()
-    try {
-      const isValid = yield req.auth.validate(email, password)
-      if (isValid) {
-        return this.httpService.success(res, {})
-      }
-    } catch (e) {
+    const isValid = yield this.authService.passwordCheck(req, email, password)
+    return this.httpService.success(res, { isValid })
+  }
+
+  * passwordUpdate (req, res) {
+    const loginUser = yield req.auth.getUser()
+    const id = loginUser.id
+    const rules = this.userContext.passwordUpdateRules()
+    const context = this.userContext.passwordUpdateContext(req)
+    const validation = yield Validator.validateAll(context, rules)
+    if (validation.fails()) {
+      return this.httpService.failed(res, { error: validation.messages() }, 403)
+    }
+    const isValid = yield this.authService.passwordCheck(req, loginUser.email, context.password)
+    if (!isValid) {
       return this.httpService.failed(res, { error: 'Password does not match' }, 403)
     }
+    const user = yield this.userService.update(id, { password: context.newPassword })
+    return this.httpService.success(res, { user })
   }
 }
 
