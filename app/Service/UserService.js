@@ -5,7 +5,7 @@ const Hash = use('Hash')
 
 class UserService {
   * fetchInvitingUser () {
-    const users = yield UserModel.query().where('registered',false)
+    const users = yield UserModel.query().where('registered', false)
     return users
   }
 

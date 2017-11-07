@@ -11,7 +11,7 @@ class AttendanceService {
     const groups = yield company.groups().fetch()
     return groups
   }
-  * store (user, groupName){
+  * store (user, groupName) {
     const company = yield this.companyService.getCompanyFromUser(user)
     let group = new Group()
     group.name = groupName
@@ -19,10 +19,10 @@ class AttendanceService {
     yield group.save()
     return group
   }
-  * destroy(user, id){
+  * destroy (user, id) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const group = yield company.groups().where('id', id).first()
-    if(group){
+    if (group) {
       const users = yield group.users().fetch()
       yield users.value().map((user) => {
         user.group_id = null

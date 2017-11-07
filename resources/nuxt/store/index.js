@@ -9,7 +9,7 @@ export const state = () => ({
   company: null,
   news: null,
   groups: null,
-  invitingUsers:null
+  invitingUsers: null
 })
 
 export const mutations = {
@@ -34,7 +34,7 @@ export const mutations = {
   SET_USERS (state, payload) {
     state.users = payload
   },
-  SET_INVITING_USERS(state, payload){
+  SET_INVITING_USERS (state, payload) {
     state.invitingUsers = payload
   },
   SET_GROUPS (state, payload) {

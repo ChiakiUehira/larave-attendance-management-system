@@ -80,7 +80,7 @@ class UserContext {
       manager_flag: user.manager_flag,
       postal_code: user.postal_code,
       email: user.email,
-      group_id: user.group_id,
+      group_id: user.group_id
     }
   }
 }

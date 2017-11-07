@@ -15,9 +15,9 @@ class InviteController {
     this.tokenService = new TokenService()
     this.httpService = new HttpService()
   }
-  * index(req, res){
+  * index (req, res) {
     const users = yield this.userService.fetchInvitingUser()
-    return this.httpService.success(res, {users:users})
+    return this.httpService.success(res, {users: users})
   }
 
   * store (req, res) {
