@@ -1,6 +1,6 @@
 const test = require('ava')
 const axios = require('axios')
-const { _login, _user } = require('../../context')
+const { _login, _user, _password } = require('../../context')
 var http
 
 require('dotenv').config()
@@ -45,3 +45,8 @@ test('ユーザ編集', async t => {
 //   const { status } = await http.delete(`/user/${user.id}`)
 //   t.is(status, 200)
 // })
+
+test('パスワード変更', async t => {
+  const { status } = await http.put(`/user/password`, _password)
+  t.is(status, 200)
+})

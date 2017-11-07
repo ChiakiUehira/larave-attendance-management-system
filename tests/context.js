@@ -23,6 +23,11 @@ exports._user = {
   thumbnail: 'https://placehold.jp/250x250.png'
 }
 
+exports._password = {
+  password: 'pw',
+  newPassword: 'hoge'
+}
+
 exports._company = {
   company_name: '株式会社 佐藤',
   company_name_kana: 'カブシキガイシャ サトウ',

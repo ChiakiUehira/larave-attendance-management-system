@@ -66,18 +66,18 @@
     <el-dialog title="パスワードの更新" :visible.sync="isPasswordDialog">
       <el-form label-width="200px">
         <el-form-item label="現在のパスワード" required>
-          <el-input placeholder="Please input" type="password"></el-input>
+          <el-input placeholder="Please input" type="password" v-model="passwordContext.password"></el-input>
         </el-form-item>
         <el-form-item label="新しいパスワード" required>
-          <el-input placeholder="Please input" type="password"></el-input>
+          <el-input placeholder="Please input" type="password" v-model="passwordContext.newPassword"></el-input>
         </el-form-item>
         <el-form-item label="新しいパスワード (確認)" required>
-          <el-input placeholder="Please input" type="password"></el-input>
+          <el-input placeholder="Please input" type="password" v-model="passwordContext._newPassword"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="isPasswordDialog = false">Cancel</el-button>
-        <el-button type="primary" @click="isPasswordDialog = false">Update</el-button>
+        <el-button type="primary" @click="onPasswordUpdate">Update</el-button>
       </span>
     </el-dialog>
   </div>
@@ -91,7 +91,12 @@ export default {
     return {
       isSend: false,
       isPasswordDialog: false,
-      dammyPasswordString: 'p@sswr0d'
+      dammyPasswordString: 'p@sswr0d',
+      passwordContext: {
+        password: '',
+        newPassword: '',
+        _newPassword: ''
+      }
     }
   },
   components: {
@@ -130,6 +135,19 @@ export default {
     },
     onCancel () {
       this.$router.push('/me')
+    },
+    onPasswordUpdate () {
+      if (!this.isSend) {
+        this.isSend = true
+        this.$http.put('/user/password', this.passwordContext).then(({data}) => {
+          this.$notify.success('編集しました')
+          this.isPasswordDialog = false
+          this.isSend = false
+        }).catch(() => {
+          this.isSend = false
+          this.$notify.error('失敗しました')
+        })
+      }
     },
     async fetchMe () {
       const { data } = await this.$http.get('/me')

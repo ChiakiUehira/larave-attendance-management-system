@@ -79,13 +79,6 @@ class UserController {
     return this.httpService.success(res)
   }
 
-  * passwordCheck (req, res) {
-    const password = req.input('password')
-    const { email } = yield req.auth.getUser()
-    const isValid = yield this.authService.passwordCheck(req, email, password)
-    return this.httpService.success(res, { isValid })
-  }
-
   * passwordUpdate (req, res) {
     const loginUser = yield req.auth.getUser()
     const id = loginUser.id
