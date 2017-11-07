@@ -15,7 +15,7 @@ class UserController {
   * me (req, res) {
     const loginUser = yield req.auth.getUser()
     const context = this.userContext.returnMeContext(loginUser)
-    return this.httpService.success(res, {me: context})
+    return this.httpService.success(res, { me: context })
   }
 
   * index (req, res) {
@@ -29,10 +29,10 @@ class UserController {
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
-      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
+      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
     }
     const user = yield this.userService.getById(id)
-    return this.httpService.success(res, {user})
+    return this.httpService.success(res, { user })
   }
 
   * store (req, res) {
@@ -56,13 +56,13 @@ class UserController {
     const validation = yield Validator.validateAll(context, rules)
     const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
-      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
+      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
     }
     if (validation.fails()) {
-      return this.httpService.failed(res, {error: validation.messages()}, 403)
+      return this.httpService.failed(res, { error: validation.messages() }, 403)
     }
     const user = yield this.userService.update(id, context)
-    return this.httpService.success(res, {user})
+    return this.httpService.success(res, { user })
   }
 
   * destroy (req, res) {
@@ -70,11 +70,24 @@ class UserController {
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
-      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
+      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
     }
     const user = yield this.userService.getById(id)
     yield user.delete()
     return this.httpService.success(res)
+  }
+
+  * passWordCheck (req, res) {
+    const password = req.input('password')
+    const { email } = yield req.auth.getUser()
+    try {
+      const isValid = yield req.auth.validate(email, password)
+      if (isValid) {
+        return this.httpService.success(res, {})
+      }
+    } catch (e) {
+      return this.httpService.failed(res, { error: 'Password does not match' }, 403)
+    }
   }
 }
 

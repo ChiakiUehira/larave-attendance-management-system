@@ -12,7 +12,7 @@
           <uploader :thumbnail="context.thumbnail" @uploaded="uploaded"></uploader>
         </div>
         <div class="profile">
-          <el-form ref="form" label-width="120px">
+          <el-form label-width="120px">
             <el-form-item label="苗字" required>
               <el-input placeholder="Please input" v-model="context.last_name"></el-input>
             </el-form-item>
@@ -52,7 +52,7 @@
             </el-form-item>
             <el-form-item label="パスワード">
               <el-input placeholder="Please input" type="password" v-model="dammyPasswordString" disabled>
-                <el-button @click="passwordEditOpen" slot="append" type="primary" icon="el-icon-edit"></el-button>
+                <el-button @click="isPasswordDialog = true" slot="append" type="primary" icon="el-icon-edit"></el-button>
               </el-input>
             </el-form-item>
           </el-form>
@@ -63,6 +63,23 @@
         </div>
       </div>
     </div>
+    <el-dialog title="パスワードの更新" :visible.sync="isPasswordDialog">
+      <el-form label-width="200px">
+        <el-form-item label="現在のパスワード" required>
+          <el-input placeholder="Please input" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="新しいパスワード" required>
+          <el-input placeholder="Please input" type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="新しいパスワード (確認)" required>
+          <el-input placeholder="Please input" type="password"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isPasswordDialog = false">Cancel</el-button>
+        <el-button type="primary" @click="isPasswordDialog = false">Update</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -73,6 +90,7 @@ export default {
   data () {
     return {
       isSend: false,
+      isPasswordDialog: false,
       dammyPasswordString: 'p@sswr0d'
     }
   },
