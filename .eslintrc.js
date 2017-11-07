@@ -7,9 +7,16 @@ module.exports = {
   },
   extends: 'standard',
   plugins: [
-    'html'
+    'html',
+    'vue'
   ],
-  rules: {},
+  rules: {
+    // "vue/html-indent": ["error", 2, {
+    //   "attribute": 1,
+    //   "closeBracket": 0,
+    //   "ignores": []
+    // }]
+  },
   globals: {
     use: false,
     make: false
