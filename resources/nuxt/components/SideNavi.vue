@@ -42,27 +42,28 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {}
-  },
-  computed: {
-    isCollapse () {
-      return this.$store.state.device !== 'pc'
+  export default {
+    data() {
+      return {}
     },
-    isManeger () {
-      return this.$store.state.isManager
-    },
-    me () {
-      return this.$store.state.me
+    computed: {
+      isCollapse () {
+        return this.$store.state.device !== 'pc'
+      },
+      isManeger () {
+        return this.$store.state.isManager
+      },
+      me () {
+        return this.$store.state.me
+      }
     }
   }
-}
 </script>
 <style>
   .el-menu {
     border-radius: 0;
   }
+
   .el-menu-vertical {
     position: fixed;
     top: 0;
@@ -70,6 +71,7 @@ export default {
     /* important */
     height: 110%;
   }
+
   .el-menu-vertical:not(.el-menu--collapse) {
     width: 220px;
   }
@@ -87,21 +89,25 @@ export default {
     width: 24px;
     text-align: center;
   }
+
   .profile {
     text-align: center;
     padding: 20px 0 20px;
     background: #f9f9f9;
     border-bottom: 1px solid #e6e6e6;
   }
+
   .profile__image {
     width: 100px;
     display: inline-block;
   }
+
   .profile__image img {
     border: 5px solid #eeeeee;
     border-radius: 100%;
   }
-  @media screen and (max-width: 959px){
+
+  @media screen and (max-width: 959px) {
     .profile__image {
       width: 50px;
     }

@@ -1,38 +1,38 @@
 <template>
-    <div>
-        <contents-name name="マネジメント / ニュース">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                <el-breadcrumb-item>ニュース一覧</el-breadcrumb-item>
-            </el-breadcrumb>
-        </contents-name>
-        <div class="page">
-            <div class="controllers">
-              <div class="btns">
-                <nuxt-link to="/management/news/create">
-                  <el-button type="primary" icon="el-icon-plus"></el-button>
-                </nuxt-link>
-              </div>
-            </div>
-            <div class="contents">
-                <div v-for="item in displayNews" :key="item.id">
-                    <nuxt-link :to="`/management/news/${item.id}`">
-                        <news-card :news="item"/>
-                    </nuxt-link>
-                </div>
-            </div>
-            <div class="pagination">
-              <el-pagination
-                layout="prev, pager, next"
-                :total="maxCount"
-                :page-size="per"
-                :current-page="p"
-                @current-change="handleCurrentChange"
-              >
-              </el-pagination>
-            </div>
+  <div>
+    <contents-name name="マネジメント / ニュース">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item>ニュース一覧</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+    <div class="page">
+      <div class="controllers">
+        <div class="btns">
+          <nuxt-link to="/management/news/create">
+            <el-button type="primary" icon="el-icon-plus"></el-button>
+          </nuxt-link>
         </div>
+      </div>
+      <div class="contents">
+        <div v-for="item in displayNews" :key="item.id">
+          <nuxt-link :to="`/management/news/${item.id}`">
+            <news-card :news="item"/>
+          </nuxt-link>
+        </div>
+      </div>
+      <div class="pagination">
+        <el-pagination
+            layout="prev, pager, next"
+            :total="maxCount"
+            :page-size="per"
+            :current-page="p"
+            @current-change="handleCurrentChange"
+        >
+        </el-pagination>
+      </div>
     </div>
+  </div>
 </template>
 <script>
   import NewsCard from '~/components/NewsCard'
@@ -68,7 +68,7 @@
     methods: {
       handleCurrentChange (page) {
         return this.$router.push({
-          query: { p: page }
+          query: {p: page}
         })
       }
     },
@@ -83,16 +83,18 @@
 
 <style scoped>
   .contents {
-      border-radius: 2px;
-      background-color: #fff;
-      padding: 30px 30px 1px;
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 30px 30px 1px;
   }
+
   .controllers {
     margin-bottom: 10px;
     text-align: right;
     background-color: #fff;
     padding: 10px;
   }
+
   .pagination {
     margin-top: 10px;
     text-align: center;

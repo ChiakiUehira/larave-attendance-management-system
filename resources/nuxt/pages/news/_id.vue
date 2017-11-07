@@ -1,6 +1,6 @@
 <template>
   <div>
-    <contents-name >
+    <contents-name>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/news' }">ニュース一覧</el-breadcrumb-item>
         <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
@@ -16,36 +16,36 @@
   </div>
 </template>
 <script>
-import marked from 'marked'
-import mdCss from 'github-markdown-css'
-import ContentsName from '@/components/ContentsName.vue'
-import moment from 'moment'
-export default {
-  components: {
-    ContentsName
-  },
-  computed: {
-    news () {
-      const id = this.$route.params.id
-      return this.$store.state.news.find(news => news.id === Number(id))
+  import marked from 'marked'
+  import mdCss from 'github-markdown-css'
+  import ContentsName from '@/components/ContentsName.vue'
+  import moment from 'moment'
+  export default {
+    components: {
+      ContentsName
     },
-    detail (){
-      return marked(this.news.detail)
+    computed: {
+      news () {
+        const id = this.$route.params.id
+        return this.$store.state.news.find(news => news.id === Number(id))
+      },
+      detail (){
+        return marked(this.news.detail)
+      },
+      createdAt () {
+        return moment(this.news.created_at).format("YYYY年MM月DD日 HH時mm分")
+      },
+      title () {
+        return this.news.title
+      }
     },
-    createdAt () {
-      return moment(this.news.created_at).format("YYYY年MM月DD日 HH時mm分")
-    },
-    title () {
-      return this.news.title
-    }
-  },
-  async fetch ({app, store}) {
-    if (!store.state.news) {
-      const { data } = await app.$http.get('/news')
-      store.commit('SET_NEWS', data.news)
+    async fetch ({app, store}) {
+      if (!store.state.news) {
+        const {data} = await app.$http.get('/news')
+        store.commit('SET_NEWS', data.news)
+      }
     }
   }
-}
 </script>
 
 <style scoped>
@@ -54,6 +54,7 @@ export default {
     background-color: #fff;
     padding: 30px;
   }
+
   .markdown-body {
     color: #334257;
     box-sizing: border-box;
@@ -61,6 +62,7 @@ export default {
     max-width: 100%;
     margin: 0 auto;
   }
+
   .title {
     margin-bottom: 20px;
     padding-left: 10px;
@@ -68,6 +70,7 @@ export default {
     font-weight: bold;
     position: relative;
   }
+
   .title::after {
     content: "";
     display: block;
@@ -80,6 +83,7 @@ export default {
     border-radius: 1px 0 0 0;
     transform: translateY(-50%);
   }
+
   .createdAt {
     text-align: right;
   }

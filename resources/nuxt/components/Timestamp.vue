@@ -16,7 +16,7 @@
     name: 'timestamp',
     data() {
       return {
-        timestamp :null
+        timestamp: null
       }
     },
     methods: {
@@ -38,6 +38,7 @@
     display: table;
     height: 100%;
   }
+
   .timestamp div {
     display: table-cell;
     vertical-align: middle;

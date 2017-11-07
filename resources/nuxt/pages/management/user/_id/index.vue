@@ -1,72 +1,72 @@
 <template>
-    <div>
-        <contents-name name="ユーザ詳細">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                <el-breadcrumb-item>ユーザ詳細</el-breadcrumb-item>
-            </el-breadcrumb>
-        </contents-name>
-        <div class="page">
-            <div class="contents">
-                <div class="image">
-                    <div v-if="user.thumbnail">
-                        <img :src="user.thumbnail" alt="">
-                    </div>
-                    <div v-else>
-                        <img src="~assets/imgs/noimage.png" alt="">
-                    </div>
-                </div>
-                <div class="profile">
-                    <div class="rows">
-                        <div class="row">
-                            <div>名前</div>
-                            <div>{{fullname}}</div>
-                        </div>
-                        <div class="row">
-                            <div>名前 (かな)</div>
-                            <div>{{fullnameKana}}</div>
-                        </div>
-                        <div class="row">
-                            <div>住所</div>
-                            <div>{{address}}</div>
-                        </div>
-                        <div class="row">
-                            <div>生年月日</div>
-                            <div>{{birthday}}</div>
-                        </div>
-                        <div class="row">
-                            <div>性別</div>
-                            <div>{{gender}}</div>
-                        </div>
-                        <div class="row">
-                            <div>メールアドレス</div>
-                            <div>{{email}}</div>
-                        </div>
-                        <div class="row">
-                            <div>電話番号</div>
-                            <div>{{tel}}</div>
-                        </div>
-                        <div class="row">
-                            <div>役職</div>
-                            <div>{{position}}</div>
-                        </div>
-                        <div class="row">
-                            <div>権限</div>
-                            <div>{{authority}}</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="btns">
-                    <div>
-                        <nuxt-link :to="`/management/user/${user.id}/edit`">
-                            <el-button type="primary" icon="el-icon-edit"></el-button>
-                        </nuxt-link>
-                        <el-button type="danger" icon="el-icon-delete" @click="open" class="delete"></el-button>
-                    </div>
-                </div>
-            </div>
+  <div>
+    <contents-name name="ユーザ詳細">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item>ユーザ詳細</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+    <div class="page">
+      <div class="contents">
+        <div class="image">
+          <div v-if="user.thumbnail">
+            <img :src="user.thumbnail" alt="">
+          </div>
+          <div v-else>
+            <img src="~assets/imgs/noimage.png" alt="">
+          </div>
         </div>
+        <div class="profile">
+          <div class="rows">
+            <div class="row">
+              <div>名前</div>
+              <div>{{fullname}}</div>
+            </div>
+            <div class="row">
+              <div>名前 (かな)</div>
+              <div>{{fullnameKana}}</div>
+            </div>
+            <div class="row">
+              <div>住所</div>
+              <div>{{address}}</div>
+            </div>
+            <div class="row">
+              <div>生年月日</div>
+              <div>{{birthday}}</div>
+            </div>
+            <div class="row">
+              <div>性別</div>
+              <div>{{gender}}</div>
+            </div>
+            <div class="row">
+              <div>メールアドレス</div>
+              <div>{{email}}</div>
+            </div>
+            <div class="row">
+              <div>電話番号</div>
+              <div>{{tel}}</div>
+            </div>
+            <div class="row">
+              <div>役職</div>
+              <div>{{position}}</div>
+            </div>
+            <div class="row">
+              <div>権限</div>
+              <div>{{authority}}</div>
+            </div>
+          </div>
+        </div>
+        <div class="btns">
+          <div>
+            <nuxt-link :to="`/management/user/${user.id}/edit`">
+              <el-button type="primary" icon="el-icon-edit"></el-button>
+            </nuxt-link>
+            <el-button type="danger" icon="el-icon-delete" @click="open" class="delete"></el-button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
   import ContentsName from '@/components/ContentsName.vue'
@@ -143,53 +143,53 @@
 </script>
 
 <style scoped>
-    .delete {
-        margin-left: 10px;
-    }
+  .delete {
+    margin-left: 10px;
+  }
 
-    .page {
-        border-radius: 2px;
-    }
+  .page {
+    border-radius: 2px;
+  }
 
-    .image {
-        width: 300px;
-        padding: 25px;
-        display: inline-block;
-        background: #fff;
-        vertical-align: top;
-    }
+  .image {
+    width: 300px;
+    padding: 25px;
+    display: inline-block;
+    background: #fff;
+    vertical-align: top;
+  }
 
-    .profile {
-        margin-left: 10px;
-        display: inline-block;
-        width: calc(100% - 300px - 10px);
-        vertical-align: top;
-    }
+  .profile {
+    margin-left: 10px;
+    display: inline-block;
+    width: calc(100% - 300px - 10px);
+    vertical-align: top;
+  }
 
-    .profile .row {
-        background: #fff;
-        letter-spacing: 1px;
-    }
+  .profile .row {
+    background: #fff;
+    letter-spacing: 1px;
+  }
 
-    .profile .row:not(:last-child) {
-        margin-bottom: 10px;
-    }
+  .profile .row:not(:last-child) {
+    margin-bottom: 10px;
+  }
 
-    .profile .row div {
-        padding: 10px;
-    }
+  .profile .row div {
+    padding: 10px;
+  }
 
-    .profile .row div:first-child {
-        font-size: 12px;
-        background: #efefef;
-    }
+  .profile .row div:first-child {
+    font-size: 12px;
+    background: #efefef;
+  }
 
-    .profile .row div:last-child {
-        padding: 15px 10px;
-    }
+  .profile .row div:last-child {
+    padding: 15px 10px;
+  }
 
-    .btns {
-        margin-top: 10px;
-        text-align: right;
-    }
+  .btns {
+    margin-top: 10px;
+    text-align: right;
+  }
 </style>

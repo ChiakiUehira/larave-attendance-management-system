@@ -1,14 +1,14 @@
 <template>
-    <section>
-        <contents-name name="ニュース編集">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{ path: '/management/news' }">ニュース一覧</el-breadcrumb-item>
-                <el-breadcrumb-item>ニュース投稿</el-breadcrumb-item>
-            </el-breadcrumb>
-        </contents-name>
-        <news-form :news="news"></news-form>
-    </section>
+  <section>
+    <contents-name name="ニュース編集">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/news' }">ニュース一覧</el-breadcrumb-item>
+        <el-breadcrumb-item>ニュース投稿</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+    <news-form :news="news"></news-form>
+  </section>
 </template>
 
 <script>
@@ -17,7 +17,7 @@
   export default{
     asyncData () {
       return {
-        news :{
+        news: {
           title: '',
           detail: ''
         }

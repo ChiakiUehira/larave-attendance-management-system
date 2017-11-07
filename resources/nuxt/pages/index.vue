@@ -14,19 +14,18 @@
   import ContentsName from '@/components/ContentsName.vue'
   export default {
     data () {
-      return {
-      }
+      return {}
     },
     components: {
       ContentsName
     },
-    async fetch({app,store}){
+    async fetch({app, store}){
       if (!store.state.users) {
-        const { data } = await app.$http.get('/user')
+        const {data} = await app.$http.get('/user')
         store.commit('SET_USERS', data.users)
       }
       if (!store.state.groups) {
-        const { data } = await app.$http.get('/group')
+        const {data} = await app.$http.get('/group')
         store.commit('SET_GROUPS', data.groups)
       }
     }
