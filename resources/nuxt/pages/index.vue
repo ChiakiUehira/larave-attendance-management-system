@@ -20,7 +20,7 @@
     components: {
       ContentsName
     },
-    async fetch({app,store}){
+    async fetch ({app, store}) {
       if (!store.state.users) {
         const { data } = await app.$http.get('/user')
         store.commit('SET_USERS', data.users)

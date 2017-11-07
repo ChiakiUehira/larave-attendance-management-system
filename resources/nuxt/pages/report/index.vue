@@ -21,14 +21,14 @@
   import PieChart from './_ChartComponent/Pie.vue'
   import ContentsName from '~/components/ContentsName.vue'
   export default{
-    data(){
+    data () {
       return {
-        currentView: "LineChart",
-        activeName:""
+        currentView: 'LineChart',
+        activeName: ''
       }
     },
-    methods:{
-      handleClick(tab, event){
+    methods: {
+      handleClick (tab, event) {
         this.currentView = this.activeName
       }
     },

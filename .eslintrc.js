@@ -10,5 +10,8 @@ module.exports = {
     'html'
   ],
   rules: {},
-  globals: {}
+  globals: {
+    use: false,
+    make: false
+  },
 }

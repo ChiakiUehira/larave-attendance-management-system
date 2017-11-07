@@ -17,7 +17,7 @@
   export default{
     asyncData () {
       return {
-        news :{
+        news: {
           title: '',
           detail: ''
         }
@@ -26,6 +26,6 @@
     components: {
       NewsForm,
       ContentsName
-    },
+    }
   }
 </script>

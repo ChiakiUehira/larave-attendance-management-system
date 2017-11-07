@@ -8,7 +8,7 @@
 <script>
 export default {
   name: 'contents-name',
-  data() {
+  data () {
     return {
     }
   }

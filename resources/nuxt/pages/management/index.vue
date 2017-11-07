@@ -21,8 +21,8 @@ import ContentsName from '@/components/ContentsName.vue'
 import MyLinkCard from '@/components/MyLinkCard.vue'
 export default {
   components: {
-      MyLinkCard,
-      ContentsName
+    MyLinkCard,
+    ContentsName
   },
   computed: {
     links () {
@@ -42,7 +42,7 @@ export default {
         {
           name: '打刻管理',
           href: '/management/clockin'
-        },
+        }
       ]
     }
   }

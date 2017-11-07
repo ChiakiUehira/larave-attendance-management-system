@@ -39,11 +39,11 @@
         const id = this.$route.params.id
         return this.$store.state.news.find(news => news.id === Number(id))
       },
-      detail (){
+      detail () {
         return marked(this.news.detail)
       },
       createdAt () {
-        return moment(this.news.created_at).format("YYYY年MM月DD日 HH時mm分")
+        return moment(this.news.created_at).format('YYYY年MM月DD日 HH時mm分')
       },
       title () {
         return this.news.title
@@ -56,7 +56,7 @@
       }
     },
     methods: {
-      deleteNews(){
+      deleteNews () {
         this.open()
       },
       open () {
@@ -68,16 +68,16 @@
           this.$http.delete(`/news/${this.news.id}`).then(({data}) => {
             this.$message({
               type: 'success',
-              message: '削除しました',
-            });
+              message: '削除しました'
+            })
             this.fetchNews()
             this.$router.push('/management/news')
           })
         }).catch(() => {
-          this.$message({type: 'warning', message: 'キャンセルしました'});
-        });
+          this.$message({type: 'warning', message: 'キャンセルしました'})
+        })
       },
-      async fetchNews (){
+      async fetchNews () {
         const {data} = await this.$http.get('/news')
         this.$store.commit('SET_NEWS', data.news)
       }

@@ -8,7 +8,7 @@
 <script>
 export default {
   computed: {
-    isLoading() {
+    isLoading () {
       return this.$store.state.isLoading
     }
   }

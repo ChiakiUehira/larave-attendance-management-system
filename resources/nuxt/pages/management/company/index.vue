@@ -62,11 +62,11 @@ export default {
               remove()
               window.location = '/'
             }
-          });
+          })
         })
       }).catch(() => {
-        this.$message({type: 'warning',message: 'キャンセルしました'});
-      });
+        this.$message({type: 'warning', message: 'キャンセルしました'})
+      })
     }
   },
   computed: {

@@ -21,17 +21,17 @@
   import marked from 'marked'
   import mdCss from 'github-markdown-css'
   export default{
-    props: ["type", "news"],
+    props: ['type', 'news'],
     computed: {
-      after(){
-        return this.news.detail.length ? marked(this.news.detail) : "<h1>No Text</h1>　<strong>マークダウン形式の投稿が可能です</strong>"
+      after () {
+        return this.news.detail.length ? marked(this.news.detail) : '<h1>No Text</h1>　<strong>マークダウン形式の投稿が可能です</strong>'
       },
-      isEdit(){
+      isEdit () {
         return this.type === 'edit'
       }
     },
     methods: {
-      async post(){
+      async post () {
         const {data} = await this.$http.post('news', this.news)
         if (data.success) {
           this.fetchNews()
@@ -41,17 +41,17 @@
           this.$notify.error('投稿に失敗しました、もう一度やり直してください')
         }
       },
-      async edit(){
+      async edit () {
         const {data} = await this.$http.put(`/news/${this.news.id}`, this.news)
-        if(data.success){
+        if (data.success) {
           this.fetchNews()
           this.$notify.success('更新が完了しました')
           this.$router.push(`/management/news/${data.news.id}`)
-        }else{
+        } else {
           this.$notify.error('更新に失敗しました')
         }
       },
-      async fetchNews (){
+      async fetchNews () {
         const {data} = await this.$http.get('/news')
         this.$store.commit('SET_NEWS', data.news)
       }

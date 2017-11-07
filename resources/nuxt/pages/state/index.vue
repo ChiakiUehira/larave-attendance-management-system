@@ -32,7 +32,7 @@
   import ContentsName from '@/components/ContentsName.vue'
   export default {
     components: {
-      ContentsName,
+      ContentsName
     },
     async fetch ({app, store}) {
       if (!store.state.me) {
@@ -40,32 +40,32 @@
         store.commit('SET_ME', data.me)
       }
     },
-    data(){
+    data () {
       return {
         active: 0
       }
     },
     methods: {
-      open() {
+      open () {
         this.$prompt('今日の意気込み!', '出勤する', {
           confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          cancelButtonText: 'Cancel'
         }).then(value => {
           this.start()
         }).catch(() => {
           this.$message({
             type: 'info',
             message: 'Input canceled'
-          });
+          })
         })
       },
-      start(){
+      start () {
         this.active = 1
       },
-      rest(){
+      rest () {
         this.active = 2
       },
-      stop(){
+      stop () {
         this.active = 3
       }
     }

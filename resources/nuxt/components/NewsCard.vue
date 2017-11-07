@@ -9,10 +9,10 @@
 <script>
   import moment from 'moment'
   export default {
-    props:['news'],
+    props: ['news'],
     computed: {
       createdAt () {
-        return moment(this.news.created_at).format("YYYY年MM月DD日 HH時mm分")
+        return moment(this.news.created_at).format('YYYY年MM月DD日 HH時mm分')
       },
       title () {
         return this.news.title

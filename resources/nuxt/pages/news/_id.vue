@@ -29,11 +29,11 @@ export default {
       const id = this.$route.params.id
       return this.$store.state.news.find(news => news.id === Number(id))
     },
-    detail (){
+    detail () {
       return marked(this.news.detail)
     },
     createdAt () {
-      return moment(this.news.created_at).format("YYYY年MM月DD日 HH時mm分")
+      return moment(this.news.created_at).format('YYYY年MM月DD日 HH時mm分')
     },
     title () {
       return this.news.title

@@ -11,7 +11,7 @@
   export default {
     name: 'logout',
     methods: {
-      logout(){
+      logout () {
         remove()
         window.location.reload()
       }

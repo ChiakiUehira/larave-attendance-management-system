@@ -106,7 +106,7 @@ export default {
   async asyncData ({app}) {
     const { data } = await app.$http.get('/me')
     let context = data.me
-    context.birthday = moment(context.birthday).format("YYYY-MM-DD")
+    context.birthday = moment(context.birthday).format('YYYY-MM-DD')
     return {
       context
     }
@@ -157,7 +157,7 @@ export default {
       const { data } = await this.$http.get('user')
       this.$store.commit('SET_USERS', data.users)
     },
-    uploaded(dataUrl){
+    uploaded (dataUrl) {
       this.context.thumbnail = dataUrl
     },
     passwordEditOpen () {
@@ -166,10 +166,10 @@ export default {
         callback: action => {
           this.$message({
             type: 'info',
-            message: `action: ${ action }`
-          });
+            message: `action: ${action}`
+          })
         }
-      });
+      })
     }
   },
   computed: {

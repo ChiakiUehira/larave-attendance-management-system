@@ -13,8 +13,8 @@
     "build": "node ./ace nuxtbuild",
     "nyan": "ava --tap | tap-nyan",
     "test": "ava --verbose",
-    "lint": "standard",
-    "fixer": "standard --fix",
+    "lint": "eslint --ext .js,.vue .",
+    "fixer": "eslint --fix --ext .js,.vue .",
     "heroku-postbuild": "node ./ace nuxtbuild",
     "swagger": "json-refs resolve ./document/app.yml > ./document/app.json"
   },
@@ -57,19 +57,6 @@
     "vue-template-compiler": "~2.5.2",
     "webpack-node-externals": "^1.6.0",
     "youch": "^2.0.4"
-  },
-  "standard": {
-    "global": [
-      "use",
-      "make"
-    ],
-    "ignore": [
-      "/bootstrap",
-      "/config",
-      "/providers",
-      "/storage",
-      "/public"
-    ]
   },
   "ava": {
     "files": [

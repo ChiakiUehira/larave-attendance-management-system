@@ -78,7 +78,7 @@
     async asyncData ({app, params}) {
       const {data} = await app.$http.get(`/user/${params.id}`)
       let context = data.user
-      context.birthday = moment(context.birthday).format("YYYY-MM-DD")
+      context.birthday = moment(context.birthday).format('YYYY-MM-DD')
       return {
         context
       }
@@ -105,7 +105,7 @@
         const {data} = await this.$http.get('user')
         this.$store.commit('SET_USERS', data.users)
       },
-      uploaded(dataUrl){
+      uploaded (dataUrl) {
         this.context.thumbnail = dataUrl
       }
     }

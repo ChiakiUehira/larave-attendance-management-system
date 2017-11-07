@@ -28,7 +28,7 @@
   import { setToken } from '../../../../utils/Token'
   export default {
     layout: 'auth',
-    data(){
+    data () {
       return {
         context: {
           email: 'sisukai2017@gmail.com',
@@ -37,36 +37,36 @@
         isSend: false
       }
     },
-    methods:{
-      reset(){
+    methods: {
+      reset () {
         this.context.email = ''
         this.context.password = ''
       },
-      submit(){
+      submit () {
         // @todo asyncに書き換える
         if (!this.isSend) {
           this.isSend = true
-          this.$http.post('login',this.context).then(({data})=>{
-            this.$store.commit('SET_IS_LOGIN',true)
-            this.$store.commit('SET_ME',data.me)
+          this.$http.post('login', this.context).then(({data}) => {
+            this.$store.commit('SET_IS_LOGIN', true)
+            this.$store.commit('SET_ME', data.me)
             this.$store.commit('SET_TOKEN', data.token)
             this.$store.commit('SET_IS_MANAGER', data.user.manager_flag === 'manager')
             setToken(data.token)
-            this.$http.get('company').then(({data})=>{
-              this.$store.commit('SET_COMPANY',data.company)
-              this.$http.get('me').then(({data})=>{
-                this.$store.commit('SET_ME',data.me)
+            this.$http.get('company').then(({data}) => {
+              this.$store.commit('SET_COMPANY', data.company)
+              this.$http.get('me').then(({data}) => {
+                this.$store.commit('SET_ME', data.me)
                 this.isSend = false
                 this.$notify.success('ログインしました')
                 this.$router.push('/')
               })
             })
-          }).catch((err)=>{
-            if(err.response.data.message === 'notRegistered'){ //仮登録時は登録ホームにリダイレクト
+          }).catch((err) => {
+            if (err.response.data.message === 'notRegistered') { // 仮登録時は登録ホームにリダイレクト
               location.href = `/register?t=${err.response.data.t}&id=${err.response.data.id}`
             }
             this.isSend = false
-            this.$notify.error('メールアドレスかパスワードが間違っています');
+            this.$notify.error('メールアドレスかパスワードが間違っています')
           })
         }
       }

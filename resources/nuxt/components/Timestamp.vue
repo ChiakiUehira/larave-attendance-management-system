@@ -14,9 +14,9 @@
   import moment from 'moment'
   export default {
     name: 'timestamp',
-    data() {
+    data () {
       return {
-        timestamp :null
+        timestamp: null
       }
     },
     methods: {
@@ -26,8 +26,8 @@
     },
     created () {
       this.timestamp = moment().format(FORMAT)
-      setInterval(() => this.updateTime(), 1 * 100);
-    }
+      setInterval(() => this.updateTime(), 1 * 100)
+  }
   }
 </script>
 

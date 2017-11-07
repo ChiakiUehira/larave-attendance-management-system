@@ -113,10 +113,10 @@
       }
     },
     methods: {
-      fullName (first,last) {
+      fullName (first, last) {
         return `${last}${first}`
       },
-      querySearch(queryString, cb) {
+      querySearch (queryString, cb) {
         let results = this.toValueFormUsers
         if (queryString) {
           results = this.toValueFormUsers.filter((user) => {
@@ -128,11 +128,11 @@
         }
         return cb(this.toValueFormUsers)
       },
-      handleSelect(user) {
+      handleSelect (user) {
         this.search.word = user.value
       }
     },
-    async fetch({app,store}){
+    async fetch ({app, store}) {
       if (!store.state.users) {
         const { data } = await app.$http.get('/user')
         store.commit('SET_USERS', data.users)

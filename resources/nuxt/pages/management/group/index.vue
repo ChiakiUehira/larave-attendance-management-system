@@ -69,17 +69,17 @@
   import ContentsName from '~/components/ContentsName.vue'
   import UserCard from '~/components/UserCard.vue'
   export default{
-    async fetch ({app, store}){
+    async fetch ({app, store}) {
       const {data} = await app.$http.get('group')
       const obj = await app.$http.get('user')
       store.commit('SET_GROUPS', data.groups)
       store.commit('SET_USERS', obj.data.users)
     },
     computed: {
-      groups(){
+      groups () {
         return this.$store.state.groups
       },
-      users(){
+      users () {
         return this.$store.state.users
       },
       toValueFromGroups () {
@@ -103,7 +103,7 @@
         return users
       }
     },
-    data(){
+    data () {
       return {
         inputVisible: false,
         inputValue: '',
@@ -111,7 +111,7 @@
           group: ''
         },
         centerDialogVisible: false,
-        group_id:''
+        group_id: ''
       }
     },
     components: {
@@ -119,27 +119,27 @@
       UserCard
     },
     methods: {
-      showInput() {
-        this.inputVisible = true;
+      showInput () {
+        this.inputVisible = true
         this.$nextTick(_ => {
-          this.$refs.saveTagInput.$refs.input.focus();
-      });
+          this.$refs.saveTagInput.$refs.input.focus()
+        })
       },
-      async handleInputConfirm() {
-        let inputValue = this.inputValue;
+      async handleInputConfirm () {
+        let inputValue = this.inputValue
         if (inputValue) {
-          const { data } = await this.$http.post('group',{name: inputValue})
+          const { data } = await this.$http.post('group', {name: inputValue})
           this.$store.commit('UPDATE_GROUPS', data.group)
         }
-        this.inputVisible = false;
-        this.inputValue = '';
+        this.inputVisible = false
+        this.inputValue = ''
       },
-      dialogVisible(id){
+      dialogVisible (id) {
         this.centerDialogVisible = true
         this.group_id = id
       },
-      async deleteGroup(){
-        await this.$http.delete(`group/${this.group_id}`).catch((e)=>{
+      async deleteGroup () {
+        await this.$http.delete(`group/${this.group_id}`).catch((e) => {
           return this.$message.error('グループの削除に失敗しました')
         })
         const {data} = await this.$http.get('group')

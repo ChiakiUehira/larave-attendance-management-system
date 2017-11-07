@@ -16,9 +16,9 @@
   export default {
     components: {
       LogOut,
-      Timestamp,
+      Timestamp
     },
-    computed:{
+    computed: {
       company () {
         return this.$store.state.company
       }

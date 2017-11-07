@@ -63,7 +63,7 @@
       },
       displayNews () {
         return this.news.slice(this.offset, this.offset + this.per)
-      },
+      }
     },
     methods: {
       handleCurrentChange (page) {

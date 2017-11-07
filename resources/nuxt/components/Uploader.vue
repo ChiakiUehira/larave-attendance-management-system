@@ -14,25 +14,25 @@
 
 <script>
   export default{
-    props: ["thumbnail"],
+    props: ['thumbnail'],
     methods: {
-      handleAvatarSuccess(res, file) {
+      handleAvatarSuccess (res, file) {
         this.$emit('uploaded', res.dataUrl)
         this.$store.commit('SET_IS_LOADING', false)
       },
-      beforeAvatarUpload(file) {
+      beforeAvatarUpload (file) {
         this.$store.commit('SET_IS_LOADING', true)
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+        const isJPG = file.type === 'image/jpeg'
+        const isLt2M = file.size / 1024 / 1024 < 2
 
         if (!isJPG) {
           this.$store.commit('SET_IS_LOADING', false)
-          this.$message.error('Avatar picture must be JPG or PNG format!');
+          this.$message.error('Avatar picture must be JPG or PNG format!')
           return isJPG
         }
         if (!isLt2M) {
           this.$store.commit('SET_IS_LOADING', false)
-          this.$message.error('Avatar picture size can not exceed 2MB!');
+          this.$message.error('Avatar picture size can not exceed 2MB!')
           return isLt2M
         }
       }

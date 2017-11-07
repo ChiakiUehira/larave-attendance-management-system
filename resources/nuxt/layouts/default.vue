@@ -19,13 +19,13 @@ export default {
   components: {
     SideNavi,
     MyHeader,
-    Loading,
+    Loading
   },
   methods: {
     handleResize () {
       const device = (window.innerWidth >= 960) ? 'pc'
         : (window.innerWidth >= 768) ? 'table'
-        : 'sp'
+          : 'sp'
       this.$store.commit('SET_DEVICE', device)
     }
   },
@@ -35,7 +35,7 @@ export default {
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.handleResize)
-  },
+  }
 }
 </script>
 

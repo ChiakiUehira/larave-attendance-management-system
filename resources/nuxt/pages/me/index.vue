@@ -67,45 +67,45 @@ export default {
       return `〒${this.me.postal_code} ${this.me.address}`
     },
     birthday () {
-      return this.me.birthday ? moment(this.me.birthday).format("YYYY年MM月DD日") : ''
+      return this.me.birthday ? moment(this.me.birthday).format('YYYY年MM月DD日') : ''
     },
     toObjects () {
       return [
         {
           label: '名前',
-          value: this.fullname,
+          value: this.fullname
         },
         {
           label: '名前 (かな)',
-          value: this.fullnameKana,
+          value: this.fullnameKana
         },
         {
           label: '住所',
-          value: this.address,
+          value: this.address
         },
         {
           label: '生年月日',
-          value: this.birthday,
+          value: this.birthday
         },
         {
           label: '性別',
-          value: this.gender,
+          value: this.gender
         },
         {
           label: 'メールアドレス',
-          value: this.email,
+          value: this.email
         },
         {
           label: '電話番号',
-          value: this.tel,
+          value: this.tel
         },
         {
           label: '役職',
-          value: this.position,
+          value: this.position
         },
         {
           label: '権限',
-          value: this.authority,
+          value: this.authority
         }
       ]
     }

@@ -101,12 +101,12 @@
         return `〒${this.user.postal_code} ${this.user.address}`
       },
       birthday () {
-        return moment(this.user.birthday).format("YYYY年MM月DD日")
+        return moment(this.user.birthday).format('YYYY年MM月DD日')
       },
       user () {
         const id = this.$route.params.id
         return this.$store.state.users.find(user => user.id === Number(id))
-      },
+      }
     },
     methods: {
       open () {
@@ -125,15 +125,15 @@
             }
           })
         }).catch(() => {
-          this.$message({type: 'warning', message: 'キャンセルしました'});
-        });
+          this.$message({type: 'warning', message: 'キャンセルしました'})
+        })
       },
-      async fetchUser(){
+      async fetchUser () {
         const {data} = await this.$http.get('user')
         this.$store.commit('SET_USERS', data.users)
       }
     },
-    async fetch({app, store}){
+    async fetch ({app, store}) {
       if (!store.state.users) {
         const {data} = await app.$http.get('/user')
         store.commit('SET_USERS', data.users)

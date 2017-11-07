@@ -88,11 +88,11 @@
       ContentsName,
       Uploader
     },
-    async fetch({app, store}){
+    async fetch ({app, store}) {
       const {data} = await app.$http.get('/manager/invite')
       store.commit('SET_INVITING_USERS', data.users)
     },
-    async asyncData({app}){
+    async asyncData ({app}) {
       const {data} = await app.$http.get('group')
       const groups = data.groups.map((group) => {
         return {value: group.id, label: group.name}
@@ -100,7 +100,7 @@
       return {groups: groups}
     },
     computed: {
-      displayUsers(){
+      displayUsers () {
         let users = this.$store.state.invitingUsers
 
         users = users.filter((user) => {
@@ -124,22 +124,22 @@
         })
       }
     },
-    data() {
+    data () {
       return {
         context: {
-          "last_name": "山田",
-          "first_name": "太郎",
-          "last_name_kana": "ヤマダ",
-          "first_name_kana": "タロウ",
-          "email": "mailsend.manager@gmail.com",
-          "manager_flag": "normal",
-          "position": "係長",
-          "group_id": "",
+          'last_name': '山田',
+          'first_name': '太郎',
+          'last_name_kana': 'ヤマダ',
+          'first_name_kana': 'タロウ',
+          'email': 'mailsend.manager@gmail.com',
+          'manager_flag': 'normal',
+          'position': '係長',
+          'group_id': ''
         },
         isSend: false,
         search: {
-          "name": "",
-          "email": ""
+          'name': '',
+          'email': ''
         }
       }
     },
@@ -147,7 +147,7 @@
       fullName (last, first) {
         return `${last}${first}`
       },
-      querySearch(queryString, cb) {
+      querySearch (queryString, cb) {
         let results = this.toValueFormUsers
         if (queryString) {
           results = this.toValueFormUsers.filter((user) => {
@@ -159,29 +159,29 @@
         }
         return cb(this.toValueFormUsers)
       },
-      handleSelect(user) {
+      handleSelect (user) {
         this.search.name = user.value
       },
-      async invite(){
+      async invite () {
         if (!this.isSend) {
-          this.isSend = true;
+          this.isSend = true
           this.$store.commit('SET_IS_LOADING', true)
           const {data} = await this.$http.post('/manager/invite', this.context).catch(err => {
             if (err.response.data.message === 'overlapping') {
-              this.isSend = false;
+              this.isSend = false
               this.$store.commit('SET_IS_LOADING', false)
               this.$notify.error('このEmailアドレスはすでに登録されています。')
               return
             }
             if (!err.response.data.success) {
-              this.isSend = false;
+              this.isSend = false
               this.$store.commit('SET_IS_LOADING', false)
               this.$notify.error('招待メールの送信に失敗しました')
             }
           })
           if (data.success) {
-            this.isSend = false;
-            this.clear();
+            this.isSend = false
+            this.clear()
             const {data} = await this.$http.get('/manager/invite')
             this.users = data.users
             this.$store.commit('SET_IS_LOADING', false)
@@ -189,16 +189,16 @@
           }
         }
       },
-      clear(){
-        this.context.last_name = ""
-        this.context.first_name = ""
-        this.context.last_name_kana = ""
-        this.context.first_name_kana = ""
-        this.context.email = ""
-        this.context.manager_flag = ""
-        this.context.password = ""
-        this.context.position = ""
-        this.context.group_id = ""
+      clear () {
+        this.context.last_name = ''
+        this.context.first_name = ''
+        this.context.last_name_kana = ''
+        this.context.first_name_kana = ''
+        this.context.email = ''
+        this.context.manager_flag = ''
+        this.context.password = ''
+        this.context.position = ''
+        this.context.group_id = ''
       }
     }
   }
