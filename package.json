@@ -60,7 +60,8 @@
   },
   "ava": {
     "files": [
-      "tests/api/**/*.js"
+      "tests/api/**/*.js",
+      "tests/web/*.js"
     ]
   },
   "autoload": {
