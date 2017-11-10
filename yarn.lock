@@ -155,7 +155,7 @@ addressparser@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/addressparser/-/addressparser-1.0.1.tgz#47afbe1a2a9262191db6838e4fd1d39b40821746"
 
-adonis-ace@^3.0.7:
+adonis-ace@^3.0.8:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/adonis-ace/-/adonis-ace-3.0.8.tgz#812aa96f9a2049b4b6c0af413d7588d2d55537e7"
   dependencies:
@@ -169,7 +169,7 @@ adonis-ace@^3.0.7:
     lodash "^4.17.2"
     node-exceptions "^2.0.0"
 
-adonis-auth@^1.0.5:
+adonis-auth@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/adonis-auth/-/adonis-auth-1.0.7.tgz#41eb7c74f6fd9240a1ea5d9593f385130add1a21"
   dependencies:
@@ -213,7 +213,7 @@ adonis-fold@^3.0.3:
     node-exceptions "^1.0.3"
     require-stack "^1.0.1"
 
-adonis-framework@^3.0.10:
+adonis-framework@^3.0.14:
   version "3.0.14"
   resolved "https://registry.yarnpkg.com/adonis-framework/-/adonis-framework-3.0.14.tgz#fdc6a2a95c29ee2d475ca49634e3e9ccd8c606b7"
   dependencies:
@@ -237,7 +237,7 @@ adonis-framework@^3.0.10:
     type-of-is "^3.4.0"
     uuid "^3.0.1"
 
-adonis-lucid@^3.0.14:
+adonis-lucid@^3.0.16:
   version "3.0.16"
   resolved "https://registry.yarnpkg.com/adonis-lucid/-/adonis-lucid-3.0.16.tgz#321cdc035806acf11c830447759c88212999d647"
   dependencies:
@@ -267,7 +267,7 @@ adonis-mail-provider@^2.0.2:
     node-exceptions "^1.0.3"
     nodemailer "^2.5.0"
 
-adonis-middleware@^1.0.11:
+adonis-middleware@^1.0.14:
   version "1.0.14"
   resolved "https://registry.yarnpkg.com/adonis-middleware/-/adonis-middleware-1.0.14.tgz#a03b43d0f071c3dcfbb16667519717cece700457"
   dependencies:
@@ -288,7 +288,7 @@ adonis-validation-provider@^3.0.5:
   dependencies:
     indicative "^2.2.1"
 
-adonis-websocket@^1.0.3:
+adonis-websocket@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/adonis-websocket/-/adonis-websocket-1.0.4.tgz#208c47f60e340b1bb172bbb332f5503592b1e451"
   dependencies:
@@ -1733,7 +1733,7 @@ chance@^1.0.8:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/chance/-/chance-1.0.12.tgz#6764c9cb7b4f34856fb780d07f0e17a6601c6c08"
 
-chart.js@^2.7.0:
+chart.js@^2.7.1:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.1.tgz#ae90b4aa4ff1f02decd6b1a2a8dabfd73c9f9886"
   dependencies:
@@ -2437,7 +2437,7 @@ csv-stringify@^1.1.2:
   dependencies:
     lodash.get "~4.4.2"
 
-csv@^1.1.1:
+csv@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/csv/-/csv-1.2.1.tgz#5231edfc1c7152512ec45781076a7a97ff525c0c"
   dependencies:
@@ -2804,7 +2804,7 @@ electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.27:
   version "1.3.27"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.27.tgz#78ecb8a399066187bb374eede35d9c70565a803d"
 
-element-ui@^2.0.2:
+element-ui@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/element-ui/-/element-ui-2.0.3.tgz#d46ea49a38ef190094acf1dddc446c880d313a7f"
   dependencies:
@@ -4792,7 +4792,7 @@ js-base64@^2.1.9:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.3.2.tgz#a79a923666372b580f8e27f51845c6f7e8fbfbaf"
 
-js-cookie@^2.1.4:
+js-cookie@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
@@ -5559,7 +5559,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-moment@2.x.x, moment@^2.13.0, moment@^2.18.1:
+moment@2.x.x, moment@^2.13.0, moment@^2.18.1, moment@^2.19.1:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
@@ -5903,7 +5903,7 @@ nunjucks@^3.0.0:
   optionalDependencies:
     chokidar "^1.6.0"
 
-nuxt@^1.0.0-rc11:
+nuxt@^1.0.0-rc9:
   version "1.0.0-rc9"
   resolved "https://registry.yarnpkg.com/nuxt/-/nuxt-1.0.0-rc9.tgz#74bb73f85b1e92a8ad7d7108386fbecccbe7a3d4"
   dependencies:
@@ -6379,9 +6379,9 @@ pg-types@~1.12.1:
     postgres-date "~1.0.0"
     postgres-interval "^1.1.0"
 
-pg@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/pg/-/pg-7.3.0.tgz#275e27466e54a645f6b4a16f6acadf6b849ad83b"
+pg@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/pg/-/pg-7.4.0.tgz#e256061d2c52723c3c858defb97f1159ca660f83"
   dependencies:
     buffer-writer "1.0.1"
     js-string-escape "1.0.1"
@@ -8855,13 +8855,13 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
-vue-awesome@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/vue-awesome/-/vue-awesome-2.3.3.tgz#e83f976fe5c7f86d207c24ca33731bdc6e9906a9"
+vue-awesome@^2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/vue-awesome/-/vue-awesome-2.3.4.tgz#a8b06a21dd95a5787e108561be89e216fd9a78e6"
 
-vue-chartjs@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.0.0.tgz#a94f79072ed9a6d51b62c23269d874af0bc48718"
+vue-chartjs@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-3.0.2.tgz#960d0ba9c2f3720b85ff02417707adc02f953de9"
   dependencies:
     lodash.merge "^4.6.0"
 
@@ -8909,9 +8909,9 @@ vue-router@^2.7.0:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.8.1.tgz#9833c9ee57ac83beb0269056fefee71713f20695"
 
-vue-server-renderer@~2.4.2:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/vue-server-renderer/-/vue-server-renderer-2.4.4.tgz#bd59cf4e42dfaf2c9e388af8837b5420dd51360d"
+vue-server-renderer@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/vue-server-renderer/-/vue-server-renderer-2.5.3.tgz#cac10b4a9d147b04cf70cd8bc3ac95f5e630794b"
   dependencies:
     chalk "^1.1.3"
     hash-sum "^1.0.2"
@@ -8922,9 +8922,9 @@ vue-server-renderer@~2.4.2:
     serialize-javascript "^1.3.0"
     source-map "0.5.6"
 
-vue-server-renderer@~2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/vue-server-renderer/-/vue-server-renderer-2.5.2.tgz#c96a4368caa3fd298a528f1bf40632d8f696ff25"
+vue-server-renderer@~2.4.2:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/vue-server-renderer/-/vue-server-renderer-2.4.4.tgz#bd59cf4e42dfaf2c9e388af8837b5420dd51360d"
   dependencies:
     chalk "^1.1.3"
     hash-sum "^1.0.2"
@@ -8942,16 +8942,16 @@ vue-style-loader@^3.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@~2.4.2:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.4.4.tgz#2cde3b704124985c27d50b5387c9691ba515fb57"
+vue-template-compiler@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.3.tgz#ab631b0694e211a6aaf0d800102b37836aae36a4"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
 
-vue-template-compiler@~2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.2.tgz#6f198ebc677b8f804315cd33b91e849315ae7177"
+vue-template-compiler@~2.4.2:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.4.4.tgz#2cde3b704124985c27d50b5387c9691ba515fb57"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -8960,13 +8960,13 @@ vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
 
+vue@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.3.tgz#e1a3b1f49b6e93e574ce040b95cbc873912fecc1"
+
 vue@~2.4.2:
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.4.4.tgz#ea9550b96a71465fd2b8b17b61673b3561861789"
-
-vue@~2.5.2:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.2.tgz#fd367a87bae7535e47f9dc5c9ec3b496e5feb5a4"
 
 vuex@^2.4.0:
   version "2.5.0"
@@ -9016,7 +9016,7 @@ webpack-dev-middleware@^1.11.0, webpack-dev-middleware@^1.12.0:
     range-parser "^1.0.3"
     time-stamp "^2.0.0"
 
-webpack-dev-server@^2.4.5:
+webpack-dev-server@^2.9.4:
   version "2.9.4"
   resolved "https://registry.yarnpkg.com/webpack-dev-server/-/webpack-dev-server-2.9.4.tgz#7883e61759c6a4b33e9b19ec4037bd4ab61428d1"
   dependencies:
@@ -9389,7 +9389,7 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
-youch@^2.0.4:
+youch@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/youch/-/youch-2.0.5.tgz#7a1d4491e96c0f9f18a02b3b57c360d42714428a"
   dependencies:
