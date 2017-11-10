@@ -55,5 +55,49 @@ test('ニュース詳細画面', async t => {
   const { status } = await http.get('/news/1')
   t.is(status, 200)
 })
+test('プロフィール画面', async t => {
+  const { status } = await http.get('/me')
+  t.is(status, 200)
+})
+test('プロフィール編集画面', async t => {
+  const { status } = await http.get('/me/edit')
+  t.is(status, 200)
+})
+test('マネジメント一覧画面', async t => {
+  const { status } = await http.get('/management')
+  t.is(status, 200)
+})
+test('ユーザー管理画面', async t => {
+  const { status } = await http.get('/management/user')
+  t.is(status, 200)
+})
+test('ユーザー管理詳細画面', async t => {
+  const { status } = await http.get('/management/user/1')
+  t.is(status, 200)
+})
+test('ニュース管理画面', async t => {
+  const { status } = await http.get('/management/news')
+  t.is(status, 200)
+})
+test('ニュース管理詳細画面', async t => {
+  const { status } = await http.get('/management/news/1')
+  t.is(status, 200)
+})
+test('ニュース管理編集画面', async t => {
+  const { status } = await http.get('/management/news/1/edit')
+  t.is(status, 200)
+})
+test('企業管理画面', async t => {
+  const { status } = await http.get('/management/company')
+  t.is(status, 200)
+})
+test('企業管理編集画面', async t => {
+  const { status } = await http.get('/management/company/edit')
+  t.is(status, 200)
+})
+test('打刻管理', async t => {
+  const { status } = await http.get('/management/clockin')
+  t.is(status, 200)
+})
 
 // @TODO 追加する
