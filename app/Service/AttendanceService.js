@@ -3,12 +3,20 @@ const AttendanceModel = use('App/Model/Attendance')
 
 class AttendanceService {
   * search (user, context) {
-    const attendances = yield AttendanceModel
+    const attendancesByStartedAt = yield AttendanceModel
       .query()
       .where('user_id', user.id)
       .whereBetween('started_at', [context.from, context.to])
       .fetch()
-    return attendances
+    const attendancesByEndedAt = yield AttendanceModel
+      .query()
+      .where('user_id', user.id)
+      .whereBetween('ended_at', [context.from, context.to])
+      .fetch()
+    return [
+      ...attendancesByStartedAt,
+      ...attendancesByEndedAt.filter(self => !attendancesByStartedAt.find(oth => oth.id === self.id))
+    ]
   }
   * getById (id) {
     const attendance = yield AttendanceModel.find(id)
