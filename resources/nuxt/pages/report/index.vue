@@ -15,8 +15,8 @@
         </el-card>
       </div> -->
       <el-button-group>
-        <el-button type="primary" icon="el-icon-arrow-left"></el-button>
-        <el-button type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
+        <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
+        <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
       </el-button-group>
       <div class="contents">
         <el-table
@@ -57,22 +57,10 @@
         activeName: '',
       }
     },
-    asyncData () {
-      return {
-        currentDate: moment().endOf('month').format('YYYY-MM')
-      }
-    },
     methods: {
       handleClick (tab, event) {
         this.currentView = this.activeName
-      }
-    },
-    components: {
-      LineChart,
-      PieChart,
-      ContentsName
-    },
-    methods: {
+      },
       tableRowClassName({row}) {
         if (row.date === moment().format('YYYY-MM-DD')) {
           return 'today-row'
@@ -81,22 +69,54 @@
           return 'error-row'
         }
         return ''
+      },
+      handleCurrentChangeOfDate (date) {
+        let context = {}
+        if (date.from) {
+          context.from = moment(date.from).format('YYYY-MM-DD')
+        }
+        if (date.to) {
+          context.to = moment(date.to).format('YYYY-MM-DD')
+        }
+        return this.$router.push({query: context})
       }
     },
+    components: {
+      LineChart,
+      PieChart,
+      ContentsName
+    },
     computed: {
-      me () {
-        return this.$store.state.me
-      },
       attendances () {
         return this.$store.state.attendances
       },
-      lastDayOfMouth() {
-        return Number(moment(this.currentDate).endOf('month').format('DD'))
+      currentDate () {
+        return moment().endOf('month').format('YYYY-MM')
+      },
+      from () {
+        const from = this.$route.query.from
+        if (from && moment(from).isValid()) {
+          return moment(from).format('YYYY-MM-DD')
+        }
+        return moment().startOf('month').format('YYYY-MM-DD')
+      },
+      to () {
+        const to = this.$route.query.to
+        if (to && moment(to).isValid()) {
+          return moment(to).format('YYYY-MM-DD')
+        }
+        return moment().endOf('month').format('YYYY-MM-DD')
+      },
+      period () {
+        const from = moment(this.from)
+        const to = moment(this.to)
+        const step =  to.diff(from, 'days')
+        return Number(step)
       },
       toValue() {
         let attendances = []
-        for (let i = 0; i < this.lastDayOfMouth; i++) {
-          const date = moment(this.currentDate).clone().add('days', i).format('YYYY-MM-DD')
+        for (let i = 0; i <= this.period; i++) {
+          const date = moment(this.from).clone().add('days', i).format('YYYY-MM-DD')
           const attendance = this.attendances.find((attendance) => {
             if (attendance.started_at) {
               return date === moment(attendance.started_at).format('YYYY-MM-DD')
@@ -117,6 +137,16 @@
           })
         }
         return attendances
+      },
+      nextMouthContext() {
+        const from = moment(this.from).add(1, 'month').startOf('month').format('YYYY-MM-DD')
+        const to = moment(this.to).add(1, 'month').endOf('month').format('YYYY-MM-DD')
+        return {from, to}
+      },
+      prevMouthContext() {
+        const from = moment(this.from).subtract(1, 'month').startOf('month').format('YYYY-MM-DD')
+        const to = moment(this.to).subtract(1, 'month').endOf('month').format('YYYY-MM-DD')
+        return {from, to}
       }
     },
     async fetch ({app, store}) {
