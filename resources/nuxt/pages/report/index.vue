@@ -16,7 +16,7 @@
       </div> -->
       <el-form :inline="true" class="controller">
         <el-form-item>
-          <el-button @click="$router.push('/report')" type="primary" >今月</el-button>
+          <el-button icon="el-icon-date" @click="$router.push('/report')" type="primary" >今月</el-button>
         </el-form-item>
         <el-form-item>
           <el-button-group>
@@ -239,7 +239,6 @@
         return `${hours}時間${min}分`
       }
     },
-    // @TODO storeにたまったものを使いまわしたい
     async fetch ({app, store, route}) {
       const params = route.query
       const { data } = await app.$http.get('/attendance', { params })

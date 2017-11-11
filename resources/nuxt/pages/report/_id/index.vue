@@ -10,16 +10,19 @@
 import ContentsName from '~/components/ContentsName.vue'
 import moment from 'moment'
 export default {
+  async asyncData ({app, store, route}) {
+    const id = route.params.id
+    const { data } = await app.$http.get('/attendance/' + id)
+    return {
+      attendance: data.attendance
+    }
+  },
   components: {
     ContentsName
   },
   computed: {
-    attendace () {
-      const id = this.$route.params.id
-      return this.$store.state.attendances.find(attendance => attendance.id === Number(id))
-    },
     title () {
-      return moment(this.attendace.stared_at).format('YYYY年MM月DD日')
+      return moment(this.attendance.created_at).format('YYYY年MM月DD日')
     }
   }
 }
