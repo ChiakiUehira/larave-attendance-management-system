@@ -14,28 +14,38 @@
           <components :is="currentView"></components>
         </el-card>
       </div> -->
-      <el-button-group>
-        <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
-        <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
-      </el-button-group>
-      <el-date-picker
-        v-model="toDatePickerValue"
-        @change="handleDatePicker"
-        type="daterange"
-        :clearable="false"
-        start-placeholder="Start Date"
-        end-placeholder="End Date">
-      </el-date-picker>
+      <el-form :inline="true" class="controller">
+        <el-form-item>
+          <el-button @click="$router.push('/report')" type="primary" >今月</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button-group>
+            <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
+            <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
+          </el-button-group>
+        </el-form-item>
+        <el-form-item>
+          <el-date-picker
+            v-model="toDatePickerValue"
+            @change="handleDatePicker"
+            type="daterange"
+            :clearable="false"
+            start-placeholder="Start Date"
+            end-placeholder="End Date">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
       <div class="contents">
         <el-table
           style="width: 100%"
           :data="toValue"
-          height="750"
+          max-height="750"
           :row-class-name="tableRowClassName"
           class="el-table"
+          @row-click="handleRowClick"
           >
           <el-table-column
-            prop="date"
+            prop="displayDate"
             label="日付">
           </el-table-column>
           <el-table-column
@@ -87,14 +97,23 @@
       handleClick (tab, event) {
         this.currentView = this.activeName
       },
-      tableRowClassName({row}) {
+      handleRowClick (row) {
+        if (row.id) {
+          return this.$router.push('/attendance/' + row.id)
+        }
+      },
+      tableRowClassName({ row }) {
+        let classes = []
+        if (row.id) {
+          classes.push('attended-row')
+        }
         if (row.date === moment().format('YYYY-MM-DD')) {
-          return 'today-row'
+          classes.push('today-row')
         }
-        if ((row.startedAt && !row.endedAt) || (!row.startedAt && row.endedAt)) {
-          return 'error-row'
+        if (classes.indexOf('today-row') === -1 && ((row.startedAt && !row.endedAt) || (!row.startedAt && row.endedAt))) {
+          classes.push('error-row')
         }
-        return ''
+        return classes.join(',').replace(/\,/g, ' ')
       },
       handleCurrentChangeOfDate (date) {
         let context = {}
@@ -133,6 +152,7 @@
         const step =  to.diff(from, 'days')
         return Number(step)
       },
+      // ここの設計うまくないかも
       toValue() {
         let attendances = []
         for (let i = 0; i <= this.period; i++) {
@@ -150,7 +170,9 @@
           const diff = startedAt ? endedAt ? endedAt.diff(startedAt) : null : null
           const jobedAt = diff ? moment.duration(diff): null
           attendances.push({
+            id: attendance ? attendance.id : null,
             date,
+            displayDate: `${date} ${moment(date).format('(ddd)')}`,
             startedAt: startedAt ? startedAt.isValid() ? startedAt.format('HH:mm') : '' : '',
             endedAt: endedAt ? endedAt.isValid() ? endedAt.format('HH:mm') : '' : '',
             jobedAt: jobedAt ? `${jobedAt.hours()}:${jobedAt.minutes()}` : ''
@@ -169,6 +191,7 @@
         return {from, to}
       }
     },
+    // @TODO storeにたまったものを使いまわしたい
     async fetch ({app, store, route}) {
       const params = route.query
       const { data } = await app.$http.get('/attendance', { params })
@@ -178,6 +201,12 @@
 </script>
 
 <style scoped>
+  .controller {
+    text-align: right;
+    background: #fff;
+    padding: 25px 10px;
+    margin-bottom: 10px;
+  }
   .contents{
       background: #fff;
       padding:30px;
@@ -193,10 +222,17 @@
 </style>
 
 <style>
+  .el-form--inline .el-form-item {
+    vertical-align: bottom;
+    margin-bottom: 0
+  }
   .el-table .error-row {
     background-color: #ffe2e2;
   }
   .el-table .today-row {
     background-color: #f5f7fb;
+  }
+  .el-table .attended-row {
+    cursor: pointer;
   }
 </style>
