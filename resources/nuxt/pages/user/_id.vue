@@ -2,7 +2,7 @@
   <div>
     <contents-name >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">ユーザ一覧</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/user' }">ユーザ一覧</el-breadcrumb-item>
         <el-breadcrumb-item>{{fullname}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
