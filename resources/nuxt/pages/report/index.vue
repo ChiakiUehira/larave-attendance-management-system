@@ -18,10 +18,19 @@
         <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
         <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
       </el-button-group>
+      <el-date-picker
+        v-model="toDatePickerValue"
+        @change="handleDatePicker"
+        type="daterange"
+        :clearable="false"
+        start-placeholder="Start Date"
+        end-placeholder="End Date">
+      </el-date-picker>
       <div class="contents">
         <el-table
           style="width: 100%"
           :data="toValue"
+          height="750"
           :row-class-name="tableRowClassName"
           class="el-table"
           >
@@ -57,6 +66,23 @@
         activeName: '',
       }
     },
+    asyncData ({app, store, route}) {
+      const params = route.query
+
+      const from = (params.from && moment(params.from).isValid())
+        ? moment(params.from).format('YYYY-MM-DD')
+        : moment().startOf('month').format('YYYY-MM-DD')
+
+      const to = (params.to && moment(params.to).isValid())
+        ? moment(params.to).format('YYYY-MM-DD')
+        : moment().endOf('month').format('YYYY-MM-DD')
+
+      return {
+        from,
+        to,
+        toDatePickerValue: [from, to]
+      }
+    },
     methods: {
       handleClick (tab, event) {
         this.currentView = this.activeName
@@ -79,6 +105,14 @@
           context.to = moment(date.to).format('YYYY-MM-DD')
         }
         return this.$router.push({query: context})
+      },
+      handleDatePicker (date) {
+        const [from,to] = date
+        const context = {
+          from: moment(from).format('YYYY-MM-DD'),
+          to: moment(to).format('YYYY-MM-DD')
+        }
+        return this.$router.push({query: context})
       }
     },
     components: {
@@ -92,20 +126,6 @@
       },
       currentDate () {
         return moment().endOf('month').format('YYYY-MM')
-      },
-      from () {
-        const from = this.$route.query.from
-        if (from && moment(from).isValid()) {
-          return moment(from).format('YYYY-MM-DD')
-        }
-        return moment().startOf('month').format('YYYY-MM-DD')
-      },
-      to () {
-        const to = this.$route.query.to
-        if (to && moment(to).isValid()) {
-          return moment(to).format('YYYY-MM-DD')
-        }
-        return moment().endOf('month').format('YYYY-MM-DD')
       },
       period () {
         const from = moment(this.from)
@@ -149,11 +169,10 @@
         return {from, to}
       }
     },
-    async fetch ({app, store}) {
-      if (!store.state.attendances) {
-        const { data } = await app.$http.get('/attendance')
-        store.commit('SET_ATTENDANCES', data.attendances)
-      }
+    async fetch ({app, store, route}) {
+      const params = route.query
+      const { data } = await app.$http.get('/attendance', { params })
+      store.commit('SET_ATTENDANCES', data.attendances)
     }
   }
 </script>
