@@ -79,14 +79,14 @@ a:hover {
   width: 400px;
 }
 
-.page-enter-active, .page-leave-active
+/* .page-enter-active, .page-leave-active
 {
   transition: opacity .5s
 }
 .page-enter, .page-leave-active
 {
   opacity: 0
-}
+} */
 
 @font-face {
 	font-family: icomoon;

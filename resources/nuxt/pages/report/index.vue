@@ -126,7 +126,7 @@
       },
       handleRowClick (row) {
         if (row.id) {
-          return this.$router.push('/attendance/' + row.id)
+          return this.$router.push('/report/' + row.id)
         }
       },
       tableRowClassName({ row }) {
