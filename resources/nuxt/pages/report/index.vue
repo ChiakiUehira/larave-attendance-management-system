@@ -35,6 +35,31 @@
           </el-date-picker>
         </el-form-item>
       </el-form>
+      <div class="info">
+        <div class="info__inner">
+          <div class="info__period">
+            <p class="info__name">期間</p>
+            <div class="info__period--body">
+              <span class="info__period--from">{{displayFrom}}</span>
+              <span class="info__period--delimiter">~</span>
+              <span class="info__period--to">{{displayTo}}</span>
+            </div>
+          </div>
+          <div class="info__attendedDaysCount">
+            <p class="info__name">出勤日数</p>
+            <div class="info__attendedDaysCount--body">
+              <span class="info__attendedDaysCount--value">{{attendedDaysCount}}日</span>
+            </div>
+          </div>
+          <div class="info__attendedTimesCount">
+            <p class="info__name">出勤時間</p>
+            <div class="info__attendedTimesCount--body">
+              <span class="info__attendedTimesCount--value">{{displayAttendedTimesCount}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
       <div class="contents">
         <el-table
           style="width: 100%"
@@ -90,7 +115,9 @@
       return {
         from,
         to,
-        toDatePickerValue: [from, to]
+        toDatePickerValue: [from, to],
+        attendedDaysCount: 0,
+        attendedTimesCount: 0,
       }
     },
     methods: {
@@ -143,18 +170,18 @@
       attendances () {
         return this.$store.state.attendances
       },
-      currentDate () {
-        return moment().endOf('month').format('YYYY-MM')
-      },
       period () {
         const from = moment(this.from)
         const to = moment(this.to)
         const step =  to.diff(from, 'days')
         return Number(step)
       },
-      // ここの設計うまくないかも
+      // ここの設計うまくないかも 副作用がある
+      // ストアに依存している
       toValue() {
         let attendances = []
+        let attendedDaysCount = 0
+        let attendedTimesCount = 0
         for (let i = 0; i <= this.period; i++) {
           const date = moment(this.from).clone().add('days', i).format('YYYY-MM-DD')
           const attendance = this.attendances.find((attendance) => {
@@ -165,10 +192,16 @@
               return date === moment(attendance.ended_at).format('YYYY-MM-DD')
             }
           })
+          if (attendance) {
+            attendedDaysCount++
+          }
           const startedAt = attendance ? moment(attendance.started_at) : null
           const endedAt = attendance ? moment(attendance.ended_at) : null
           const diff = startedAt ? endedAt ? endedAt.diff(startedAt) : null : null
           const jobedAt = diff ? moment.duration(diff): null
+          if (diff) {
+            attendedTimesCount += diff
+          }
           attendances.push({
             id: attendance ? attendance.id : null,
             date,
@@ -178,6 +211,8 @@
             jobedAt: jobedAt ? `${jobedAt.hours()}:${jobedAt.minutes()}` : ''
           })
         }
+        this.attendedDaysCount = attendedDaysCount
+        this.attendedTimesCount = attendedTimesCount
         return attendances
       },
       nextMouthContext() {
@@ -189,6 +224,19 @@
         const from = moment(this.from).subtract(1, 'month').startOf('month').format('YYYY-MM-DD')
         const to = moment(this.to).subtract(1, 'month').endOf('month').format('YYYY-MM-DD')
         return {from, to}
+      },
+      displayFrom () {
+        return moment(this.from).format('YYYY年MM月DD日')
+      },
+      displayTo () {
+        return moment(this.to).format('YYYY年MM月DD日')
+      },
+      displayAttendedTimesCount () {
+        const duration = moment.duration(this.attendedTimesCount)
+        const asMin = duration.asMinutes()
+        const hours = Math.floor(asMin / 60)
+        const min = Math.floor(asMin - (hours * 60))
+        return `${hours}時間${min}分`
       }
     },
     // @TODO storeにたまったものを使いまわしたい
@@ -206,6 +254,40 @@
     background: #fff;
     padding: 25px 10px;
     margin-bottom: 10px;
+  }
+  .info {
+    background: #fff;
+    padding: 25px;
+    margin-bottom: 10px;
+  }
+  .info__name {
+    display: inline-block;
+    color: #5a5e66;
+    width: 80px;
+    text-align: right;
+    margin-right: 20px;
+  }
+  .info__period {
+    margin-bottom: 10px;
+  }
+  .info__period--body {
+    display: inline-block;
+    color: #5a5e66;
+  }
+  .info__period--delimiter {
+    display: inline-block;
+    padding: 0 5px;
+  }
+  .info__attendedDaysCount {
+    margin-bottom: 10px;
+  }
+  .info__attendedDaysCount--body {
+    display: inline-block;
+    color: #5a5e66;
+  }
+  .info__attendedTimesCount--body {
+    display: inline-block;
+    color: #5a5e66;
   }
   .contents{
       background: #fff;
