@@ -14,22 +14,42 @@
             <div class="attendance">
                 <el-card class="contents">
                     <div class="time-elm">
-                        <div class="start_time"><strong class="el-icon-time">出勤：10:00:00</strong></div>
+                        <div class="start_time"><strong class="el-icon-time">出勤：{{attendance.startedAt}}</strong></div>
                         <div class="break_time"><strong class="el-icon-time">休憩：12:00:00 ~ 13:00:00</strong></div>
-                        <div class="end_time"><strong class="el-icon-time">退勤：--:--:--</strong></div>
+                        <div class="end_time"><strong class="el-icon-time">退勤：{{attendance.endedAt}}</strong></div>
                     </div>
                 </el-card>
                 <div class="contents">
-                    <div class="attendance-btn" @click="open"><span>出勤</span></div>
+                    <div class="attendance-btn" @click="startFormVisible = true"><span>出勤</span></div>
                     <div class="attendance-btn" @click="rest"><span>休憩</span></div>
-                    <div class="attendance-btn" @click="stop"><span>退勤</span></div>
+                    <div class="attendance-btn" @click="endFormVisible = true"><span>退勤</span></div>
                 </div>
             </div>
+          <el-dialog title="出勤" :visible.sync="startFormVisible">
+            <el-form :model="form">
+              <el-form-item label="今日の意気込み">
+                <el-input v-model="form.name" auto-complete="off"></el-input>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="startFormVisible = false">キャンセル</el-button>
+              <el-button type="primary" @click="start">確認</el-button>
+            </span>
+          </el-dialog>
+          <el-dialog title="退勤" :visible.sync="endFormVisible">
+            <span>今日も１日お疲れ様でした!</span>
+            <span slot="footer" class="dialog-footer">
+              <el-button @click="endFormVisible = false">キャンセル</el-button>
+              <el-button type="primary" @click="stop">確認</el-button>
+            </span>
+          </el-dialog>
+
         </div>
     </div>
 </template>
 <script>
   import ContentsName from '@/components/ContentsName.vue'
+  import moment from 'moment'
   export default {
     components: {
       ContentsName
@@ -42,31 +62,35 @@
     },
     data () {
       return {
-        active: 0
+        active: 0,
+        form: {
+          name: '',
+        },
+        startFormVisible: false,
+        endFormVisible: false,
+        attendance:{
+          startedAt:'--',
+          restStartedAt:'--',
+          restEndedAt:'--',
+          endedAt:'--',
+        }
       }
     },
     methods: {
-      open () {
-        this.$prompt('今日の意気込み!', '出勤する', {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel'
-        }).then(value => {
-          this.start()
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: 'Input canceled'
-          })
-        })
-      },
-      start () {
+      async start () {
         this.active = 1
+        this.startFormVisible =  false
+        const {data} = await this.$http.post('/attendance/start')
+        this.attendance.startedAt = moment(data.attendance.started_at).format('HH:mm')
       },
       rest () {
         this.active = 2
       },
-      stop () {
+      async stop () {
         this.active = 3
+        this.endFormVisible = false
+        const {data} = await this.$http.post('/attendance/end')
+        this.attendance.endedAt = moment(data.attendance.ended_at).format('HH:mm')
       }
     }
   }
