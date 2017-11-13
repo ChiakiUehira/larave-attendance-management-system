@@ -25,7 +25,7 @@
           <div class="attendance-btn" @click="endFormVisible = true"><span>退勤</span></div>
         </div>
       </div>
-      <el-dialog title="出勤" :visible.sync="startFormVisible">
+      <el-dialog title="出勤" :visible.sync="startFormVisible" width="30%">
         <el-form :model="form">
           <el-form-item label="今日の意気込み">
             <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -36,7 +36,7 @@
               <el-button type="primary" @click="start">確認</el-button>
             </span>
       </el-dialog>
-      <el-dialog title="退勤" :visible.sync="endFormVisible">
+      <el-dialog title="退勤" :visible.sync="endFormVisible" width="30%">
         <span>今日も１日お疲れ様でした!</span>
         <span slot="footer" class="dialog-footer">
               <el-button @click="endFormVisible = false">キャンセル</el-button>
