@@ -1,4 +1,3 @@
-
 const AttendanceModel = use('App/Model/Attendance')
 
 class AttendanceService {
@@ -18,21 +17,25 @@ class AttendanceService {
       ...attendancesByEndedAt.filter(self => !attendancesByStartedAt.find(oth => oth.id === self.id))
     ]
   }
+
   * getById (id) {
     const attendance = yield AttendanceModel.find(id)
     return attendance
   }
+
   * contains (user, id) {
     const attendances = yield user.attendances().fetch()
     return attendances.some((attendance) => {
       return attendance.id === Number(id)
     })
   }
+
   * start (user, context) {
     const attendance = new AttendanceModel(context)
     yield user.attendances().save(attendance)
     return attendance
   }
+
   * end (user, context) {
     const lastAttendance = yield AttendanceModel
       .query()
@@ -46,6 +49,11 @@ class AttendanceService {
     }
     const attendance = new AttendanceModel(context)
     yield user.attendances().save(attendance)
+    return attendance
+  }
+
+  * lastUpdated (user) {
+    const attendance = yield AttendanceModel.query().where('user_id',user.id).orderBy('updated_at', 'desc').first()
     return attendance
   }
 }
