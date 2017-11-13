@@ -15,7 +15,8 @@
         <el-card class="contents">
           <div class="time-elm">
             <div class="start_time"><strong class="el-icon-time">出勤：{{attendance.startedAt}}</strong></div>
-            <div class="break_time"><strong class="el-icon-time">休憩：{{attendance.restStartedAt}} ~ {{attendance.restEndedAt}}</strong></div>
+            <div class="break_time"><strong class="el-icon-time">休憩：{{attendance.restStartedAt}} ~
+              {{attendance.restEndedAt}}</strong></div>
             <div class="end_time"><strong class="el-icon-time">退勤：{{attendance.endedAt}}</strong></div>
           </div>
         </el-card>
@@ -59,6 +60,10 @@
         const {data} = await app.$http.get('/me')
         store.commit('SET_ME', data.me)
       }
+      if (!store.state.users) {
+        const obj = await app.$http.get('/user')
+        store.commit('SET_USERS', obj.data.users)
+      }
     },
     async asyncData ({app}){
       const {data} = await app.$http.get('/attendance/lastUpdated')
@@ -70,9 +75,12 @@
             restEndedAt: '--:--',
             endedAt: data.attendance.ended_at ? moment(data.attendance.ended_at).format('HH:mm') : '--:--',
           },
-          active : data.attendance.ended_at ? 3 : 1 //休憩実装したら変える
+          active: data.attendance.ended_at ? 3 : 1 //休憩実装したら変える
         }
       }
+    },
+    mounted(){
+      this.$client.emit('users', this.$store.state.users)
     },
     data () {
       return {
@@ -97,6 +105,7 @@
         this.startFormVisible = false
         const {data} = await this.$http.post('/attendance/start')
         this.attendance.startedAt = moment(data.attendance.started_at).format('HH:mm')
+        this.$client.emit(this.$store.state.me.id, "出勤中")
       },
       rest () {
         this.active = 2
@@ -110,10 +119,10 @@
       reset (){
         this.active = 0
         this.attendance = {
-            startedAt: '--:--',
-            restStartedAt: '--:--',
-            restEndedAt: '--:--',
-            endedAt: '--:--',
+          startedAt: '--:--',
+          restStartedAt: '--:--',
+          restEndedAt: '--:--',
+          endedAt: '--:--',
         }
       }
     }
