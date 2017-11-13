@@ -17,7 +17,6 @@
 </template>
 <script>
 import marked from 'marked'
-import mdCss from 'github-markdown-css'
 import ContentsName from '@/components/ContentsName.vue'
 import moment from 'moment'
 export default {
