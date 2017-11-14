@@ -53,7 +53,11 @@ class AttendanceService {
   }
 
   * lastUpdated (user) {
-    const attendance = yield AttendanceModel.query().where('user_id',user.id).orderBy('updated_at', 'desc').first()
+    const attendance = yield AttendanceModel
+      .query()
+      .where('user_id',user.id)
+      .orderBy('updated_at', 'desc')
+      .first()
     return attendance
   }
 }

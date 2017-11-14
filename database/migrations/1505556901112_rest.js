@@ -4,10 +4,10 @@ const Schema = use('Schema')
 
 class LeavingTableSchema extends Schema {
   up () {
-    this.create('leaving', (table) => {
+    this.create('rest', (table) => {
       table.increments()
-      table.integer('attend_id')
-      table.string('type').notNullable()
+      table.integer('user_id')
+      table.string('type')
       table.text('detail')
       table.text('comment')
       table.dateTime('started_at').notNullable()
@@ -17,7 +17,7 @@ class LeavingTableSchema extends Schema {
   }
 
   down () {
-    this.drop('leaving')
+    this.drop('rest')
   }
 }
 
