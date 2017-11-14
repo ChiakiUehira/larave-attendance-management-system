@@ -26,7 +26,6 @@
 </template>
 
 <script>
-  import mdCss from 'github-markdown-css'
   import marked from 'marked'
   import ContentsName from '../../../../components/ContentsName.vue'
   import moment from 'moment'

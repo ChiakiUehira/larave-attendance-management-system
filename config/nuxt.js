@@ -34,7 +34,7 @@ module.exports = {
     ]
   },
   build: {
-    extend (config, { isServer }) {
+    extend (config, {isServer}) {
       if (isServer) {
         config.externals = [
           nodeExternals({
@@ -43,12 +43,13 @@ module.exports = {
         ]
       }
     },
-    vendor: ['vue-awesome']
+    vendor: ['vue-awesome', 'adonis-websocket-client']
   },
   plugins: [
     '~/plugins/element-ui.js',
     '~/plugins/http.js',
-    '~/plugins/vue-awesome.js'
+    '~/plugins/vue-awesome.js',
+    { src: '~plugins/adonis-websocket-client.js', ssr: false },
   ],
   router: {
     middleware: ['auth']
@@ -57,18 +58,19 @@ module.exports = {
     API_URL: process.env.API_URL || 'http://0.0.0.0:3333'
   },
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
   css: [
     '~assets/css/main.css',
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/index.css',
+    'github-markdown-css/github-markdown.css',
   ],
   /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#58a8ff' },
+   ** Customize the progress-bar color
+   */
+  loading: {color: '#58a8ff'},
   /*
-  ** Point to resources
-  */
+   ** Point to resources
+   */
   srcDir: resolve(__dirname, '../resources/nuxt')
 }

@@ -33,6 +33,7 @@
     "adonis-middleware": "^1.0.14",
     "adonis-validation-provider": "^3.0.5",
     "adonis-websocket": "^1.0.4",
+    "adonis-websocket-client": "^1.0.2",
     "axios": "^0.16.2",
     "chart.js": "^2.7.1",
     "cookie": "^0.3.1",
