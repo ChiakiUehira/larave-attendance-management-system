@@ -51,25 +51,27 @@
                 <el-form-item label="名前 (かな)">
                     <el-input placeholder="Please input" v-model="context.first_name_kana"></el-input>
                 </el-form-item>
-                <el-form-item label="Eメール">
+                <el-form-item label="Eメール" required>
                     <el-input placeholder="Eメール" name="email" v-model="context.email"></el-input>
                 </el-form-item>
                 <el-form-item label="役職">
                     <el-input placeholder="Please input" v-model="context.position"></el-input>
                 </el-form-item>
-                <el-form-item label="グループ">
+                <el-form-item label="グループ" required>
                     <el-select v-model="context.group_id" placeholder="Select">
                         <el-option
                                 v-for="item in groups"
-                                action="http://0.0.0.0:3333"
                                 :key="item.value"
                                 :label="item.label"
                                 :value="item.value">
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="マネージャフラグ">
-                    <el-input placeholder="マネージャフラグ" v-model="context.manager_flag"></el-input>
+                <el-form-item label="マネージャ権限" required>
+                    <el-radio-group v-model="context.manager_flag">
+                        <el-radio label="manager">あり</el-radio>
+                        <el-radio label="normal">なし</el-radio>
+                    </el-radio-group>
                 </el-form-item>
                 <div class="invite-button">
                     <el-button @click="invite" type="primary">招待</el-button>
