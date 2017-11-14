@@ -5,15 +5,6 @@
         <el-breadcrumb-item>レポート</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-      <!-- <el-tabs @tab-click="handleClick" v-model="activeName">
-          <el-tab-pane label="ヒストグラフ" name="LineChart"></el-tab-pane>
-          <el-tab-pane label="円グラフ" name="PieChart"></el-tab-pane>
-        </el-tabs> -->
-      <!-- <div class="contents">
-        <el-card>
-          <components :is="currentView"></components>
-        </el-card>
-      </div> -->
       <el-form :inline="true" class="controller">
         <el-form-item>
           <el-button icon="el-icon-date" @click="$router.push('/report')" type="primary" >今月</el-button>
@@ -57,7 +48,6 @@
               <span class="info__attendedTimesCount--value">{{displayAttendedTimesCount}}</span>
             </div>
           </div>
-
         </div>
       </div>
       <div class="contents">
@@ -90,8 +80,6 @@
   </div>
 </template>
 <script>
-  import LineChart from './_ChartComponent/Line.vue'
-  import PieChart from './_ChartComponent/Pie.vue'
   import ContentsName from '~/components/ContentsName.vue'
   import moment from 'moment'
   export default{
@@ -162,8 +150,6 @@
       }
     },
     components: {
-      LineChart,
-      PieChart,
       ContentsName
     },
     computed: {
@@ -208,7 +194,7 @@
             displayDate: `${date} ${moment(date).format('(ddd)')}`,
             startedAt: startedAt ? startedAt.isValid() ? startedAt.format('HH:mm') : '' : '',
             endedAt: endedAt ? endedAt.isValid() ? endedAt.format('HH:mm') : '' : '',
-            jobedAt: jobedAt ? `${jobedAt.hours()}:${jobedAt.minutes()}` : ''
+            jobedAt: jobedAt ? `${('0'+jobedAt.hours()).slice(-2)}:${('0'+jobedAt.minutes()).slice(-2)}` : ''
           })
         }
         this.attendedDaysCount = attendedDaysCount
