@@ -183,7 +183,7 @@
             this.isSend = false
             this.clear()
             const {data} = await this.$http.get('/manager/invite')
-            this.users = data.users
+            this.$store.commit('SET_INVITING_USERS', data.users)
             this.$store.commit('SET_IS_LOADING', false)
             this.$notify.success('招待メールの送信が完了しました')
           }
