@@ -1,16 +1,16 @@
 const RestModel = require('../Model/Rest')
 
 class RestService {
-  * start (user, context){
+  * start (attendance, context){
     const rest = new RestModel(context)
-    yield user.rest().save(rest)
+    yield attendance.rest().save(rest)
     return rest
   }
 
-  * end (user, context){
+  * end (attedance, context){
     const lastRested = yield RestModel
       .query()
-      .where('user_id', user.id)
+      .where('attendance_id', attedance.id)
       .where('ended_at', null)
       .last()
     if (lastRested) {
@@ -19,7 +19,7 @@ class RestService {
       return lastRested
     }
     const rest = new RestModel(context)
-    yield user.rest().save(lastRested)
+    yield attedance.rest().save(lastRested)
     return rest
   }
 }

@@ -6,7 +6,7 @@ class LeavingTableSchema extends Schema {
   up () {
     this.create('rest', (table) => {
       table.increments()
-      table.integer('user_id')
+      table.integer('attendance_id')
       table.string('type')
       table.text('detail')
       table.text('comment')

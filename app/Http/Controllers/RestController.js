@@ -13,15 +13,17 @@ class RestController {
 
   * start (req, res) {
     const loginUser = yield req.auth.getUser()
+    const attendance = yield this.attendanceService.lastUpdated(loginUser)
     const startContext = this.restContext.startContext(req)
-    const rest = yield this.restService.start(loginUser, startContext)
+    const rest = yield this.restService.start(attendance, startContext)
     return this.httpService.success(res, {rest})
   }
 
   * end (req, res) {
     const loginUser = yield req.auth.getUser()
+    const attendance = yield this.attendanceService.lastUpdated(loginUser)
     const endContext = this.restContext.endContext(req)
-    const rest = yield this.restService.end(loginUser, endContext)
+    const rest = yield this.restService.end(attendance, endContext)
     return this.httpService.success(res, {rest})
   }
 }
