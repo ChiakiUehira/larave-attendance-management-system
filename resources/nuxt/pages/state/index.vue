@@ -5,12 +5,15 @@
         <el-breadcrumb-item>ステート</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-    <div class="state" :style="{borderLeft: 'solid 5px ' + borderColor,borderRight: 'solid 5px ' + borderColor}">
+    <div class="state" :style="{borderLeft:'solid 15px' + borderColor, borderRight:'solid 15px' + borderColor}">
       <div class="state-text">
         <span class="state-text" v-if="active == 0">未出勤</span>
         <span class="state-text" v-if="active == 1">出勤中</span>
         <span class="state-text" v-if="active == 2">休憩中</span>
         <span class="state-text" v-if="active == 3">退勤済み</span>
+      </div>
+      <div class="time">
+        {{ time }}
       </div>
     </div>
 
@@ -66,9 +69,6 @@
             </span>
       </el-dialog>
     </div>
-    <!--<div class="time">-->
-      <!--{{ time }}-->
-    <!--</div>-->
   </div>
 </template>
 <script>
@@ -96,6 +96,7 @@
           time: moment().format("HH:mm:ss")
         }
       }
+      return {time: moment().format("HH:mm:ss")}
     },
     mounted(){
       this.$client.emit('user', this.$store.state.me.id)
@@ -109,7 +110,7 @@
       },
       borderColor (){
         if (this.active === 0) {
-          return "gray"
+          return "#8A8A8A"
         }
         if (this.active === 1) {
           return "#67C23A"
@@ -184,13 +185,6 @@
 </script>
 
 <style scoped>
-  .el-steps {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 30px;
-  }
-
   .el-card {
     padding: 40px 20px;
   }
@@ -221,15 +215,7 @@
     padding: 30px;
     letter-spacing: 2px;
     font-weight: 300;
-    color: #8a8a8a;
-    font-size: 20px;
-  }
-
-  .contents .break_time {
-    padding: 30px;
-    letter-spacing: 2px;
-    font-weight: 300;
-    color: #8a8a8a;
+    color: #5A5E66;
     font-size: 20px;
   }
 
@@ -237,7 +223,7 @@
     padding: 30px;
     letter-spacing: 2px;
     font-weight: 300;
-    color: #8a8a8a;
+    color: #5A5E66;
     font-size: 20px;
   }
 
@@ -268,7 +254,7 @@
   }
 
   .contents .attendance-btn span {
-    color: #8a8a8a;
+    color: #5A5E66;
   }
 
   .state {
@@ -285,13 +271,10 @@
     display: inline-block;
   }
 
-  /*.time {*/
-    /*background: #fff;*/
-    /*margin-top: 10px;*/
-    /*width: 10%;*/
-    /*padding:10px;*/
-    /*margin-left:auto;*/
-    /*font-size: 20px;*/
-    /*text-align: center;*/
-  /*}*/
+  .time {
+    padding-top:10px;
+    font-size: 20px;
+    text-align: center;
+    color:#5A5E66;
+  }
 </style>
