@@ -60,10 +60,6 @@
         const {data} = await app.$http.get('/me')
         store.commit('SET_ME', data.me)
       }
-      if (!store.state.users) {
-        const obj = await app.$http.get('/user')
-        store.commit('SET_USERS', obj.data.users)
-      }
     },
     async asyncData ({app}){
       const {data} = await app.$http.get('/attendance/lastUpdated')
@@ -80,7 +76,7 @@
       }
     },
     mounted(){
-      this.$client.emit('users', this.$store.state.users)
+      this.$client.emit('user', this.$store.state.me.id)
     },
     data () {
       return {
