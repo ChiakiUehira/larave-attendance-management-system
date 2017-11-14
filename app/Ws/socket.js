@@ -17,4 +17,4 @@
 const Ws = use('Ws')
 
 Ws
-  .channel('/attendance', 'AttendanceController')
+  .channel('/job', 'JobController')
