@@ -42,6 +42,10 @@ export default {
         {
           name: '打刻管理',
           href: '/management/clockin'
+        },
+        {
+          name: 'グループ管理',
+          href:'/management/group'
         }
       ]
     }

@@ -3,7 +3,6 @@
         <contents-name>
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{ path: '/management/company'}">企業詳細</el-breadcrumb-item>
                 <el-breadcrumb-item>グループ管理</el-breadcrumb-item>
             </el-breadcrumb>
         </contents-name>
