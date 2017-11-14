@@ -22,6 +22,15 @@ class RestService {
     yield attedance.rest().save(lastRested)
     return rest
   }
+
+  * lastUpdated (attedance){
+    const rest = yield RestModel
+      .query()
+      .where('attendance_id', attedance.id)
+      .orderBy('updated_at', 'desc')
+      .first()
+    return rest
+  }
 }
 
 module.exports = RestService

@@ -5,70 +5,71 @@
         <el-breadcrumb-item>ステート</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-      <div class="state"  :style="{borderLeft: 'solid 5px ' + borderColor,borderRight: 'solid 5px ' + borderColor}">
-        <div class="state-text">
-          <span class="state-text" v-if="active == 0">未出勤</span>
-          <span class="state-text" v-if="active == 1">出勤中</span>
-          <span class="state-text" v-if="active == 2">休憩中</span>
-          <span class="state-text" v-if="active == 3">退勤済み</span>
-        </div>
-        <!--<div class="time">-->
-          <!--{{ time }}-->
-        <!--</div>-->
+    <div class="state" :style="{borderLeft: 'solid 5px ' + borderColor,borderRight: 'solid 5px ' + borderColor}">
+      <div class="state-text">
+        <span class="state-text" v-if="active == 0">未出勤</span>
+        <span class="state-text" v-if="active == 1">出勤中</span>
+        <span class="state-text" v-if="active == 2">休憩中</span>
+        <span class="state-text" v-if="active == 3">退勤済み</span>
       </div>
+    </div>
 
-      <div class="page">
-        <div class="attendance">
-          <el-card class="contents">
-            <div class="time-elm">
-              <div class="start_time"><strong class="el-icon-time">出勤：{{attendance.startedAt}}</strong></div>
-              <div class="break_time"><strong class="el-icon-time">休憩：{{attendance.restStartedAt}} ~
-                {{attendance.restEndedAt}}</strong></div>
-              <div class="end_time"><strong class="el-icon-time">退勤：{{attendance.endedAt}}</strong></div>
-            </div>
-          </el-card>
-          <div class="contents">
-            <div class="attendance-btn" @click="startFormVisible = true" v-if="!isRest"><span>出勤</span></div>
-            <div class="attendance-btn" @click="restStartFormVisible = true" v-if="!isRest"><span>休憩</span></div>
-            <div class="attendance-btn" @click="restEndFormVisible = true" v-else><span>休憩終了</span></div>
-            <div class="attendance-btn" @click="endFormVisible = true" v-if="!isRest"><span>退勤</span></div>
+    <div class="page">
+      <div class="attendance">
+        <el-card class="contents">
+          <div class="time-elm">
+            <div class="start_time" v-if="attendance.startedAt"><strong
+                class="el-icon-time">出勤：{{attendance.startedAt}}</strong></div>
+            <div class="start_time" v-else><strong class="el-icon-time">出勤：- -:-- </strong></div>
+            <div class="end_time" v-if="attendance.endedAt"><strong
+                class="el-icon-time">退勤：{{attendance.endedAt}}</strong></div>
+            <div class="end_time" v-else><strong class="el-icon-time">退勤：--:-- </strong></div>
           </div>
+        </el-card>
+        <div class="contents">
+          <div class="attendance-btn" @click="startFormVisible = true"><span>出勤</span></div>
+          <div class="attendance-btn" @click="restStartFormVisible = true" v-if="!isRest"><span>休憩</span></div>
+          <div class="attendance-btn" @click="restEndFormVisible = true" v-else><span>復帰</span></div>
+          <div class="attendance-btn" @click="endFormVisible = true"><span>退勤</span></div>
         </div>
-        <el-dialog title="出勤" :visible.sync="startFormVisible" width="30%">
-          <el-form :model="form">
-            <el-form-item label="今日の意気込み">
-              <el-input v-model="form.name" auto-complete="off"></el-input>
-            </el-form-item>
-          </el-form>
-          <span slot="footer" class="dialog-footer">
+      </div>
+      <el-dialog title="出勤" :visible.sync="startFormVisible" width="30%">
+        <el-form :model="form">
+          <el-form-item label="今日の意気込み">
+            <el-input v-model="form.name" auto-complete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
               <el-button @click="startFormVisible = false">キャンセル</el-button>
               <el-button type="primary" @click="start">確認</el-button>
             </span>
-        </el-dialog>
-        <el-dialog title="休憩" :visible.sync="restStartFormVisible" width="30%">
-          <span>休憩しますか？</span>
-          <span slot="footer" class="dialog-footer">
+      </el-dialog>
+      <el-dialog title="休憩" :visible.sync="restStartFormVisible" width="30%">
+        <span>休憩しますか？</span>
+        <span slot="footer" class="dialog-footer">
               <el-button @click="restStartFormVisible = false">キャンセル</el-button>
               <el-button type="primary" @click="restStart">確認</el-button>
             </span>
-        </el-dialog>
-        <el-dialog title="休憩" :visible.sync="restEndFormVisible" width="30%">
-          <span>休憩終了？</span>
-          <span slot="footer" class="dialog-footer">
+      </el-dialog>
+      <el-dialog title="休憩" :visible.sync="restEndFormVisible" width="30%">
+        <span>休憩から復帰しますか？</span>
+        <span slot="footer" class="dialog-footer">
               <el-button @click="restEndVisible = false">キャンセル</el-button>
               <el-button type="primary" @click="restEnd">確認</el-button>
             </span>
-        </el-dialog>
-        <el-dialog title="退勤" :visible.sync="endFormVisible" width="30%">
-          <span>今日も１日お疲れ様でした!</span>
-          <span slot="footer" class="dialog-footer">
+      </el-dialog>
+      <el-dialog title="退勤" :visible.sync="endFormVisible" width="30%">
+        <span>今日も１日お疲れ様でした!</span>
+        <span slot="footer" class="dialog-footer">
               <el-button @click="endFormVisible = false">キャンセル</el-button>
               <el-button type="primary" @click="stop">確認</el-button>
             </span>
-        </el-dialog>
-
-      </div>
+      </el-dialog>
     </div>
+    <!--<div class="time">-->
+      <!--{{ time }}-->
+    <!--</div>-->
+  </div>
 </template>
 <script>
   import ContentsName from '@/components/ContentsName.vue'
@@ -85,40 +86,38 @@
     },
     async asyncData ({app}){
       const {data} = await app.$http.get('/attendance/lastUpdated')
-      if (data.attendance != null) {
+      if (data.attendance != null && data.attendance.ended_at == null) {
         return {
           attendance: {
             startedAt: moment(data.attendance.started_at).format('HH:mm'),
-            restStartedAt: '--:--',
-            restEndedAt: '--:--',
-            endedAt: data.attendance.ended_at ? moment(data.attendance.ended_at).format('HH:mm') : '--:--',
+            endedAt: '',
           },
-          active: data.attendance.ended_at ? 3 : 1, //休憩実装したら変える
+          active: 1,
           time: moment().format("HH:mm:ss")
         }
       }
     },
     mounted(){
       this.$client.emit('user', this.$store.state.me.id)
-      setInterval(()=>{
+      setInterval(() => {
         this.time = moment().format("HH:mm:ss")
-      },500)
+      }, 500)
     },
     computed: {
       isRest(){
         return this.active === 2
       },
       borderColor (){
-        if(this.active === 0){
+        if (this.active === 0) {
           return "gray"
         }
-        if(this.active === 1){
+        if (this.active === 1) {
           return "#67C23A"
         }
-        if(this.active === 2){
+        if (this.active === 2) {
           return "#409EFF"
         }
-        if(this.active === 3){
+        if (this.active === 3) {
           return "#EB9E05"
         }
       }
@@ -129,16 +128,13 @@
         form: {
           name: '',
         },
-        date: 'hoge',
         startFormVisible: false,
         restStartFormVisible: false,
         restEndFormVisible: false,
         endFormVisible: false,
         attendance: {
-          startedAt: '--:--',
-          restStartedAt: '--:--',
-          restEndedAt: '--:--',
-          endedAt: '--:--',
+          startedAt: '',
+          endedAt: '',
         }
       }
     },
@@ -148,34 +144,39 @@
         this.active = 1
         this.startFormVisible = false
         const {data} = await this.$http.post('/attendance/start')
+        this.$notify.success('出勤しました')
         this.attendance.startedAt = moment(data.attendance.started_at).format('HH:mm')
         this.$client.emit(this.$store.state.me.id, "出勤中")
       },
       async restStart () {
+        this.attendance.restEndedAt = ''
         this.restStartFormVisible = false
         this.active = 2
         const {data} = await this.$http.post('/rest/start')
+        this.$notify.success('休憩に入りました')
         this.attendance.restStartedAt = moment(data.rest.started_at).format('HH:mm')
       },
       async restEnd () {
         this.restEndFormVisible = false
         this.active = 1
         const {data} = await this.$http.post('/rest/end')
+        this.$notify.success('復帰しました')
         this.attendance.restEndedAt = moment(data.rest.ended_at).format('HH:mm')
       },
       async stop () {
         this.active = 3
         this.endFormVisible = false
         const {data} = await this.$http.post('/attendance/end')
+        this.$notify.success('本日もお疲れ様でした')
         this.attendance.endedAt = moment(data.attendance.ended_at).format('HH:mm')
       },
       reset (){
         this.active = 0
         this.attendance = {
-          startedAt: '--:--',
-          restStartedAt: '--:--',
-          restEndedAt: '--:--',
-          endedAt: '--:--',
+          startedAt: '',
+          restStartedAt: '',
+          restEndedAt: '',
+          endedAt: '',
         }
       }
     }
@@ -255,6 +256,7 @@
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
     cursor: pointer;
     text-align: center;
+    display: inline-block;
   }
 
   .contents .attendance-btn:hover {
@@ -269,21 +271,27 @@
     color: #8a8a8a;
   }
 
-  .state{
-    background:#fff;
+  .state {
+    background: #fff;
     text-align: center;
-    padding:30px 20px;
-    margin-bottom:10px;
+    padding: 30px 20px;
+    margin-bottom: 10px;
   }
-  .state-text{
-    color:#5A5E66;
+
+  .state-text {
+    color: #5A5E66;
     letter-spacing: 1px;
-    font-size:40px;
+    font-size: 40px;
     display: inline-block;
   }
-  /*.time{*/
-    /*width:50%;*/
-    /*font-size:40px;*/
-    /*display: inline-block;*/
+
+  /*.time {*/
+    /*background: #fff;*/
+    /*margin-top: 10px;*/
+    /*width: 10%;*/
+    /*padding:10px;*/
+    /*margin-left:auto;*/
+    /*font-size: 20px;*/
+    /*text-align: center;*/
   /*}*/
 </style>
