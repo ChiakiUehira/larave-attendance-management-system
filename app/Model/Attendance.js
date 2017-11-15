@@ -9,6 +9,9 @@ class Attendance extends Lucid {
   user () {
     return this.belongsTo('App/Model/User')
   }
+  rest () {
+    return this.hasMany('App/Model/Rest')
+  }
 }
 
 module.exports = Attendance
