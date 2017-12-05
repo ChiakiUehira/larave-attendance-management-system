@@ -52,7 +52,10 @@ module.exports = {
     { src: '~plugins/adonis-websocket-client.js', ssr: false },
   ],
   router: {
-    middleware: ['auth']
+    middleware: [
+      'auth',
+      'manager'
+    ]
   },
   env: {
     API_URL: process.env.API_URL || 'http://0.0.0.0:3333'
