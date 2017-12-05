@@ -1,1 +1,1 @@
-web: node ./ace nuxtbuild && node ./ace migration:refresh --force && node ./ace db:seed --force && npm run serve
+web: node ./ace migration:refresh --force && node ./ace db:seed --force && npm run serve

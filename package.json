@@ -15,6 +15,7 @@
     "test": "ava --verbose",
     "lint": "eslint --ext .js,.vue .",
     "fixer": "eslint --fix --ext .js,.vue .",
+    "heroku-postbuild": "node ./ace nuxtbuild",
     "swagger": "json-refs resolve ./document/app.yml > ./document/app.json"
   },
   "author": "",
