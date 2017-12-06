@@ -1,16 +1,16 @@
 const AttendanceModel = use('App/Model/Attendance')
-
+const moment = require('moment')
 class AttendanceService {
   * search (user, context) {
     const attendancesByStartedAt = yield AttendanceModel
       .query()
       .where('user_id', user.id)
-      .whereBetween('started_at', [context.from, context.to])
+      .whereBetween('started_at', [context.from, moment(context.to).add('day', 1).format('YYYY-MM-DD')])
       .fetch()
     const attendancesByEndedAt = yield AttendanceModel
       .query()
       .where('user_id', user.id)
-      .whereBetween('ended_at', [context.from, context.to])
+      .whereBetween('ended_at', [context.from, moment(context.to).add('day', 1).format('YYYY-MM-DD')])
       .fetch()
     return [
       ...attendancesByStartedAt,
