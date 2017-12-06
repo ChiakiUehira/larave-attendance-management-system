@@ -31,7 +31,7 @@ class RegisterController {
   * store (req, res) {
     const user = yield User.find(req.input('user_id'))
     const rules = this.userContext.updateRules()
-    let context = this.userContext.updateContext(req)
+    let context = this.userContext.registerContext(req)
     context.registered = true
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
