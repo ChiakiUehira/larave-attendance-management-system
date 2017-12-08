@@ -35,6 +35,7 @@ jobs:
             if [ ! -e .env ] ; then cp .env.example .env ;fi
             /var/www/html/./ace migration:refresh
             /var/www/html/./ace db:seed
+      - run: yarn build
       - run:
           name: Sever Up
           command: yarn serve:dev
