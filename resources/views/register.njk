@@ -1,58 +1,38 @@
-{#todo userデータがあればそれを埋めてなければ空で設定する#}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <!-- import CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-  <!-- import JavaScript -->
-  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <link rel="stylesheet" href="element-ui.css">
+  <script src="element-ui.js"></script>
+  <link rel="stylesheet" href="reset.css">
 </head>
 <body>
 <div id="app" class="container">
-  <div class="name">
-    <h1>ユーザ登録</h1>
-  </div>
   <div class="invite-form">
-    <el-form ref="form" label-width="120px" action="/register" method="post" enctype="multipart/form-data">
+    <el-form ref="form" label-width="120px" action="/confirm" method="post">
       <input type="hidden" value="{{ user.id }}" name="user_id">
       <el-form-item label="苗字" required>
-        <el-input placeholder="Please input" v-model="context.last_name" name="last_name"></el-input>
+        <el-input placeholder="Please input" name="last_name" value="{{ user.last_name }}"></el-input>
       </el-form-item>
       <el-form-item label="名前" required>
-        <el-input placeholder="Please input" v-model="context.first_name" name="first_name"></el-input>
+        <el-input placeholder="Please input" name="first_name" value="{{ user.first_name }}"></el-input>
       </el-form-item>
       <el-form-item label="苗字 (カナ)">
-        <el-input placeholder="Please input" v-model="context.last_name_kana"
-                  name="last_name_kana"></el-input>
+        <el-input placeholder="Please input" name="last_name_kana" value="{{ user.last_name_kana }}"></el-input>
       </el-form-item>
       <el-form-item label="名前 (カナ)">
-        <el-input placeholder="Please input" v-model="context.first_name_kana"
-                  name="first_name_kana"></el-input>
+        <el-input placeholder="Please input" name="first_name_kana" value="{{ user.first_name_kana }}"></el-input>
       </el-form-item>
       <el-form-item label="郵便番号">
-        <el-input placeholder="Please input" v-model="context.postal_code" name="postal_code"></el-input>
+        <el-input placeholder="Please input" name="postal_code" value="{{ user.postal_code }}"></el-input>
       </el-form-item>
       <el-form-item label="住所">
-        <el-input placeholder="Please input" v-model="context.address" name="address"></el-input>
+        <el-input placeholder="Please input" name="address" value="{{ user.address }}"></el-input>
       </el-form-item>
       <el-form-item label="Eメール">
-        <el-input placeholder="Eメール" name="email" v-model="context.email"></el-input>
-      </el-form-item>
-      <el-form-item label="サムネイル">
-        <el-upload
-            class="avatar-uploader"
-            action="//0.0.0.0:3333/api/v1/image/resize"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-            :before-upload="beforeAvatarUpload"
-            name="thumbnail"
-        >
-          <img v-if="context.thumbnail" :src="context.thumbnail" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        <el-input placeholder="Eメール" name="email" value="{{ user.email }}"></el-input>
       </el-form-item>
       <el-form-item label="生年月日">
         <el-date-picker
@@ -70,13 +50,13 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="電話番号">
-        <el-input placeholder="Please input" v-model="context.tel" name="tel"></el-input>
+        <el-input placeholder="Please input" name="tel" value="{{ user.tel }}"></el-input>
       </el-form-item>
       <el-form-item label="パスワード">
-        <el-input placeholder="パスワード" v-model="context.password" name="password"></el-input>
+        <el-input placeholder="パスワード" type="password" name="password"></el-input>
       </el-form-item>
       <div class="invite-button">
-        <el-button @click="register">登録</el-button>
+        <el-button @click="confirm" type="primary">確認</el-button>
       </div>
     </el-form>
   </div>
@@ -84,39 +64,16 @@
 <script>
   const app = new Vue({
     el: '#app',
-    data: {
-      context: {
-        "last_name": "山田",
-        "first_name": "太郎",
-        "last_name_kana": "ヤマダ",
-        "first_name_kana": "タロウ",
-        "email": "mailsend.manager@gmail.com",
-        "gender": "male",
-        "password": "pw",
-        "postal_code": "000-0000",
-        "address": "大阪府大阪市ほげほげ町",
-        "thumbnail": "",
-        "tel": "123-4567",
-        "birthday": ""
+    data(){
+      return {
+        context:{
+          birthday:"",
+          gender:""
+        }
       }
     },
     methods: {
-      handleAvatarSuccess(res, file) {
-        this.context.thumbnail = res.dataUrl
-      },
-      beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg'
-        const isLt2M = file.size / 1024 / 1024 < 2
-
-        if (!isJPG) {
-          this.$message.error('Avatar picture must be JPG format!')
-        }
-        if (!isLt2M) {
-          this.$message.error('Avatar picture size can not exceed 2MB!')
-        }
-        return isJPG && isLt2M
-      },
-      register(){
+      confirm(){
         let form = document.querySelector('form')
         form.submit()
       }
@@ -126,25 +83,13 @@
 
 <style scoped>
   body {
-    background: #F9F9F9
+    background: #F9F9F9;
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
   }
 
   .container {
     width: 960px;
     margin: 0 auto;
-  }
-
-  .name {
-    padding: 10px 25px;
-    background-color: #fff;
-    margin-bottom: 10px;
-    border-radius: 2px;
-  }
-
-  .name h1 {
-    color: #777777;
-    font-weight: bold;
-    font-size: 17px;
   }
 
   .invite-form {
@@ -161,33 +106,6 @@
 
   .invite-button {
     margin-left: calc(100% - 60px);
-  }
-
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .avatar-uploader .el-upload:hover {
-    border-color: #20a0ff;
-  }
-
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
   }
 
 </style>

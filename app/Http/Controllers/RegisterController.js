@@ -16,30 +16,45 @@ class RegisterController {
 
   * index (req, res) {
     const token = yield UrlToken.findBy('token', req.input('t'))
+    if (!token) {
+      return this.httpService.failed(res, {error: '無効なトークン'}, 403)
+    }
     const user = yield token.user().fetch()
-    if (!user) {
-      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
-    }
-
-    if (user) {
-      yield res.sendView('register', {user: user})
-    } else {
-      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
-    }
+    yield res.sendView('register', {user})
   }
 
-  * store (req, res) {
-    const user = yield User.find(req.input('user_id'))
+  * confirm (req, res) {
     const rules = this.userContext.updateRules()
-    let context = this.userContext.registerContext(req)
-    context.registered = true
+    let context = this.userContext.updateContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
       return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
-    yield this.userService.update(user.id, context)
-    yield this.tokenService.deleteUrlToken(user.id)
-    res.redirect('/login')
+    yield req.session.put({context: context})
+    yield req.session.put({user_id: req.input('user_id')})
+
+    yield res.sendView('confirm', {user: context})
+  }
+
+  * cancel (req, res) {
+    const context = yield req.session.get('context')
+    const user_id = yield req.session.get('user_id')
+    let user = context
+    user.id = user_id
+
+    yield res.sendView('register', {user})
+  }
+
+  * store (req, res) {
+    const context = yield req.session.get('context')
+    const user_id = yield req.session.get('user_id')
+    if(!context && !user_id){
+      return this.httpService.failed(res, {error: 'もう一度操作をやり直してください'})
+    }
+    context.registered = true
+    yield this.userService.update(user_id, context)
+    yield this.tokenService.deleteUrlToken(user_id)
+    res.redirect('login')
   }
 }
 

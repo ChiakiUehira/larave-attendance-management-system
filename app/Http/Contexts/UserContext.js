@@ -43,41 +43,15 @@ class UserContext {
 
   updateContext (req) {
     return {
-      tel: req.input('tel') ? req.input('tel') : null,
-      last_name: req.input('last_name'),
-      first_name: req.input('first_name'),
-      last_name_kana: req.input('last_name_kana'),
-      first_name_kana: req.input('first_name_kana'),
-      gender: req.input('gender') ? req.input('gender') : null,
-      birthday: req.input('birthday') ? moment(req.input('birthday')).format() : null,
-      thumbnail: req.input('thumbnail') ? req.input('thumbnail') : null,
-      position: req.input('position'),
-      address: req.input('address') ? req.input('address') : null,
-      postal_code: req.input('postal_code') ? req.input('postal') : null,
-      password: req.input('password') ? req.input('password') : null
-    }
-  }
-
-  registerContext(req){
-    let dataUrl = ''
-    console.log(req.file('thumbnail')) //todo file とる
-    if(req.file('thumbnail')) {
-      const img = req.file('thumbnail')
-      const path = img.tmpPath()
-      const base64 = fs.readFileSync(path, {encoding: 'base64'})
-      console.log(base64)
-      dataUrl = `data:${img.mimeType()};base64,${base64}`
-    }
-
-    return {
       tel: req.input('tel'),
       last_name: req.input('last_name'),
       first_name: req.input('first_name'),
       last_name_kana: req.input('last_name_kana'),
       first_name_kana: req.input('first_name_kana'),
+      email: req.input('email'),
       gender: req.input('gender'),
-      birthday: req.input('birthday') ? moment(req.input('birthday')).format() : '',
-      thumbnail: dataUrl,
+      birthday: req.input('birthday') ? moment(req.input('birthday')).format() : null,
+      thumbnail: req.input('thumbnail'),
       position: req.input('position'),
       address: req.input('address'),
       postal_code: req.input('postal_code'),
