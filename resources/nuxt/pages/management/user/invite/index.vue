@@ -96,7 +96,7 @@
 
 <style scoped>
   .invite-wrapper{
-    padding:20px;
+    padding:40px;
     background: #fff;
   }
   .invite-button {
@@ -105,7 +105,7 @@
   }
 
   .add-form {
-    margin-top: 10px;
+    margin-top: 20px;
     text-align: center;
   }
 </style>
