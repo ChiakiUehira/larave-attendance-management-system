@@ -4,8 +4,8 @@ const UserModel = use('App/Model/User')
 const Hash = use('Hash')
 
 class UserService {
-  * fetchInvitingUser () {
-    const users = yield UserModel.query().where('registered', false)
+  * fetchInvitingUser (company) {
+    const users = yield company.users().where('registered', false).fetch()
     return users
   }
 

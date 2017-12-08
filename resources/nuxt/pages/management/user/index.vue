@@ -1,68 +1,72 @@
 <template>
-    <div>
-        <contents-name name="ユーザ一覧">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                <el-breadcrumb-item>ユーザ一覧</el-breadcrumb-item>
-            </el-breadcrumb>
-        </contents-name>
-        <div class="page">
-            <div class="column-2">
-                <div class="controller">
-                    <el-form label-width="120px">
-                        <div class="util">
-                            <el-form-item label="ユーザ検索">
-                                <el-autocomplete
-                                        class="inline-input"
-                                        v-model="search.word"
-                                        :fetch-suggestions="querySearch"
-                                        placeholder="name"
-                                        :trigger-on-focus="false"
-                                        @select="handleSelect"
-                                        icon="search"
-                                ></el-autocomplete>
-                            </el-form-item>
-                        </div>
-                        <div class="util">
-                            <el-form-item label="グループ">
-                                <el-select v-model="search.group" placeholder="グループ">
-                                    <el-option label="選択なし" value=""></el-option>
-                                    <el-option v-for="group in toValueFromGroups" :label="group.label"
-                                               :value="group.value"
-                                               :key="group.id"></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </div>
-                        <div class="util">
-                            <nuxt-link to="/management/user/invite">
-                                <div class="invite el-icon-message"> ユーザ招待</div>
-                            </nuxt-link>
-                        </div>
-                    </el-form>
-                </div>
-            </div>
-            <div class="contents">
-                <div v-if="displayUsers.length">
-                    <div class="user-warp" v-for="user in displayUsers" :key="user.id">
-                        <nuxt-link :to="`/management/user/${user.id}`">
-                            <user-card :user="user" type="management"/>
-                        </nuxt-link>
-                    </div>
-                </div>
-                <div v-else>
-                    <div class="err">
-                        <p>User Not Found !</p>
-                        <icon scale="8" name="frown-o"></icon>
-                    </div>
-                </div>
-            </div>
+  <div>
+    <contents-name name="ユーザ一覧">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item>ユーザ一覧</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+    <div class="page">
+      <div class="column-2">
+        <div class="controller">
+          <nuxt-link to="/management/user/invite">
+            <div class="invite-button el-icon-message"> ユーザ招待</div>
+          </nuxt-link>
         </div>
+      </div>
+
+      <div class="users-info-container">
+        <inviting-user></inviting-user>
+
+        <div class="contents">
+          <el-form class="current-users-search">
+            <el-form-item label="ユーザ検索">
+              <el-autocomplete
+                  class="inline-input"
+                  v-model="search.word"
+                  :fetch-suggestions="querySearch"
+                  placeholder="name"
+                  :trigger-on-focus="false"
+                  @select="handleSelect"
+                  icon="search"
+              ></el-autocomplete>
+            </el-form-item>
+            <el-form-item label="グループ">
+              <el-select v-model="search.group" placeholder="グループ">
+                <el-option label="選択なし" value=""></el-option>
+                <el-option v-for="group in toValueFromGroups" :label="group.label"
+                           :value="group.value"
+                           :key="group.id"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div v-if="displayUsers.length">
+            <div class="user-wrap" v-for="user in displayUsers" :key="user.id">
+              <nuxt-link :to="`/management/user/${user.id}`">
+                <div class="user">
+                  <span class="group">{{user.group.name}} - {{user.position}}</span>
+                  <h1>{{user.last_name}}{{user.first_name}}</h1>
+                </div>
+              </nuxt-link>
+            </div>
+          </div>
+          <div v-else>
+            <div class="err">
+              <p>User Not Found !</p>
+              <icon scale="8" name="frown-o"></icon>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
   import UserCard from '@/components/UserCard.vue'
   import ContentsName from '@/components/ContentsName.vue'
+  import InvitingUser from '~/components/InvitingUser.vue'
+
   export default {
     data () {
       return {
@@ -75,7 +79,8 @@
     },
     components: {
       UserCard,
-      ContentsName
+      ContentsName,
+      InvitingUser
     },
     computed: {
       groups () {
@@ -152,83 +157,86 @@
 </script>
 
 <style scoped>
-    .util {
-        display: inline-block;
-        width: 25%;
-    }
+  .user{
+    padding:5px;
+    border-bottom:solid 5px #f8f8f8;
+  }
+  .user:hover{
+    background:#f8f8f8;
+  }
+  .user h1{
+    font-size: 17px;
+    color: #8a8a8a;
+    letter-spacing: 1.5px;
+    padding: 8px 10px;
+    position: relative;
+  }
+  .user h1:before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 5px;
+    height: 50%;
+    background-color: #cccccc;
+  }
+  .group{
+    color: #8a8a8a;
+    display: block;
+    font-size: 12px;
+  }
+  .invite-button {
+    background-color: #334257;
+    color: #b2bfcd;
+    cursor: pointer;
+    transition: .3s;
+    padding: 15px;
+    border-radius: 3px;
+    font-size: 14px;
+    margin-left: auto;
+    width: 120px;
+    display: block;
+  }
 
-    .util:last-child {
-        width: 50%;
-    }
+  .invite-button:hover {
+    background-color: #48576a;
+  }
 
-    .invite {
-        background-color: #334257;
-        color: #b2bfcd;
-        cursor: pointer;
-        transition: .3s;
-        padding: 15px;
-        border-radius: 3px;
-        font-size: 14px;
-        margin-right: 40px;
-        margin-left: auto;
-        width: 120px;
-        display: block;
-    }
+  .controller {
+    border-radius: 2px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding:15px;
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+  }
 
-    .invite:hover {
-        background-color: #48576a;
-    }
+  .users-info-container {
+    display: flex;
+  }
 
-    .controller {
-        border-radius: 2px;
-        background-color: #fff;
-        margin-bottom: 10px;
-        padding-top: 16px;
-        width: 100%;
-        display: inline-block;
-        vertical-align: top;
-    }
+  .contents {
+    border-radius: 2px;
+    background-color: #fff;
+    padding: 30px;
+    width: 63%;
+    margin-left:2%;
+  }
 
-    .contents {
-        border-radius: 2px;
-        background-color: #fff;
-        padding: 30px;
-    }
+  .err {
+    text-align: center;
+    color: #334257;
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
 
-    .user-warp {
-        width: 32%;
-        display: inline-block;
-    }
-
-    .user-warp:not(:nth-child(3n)) {
-        margin-right: 2%;
-    }
-
-    .err {
-        text-align: center;
-        color: #334257;
-        padding-top: 20px;
-        padding-bottom: 50px;
-    }
-
-    .err p {
-        margin-bottom: 10px;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    @media screen and (max-width: 1440px) {
-        .user-warp {
-            width: 49%;
-        }
-
-        .user-warp:not(:nth-child(3n)) {
-            margin-right: 0;
-        }
-
-        .user-warp:not(:nth-child(2n)) {
-            margin-right: 2%;
-        }
-    }
+  .err p {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
 </style>
 

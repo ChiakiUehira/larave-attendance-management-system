@@ -21,6 +21,9 @@ class TokenService {
 
   * deleteUrlToken (id) {
     const user = yield User.find(id)
+    if(user){
+      return false
+    }
     const urlToken = yield user.urlToken().fetch()
     if (urlToken) {
       yield urlToken.delete()
