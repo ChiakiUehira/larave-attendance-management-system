@@ -25,30 +25,8 @@
             <el-form-item label="名前 (かな)">
               <el-input placeholder="Please input" v-model="context.first_name_kana"></el-input>
             </el-form-item>
-            <el-form-item label="郵便番号">
-              <el-input placeholder="Please input" v-model="context.postal_code"></el-input>
-            </el-form-item>
-            <el-form-item label="住所">
-              <el-input placeholder="Please input" v-model="context.address"></el-input>
-            </el-form-item>
-            <el-form-item label="生年月日">
-              <el-date-picker
-                v-model="context.birthday"
-                type="date"
-                placeholder="Please input">
-              </el-date-picker>
-            </el-form-item>
-            <el-form-item label="性別" required>
-              <el-radio-group v-model="context.gender">
-                <el-radio label="male">男性</el-radio>
-                <el-radio label="female">女性</el-radio>
-              </el-radio-group>
-            </el-form-item>
             <el-form-item label="電話番号">
               <el-input placeholder="Please input" v-model="context.tel"></el-input>
-            </el-form-item>
-            <el-form-item label="役職">
-              <el-input placeholder="Please input" v-model="context.position"></el-input>
             </el-form-item>
             <el-form-item label="パスワード">
               <el-input placeholder="Please input" type="password" v-model="dammyPasswordString" disabled>
