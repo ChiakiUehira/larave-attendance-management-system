@@ -27,6 +27,7 @@ class UserContext {
     }
   }
 
+  //どこで使ってる？
   storeContext (req) {
     return {
       email: req.input('email'),
@@ -38,6 +39,18 @@ class UserContext {
       position: req.input('position'),
       group_id: req.input('group_id'),
       password: 'pw'
+    }
+  }
+
+  inviteContext(user){
+    return {
+      email: user.email,
+      last_name: user.last_name,
+      first_name: user.first_name,
+      manager_flag: user.manager_flag,
+      position: user.position,
+      group_id: user.group_id,
+      password:'pw'
     }
   }
 
