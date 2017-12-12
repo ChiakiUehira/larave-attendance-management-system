@@ -98,20 +98,16 @@ export default {
 
 <style scoped>
   .btns{
-    background: #fff;
     margin-bottom:10px;
-    padding:25px;
     position: relative;
+    margin-top: 10px;
+    text-align: right;
   }
   .page {
     border-radius: 2px;
   }
   .profile {
     width: 100%;
-  }
-  .btns {
-    margin-top: 10px;
-    text-align: right;
   }
   .btns div {
     display: inline-block;

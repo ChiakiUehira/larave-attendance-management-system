@@ -64,7 +64,7 @@ export default {
       return this.me.manager_flag === 'manager' ? 'マネージャー' : '一般ユーザ'
     },
     address () {
-      return `〒${this.me.postal_code} ${this.me.address}`
+      return this.me.postal_code ? `〒${this.me.postal_code} ${this.me.address}` : this.me.address
     },
     birthday () {
       return this.me.birthday ? moment(this.me.birthday).format('YYYY年MM月DD日') : ''
