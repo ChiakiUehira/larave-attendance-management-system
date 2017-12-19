@@ -6,13 +6,6 @@
         <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-    <div class="alerts">
-      <el-alert
-        v-if="isErrors"
-        title="エラーがあります。修正してください。"
-        type="error">
-      </el-alert>
-    </div>
     <div class="info">
       <div class="info__body">
         <div class="info__items">
@@ -30,6 +23,14 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="alerts">
+      <el-alert
+        title="エラーがあります。"
+        type="error"
+        description="マネージャーに修正依頼をしてください。"
+        show-icon>
+      </el-alert>
     </div>
     <div class="timelines" v-for="attendance in attendances" :key="attendance.id">
       <div :class="['timeline', 'start', {'err': !isValid(attendance.started_at)}]">
