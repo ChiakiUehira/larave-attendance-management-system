@@ -23,7 +23,7 @@
           <div class="time-elm">
             <div class="start_time" v-if="attendance.startedAt"><strong
                 class="el-icon-time">出勤：{{attendance.startedAt}}</strong></div>
-            <div class="start_time" v-else><strong class="el-icon-time">出勤：- -:-- </strong></div>
+            <div class="start_time" v-else><strong class="el-icon-time">出勤：--:-- </strong></div>
             <div class="end_time" v-if="attendance.endedAt"><strong
                 class="el-icon-time">退勤：{{attendance.endedAt}}</strong></div>
             <div class="end_time" v-else><strong class="el-icon-time">退勤：--:-- </strong></div>
@@ -31,17 +31,13 @@
         </el-card>
         <div class="contents">
           <div class="attendance-btn" @click="startFormVisible = true"><span>出勤</span></div>
-          <div class="attendance-btn" @click="restStartFormVisible = true" v-if="!isRest"><span>休憩</span></div>
-          <div class="attendance-btn" @click="restEndFormVisible = true" v-else><span>復帰</span></div>
+          <div class="attendance-btn" @click="restStartFormVisible = true" v-if="!isRest && active == 1"><span>休憩</span></div>
+          <div class="attendance-btn" @click="restEndFormVisible = true" v-if="isRest"><span>復帰</span></div>
           <div class="attendance-btn" @click="endFormVisible = true"><span>退勤</span></div>
         </div>
       </div>
       <el-dialog title="出勤" :visible.sync="startFormVisible" width="30%">
-        <el-form :model="form">
-          <el-form-item label="今日の意気込み">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
-          </el-form-item>
-        </el-form>
+        <span>出勤しますか？</span>
         <span slot="footer" class="dialog-footer">
               <el-button @click="startFormVisible = false">キャンセル</el-button>
               <el-button type="primary" @click="start">確認</el-button>
@@ -230,7 +226,7 @@
   .contents .attendance-btn {
     margin: 0 auto;
     margin-bottom: 30px;
-    padding: 30px 100px;
+    padding: 30px;
     background: #fff;
     color: #fff;
     border: 1px solid #e6ebf5;
