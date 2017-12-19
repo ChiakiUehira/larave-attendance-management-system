@@ -31,8 +31,8 @@
         </el-card>
         <div class="contents">
           <div class="attendance-btn" @click="startFormVisible = true"><span>出勤</span></div>
-          <div class="attendance-btn" @click="restStartFormVisible = true" v-if="!isRest"><span>休憩</span></div>
-          <div class="attendance-btn" @click="restEndFormVisible = true" v-else><span>復帰</span></div>
+          <div class="attendance-btn" @click="restStartFormVisible = true" v-if="!isRest && active == 1"><span>休憩</span></div>
+          <div class="attendance-btn" @click="restEndFormVisible = true" v-if="isRest"><span>復帰</span></div>
           <div class="attendance-btn" @click="endFormVisible = true"><span>退勤</span></div>
         </div>
       </div>
@@ -230,7 +230,7 @@
   .contents .attendance-btn {
     margin: 0 auto;
     margin-bottom: 30px;
-    padding: 30px 100px;
+    padding: 30px;
     background: #fff;
     color: #fff;
     border: 1px solid #e6ebf5;
