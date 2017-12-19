@@ -62,22 +62,9 @@ export default {
   }
   .title {
     margin-bottom: 20px;
-    padding-left: 10px;
     font-size: 25px;
     font-weight: bold;
     position: relative;
-  }
-  .title::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 5px;
-    height: 70%;
-    background-color: #58a7ff;
-    border-radius: 1px 0 0 0;
-    transform: translateY(-50%);
   }
   .createdAt {
     text-align: right;

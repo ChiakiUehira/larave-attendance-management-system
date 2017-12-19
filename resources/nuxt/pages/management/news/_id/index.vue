@@ -7,11 +7,6 @@
                 <el-breadcrumb-item>{{news.title}}</el-breadcrumb-item>
             </el-breadcrumb>
         </contents-name>
-        <div class="markdown-body content">
-          <div class="title">{{title}}</div>
-          <div v-html="detail"></div>
-          <div class="createdAt">{{createdAt}}</div>
-        </div>
         <div class="controllers">
           <div class="btns">
             <nuxt-link :to="`/management/news/${news.id}/edit/`" class="edit">
@@ -21,6 +16,11 @@
                 <el-button type="danger" class="el-icon-delete" @click="deleteNews"></el-button>
             </a>
           </div>
+        </div>
+        <div class="markdown-body content">
+          <div class="title">{{title}}</div>
+          <div v-html="detail"></div>
+          <div class="createdAt">{{createdAt}}</div>
         </div>
     </section>
 </template>
@@ -92,15 +92,15 @@
     }
 
     .controllers {
-        text-align: right;
-        margin-top: 10px;
+      text-align: right;
+      margin-bottom: 10px;
+      background-color: #fff;
+      border-radius: 2px;
+      padding: 10px;
     }
 
     .btns {
       display: inline-block;
-      border-radius: 2px;
-      background-color: #fff;
-      padding: 10px;
       vertical-align: top;
     }
 
@@ -120,24 +120,11 @@
         max-width: 100%;
         margin: 0 auto;
     }
-      .title {
+  .title {
     margin-bottom: 20px;
-    padding-left: 10px;
     font-size: 25px;
     font-weight: bold;
     position: relative;
-  }
-  .title::after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 5px;
-    height: 70%;
-    background-color: #58a7ff;
-    border-radius: 1px 0 0 0;
-    transform: translateY(-50%);
   }
   .createdAt {
     text-align: right;
