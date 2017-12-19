@@ -1,10 +1,15 @@
 <template>
-  <contents-name >
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/report' }">レポート</el-breadcrumb-item>
-      <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
-    </el-breadcrumb>
-  </contents-name>
+  <div>
+    <contents-name >
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/report' }">レポート</el-breadcrumb-item>
+        <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+    <div>
+
+    </div>
+  </div>
 </template>
 <script>
 import ContentsName from '~/components/ContentsName.vue'
@@ -28,7 +33,9 @@ export default {
 }
 </script>
 <style scoped>
-
+  .page {
+    border-radius: 2px;
+  }
 </style>
 
 
