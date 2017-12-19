@@ -6,6 +6,13 @@
         <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
+    <div class="alerts">
+      <el-alert
+        v-if="isErrors"
+        title="エラーがあります。修正してください。"
+        type="error">
+      </el-alert>
+    </div>
     <div class="info">
       <div class="info__body">
         <div class="info__items">
@@ -25,26 +32,38 @@
       </div>
     </div>
     <div class="timelines" v-for="attendance in attendances" :key="attendance.id">
-      <div class="timeline start">
+      <div :class="['timeline', 'start', {'err': !isValid(attendance.started_at)}]">
         <div class="timeline__body">
-          <p>出勤 - {{toDisplayDate(attendance.started_at)}}</p>
+          <p>
+            出勤 -
+            <span :class="[{'err': !isValid(attendance.started_at)}]">{{toDisplayDate(attendance.started_at)}}</span>
+          </p>
         </div>
       </div>
       <div class="rests" v-for="rest in attendance.rest" :key="rest.id">
-        <div class="timeline rest border">
+        <div :class="['timeline', 'rest', 'border', {'err': !isValid(rest.started_at)}]">
           <div class="timeline__body">
-            <p>休憩開始 - {{toDisplayDate(rest.started_at)}}</p>
+            <p>
+              休憩開始 -
+              <span :class="[{'err': !isValid(rest.started_at)}]">{{toDisplayDate(rest.started_at)}}</span>
+            </p>
           </div>
         </div>
-        <div class="timeline rest border">
+        <div :class="['timeline', 'rest', 'border', {'err': !isValid(rest.ended_at)}]">
           <div class="timeline__body">
-            <p>休憩終了 - {{toDisplayDate(rest.ended_at)}}</p>
+            <p>
+              休憩終了 -
+              <span :class="[{'err': !isValid(rest.ended_at)}]">{{toDisplayDate(rest.ended_at)}}</span>
+            </p>
           </div>
         </div>
       </div>
-      <div class="timeline end border">
+      <div :class="['timeline', 'end', 'border', {'err': !isValid(attendance.ended_at)}]">
         <div class="timeline__body">
-          <p>退勤 - {{toDisplayDate(attendance.ended_at)}}</p>
+          <p>
+            退勤 -
+            <span :class="[{'err': !isValid(attendance.ended_at)}]">{{toDisplayDate(attendance.ended_at)}}</span>
+          </p>
         </div>
       </div>
     </div>
@@ -58,12 +77,21 @@ export default {
     const date = route.params.id
     const { data } = await app.$http.get('/attendance/getByDate', { params: { date }})
     return {
-      attendances: data.attendances
+      attendances: data.attendances,
+      isErrors: false
     }
   },
   methods: {
     toDisplayDate (date) {
-      return moment(date).format('HH:mm')
+      return moment(date).isValid() ? moment(date).format('HH:mm') : '登録記録がありません'
+    },
+    // 副作用あり
+    isValid (date) {
+      const isValid =  moment(date).isValid()
+      if (!isValid) {
+        this.isErrors = true
+      }
+      return isValid
     }
   },
   validate ({ params }) {
@@ -76,6 +104,9 @@ export default {
     title () {
       return this.$route.params.id
     },
+    displayIsErrors () {
+      return this.isErrors ? '有' : '無'
+    },
     totalWorkingTime () {
       let total = 0
       this.attendances.forEach(element => {
@@ -86,6 +117,9 @@ export default {
       return total
     },
     displayTotalWorkingTime () {
+      if (!this.totalWorkingTime) {
+        return ''
+      }
       const duration = moment.duration(this.totalWorkingTime)
       const asMin = duration.asMinutes()
       const hours = Math.floor(asMin / 60)
@@ -106,6 +140,9 @@ export default {
       return total
     },
     displayTotalRestingTime () {
+      if (!this.totalRestingTime) {
+        return ''
+      }
       const duration = moment.duration(this.totalRestingTime)
       const asMin = duration.asMinutes()
       const hours = Math.floor(asMin / 60)
@@ -116,6 +153,9 @@ export default {
 }
 </script>
 <style scoped>
+  .alerts {
+    margin-bottom: 10px;
+  }
   .info {
     position: relative;
     padding: 20px 25px;
@@ -167,6 +207,9 @@ export default {
   .timeline.rest {
     border-left: #E6A23C solid 15px;
   }
+  .timeline.err {
+    border-left: #F56C6C solid 15px;
+  }
   .timeline.border:after {
     content: "";
     display: inline-block;
@@ -176,6 +219,9 @@ export default {
     background: #cdcdce;
     top: -40px;
     left: -10px;
+  }
+  .timeline__body span.err {
+    color: #F56C6C;
   }
 </style>
 
