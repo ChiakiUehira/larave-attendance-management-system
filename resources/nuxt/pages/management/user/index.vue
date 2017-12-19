@@ -152,6 +152,10 @@
         const {data} = await app.$http.get('/group')
         store.commit('SET_GROUPS', data.groups)
       }
+      if (!store.state.invitingUsers){
+        const {data} = await app.$http.get('/manager/invite')
+        store.commit('SET_INVITING_USERS', data.users)
+      }
     }
   }
 </script>
