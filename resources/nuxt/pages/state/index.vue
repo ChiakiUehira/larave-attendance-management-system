@@ -109,13 +109,13 @@
           return "#8A8A8A"
         }
         if (this.active === 1) {
-          return "#67C23A"
-        }
-        if (this.active === 2) {
           return "#409EFF"
         }
-        if (this.active === 3) {
+        if (this.active === 2) {
           return "#EB9E05"
+        }
+        if (this.active === 3) {
+          return "#67C23A"
         }
       }
     },
