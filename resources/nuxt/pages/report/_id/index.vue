@@ -26,6 +26,7 @@
     </div>
     <div class="alerts">
       <el-alert
+        v-if="isErrors"
         title="エラーがあります。"
         type="error"
         :closable="false"
