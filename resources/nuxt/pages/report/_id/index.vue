@@ -28,6 +28,7 @@
       <el-alert
         title="エラーがあります。"
         type="error"
+        :closable="false"
         description="マネージャーに修正依頼をしてください。"
         show-icon>
       </el-alert>
