@@ -8,16 +8,10 @@
     <div class="page">
       <div class="logs">
         <nuxt-link to="/">
-          <div class="log" v-for="i in 4">
+          <div class="log" v-for="i in 4" :key="i.id">
             <h1 class="title">新しいニュースが投稿されました</h1>
             <p class="body">美味しいパンが焼けたよ...つづく</p>
           </div>
-        </nuxt-link>
-        <nuxt-link to="/">
-        <div class="log" v-for="i in 4">
-          <h1 class="title">管理者シューベルトがあなたの役職を変更しました</h1>
-          <p class="body">アルバイト > 正社員</p>
-        </div>
         </nuxt-link>
       </div>
     </div>
@@ -39,7 +33,7 @@
 <style scoped>
   .page {
     background: #fff;
-    padding: 20px;
+    padding: 30px;
     letter-spacing: -.4em;
     margin-bottom: 10px;
   }

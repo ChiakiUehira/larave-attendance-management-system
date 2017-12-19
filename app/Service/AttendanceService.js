@@ -26,13 +26,22 @@ class AttendanceService {
   }
 
   * getByDate (user, context) {
-    const attendances = yield AttendanceModel
+    const attendancesByStartedAt = yield AttendanceModel
       .query()
       .where('user_id', user.id)
       .whereBetween('started_at', [context.date, moment(context.date).add(1, 'day').format('YYYY-MM-DD')])
       .with('rest')
       .fetch()
-    return attendances
+    const attendancesByEndedAt = yield AttendanceModel
+      .query()
+      .where('user_id', user.id)
+      .whereBetween('ended_at', [context.date, moment(context.date).add(1, 'day').format('YYYY-MM-DD')])
+      .with('rest')
+      .fetch()
+    return [
+      ...attendancesByStartedAt,
+      ...attendancesByEndedAt.filter(self => !attendancesByStartedAt.find(oth => oth.id === self.id))
+    ]
   }
 
   * contains (user, id) {
