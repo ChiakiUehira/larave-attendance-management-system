@@ -6,6 +6,24 @@
         <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
+    <div class="info">
+      <div class="info__body">
+        <div class="info__items">
+          <div class="info__item">
+            <div class="info__item--head">日付</div>
+            <div class="info__item--body">{{title}}</div>
+          </div>
+          <div class="info__item">
+            <div class="info__item--head">総勤務時間</div>
+            <div class="info__item--body">10</div>
+          </div>
+          <div class="info__item">
+            <div class="info__item--head">総休憩時間</div>
+            <div class="info__item--body">10</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="timelines" v-for="attendance in attendances" :key="attendance.id">
       <div class="timeline start">
         <div class="timeline__body">
@@ -63,6 +81,25 @@ export default {
 }
 </script>
 <style scoped>
+  .info {
+    position: relative;
+    padding: 20px 25px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 2px;
+  }
+  .info__item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .info__item--head {
+    display: inline-block;
+    text-align: right;
+    width: 90px;
+  }
+  .info__item--body {
+    margin-left: 10px;
+    display: inline-block;
+  }
   .timelines {
     position: relative;
   }
