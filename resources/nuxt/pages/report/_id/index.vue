@@ -14,12 +14,12 @@
             <div class="info__item--body">{{title}}</div>
           </div>
           <div class="info__item">
-            <div class="info__item--head">総勤務時間</div>
-            <div class="info__item--body">10</div>
+            <div class="info__item--head">労働時間</div>
+            <div class="info__item--body">{{displayTotalWorkingTime}}</div>
           </div>
           <div class="info__item">
-            <div class="info__item--head">総休憩時間</div>
-            <div class="info__item--body">10</div>
+            <div class="info__item--head">休憩時間</div>
+            <div class="info__item--body">{{displayTotalRestingTime}}</div>
           </div>
         </div>
       </div>
@@ -57,7 +57,6 @@ export default {
   async asyncData ({app, store, route}) {
     const date = route.params.id
     const { data } = await app.$http.get('/attendance/getByDate', { params: { date }})
-    console.log(data);
     return {
       attendances: data.attendances
     }
@@ -76,6 +75,42 @@ export default {
   computed: {
     title () {
       return this.$route.params.id
+    },
+    totalWorkingTime () {
+      let total = 0
+      this.attendances.forEach(element => {
+        const startedAt = moment(element.started_at)
+        const diff = moment(element.ended_at).diff(startedAt)
+        total += diff
+      });
+      return total
+    },
+    displayTotalWorkingTime () {
+      const duration = moment.duration(this.totalWorkingTime)
+      const asMin = duration.asMinutes()
+      const hours = Math.floor(asMin / 60)
+      const min = Math.floor(asMin - (hours * 60))
+      return `${hours}時間${min}分`
+    },
+    totalRestingTime () {
+      let restObjects = []
+      let total = 0
+      this.attendances.forEach(element => {
+        restObjects = [...restObjects, ...element.rest]
+      });
+      restObjects.forEach(element => {
+        const startedAt = moment(element.started_at)
+        const diff = moment(element.ended_at).diff(startedAt)
+        total += diff
+      });
+      return total
+    },
+    displayTotalRestingTime () {
+      const duration = moment.duration(this.totalRestingTime)
+      const asMin = duration.asMinutes()
+      const hours = Math.floor(asMin / 60)
+      const min = Math.floor(asMin - (hours * 60))
+      return `${hours}時間${min}分`
     }
   }
 }
