@@ -23,7 +23,7 @@
           <div class="time-elm">
             <div class="start_time" v-if="attendance.startedAt"><strong
                 class="el-icon-time">出勤：{{attendance.startedAt}}</strong></div>
-            <div class="start_time" v-else><strong class="el-icon-time">出勤：- -:-- </strong></div>
+            <div class="start_time" v-else><strong class="el-icon-time">出勤：--:-- </strong></div>
             <div class="end_time" v-if="attendance.endedAt"><strong
                 class="el-icon-time">退勤：{{attendance.endedAt}}</strong></div>
             <div class="end_time" v-else><strong class="el-icon-time">退勤：--:-- </strong></div>
