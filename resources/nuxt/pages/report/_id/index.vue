@@ -6,8 +6,12 @@
         <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-    <div>
-
+    <div class="page">
+      <div class="page__head">
+        <div class="page__head--name">
+          {{title}}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,6 +39,8 @@ export default {
 <style scoped>
   .page {
     border-radius: 2px;
+    background: #fff;
+    padding: 25px;
   }
 </style>
 
