@@ -13,12 +13,8 @@
       <span class="group" v-else>未所属</span>
       <h1>{{`${user.last_name} ${user.first_name}`}}</h1>
       <hr>
-      <div>
-        <div class="condition">
-          <el-tag class="tag" :type="type">{{state}}</el-tag>
-          <i class="icon-rate-face-1"></i>
-          {{condition}}
-        </div>
+      <div class="condition">
+        <el-tag class="tag" :type="type">{{state}}</el-tag>
       </div>
     </div>
   </div>
@@ -33,16 +29,16 @@
         option: 2,
         state: '退席中',
         condition: '不調',
-        type:'primary'
+        type: 'primary'
       }
     },
     mounted(){
       this.$client.on(this.user.id, (state) => {
         this.state = state
-        if(state === '出勤中'){
+        if (state === '出勤中') {
           this.type = 'success'
         }
-        if(state === '休憩中'){
+        if (state === '休憩中') {
           this.type = 'info'
         }
       })
