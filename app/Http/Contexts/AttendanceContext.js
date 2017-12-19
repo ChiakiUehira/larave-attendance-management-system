@@ -14,6 +14,11 @@ class AttendanceContext {
       to: to
     }
   }
+  getByDateContext (req) {
+    return {
+      date: moment(req.input('date')).isValid() ? moment(req.input('date')).format('YYYY-MM-DD') : ''
+    }
+  }
   startContext (req) {
     return {
       started_at: moment().format('YYYY-MM-DD HH:mm'),

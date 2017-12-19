@@ -18,6 +18,16 @@ class AttendanceController {
     return this.httpService.success(res, {context, attendances})
   }
 
+  * getByDate (req, res) {
+    const loginUser = yield req.auth.getUser()
+    const context = this.attendanceContext.getByDateContext(req)
+    if (!context.date) {
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
+    }
+    const attendances = yield this.attendanceService.getByDate(loginUser, context)
+    return this.httpService.success(res, {attendances})
+  }
+
   * show (req, res) {
     const id = req.param('id')
     const loginUser = yield req.auth.getUser()

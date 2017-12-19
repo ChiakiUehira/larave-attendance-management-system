@@ -5,13 +5,13 @@ class AttendanceService {
     const attendancesByStartedAt = yield AttendanceModel
       .query()
       .where('user_id', user.id)
-      .whereBetween('started_at', [context.from, moment(context.to).add('day', 1).format('YYYY-MM-DD')])
+      .whereBetween('started_at', [context.from, moment(context.to).add(1, 'day').format('YYYY-MM-DD')])
       .with('rest')
       .fetch()
     const attendancesByEndedAt = yield AttendanceModel
       .query()
       .where('user_id', user.id)
-      .whereBetween('ended_at', [context.from, moment(context.to).add('day', 1).format('YYYY-MM-DD')])
+      .whereBetween('ended_at', [context.from, moment(context.to).add(1, 'day').format('YYYY-MM-DD')])
       .with('rest')
       .fetch()
     return [
@@ -23,6 +23,16 @@ class AttendanceService {
   * getById (id) {
     const attendance = yield AttendanceModel.query().where('id', Number(id)).with('rest').first()
     return attendance
+  }
+
+  * getByDate (user, context) {
+    const attendances = yield AttendanceModel
+      .query()
+      .where('user_id', user.id)
+      .whereBetween('started_at', [context.date, moment(context.date).add(1, 'day').format('YYYY-MM-DD')])
+      .with('rest')
+      .fetch()
+    return attendances
   }
 
   * contains (user, id) {
@@ -57,7 +67,7 @@ class AttendanceService {
   * lastUpdated (user) {
     const attendance = yield AttendanceModel
       .query()
-      .where('user_id',user.id)
+      .where('user_id', user.id)
       .orderBy('updated_at', 'desc')
       .first()
     return attendance

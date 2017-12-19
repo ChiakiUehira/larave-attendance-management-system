@@ -114,7 +114,7 @@
       },
       handleRowClick (row) {
         if (row.id) {
-          return this.$router.push('/report/' + row.id)
+          return this.$router.push('/report/' + row.date)
         }
       },
       tableRowClassName({ row }) {
