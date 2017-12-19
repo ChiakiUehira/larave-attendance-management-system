@@ -37,11 +37,7 @@
         </div>
       </div>
       <el-dialog title="出勤" :visible.sync="startFormVisible" width="30%">
-        <el-form :model="form">
-          <el-form-item label="今日の意気込み">
-            <el-input v-model="form.name" auto-complete="off"></el-input>
-          </el-form-item>
-        </el-form>
+        <span>出勤しますか？</span>
         <span slot="footer" class="dialog-footer">
               <el-button @click="startFormVisible = false">キャンセル</el-button>
               <el-button type="primary" @click="start">確認</el-button>
