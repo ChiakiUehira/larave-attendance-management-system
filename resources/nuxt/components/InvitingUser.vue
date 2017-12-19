@@ -14,7 +14,7 @@
         ></el-autocomplete>
         <el-input placeholder="email" v-model="search.email"></el-input>
       </div>
-      <div v-if="displayUsers">
+      <div v-if="displayUsers.length">
         <div class="inviting-user" v-for="user in displayUsers" :key="user.id">
           <span>{{ user.last_name }}{{ user.first_name }}</span>
           <span>{{ user.email }}</span>
@@ -32,23 +32,19 @@
 
 <script>
   export default{
-    async created(){ //なぜか fetch でとれない
-      const {data} = await this.$http.get('/manager/invite')
-      this.$store.commit('SET_INVITING_USERS', data.users)
-    },
     computed: {
       displayUsers () {
         let users = this.$store.state.invitingUsers
-        if(users){
-          users = users.filter((user) => {
-            const fullName = this.fullName(user.last_name, user.first_name)
-            const fullNameKana = this.fullName(user.last_name_kana, user.first_name_kana)
-            return fullName.indexOf(this.search.name) >= 0 || fullNameKana.indexOf(this.search.name) >= 0
-          })
-          users = users.filter((user) => {
-            return user.email.indexOf(this.search.email) > -1
-          })
-        }
+
+        users = users.filter((user) => {
+          const fullName = this.fullName(user.last_name, user.first_name)
+          const fullNameKana = this.fullName(user.last_name_kana, user.first_name_kana)
+          return fullName.indexOf(this.search.name) >= 0 || fullNameKana.indexOf(this.search.name) >= 0
+        })
+        users = users.filter((user) => {
+          return user.email.indexOf(this.search.email) > -1
+        })
+
         return users
       },
       toValueFormUsers () {
@@ -148,7 +144,6 @@
   .inviting-user span:last-child {
     margin: 0;
   }
-
 
   .err {
     text-align: center;
