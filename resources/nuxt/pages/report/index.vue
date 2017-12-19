@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="info__attendedTimesCount">
-            <p class="info__name">出勤時間</p>
+            <p class="info__name">労働時間</p>
             <div class="info__attendedTimesCount--body">
               <span class="info__attendedTimesCount--value">{{displayAttendedTimesCount}}</span>
             </div>
