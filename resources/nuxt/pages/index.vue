@@ -6,13 +6,34 @@
       </el-breadcrumb>
     </contents-name>
     <div class="page">
-      <div class="logs">
+      <div class="feeds">
+        <header>最新のフィード</header>
         <nuxt-link to="/">
-          <div class="log" v-for="i in 4" :key="i.id">
-            <h1 class="title">新しいニュースが投稿されました</h1>
-            <p class="body">美味しいパンが焼けたよ...つづく</p>
+          <div class="feed" v-for="i in 5" :key="i.id">
+            <h1 class="title">プロフィールが変更されました</h1>
+            <p class="posted">
+              2017年12月19日 18時47分
+            </p>
           </div>
         </nuxt-link>
+      </div>
+      <div class="news">
+        <header>最新のニュース</header>
+        <div class="article" v-for="news in displayNews">
+          <nuxt-link :to="`/news/${news.id}`">
+            <h1 class="title">
+              {{news.title}}
+            </h1>
+            <p class="posted">
+              {{dateFormat(news.created_at)}}
+            </p>
+          </nuxt-link>
+        </div>
+        <footer>
+          <nuxt-link to="/news">
+            ニュース一覧へ
+          </nuxt-link>
+        </footer>
       </div>
     </div>
   </div>
@@ -20,9 +41,31 @@
 
 <script>
   import ContentsName from '@/components/ContentsName.vue'
+  import moment from 'moment'
   export default {
+    async fetch ({app, store}) {
+      if (!store.state.news) {
+        const {data} = await app.$http.get('/news')
+        store.commit('SET_NEWS', data.news)
+      }
+    },
     data () {
       return {}
+    },
+    computed: {
+      news(){
+        return this.$store.state.news
+      },
+      displayNews(){
+        return JSON.parse(JSON.stringify(this.news)).sort(function(a,b) {
+          return (a.created_at > b.created_at) ? -1 : 1
+        }).slice(0,5)
+      }
+    },
+    methods: {
+      dateFormat(date){
+        return moment(date).format('YYYY年MM月DD日 HH時mm分')
+      }
     },
     components: {
       ContentsName
@@ -31,34 +74,71 @@
 </script>
 
 <style scoped>
-  .page {
+  .feeds {
     background: #fff;
-    padding: 30px;
-    letter-spacing: -.4em;
     margin-bottom: 10px;
+    border-radius: 2px;
   }
 
-  .logs {
-    letter-spacing: normal;
+  .feeds header {
+    padding: 15px;
+    line-height: 20px;
+    border-bottom: solid 2px #f8f8f8;
+    color: #5A5E66;
+    font-size: 15px;
   }
 
-  .logs .log {
+  .feeds .feed {
     padding: 15px;
     line-height: 20px;
     border-bottom: solid 2px #f8f8f8;
   }
-  .logs .log:hover{
-    background:#f8f8f8;
-  }
 
-  .log .title {
+  .feed .title {
     font-size: 18px;
-    color: #5a5e66;
+    color: #5A5E66;
   }
 
-  .log .body {
-    font-size: 14px;
-    color: #8a8a8a;
+  .feeds .feed:hover .title {
+    color: #409eff;
   }
 
+  .news {
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 2px;
+  }
+
+  .news header {
+    padding: 15px;
+    line-height: 20px;
+    border-bottom: solid 2px #f8f8f8;
+    color: #5A5E66;
+    font-size: 15px;
+  }
+
+  .news .article {
+    padding: 15px;
+    line-height: 20px;
+    border-bottom: solid 2px #f8f8f8;
+  }
+
+  .news .article:hover {
+    color: #409eff;
+  }
+
+  .article .title {
+    font-size: 18px;
+    color: #5A5E66;
+  }
+
+  .news footer {
+    padding: 20px;
+    text-align: right;
+  }
+
+  .posted {
+    text-align: right;
+    color: #5A5E66;
+  }
 </style>
