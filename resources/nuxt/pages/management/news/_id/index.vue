@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="markdown-body content">
-          <div class="title">{{title}}</div>
+          <div class="title">{{news.title}}</div>
           <div v-html="detail"></div>
           <div class="createdAt">{{createdAt}}</div>
         </div>
@@ -43,9 +43,6 @@
       },
       createdAt () {
         return moment(this.news.created_at).format('YYYY年MM月DD日 HH時mm分')
-      },
-      title () {
-        return this.news.title
       }
     },
     async fetch ({app, store}) {

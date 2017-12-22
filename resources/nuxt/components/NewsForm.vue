@@ -34,7 +34,7 @@
       async post () {
         const {data} = await this.$http.post('news', this.news)
         if (data.success) {
-          this.fetchNews()
+          await this.fetchNews()
           this.$notify.success('投稿が完了しました')
           this.$router.push(`/management/news/${data.news.id}`)
         } else {
