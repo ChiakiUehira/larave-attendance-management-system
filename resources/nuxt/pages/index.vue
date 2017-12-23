@@ -19,7 +19,7 @@
       </div>
       <div class="news">
         <header>最新のニュース</header>
-        <div class="article" v-for="news in displayNews">
+        <div class="article" v-for="news in displayNews" :key="news.id">
           <nuxt-link :to="`/news/${news.id}`">
             <h1 class="title">
               {{news.title}}
@@ -123,7 +123,7 @@
     border-bottom: solid 2px #f8f8f8;
   }
 
-  .news .article:hover {
+  .news .article:hover .title{
     color: #409eff;
   }
 
@@ -135,6 +135,10 @@
   .news footer {
     padding: 20px;
     text-align: right;
+  }
+
+  .news footer a:hover {
+    color: #409eff;
   }
 
   .posted {
