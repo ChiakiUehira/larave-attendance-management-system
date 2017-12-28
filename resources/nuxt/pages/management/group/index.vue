@@ -38,7 +38,7 @@
           </el-form>
         </div>
         <div class="users__body">
-          <div class="users__body--item" v-for="user in displayUnAffiliatedUsers" :key="user.id">
+          <div class="users__body--item" v-for="user in displayUnAffiliatedUsers" :key="user.id" draggable="true">
             <div class="users__body--img">
               <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
               <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
@@ -196,6 +196,12 @@
     padding: 13px 20px;
     display: block;
     color: #5A5E66;
+    cursor: pointer;
+    transition: .2s;
+    box-shadow: 0px 0px 0px 0px #efefef;
+  }
+  .users__body--item:hover {
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04)
   }
   .users__body--item:not(:last-child) {
     border-bottom: solid 1px #efefef;
