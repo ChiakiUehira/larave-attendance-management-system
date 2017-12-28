@@ -155,7 +155,7 @@
     margin-right: 10px;
     display: inline-block;
     vertical-align: top;
-    height: 200px;
+    height: 212px;
     color: #48576a;
   }
   .controller {
