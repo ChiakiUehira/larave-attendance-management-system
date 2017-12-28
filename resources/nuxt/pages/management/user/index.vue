@@ -26,7 +26,6 @@
                   v-model="search.word"
                   :fetch-suggestions="querySearch"
                   placeholder="name"
-                  :trigger-on-focus="false"
                   @select="handleSelect"
                   icon="search"
               ></el-autocomplete>

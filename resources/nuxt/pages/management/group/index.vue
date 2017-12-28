@@ -1,67 +1,54 @@
 <template>
-    <div>
-        <contents-name>
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-                <el-breadcrumb-item>グループ管理</el-breadcrumb-item>
-            </el-breadcrumb>
-        </contents-name>
-        <div class="group-users">
-            <div class="search">
-                <span class="title">所属グループ: </span>
-                <el-select v-model="search.group" placeholder="グループ">
-                    <el-option label="未所属" value=""></el-option>
-                    <el-option v-for="group in toValueFromGroups" :label="group.label"
-                               :value="group.value"
-                               :key="group.id">
-                    </el-option>
-                </el-select>
-            </div>
-            <div v-if="displayUsers.length">
-                <div class="group-user" v-for="user in displayUsers" :key="user.id">
-                    <span>{{ user.last_name }}{{ user.first_name }}</span>
-                    <span>{{ user.email }}</span>
-                </div>
-            </div>
-            <div v-else>
-                <div class="err">
-                    <p>User Not Found !</p>
-                    <icon scale="8" name="frown-o"></icon>
-                </div>
-            </div>
+  <div>
+    <contents-name>
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item>グループ管理</el-breadcrumb-item>
+      </el-breadcrumb>
+    </contents-name>
+    <div class="page">
+      <div class="groups">
+        <div class="groups__head">
+          <span>グループ一覧</span>
+          <el-button class="groups__head--btn" type="primary" icon="el-icon-plus"></el-button>
         </div>
-
-        <div class="groups">
-            <div class="group">
-                <el-input
-                        class="input-new-tag"
-                        v-if="inputVisible"
-                        v-model="inputValue"
-                        ref="saveTagInput"
-                        size="mini"
-                        @keyup.enter.native="handleInputConfirm"
-                        @blur="handleInputConfirm"
-                >
-                </el-input>
-                <el-button v-else class="button-new-tag" size="small" @click="showInput">+ 新しく作る</el-button>
-                <el-card class="group-elm" :key="group.id" v-for="(group,index) in groups">
-                    <span class="name">{{group.name}}</span>
-                    <el-button class="delete" icon="el-icon-delete" @click="dialogVisible(group.id)"></el-button>
-                </el-card>
-            </div>
+        <div class="groups__body">
+          <div class="groups__body--item" v-for="group in groups" :key="group.id">
+            <nuxt-link :to="`/management/group/${group.id}`">
+              {{group.name}}
+            </nuxt-link>
+          </div>
         </div>
-        <el-dialog
-                title="グループを削除しますか？"
-                :visible.sync="centerDialogVisible"
-                width="30%"
-                center>
-            <span>グループに所属しているユーザがいる場合、そのユーザは未所属になります。</span>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="centerDialogVisible = false">キャンセル</el-button>
-                <el-button type="primary" @click="deleteGroup()">確認</el-button>
-            </span>
-        </el-dialog>
+      </div>
+      <div class="users">
+        <div class="users__head">
+          <span>未所属ユーザ一覧</span>
+        </div>
+        <div class="users__controller">
+          <el-form class="users__controller--search">
+            <el-form-item label="ユーザ検索">
+              <el-autocomplete
+                  v-model="search.word"
+                  :fetch-suggestions="querySearch"
+                  placeholder="name"
+                  @select="handleSelect"
+                  icon="search"
+              ></el-autocomplete>
+            </el-form-item>
+          </el-form>
+        </div>
+        <div class="users__body">
+          <div class="users__body--item" v-for="user in displayUnAffiliatedUsers" :key="user.id">
+            <div class="users__body--img">
+              <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
+              <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
+            </div>
+            <span class="users__body--name">{{user.last_name}} {{user.first_name}}</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -81,183 +68,150 @@
       users () {
         return this.$store.state.users
       },
-      toValueFromGroups () {
-        const groups = this.$store.state.groups
-        return groups.map((group) => {
-          return {
-            value: group.id,
-            label: group.name
-          }
+      unAffiliatedUsers () {
+        return this.users.filter((user) => {
+          return !Boolean(user.group_id)
         })
       },
-      displayUsers () {
-        let users = this.users
-        users = users.filter((user) => {
-          if (!this.search.group) {
-            return user.group_id === null
+      displayUnAffiliatedUsers () {
+        return this.unAffiliatedUsers.filter((user) => {{
+          const fullName = this.fullName(user.first_name, user.last_name)
+          const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
+          return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
+        }})
+      },
+      toValueFormUnAffiliatedUsers  () {
+        const users = this.unAffiliatedUsers
+        return users.map((user) => {
+          return {
+            value: this.fullName(user.first_name, user.last_name),
+            nameKana: this.fullName(user.first_name_kana, user.last_name_kana)
           }
-          return user.group_id === this.search.group
         })
-
-        return users
       }
     },
     data () {
       return {
-        inputVisible: false,
-        inputValue: '',
         search: {
-          group: ''
+          word: ''
         },
-        centerDialogVisible: false,
-        group_id: ''
       }
     },
     components: {
-      ContentsName,
-      UserCard
+      ContentsName
     },
     methods: {
-      showInput () {
-        this.inputVisible = true
-        this.$nextTick(_ => {
-          this.$refs.saveTagInput.$refs.input.focus()
-        })
+      fullName (first, last) {
+        return `${last}${first}`
       },
-      async handleInputConfirm () {
-        let inputValue = this.inputValue
-        if (inputValue) {
-          const { data } = await this.$http.post('group', {name: inputValue})
-          this.$store.commit('UPDATE_GROUPS', data.group)
+      querySearch (queryString, cb) {
+        let results = this.toValueFormUnAffiliatedUsers
+        if (queryString) {
+          results = this.toValueFormUnAffiliatedUsers.filter((user) => {
+            return (user.value.indexOf(queryString) >= 0 || user.nameKana.indexOf(queryString) >= 0)
+          })
         }
-        this.inputVisible = false
-        this.inputValue = ''
+        if (results.length) {
+          return cb(results)
+        }
+        return cb(this.toValueFormUnAffiliatedUsers)
       },
-      dialogVisible (id) {
-        this.centerDialogVisible = true
-        this.group_id = id
-      },
-      async deleteGroup () {
-        await this.$http.delete(`group/${this.group_id}`).catch((e) => {
-          return this.$message.error('グループの削除に失敗しました')
-        })
-        const {data} = await this.$http.get('group')
-        this.$store.commit('SET_GROUPS', data.groups)
-        const res = await this.$http.get('user')
-        this.$store.commit('SET_USERS', res.data.users)
-        this.search.group = ''
-        this.centerDialogVisible = false
-        this.$message.success('グループを削除しました。')
+      handleSelect (user) {
+        this.search.word = user.value
       }
     }
   }
 </script>
 
 <style scoped>
-    .groups {
-        background: #fff;
-        padding: 20px;
-        margin-bottom: 10px;
-        display: inline-block;
-        width: 60%;
-        margin-left: 1%;
-        vertical-align: top;
-    }
+  .page {
+    letter-spacing: -.4em;
+  }
+  .groups {
+    background: #fff;
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    border-radius: 2px;
+    color: #5A5E66;
+    margin-right: 10px;
+    letter-spacing: normal;
+  }
+  .groups__head {
+    position: relative;
+    padding: 20px 20px;
+    border-bottom: solid 1px #efefef;
+    font-size: 14px;
+  }
+  .groups__head--btn {
+    position: absolute;
+    top: 7px;
+    right: 20px;
+  }
+  .groups__body--item a {
+    padding: 30px 20px;
+    display: block;
+    color: #5A5E66;
+  }
+  .groups__body--item:not(:last-child) a {
+    border-bottom: solid 1px #efefef;
+  }
 
-    .group {
-        width: 70%;
-        margin: 0 auto;
-    }
+  .groups__body--item a:hover {
+    background: #ECF5FF;
+  }
 
-    .group .el-input {
-        margin-bottom: 10px;
-    }
-
-    .group .el-card {
-        margin-bottom: 10px;
-    }
-
-    .group .name {
-        width: 80%;
-        display: inline-block;
-    }
-
-    .group .delete {
-        width: 20%;
-    }
-
-    .button-new-tag {
-        margin-left: 10px;
-        height: 32px;
-        line-height: 30px;
-        padding-top: 0;
-        padding-bottom: 0;
-        margin-bottom: 10px;
-        margin-top: 10px;
-    }
-
-    .input-new-tag {
-        width: 90px;
-        margin-left: 10px;
-        margin-top: 10px;
-    }
-
-    .group-users {
-        min-height: auto;
-        max-height: 80vh;
-        width: 39%;
-        display: inline-block;
-        box-sizing: border-box;
-        background: #fff;
-        overflow: auto;
-        padding: 15px;
-        box-sizing: border-box;
-    }
-
-    .group-users .search {
-        text-align: center;
-        padding: 15px;
-    }
-
-    .search .title {
-        color: gray;
-        font-size: 14px;
-    }
-
-    .group-user {
-        text-align: center;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid #e6e6e6;
-        border-bottom: solid 5px gray;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-        padding: 12px;
-        box-sizing: border-box;
-    }
-
-    .group-user span {
-        color:#8A8A8A;
-        display: block;
-        margin-bottom: 10px;
-        font-size: 16px;
-    }
-
-    .group-user span:last-child {
-        margin: 0;
-    }
-
-    .err {
-        text-align: center;
-        color: #334257;
-        padding-top: 20px;
-        padding-bottom: 50px;
-    }
-
-    .err p {
-        margin-bottom: 10px;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
+  .users {
+    background: #fff;
+    display: inline-block;
+    width: calc(50% - 10px);
+    vertical-align: top;
+    border-radius: 2px;
+    color: #5A5E66;
+    letter-spacing: normal;
+  }
+  .users__head {
+    position: relative;
+    padding: 20px 20px;
+    border-bottom: solid 1px #efefef;
+    font-size: 14px;
+  }
+  .users__head--btn {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+  }
+  .users__controller {
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    padding: 20px 20px 0;
+    text-align: right;
+  }
+  .users__controller--search {
+    width: 261px;
+    display: inline-block;
+    margin-bottom: -6px;
+  }
+  .users__body--item {
+    padding: 13px 20px;
+    display: block;
+    color: #5A5E66;
+  }
+  .users__body--item:not(:last-child) {
+    border-bottom: solid 1px #efefef;
+  }
+  .users__body--img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .users__body--img img{
+    width: 50px;
+    border-radius: 100%;
+    border: solid 5px #EEEEEE;
+  }
+  .users__body--name {
+    vertical-align: middle;
+    margin-left: 20px;
+  }
 </style>
 
