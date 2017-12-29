@@ -169,10 +169,12 @@
         this.draggedId = id
       },
       handleDragOver (e) {
-        e.target.style.backgroundColor = "#ECF5FF"
+        if (this.draggedId) {
+          e.target.style.backgroundColor = "#ECF5FF"
+        }
       },
       handleDragLeave (e) {
-        e.target.style.backgroundColor = "#FFF"
+        e.target.style = ''
       },
       handleDragend () {
         this.draggedId = null
