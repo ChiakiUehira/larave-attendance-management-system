@@ -17,12 +17,10 @@ class GroupService {
       return group.id === id
     })
   }
-  * store (user, groupName) {
+  * store (user, context) {
     const company = yield this.companyService.getCompanyFromUser(user)
-    let group = new Group()
-    group.name = groupName
-    group.company_id = company.id
-    yield group.save()
+    const group = new Group(context)
+    yield company.groups().save(group)
     return group
   }
   * destroy (user, id) {

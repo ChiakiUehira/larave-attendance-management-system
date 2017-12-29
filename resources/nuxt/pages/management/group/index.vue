@@ -10,7 +10,7 @@
       <div class="groups">
         <div class="groups__head">
           <span>グループ一覧</span>
-          <el-button class="groups__head--btn" type="primary" icon="el-icon-plus"></el-button>
+          <el-button @click="isDialogOpen = true" class="groups__head--btn" type="primary" icon="el-icon-plus"></el-button>
         </div>
         <div class="groups__body">
           <div class="groups__body--item" v-for="group in groups" :key="group.id" @dragover.prevent="handleDragOver" @dragleave.prevent="handleDragLeave" @drop="handleDrop($event, group.id)">
@@ -54,6 +54,22 @@
         </div>
       </div>
     </div>
+
+    <el-dialog title="グループの作成" :visible.sync="isDialogOpen">
+      <el-form :model="form">
+        <el-form-item label="グループ名">
+          <el-input v-model="form.name" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="説明">
+          <el-input v-model="form.detail" type="textarea" :rows="4"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isDialogOpen = false">Cancel</el-button>
+        <el-button type="primary" @click="createGroup">Confirm</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -101,13 +117,37 @@
         search: {
           word: ''
         },
-        draggedId: null
+        form: {
+          name: '',
+          detail: ''
+        },
+        draggedId: null,
+        isDialogOpen: false,
+        isSending: false
       }
     },
     components: {
       ContentsName
     },
     methods: {
+      async createGroup () {
+        try {
+          if (!this.isSending) {
+            this.isSending = true
+            await this.$http.post(`/group`, this.form)
+            const resGroup = await this.$http.get('/group')
+            this.$store.commit('SET_GROUPS', resGroup.data.groups)
+            this.isDialogOpen = false
+            this.isSending = false
+            this.form.name = ''
+            this.form.detail = ''
+            this.$notify.success('新しいグループを作成しました')
+          }
+        } catch (error) {
+          this.isSending = false
+          this.$notify.error('エラーが発生しました')
+        }
+      },
       async handleDrop (e, id) {
         e.target.style = ''
         const context = {
