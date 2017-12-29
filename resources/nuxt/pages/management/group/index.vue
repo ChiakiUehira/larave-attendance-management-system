@@ -13,7 +13,7 @@
           <el-button class="groups__head--btn" type="primary" icon="el-icon-plus"></el-button>
         </div>
         <div class="groups__body">
-          <div class="groups__body--item" v-for="group in groups" :key="group.id">
+          <div class="groups__body--item" v-for="group in groups" :key="group.id" @dragover.prevent="handleDragOver" @dragleave.prevent="handleDragLeave" @drop="handleDrop($event, group.id)">
             <nuxt-link :to="`/management/group/${group.id}`">
               {{group.name}}
             </nuxt-link>
@@ -37,13 +37,19 @@
             </el-form-item>
           </el-form>
         </div>
-        <div class="users__body">
-          <div class="users__body--item" v-for="user in displayUnAffiliatedUsers" :key="user.id" draggable="true">
+        <div v-if="displayUnAffiliatedUsers.length" class="users__body">
+          <div class="users__body--item" v-for="user in displayUnAffiliatedUsers" :key="user.id" draggable="true" @dragend="handleDragend" @dragstart="handleDragStart(user.id)">
             <div class="users__body--img">
               <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
               <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
             </div>
             <span class="users__body--name">{{user.last_name}} {{user.first_name}}</span>
+          </div>
+        </div>
+        <div v-else class="users__body">
+          <div class="users__body--err">
+            <p>User Not Found !</p>
+            <icon scale="4" name="frown-o"></icon>
           </div>
         </div>
       </div>
@@ -95,12 +101,40 @@
         search: {
           word: ''
         },
+        draggedId: null
       }
     },
     components: {
       ContentsName
     },
     methods: {
+      async handleDrop (e, id) {
+        e.target.style = ''
+        const context = {
+          user_id: this.draggedId,
+          group_id: id
+        }
+        try {
+          await this.$http.put(`/user/group`, context)
+          this.$notify.success('追加しました')
+        } catch (error) {
+          this.$notify.error('エラーが発生しました')
+        }
+        const resUser = await this.$http.get('user')
+        this.$store.commit('SET_USERS', resUser.data.users)
+      },
+      handleDragStart (id) {
+        this.draggedId = id
+      },
+      handleDragOver (e) {
+        e.target.style.backgroundColor = "#ECF5FF"
+      },
+      handleDragLeave (e) {
+        e.target.style.backgroundColor = "#FFF"
+      },
+      handleDragend () {
+        this.draggedId = null
+      },
       fullName (first, last) {
         return `${last}${first}`
       },
@@ -190,7 +224,7 @@
   .users__controller--search {
     width: 261px;
     display: inline-block;
-    margin-bottom: -6px;
+    margin-bottom: -7px;
   }
   .users__body--item {
     padding: 13px 20px;
@@ -218,6 +252,16 @@
   .users__body--name {
     vertical-align: middle;
     margin-left: 20px;
+  }
+  .users__body--err {
+    text-align: center;
+    color: #58a8ff;
+    padding: 30px 0;
+  }
+  .users__body--err p {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
   }
 </style>
 

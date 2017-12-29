@@ -3,6 +3,7 @@ const CompanyService = require('../../Service/CompanyService')
 const UserContext = require('../Contexts/UserContext')
 const HttpService = require('../../Service/HttpService')
 const AuthService = require('../../Service/AuthService')
+const GroupService = require('../../Service/GroupService')
 const Validator = use('Validator')
 
 class UserController {
@@ -12,6 +13,7 @@ class UserController {
     this.companyService = new CompanyService()
     this.httpService = new HttpService()
     this.authService = new AuthService()
+    this.groupService = new GroupService()
   }
 
   * me (req, res) {
@@ -94,6 +96,22 @@ class UserController {
     }
     const user = yield this.userService.update(id, { password: context.newPassword })
     return this.httpService.success(res, { user })
+  }
+
+  * groupUpdate (req, res) {
+    const loginUser = yield req.auth.getUser()
+    const isManager = loginUser.manager_flag === 'manager'
+    if (!isManager) {
+      return this.httpService.failed(res, { error: '権限がありません' }, 403)
+    }
+    const context = this.userContext.groupUpdateContext(req)
+    const user = yield this.userService.getById(context.userId)
+    const isExit = yield this.groupService.isExitById(user, context.groupId)
+    if (!isExit) {
+      return this.httpService.failed(res, { error: '存在しないグループです' }, 403)
+    }
+    const updateUser = yield this.userService.update(context.userId, { group_id: context.groupId })
+    return this.httpService.success(res, { user: updateUser })
   }
 }
 

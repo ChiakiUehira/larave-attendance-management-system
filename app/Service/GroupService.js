@@ -1,15 +1,21 @@
 const CompanyService = require('../Service/CompanyService')
 const Group = require('../Model/Group')
 
-class AttendanceService {
+class GroupService {
   constructor () {
     this.companyService = new CompanyService()
   }
-
   * getGroups (user) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const groups = yield company.groups().fetch()
     return groups
+  }
+  * isExitById (user, id) {
+    const company = yield this.companyService.getCompanyFromUser(user)
+    const groups = yield company.groups().fetch()
+    return groups.some((group) => {
+      return group.id === id
+    })
   }
   * store (user, groupName) {
     const company = yield this.companyService.getCompanyFromUser(user)
@@ -35,4 +41,4 @@ class AttendanceService {
   }
 }
 
-module.exports = AttendanceService
+module.exports = GroupService

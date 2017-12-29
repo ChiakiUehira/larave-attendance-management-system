@@ -1,5 +1,4 @@
 const moment = require('moment')
-const fs = require('fs')
 
 class UserContext {
   storeRules () {
@@ -42,7 +41,7 @@ class UserContext {
     }
   }
 
-  inviteContext(user){
+  inviteContext (user) {
     return {
       email: user.email,
       last_name: user.last_name,
@@ -50,7 +49,7 @@ class UserContext {
       manager_flag: user.manager_flag,
       position: user.position,
       group_id: user.group_id,
-      password:'pw'
+      password: 'pw'
     }
   }
 
@@ -76,6 +75,13 @@ class UserContext {
     return {
       password: req.input('password'),
       newPassword: req.input('newPassword')
+    }
+  }
+
+  groupUpdateContext (req) {
+    return {
+      userId: req.input('user_id'),
+      groupId: req.input('group_id')
     }
   }
 
