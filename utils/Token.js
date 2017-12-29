@@ -10,8 +10,9 @@ export const getToken = (cookieString) => {
   return cookie.parse(cookieString).__t
 }
 
-export const hasToken = (cookieString) => {
-  return Boolean(cookie.parse(cookieString).__t)
+export const hasToken = (cookieString = '') => {
+  const obj = cookie.parse(cookieString)
+  return obj.hasOwnProperty('__t')
 }
 
 export const remove = () => {
