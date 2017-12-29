@@ -131,8 +131,8 @@
     },
     methods: {
       async createGroup () {
-        try {
-          if (!this.isSending) {
+        if (!this.isSending) {
+          try {
             this.isSending = true
             await this.$http.post(`/group`, this.form)
             const resGroup = await this.$http.get('/group')
@@ -142,26 +142,28 @@
             this.form.name = ''
             this.form.detail = ''
             this.$notify.success('新しいグループを作成しました')
+          } catch (error) {
+            this.isSending = false
+            this.$notify.error('エラーが発生しました')
           }
-        } catch (error) {
-          this.isSending = false
-          this.$notify.error('エラーが発生しました')
         }
       },
       async handleDrop (e, id) {
-        e.target.style = ''
-        const context = {
-          user_id: this.draggedId,
-          group_id: id
+        if (this.draggedId) {
+          e.target.style = ''
+          const context = {
+            user_id: this.draggedId,
+            group_id: id
+          }
+          try {
+            await this.$http.put(`/user/group`, context)
+            this.$notify.success('追加しました')
+          } catch (error) {
+            this.$notify.error('エラーが発生しました')
+          }
+          const resUser = await this.$http.get('user')
+          this.$store.commit('SET_USERS', resUser.data.users)
         }
-        try {
-          await this.$http.put(`/user/group`, context)
-          this.$notify.success('追加しました')
-        } catch (error) {
-          this.$notify.error('エラーが発生しました')
-        }
-        const resUser = await this.$http.get('user')
-        this.$store.commit('SET_USERS', resUser.data.users)
       },
       handleDragStart (id) {
         this.draggedId = id
