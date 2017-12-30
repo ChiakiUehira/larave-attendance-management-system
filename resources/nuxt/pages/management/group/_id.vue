@@ -8,19 +8,30 @@
     </contents-name>
     <div class="page">
       <div class="groups">
-        <div class="groups__head">
+        <div class="groups__head" v-if="group">
           <span>{{group.name}}</span>
         </div>
-        <div class="groups__body">
+        <div class="groups__body" v-if="group">
           <div class="groups__body--item">
             {{group.detail}}
           </div>
         </div>
         <div class="group__edit">
           <el-button icon="el-icon-edit" type="primary"></el-button>
-          <el-button icon="el-icon-delete" type="danger"></el-button>
+          <el-button icon="el-icon-delete" type="danger" @click="dialogVisible(group.id)"></el-button>
         </div>
       </div>
+      <el-dialog
+          title="グループを削除しますか？"
+          :visible.sync="centerDialogVisible"
+          width="30%"
+          center>
+        <span>グループに所属しているユーザがいる場合、そのユーザは未所属になります。</span>
+        <span slot="footer" class="dialog-footer">
+           <el-button @click="centerDialogVisible = false">キャンセル</el-button>
+                 <el-button type="primary" @click="deleteGroup()">確認</el-button>
+             </span>
+      </el-dialog>
 
       <div class="users">
         <div class="users__head">
@@ -60,9 +71,7 @@
 </template>
 
 <script>
-export default {
-
-}
+  export default {}
 </script>
 
 <script>
@@ -77,20 +86,20 @@ export default {
     },
     computed: {
       group(){
-        return this.$store.state.groups.filter((group)=>{
+        return this.$store.state.groups.filter((group) => {
           return group.id == this.$route.params.id
         })[0]
       },
       users () {
-        return this.$store.state.users.filter((user)=>{
+        return this.$store.state.users.filter((user) => {
           return user.group_id == this.$route.params.id
         })
       },
       displayUsers(){
-        let users = this.users.filter((user)=>{
-            const fullName = this.fullName(user.first_name, user.last_name)
-            const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
-            return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
+        let users = this.users.filter((user) => {
+          const fullName = this.fullName(user.first_name, user.last_name)
+          const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
+          return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
         })
         return users
       },
@@ -115,7 +124,9 @@ export default {
         },
         draggedId: null,
         isDialogOpen: false,
-        isSending: false
+        isSending: false,
+        centerDialogVisible: false,
+        group_id: ''
       }
     },
     components: {
@@ -155,6 +166,23 @@ export default {
         }
         return cb(this.toValueFormUnAffiliatedUsers)
       },
+      dialogVisible (id) {
+        this.centerDialogVisible = true
+        this.group_id = id
+      },
+      async deleteGroup () {
+        this.$http.delete(`group/${this.group_id}`).catch((e) => {
+          return this.$message.error('グループの削除に失敗しました')
+        })
+        const {data} = await this.$http.get('group')
+        this.$store.commit('SET_GROUPS', data.groups)
+        const res = await this.$http.get('user')
+        this.$store.commit('SET_USERS', res.data.users)
+        this.search.group = ''
+        this.centerDialogVisible = false
+        this.$message.success('グループを削除しました。')
+        this.$router.push('/management/group')
+      },
       handleSelect (user) {
         this.search.word = user.value
       }
@@ -163,121 +191,139 @@ export default {
 </script>
 
 <style scoped>
-.page {
-  letter-spacing: -.4em;
-}
-.groups {
-  display: inline-block;
-  width: 50%;
-  vertical-align: top;
-  border-radius: 2px;
-  color: #5A5E66;
-  margin-right: 10px;
-  letter-spacing: normal;
-}
-.groups__head {
-  position: relative;
-  padding: 20px 20px;
-  border-bottom: solid 1px #efefef;
-  font-size: 14px;
-  background: #fff;
-}
-.groups__head--btn {
-  position: absolute;
-  top: 7px;
-  right: 20px;
-}
-.groups__body--item{
-  padding:30px 20px 20px 20px;
-  background: #fff;
-  line-height:23px;
-}
-.groups__body--item a {
-  padding: 30px 20px;
-  display: block;
-  color: #5A5E66;
-}
-.groups__body--item:not(:last-child) a {
-  border-bottom: solid 1px #efefef;
-}
+  .page {
+  }
 
-.groups__body--item a:hover {
-  background: #ECF5FF;
-}
-.group__edit{
-  background: #fff;
-  margin-top:10px;
-  padding:20px;
-  text-align: right;
-  border-radius:2px;
-}
+  .groups {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+    border-radius: 2px;
+    color: #5A5E66;
+    margin-right: 10px;
+    letter-spacing: normal;
+  }
 
-.users {
-  background: #fff;
-  display: inline-block;
-  width: calc(50% - 10px);
-  vertical-align: top;
-  border-radius: 2px;
-  color: #5A5E66;
-  letter-spacing: normal;
-}
-.users__head {
-  position: relative;
-  padding: 20px 20px;
-  border-bottom: solid 1px #efefef;
-  font-size: 14px;
-}
-.users__head--btn {
-  position: absolute;
-  top: 8px;
-  right: 20px;
-}
-.users__controller {
-  border-bottom: 1px solid #efefef;
-  position: relative;
-  padding: 20px 20px 0;
-  text-align: right;
-}
-.users__controller--search {
-  width: 261px;
-  display: inline-block;
-  margin-bottom: -7px;
-}
-.users__body--item {
-  padding: 13px 20px;
-  display: block;
-  color: #5A5E66;
-  cursor: pointer;
-  transition: .2s;
-  box-shadow: 0px 0px 0px 0px #efefef;
-}
-.users__body--item:hover {
-  box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04)
-}
-.users__body--item:not(:last-child) {
-  border-bottom: solid 1px #efefef;
-}
-.users__body--img {
-  display: inline-block;
-  vertical-align: middle;
-}
-.users__body--img img{
-  width: 50px;
-  border-radius: 100%;
-  border: solid 5px #EEEEEE;
-}
-.users__body--name {
-  vertical-align: middle;
-  margin-left: 20px;
-}
-.users__body--err {
-  text-align: center;
-  color: #58a8ff;
-  padding: 30px 0;
-}
-.users__body--err p {
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: bold;
-}
+  .groups__head {
+    position: relative;
+    padding: 20px 20px;
+    border-bottom: solid 1px #efefef;
+    font-size: 14px;
+    background: #fff;
+  }
+
+  .groups__head--btn {
+    position: absolute;
+    top: 7px;
+    right: 20px;
+  }
+
+  .groups__body--item {
+    padding: 30px 20px 20px 20px;
+    background: #fff;
+    line-height: 23px;
+  }
+
+  .groups__body--item a {
+    padding: 30px 20px;
+    display: block;
+    color: #5A5E66;
+  }
+
+  .groups__body--item:not(:last-child) a {
+    border-bottom: solid 1px #efefef;
+  }
+
+  .groups__body--item a:hover {
+    background: #ECF5FF;
+  }
+
+  .group__edit {
+    background: #fff;
+    margin-top: 10px;
+    padding: 20px;
+    text-align: right;
+    border-radius: 2px;
+  }
+
+  .users {
+    background: #fff;
+    display: inline-block;
+    width: calc(50% - 10px);
+    vertical-align: top;
+    border-radius: 2px;
+    color: #5A5E66;
+    letter-spacing: normal;
+  }
+
+  .users__head {
+    position: relative;
+    padding: 20px 20px;
+    border-bottom: solid 1px #efefef;
+    font-size: 14px;
+  }
+
+  .users__head--btn {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+  }
+
+  .users__controller {
+    border-bottom: 1px solid #efefef;
+    position: relative;
+    padding: 20px 20px 0;
+    text-align: right;
+  }
+
+  .users__controller--search {
+    width: 261px;
+    display: inline-block;
+    margin-bottom: -7px;
+  }
+
+  .users__body--item {
+    padding: 13px 20px;
+    display: block;
+    color: #5A5E66;
+    cursor: pointer;
+    transition: .2s;
+    box-shadow: 0px 0px 0px 0px #efefef;
+  }
+
+  .users__body--item:hover {
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04)
+  }
+
+  .users__body--item:not(:last-child) {
+    border-bottom: solid 1px #efefef;
+  }
+
+  .users__body--img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .users__body--img img {
+    width: 50px;
+    border-radius: 100%;
+    border: solid 5px #EEEEEE;
+  }
+
+  .users__body--name {
+    vertical-align: middle;
+    margin-left: 20px;
+  }
+
+  .users__body--err {
+    text-align: center;
+    color: #58a8ff;
+    padding: 30px 0;
+  }
+
+  .users__body--err p {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+  }
 </style>
