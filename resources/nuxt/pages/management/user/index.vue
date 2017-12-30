@@ -7,18 +7,13 @@
       </el-breadcrumb>
     </contents-name>
     <div class="page">
-      <div class="column-2">
-        <div class="controller">
-          <nuxt-link to="/management/user/invite">
-            <div class="invite-button el-icon-message"> ユーザ招待</div>
-          </nuxt-link>
-        </div>
-      </div>
-
       <div class="users-info-container">
         <inviting-user></inviting-user>
 
         <div class="contents">
+          <div class="head">
+            <h1>ユーザ一覧</h1>
+          </div>
           <el-form class="current-users-search">
             <el-form-item label="ユーザ検索">
               <el-autocomplete
@@ -40,12 +35,13 @@
             </el-form-item>
           </el-form>
           <div v-if="displayUsers.length">
-            <div class="user-wrap" v-for="user in displayUsers" :key="user.id">
+            <div class="users__body--item" v-for="user in displayUsers" :key="user.id">
               <nuxt-link :to="`/management/user/${user.id}`">
-                <div class="user">
-                  <span class="group">{{user.group.name}} - {{user.position}}</span>
-                  <h1>{{user.last_name}}{{user.first_name}}</h1>
+                <div class="users__body--img">
+                  <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
+                  <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
                 </div>
+                <span class="users__body--name">{{user.last_name}} {{user.first_name}}</span>
               </nuxt-link>
             </div>
           </div>
@@ -160,63 +156,6 @@
 </script>
 
 <style scoped>
-  .user{
-    padding:5px;
-    border-bottom:solid 5px #f8f8f8;
-  }
-  .user:hover{
-    background:#f8f8f8;
-  }
-  .user h1{
-    font-size: 17px;
-    color: #8a8a8a;
-    letter-spacing: 1.5px;
-    padding: 8px 10px;
-    position: relative;
-  }
-  .user h1:before{
-    content: "";
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    width: 5px;
-    height: 50%;
-    background-color: #cccccc;
-  }
-  .group{
-    color: #8a8a8a;
-    display: block;
-    font-size: 12px;
-  }
-  .invite-button {
-    background-color: #334257;
-    color: #b2bfcd;
-    cursor: pointer;
-    transition: .3s;
-    padding: 15px;
-    border-radius: 3px;
-    font-size: 14px;
-    margin-left: auto;
-    width: 120px;
-    display: block;
-  }
-
-  .invite-button:hover {
-    background-color: #48576a;
-  }
-
-  .controller {
-    border-radius: 2px;
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding:15px;
-    width: 100%;
-    display: inline-block;
-    vertical-align: top;
-  }
-
   .users-info-container {
     display: flex;
   }
@@ -224,9 +163,44 @@
   .contents {
     border-radius: 2px;
     background-color: #fff;
-    padding: 30px;
-    width: 63%;
-    margin-left:2%;
+    width: calc(55% - 10px);
+    margin-left:10px;
+  }
+  .contents .head{
+    padding:20px;
+    border-bottom: solid 1px #efefef;
+  }
+  .current-users-search{
+    padding:20px 20px 0px 20px;
+    border-bottom: solid 1px #efefef;
+    text-align: right;
+  }
+  .users__body--item {
+    padding: 13px 20px;
+    display: block;
+    color: #5A5E66;
+    cursor: pointer;
+    transition: .2s;
+    box-shadow: 0px 0px 0px 0px #efefef;
+  }
+  .users__body--item:hover {
+    box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04)
+  }
+  .users__body--item:not(:last-child) {
+    border-bottom: solid 1px #efefef;
+  }
+  .users__body--img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .users__body--img img{
+    width: 50px;
+    border-radius: 100%;
+    border: solid 5px #EEEEEE;
+  }
+  .users__body--name {
+    vertical-align: middle;
+    margin-left: 20px;
   }
 
   .err {

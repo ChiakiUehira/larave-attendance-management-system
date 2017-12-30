@@ -1,23 +1,32 @@
 <template>
   <div class="inviting">
     <div class="inviting-users">
-      <div class="search">
-        <h3 class="title">招待中のユーザ</h3>
-        <el-autocomplete
-            class="inline-input"
-            v-model="search.name"
-            :fetch-suggestions="querySearch"
-            placeholder="name"
-            :trigger-on-focus="false"
-            @select="handleSelect"
-            icon="search"
-        ></el-autocomplete>
-        <el-input placeholder="email" v-model="search.email"></el-input>
+      <div class="head">
+        <h3 class="title">招待中のユーザ一覧</h3>
+        <nuxt-link to="/management/user/invite">
+          <el-button type="primary" icon="el-icon-plus"></el-button>
+        </nuxt-link>
       </div>
+      <div class="search">
+        <el-form class="search-form">
+          <el-form-item label="ユーザ検索">
+            <el-autocomplete
+                class="inline-input"
+                v-model="search.name"
+                :fetch-suggestions="querySearch"
+                placeholder="name"
+                :trigger-on-focus="false"
+                @select="handleSelect"
+                icon="search"
+            ></el-autocomplete>
+          </el-form-item>
+        </el-form>
+      </div>
+
       <div v-if="displayUsers.length">
         <div class="inviting-user" v-for="user in displayUsers" :key="user.id">
-          <span>{{ user.last_name }}{{ user.first_name }}</span>
-          <span>{{ user.email }}</span>
+          <span class="name">{{ user.last_name }}{{ user.first_name }}</span>
+          <el-button icon="el-icon-close" type="danger" class="close"></el-button>
         </div>
       </div>
       <div v-else>
@@ -90,59 +99,68 @@
 
 <style scoped>
   .search {
-    padding: 15px 30px;
+    padding: 15px 20px 0px 20px;
     box-sizing: border-box;
     background: #fff;
-    margin-bottom: 10px;
+    border-bottom: solid 1px #efefef;
+    position: relative;
+    bottom: -5px;
   }
 
   .search .el-autocomplete {
-    width: 100%;
-    margin-bottom: 10px;
+    text-align: right;
+    width: 200px;
   }
 
-  .search .title {
-    text-align: center;
-    color: gray;
-    box-sizing: border-box;
-    margin-bottom: 10px;
+  .search .search-form {
+    text-align: right;
   }
 
   .inviting {
-    min-height: auto;
-    max-height: 80vh;
-    width: 39%;
+    width: 45%;
     display: inline-block;
     box-sizing: border-box;
     background: #fff;
-    overflow: auto;
   }
 
   .inviting-users {
     box-sizing: border-box;
-    padding: 15px;
+  }
+
+  .inviting-users .head {
+    border-bottom: solid 1px #efefef;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .head a {
+    margin-left: auto;
   }
 
   .inviting-user {
-    text-align: center;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #e6e6e6;
-    border-bottom: solid 5px gray;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-    padding: 12px;
-    box-sizing: border-box;
+    border-bottom: solid 1px #efefef;
+    padding: 20px;
+    display: flex;
+    align-items: center;
   }
 
-  .inviting-user span {
+  .inviting-user .name {
     color: #8A8A8A;
-    display: block;
     margin-bottom: 10px;
     font-size: 16px;
   }
 
+  .inviting-user .close {
+    margin-left: auto;
+  }
+
   .inviting-user span:last-child {
     margin: 0;
+  }
+
+  .el-form-item__content{
+    width:261px;
   }
 
   .err {
