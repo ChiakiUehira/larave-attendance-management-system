@@ -9,13 +9,19 @@
     <div class="page">
       <div class="groups">
         <div class="groups__head">
-          <span>グループ一覧</span>
+          <span>{{group.name}}</span>
         </div>
         <div class="groups__body">
           <div class="groups__body--item">
+            {{group.detail}}
           </div>
         </div>
+        <div class="group__edit">
+          <el-button icon="el-icon-edit" type="primary"></el-button>
+          <el-button icon="el-icon-delete" type="danger"></el-button>
+        </div>
       </div>
+
       <div class="users">
         <div class="users__head">
           <span>ユーザ一覧</span>
@@ -33,8 +39,8 @@
             </el-form-item>
           </el-form>
         </div>
-        <div v-if="displayUnAffiliatedUsers.length" class="users__body">
-          <div class="users__body--item">
+        <div v-if="displayUsers.length" class="users__body">
+          <div class="users__body--item" v-for="user in displayUsers">
             <div class="users__body--img">
               <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
               <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
@@ -70,23 +76,26 @@ export default {
       store.commit('SET_USERS', obj.data.users)
     },
     computed: {
-      users () {
-        return this.$store.state.users
+      group(){
+        return this.$store.state.groups.filter((group)=>{
+          return group.id == this.$route.params.id
+        })[0]
       },
-      unAffiliatedUsers () {
-        return this.users.filter((user) => {
-          return !Boolean(user.group_id)
+      users () {
+        return this.$store.state.users.filter((user)=>{
+          return user.group_id == this.$route.params.id
         })
       },
-      displayUnAffiliatedUsers () {
-        return this.unAffiliatedUsers.filter((user) => {{
-          const fullName = this.fullName(user.first_name, user.last_name)
-          const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
-          return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
-        }})
+      displayUsers(){
+        let users = this.users.filter((user)=>{
+            const fullName = this.fullName(user.first_name, user.last_name)
+            const fullNameKana = this.fullName(user.first_name_kana, user.last_name_kana)
+            return fullName.indexOf(this.search.word) >= 0 || fullNameKana.indexOf(this.search.word) >= 0
+        })
+        return users
       },
-      toValueFormUnAffiliatedUsers  () {
-        const users = this.unAffiliatedUsers
+      toValueFormUsers () {
+        const users = this.users
         return users.map((user) => {
           return {
             value: this.fullName(user.first_name, user.last_name),
@@ -135,9 +144,9 @@ export default {
         return `${last}${first}`
       },
       querySearch (queryString, cb) {
-        let results = this.toValueFormUnAffiliatedUsers
+        let results = this.toValueFormUsers
         if (queryString) {
-          results = this.toValueFormUnAffiliatedUsers.filter((user) => {
+          results = this.toValueFormUsers.filter((user) => {
             return (user.value.indexOf(queryString) >= 0 || user.nameKana.indexOf(queryString) >= 0)
           })
         }
@@ -158,7 +167,6 @@ export default {
   letter-spacing: -.4em;
 }
 .groups {
-  background: #fff;
   display: inline-block;
   width: 50%;
   vertical-align: top;
@@ -172,11 +180,17 @@ export default {
   padding: 20px 20px;
   border-bottom: solid 1px #efefef;
   font-size: 14px;
+  background: #fff;
 }
 .groups__head--btn {
   position: absolute;
   top: 7px;
   right: 20px;
+}
+.groups__body--item{
+  padding:30px 20px 20px 20px;
+  background: #fff;
+  line-height:23px;
 }
 .groups__body--item a {
   padding: 30px 20px;
@@ -189,6 +203,13 @@ export default {
 
 .groups__body--item a:hover {
   background: #ECF5FF;
+}
+.group__edit{
+  background: #fff;
+  margin-top:10px;
+  padding:20px;
+  text-align: right;
+  border-radius:2px;
 }
 
 .users {
