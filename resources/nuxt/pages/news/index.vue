@@ -40,6 +40,11 @@ export default {
     news () {
       return this.$store.state.news
     },
+    sortByCreatedAtNews () {
+      return JSON.parse(JSON.stringify(this.news)).sort((a,b) => {
+        return (a.created_at > b.created_at) ? -1 : 1
+      })
+    },
     p () {
       return this.$route.query.p ? Number(this.$route.query.p) : 1
     },
@@ -56,7 +61,7 @@ export default {
       return Math.ceil(this.maxCount / this.per)
     },
     displayNews () {
-      return this.news.slice(this.offset, this.offset + this.per)
+      return this.sortByCreatedAtNews.slice(this.offset, this.offset + this.per)
     }
   },
   methods: {
