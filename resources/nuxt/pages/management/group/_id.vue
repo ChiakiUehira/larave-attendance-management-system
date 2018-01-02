@@ -51,7 +51,7 @@
           </el-form>
         </div>
         <div v-if="displayUsers.length" class="users__body">
-          <div class="users__body--item" v-for="user in displayUsers">
+          <div class="users__body--item" v-for="user in displayUsers" :key="user.id">
             <div class="users__body--img">
               <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
               <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
@@ -69,10 +69,6 @@
     </div>
   </div>
 </template>
-
-<script>
-  export default {}
-</script>
 
 <script>
   import ContentsName from '~/components/ContentsName.vue'
@@ -117,10 +113,6 @@
       return {
         search: {
           word: ''
-        },
-        form: {
-          name: '',
-          detail: ''
         },
         draggedId: null,
         isDialogOpen: false,

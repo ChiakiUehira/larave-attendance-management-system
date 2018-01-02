@@ -2,7 +2,7 @@
 class GroupContext {
   storeRules () {
     return {
-      name: 'required'
+      name: 'required|unique:groups'
     }
   }
   storeContext (req) {
