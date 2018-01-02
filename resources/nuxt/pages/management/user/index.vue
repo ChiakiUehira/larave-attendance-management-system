@@ -48,7 +48,7 @@
           <div v-else>
             <div class="err">
               <p>User Not Found !</p>
-              <icon scale="8" name="frown-o"></icon>
+              <icon scale="4" name="frown-o"></icon>
             </div>
           </div>
         </div>
@@ -158,8 +158,8 @@
 <style scoped>
   .users-info-container {
     display: flex;
+    align-items: flex-start;
   }
-
   .contents {
     border-radius: 2px;
     background-color: #fff;
@@ -184,7 +184,7 @@
     box-shadow: 0px 0px 0px 0px #efefef;
   }
   .users__body--item:hover {
-    box-shadow: 0 6px 12px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04)
+    background: #ECF5FF;
   }
   .users__body--item:not(:last-child) {
     border-bottom: solid 1px #efefef;
@@ -205,9 +205,8 @@
 
   .err {
     text-align: center;
-    color: #334257;
-    padding-top: 20px;
-    padding-bottom: 50px;
+    color: #58a8ff;
+    padding: 30px 0;
   }
 
   .err p {

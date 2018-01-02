@@ -32,7 +32,7 @@
       <div v-else>
         <div class="err">
           <p>User Not Found !</p>
-          <icon scale="8" name="frown-o"></icon>
+          <icon scale="4" name="frown-o"></icon>
         </div>
       </div>
     </div>
@@ -165,9 +165,8 @@
 
   .err {
     text-align: center;
-    color: #334257;
-    padding-top: 20px;
-    padding-bottom: 50px;
+    color: #58a8ff;
+    padding: 30px 0;
   }
 
   .err p {
