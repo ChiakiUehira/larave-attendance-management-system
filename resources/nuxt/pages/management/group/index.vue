@@ -57,7 +57,7 @@
 
     <el-dialog title="グループの作成" :visible.sync="isDialogOpen">
       <el-form :model="form">
-        <el-form-item label="グループ名">
+        <el-form-item label="グループ名" required>
           <el-input v-model="form.name" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="説明">
