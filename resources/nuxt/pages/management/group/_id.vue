@@ -286,13 +286,8 @@
     padding: 13px 20px;
     display: block;
     color: #5A5E66;
-    cursor: pointer;
     transition: .2s;
     box-shadow: 0px 0px 0px 0px #efefef;
-  }
-
-  .users__body--item:hover {
-    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04)
   }
 
   .users__body--item:not(:last-child) {
