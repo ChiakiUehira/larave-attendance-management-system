@@ -35,8 +35,8 @@
             </el-form-item>
           </el-form>
           <div v-if="displayUsers.length">
-            <div class="users__body--item" v-for="user in displayUsers" :key="user.id">
-              <nuxt-link :to="`/management/user/${user.id}`">
+            <div v-for="user in displayUsers" :key="user.id">
+              <nuxt-link class="users__body--item" :to="`/management/user/${user.id}`">
                 <div class="users__body--img">
                   <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
                   <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
@@ -182,6 +182,7 @@
     cursor: pointer;
     transition: .2s;
     box-shadow: 0px 0px 0px 0px #efefef;
+    border-bottom: 1px solid #efefef;
   }
   .users__body--item:hover {
     background: #ECF5FF;
