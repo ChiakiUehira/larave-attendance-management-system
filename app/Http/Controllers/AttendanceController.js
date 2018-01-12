@@ -58,6 +58,12 @@ class AttendanceController {
     const attendance = yield this.attendanceService.lastUpdated(loginUser)
     return this.httpService.success(res, {attendance})
   }
+
+  * limited (req, res) {
+    const limit = req.input('limit')
+    const attendances = yield this.attendanceService.limited(limit)
+    return this.httpService.success(res, {attendances})
+  }
 }
 
 module.exports = AttendanceController

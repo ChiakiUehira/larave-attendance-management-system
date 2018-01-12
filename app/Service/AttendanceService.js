@@ -81,6 +81,16 @@ class AttendanceService {
       .first()
     return attendance
   }
+
+  * limited (num) {
+    const attendances = yield AttendanceModel
+      .query()
+      .orderBy('updated_at', 'desc')
+      .with('user')
+      .pick(num)
+
+    return attendances
+  }
 }
 
 module.exports = AttendanceService
