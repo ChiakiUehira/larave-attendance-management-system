@@ -19,6 +19,7 @@ class GroupService {
   }
 
   * isExitById (user, id) {
+    if(id === null) return true
     const company = yield this.companyService.getCompanyFromUser(user)
     const groups = yield company.groups().fetch()
     return groups.some((group) => {
