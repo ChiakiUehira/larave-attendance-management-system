@@ -11,6 +11,12 @@ class GroupContext {
       detail: req.input('detail')
     }
   }
+  editContext (req) {
+    return {
+      name: req.input('name'),
+      detail: req.input('detail')
+    }
+  }
 }
 
 module.exports = GroupContext

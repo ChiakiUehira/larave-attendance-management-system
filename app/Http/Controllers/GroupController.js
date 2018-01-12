@@ -42,12 +42,11 @@ class CompanyController {
     return this.httpService.success(res)
   }
 
-  * editDetail (req, res) {
+  * edit (req, res) {
     const loginUser = yield req.auth.getUser()
     const groupId = req.param('id')
-    const detail = req.input('detail')
-    const group = yield this.groupService.editDetail(loginUser,groupId,detail)
-    console.log(group)
+    const context = this.groupContext.editContext(req)
+    const group = yield this.groupService.edit(loginUser, groupId, context)
 
     return this.httpService.success(res)
   }
