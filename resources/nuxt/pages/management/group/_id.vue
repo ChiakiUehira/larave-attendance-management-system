@@ -3,7 +3,8 @@
     <contents-name>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-        <el-breadcrumb-item>グループ管理</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/group' }">グループ管理</el-breadcrumb-item>
+        <el-breadcrumb-item>{{group.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
     <div class="page">
@@ -13,11 +14,13 @@
         </div>
         <div class="groups__body" v-if="group">
           <div class="groups__body--item">
-            {{group.detail}}
+            <textarea type="text" v-model="group.detail" v-if="isEdit" rows="5"></textarea>
+            <p v-else>{{group.detail}}</p>
           </div>
         </div>
         <div class="group__edit">
-          <el-button icon="el-icon-edit" type="primary"></el-button>
+          <el-button type="primary" v-if="isEdit" @click="editDetail">更新</el-button>
+          <el-button icon="el-icon-edit" type="primary" @click="isEdit = !isEdit" v-else></el-button>
           <el-button icon="el-icon-delete" type="danger" @click="dialogVisible(group.id)"></el-button>
         </div>
       </div>
@@ -57,6 +60,9 @@
               <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
             </div>
             <span class="users__body--name">{{user.last_name}} {{user.first_name}}</span>
+            <div class="users__body--not-affiliation">
+              <el-button type="danger" icon="el-icon-close" @click="displayUserDialog(user.id)"></el-button>
+            </div>
           </div>
         </div>
         <div v-else class="users__body">
@@ -65,6 +71,17 @@
             <icon scale="4" name="frown-o"></icon>
           </div>
         </div>
+        <el-dialog
+            title="ユーザをグループから削除しますか？"
+            :visible.sync="userDialogVisible"
+            width="30%"
+            center>
+          <span>削除すると未所属になります。</span>
+          <span slot="footer" class="dialog-footer">
+           <el-button @click="userDialogVisible = false">キャンセル</el-button>
+                 <el-button type="primary" @click="deleteAffiliationUser()">確認</el-button>
+             </span>
+        </el-dialog>
       </div>
     </div>
   </div>
@@ -74,18 +91,15 @@
   import ContentsName from '~/components/ContentsName.vue'
   import UserCard from '~/components/UserCard.vue'
   export default{
-    async fetch ({app, store}) {
-      const {data} = await app.$http.get('group')
-      const obj = await app.$http.get('user')
-      store.commit('SET_GROUPS', data.groups)
-      store.commit('SET_USERS', obj.data.users)
+    async fetch ({app, store, params}) {
+      const {data} = await app.$http.get('user')
+      store.commit('SET_USERS', data.users)
+    },
+    async asyncData ({app, params}){
+      const {data} = await app.$http.get(`group/${params.id}`)
+      return {group: data.group}
     },
     computed: {
-      group(){
-        return this.$store.state.groups.filter((group) => {
-          return group.id == this.$route.params.id
-        })[0]
-      },
       users () {
         return this.$store.state.users.filter((user) => {
           return user.group_id == this.$route.params.id
@@ -118,7 +132,9 @@
         isDialogOpen: false,
         isSending: false,
         centerDialogVisible: false,
-        group_id: ''
+        userDialogVisible: false,
+        isEdit: false,
+        user_id: null
       }
     },
     components: {
@@ -160,10 +176,9 @@
       },
       dialogVisible (id) {
         this.centerDialogVisible = true
-        this.group_id = id
       },
       async deleteGroup () {
-        this.$http.delete(`group/${this.group_id}`).catch((e) => {
+        this.$http.delete(`group/${this.group.id}`).catch((e) => {
           return this.$message.error('グループの削除に失敗しました')
         })
         const {data} = await this.$http.get('group')
@@ -177,6 +192,26 @@
       },
       handleSelect (user) {
         this.search.word = user.value
+      },
+      async editDetail(){
+        const {data} = await this.$http.put(`/group/${this.group.id}`, {detail: this.group.detail})
+        if (data.success) {
+          this.$message.success('グループの詳細を編集しました。')
+          this.isEdit = false
+        }
+      },
+      async deleteAffiliationUser(){
+        const { data } = await this.$http.put(`/user/group`,{user_id: this.user_id, group_id: null})
+        if(data.success){
+          this.$message.success('選択したユーザが未所属になりました。')
+          const {data} = await this.$http.get('user')
+          this.$store.commit('SET_USERS', data.users)
+          this.userDialogVisible = !this.userDialogVisible
+        }
+      },
+      displayUserDialog(id){
+        this.userDialogVisible = !this.userDialogVisible
+        this.user_id = id
       }
     }
   }
@@ -230,6 +265,22 @@
     background: #ECF5FF;
   }
 
+  .groups__body--item p {
+    font-size: 14px;
+  }
+
+  .groups__body--item textarea {
+    width: 100%;
+    resize: none;
+    border-radius: 2px;
+    outline: none;
+    border: solid 1px #efefef;
+    font-size: 14px;
+    padding: 10px;
+    box-sizing: border-box;
+    color: #5a5e66;
+  }
+
   .group__edit {
     background: #fff;
     margin-top: 10px;
@@ -276,10 +327,15 @@
 
   .users__body--item {
     padding: 13px 20px;
-    display: block;
+    display: flex;
+    align-items: center;
     color: #5A5E66;
     transition: .2s;
     box-shadow: 0px 0px 0px 0px #efefef;
+  }
+
+  .users__body--not-affiliation {
+    margin-left: auto;
   }
 
   .users__body--item:not(:last-child) {

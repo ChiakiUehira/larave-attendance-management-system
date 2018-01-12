@@ -105,6 +105,7 @@ class UserController {
       return this.httpService.failed(res, { error: '権限がありません' }, 403)
     }
     const context = this.userContext.groupUpdateContext(req)
+
     const user = yield this.userService.getById(context.userId)
     const isExit = yield this.groupService.isExitById(user, context.groupId)
     if (!isExit) {
