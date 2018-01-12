@@ -14,13 +14,25 @@
         </div>
         <div class="groups__body" v-if="group">
           <div class="groups__body--item">
-            <textarea type="text" v-model="group.detail" v-if="isEdit" rows="5"></textarea>
-            <p v-else>{{group.detail}}</p>
+            <el-dialog title="グループの編集" :visible.sync="editDialogVisible" class="groups__body--dialog">
+              <el-form>
+                <el-form-item label="グループ名">
+                  <el-input v-model="group.name"></el-input>
+                </el-form-item>
+                <el-form-item label="説明">
+                  <el-input v-model="group.detail" type="textarea" :rows="3" resize="none"></el-input>
+                </el-form-item>
+              </el-form>
+              <span slot="footer" class="dialog-footer">
+                <el-button @click="editDialogVisible = !editDialogVisible">Cancel</el-button>
+                <el-button type="primary" @click="editGroup">OK</el-button>
+              </span>
+            </el-dialog>
+            <p>{{group.detail}}</p>
           </div>
         </div>
         <div class="group__edit">
-          <el-button type="primary" v-if="isEdit" @click="editDetail">更新</el-button>
-          <el-button icon="el-icon-edit" type="primary" @click="isEdit = !isEdit" v-else></el-button>
+          <el-button icon="el-icon-edit" type="primary" @click="editDialogVisible = !editDialogVisible"></el-button>
           <el-button icon="el-icon-delete" type="danger" @click="dialogVisible(group.id)"></el-button>
         </div>
       </div>
@@ -133,7 +145,7 @@
         isSending: false,
         centerDialogVisible: false,
         userDialogVisible: false,
-        isEdit: false,
+        editDialogVisible: false,
         user_id: null
       }
     },
@@ -193,11 +205,11 @@
       handleSelect (user) {
         this.search.word = user.value
       },
-      async editDetail(){
-        const {data} = await this.$http.put(`/group/${this.group.id}`, {detail: this.group.detail})
+      async editGroup(){
+        const {data} = await this.$http.put(`/group/${this.group.id}`, {name: this.group.name, detail: this.group.detail})
         if (data.success) {
           this.$message.success('グループの詳細を編集しました。')
-          this.isEdit = false
+          this.editDialogVisible = !this.editDialogVisible
         }
       },
       async deleteAffiliationUser(){
@@ -245,6 +257,10 @@
     right: 20px;
   }
 
+  .groups__body--dialog{
+    width:70%;
+    margin:0 auto;
+  }
   .groups__body--item {
     padding: 30px 20px 20px 20px;
     background: #fff;

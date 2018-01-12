@@ -6,5 +6,5 @@ module.exports = Route.group('group', () => {
   Route.get('/group', 'GroupController.index')
   Route.post('/group', 'GroupController.store')
   Route.delete('/group/:id', 'GroupController.destroy')
-  Route.put('/group/:id', 'GroupController.editDetail')
+  Route.put('/group/:id', 'GroupController.edit')
 }).prefix('api/v1').middleware('auth')
