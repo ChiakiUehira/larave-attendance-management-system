@@ -15,16 +15,6 @@
             <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
           </el-button-group>
         </el-form-item>
-        <el-form-item>
-          <el-date-picker
-            v-model="toDatePickerValue"
-            @change="handleDatePicker"
-            type="daterange"
-            :clearable="false"
-            start-placeholder="Start Date"
-            end-placeholder="End Date">
-          </el-date-picker>
-        </el-form-item>
       </el-form>
       <div class="info">
         <div class="info__inner">
@@ -51,31 +41,25 @@
         </div>
       </div>
       <div class="contents">
-        <el-table
-          style="width: 100%"
-          :data="toValue"
-          max-height="750"
-          :row-class-name="tableRowClassName"
-          class="el-table"
-          @row-click="handleRowClick"
-          >
-          <el-table-column
-            prop="displayDate"
-            label="日付">
-          </el-table-column>
-          <el-table-column
-            prop="startedAt"
-            label="出勤">
-          </el-table-column>
-          <el-table-column
-            prop="endedAt"
-            label="退勤">
-          </el-table-column>
-          <el-table-column
-            prop="jobedAt"
-            label="労働時間">
-          </el-table-column>
-        </el-table>
+        <div class="calendar">
+          <div class="calendar__body">
+            <div v-for="(day,index) in displayToValue" :key="day.id" @click="onShow(day)" :class="['calendar__body--item',day.isPadding ? 'isPadding' : '',day.isAttend ? 'isAttend' : '']">
+              <div :class="['calendar__body--item--day',day.isSunday ? 'isSunday' : '',day.isSaturday ? 'isSaturday' : '',]" v-if="index < 7">
+                {{dayMap[index]}}
+              </div>
+              <div :class="['calendar__body--item--day',day.isSunday ? 'isSunday' : '',day.isSaturday ? 'isSaturday' : '',]">
+                {{formatDays(day.date)}}
+              </div>
+              <div class="calendar__body--attendances">
+                <div class="calendar__body--attendance" v-for="attendance in day.attendances" :key="attendance.id">
+                  {{formatTime(attendance.started_at)}}
+                  ~
+                  {{formatTime(attendance.ended_at)}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
   </div>
 </template>
@@ -103,33 +87,14 @@
       return {
         from,
         to,
-        toDatePickerValue: [from, to],
         attendedDaysCount: 0,
         attendedTimesCount: 0,
       }
     },
+    components: {
+      ContentsName
+    },
     methods: {
-      handleClick (tab, event) {
-        this.currentView = this.activeName
-      },
-      handleRowClick (row) {
-        if (row.id) {
-          return this.$router.push('/report/' + row.date)
-        }
-      },
-      tableRowClassName({ row }) {
-        let classes = []
-        if (row.id) {
-          classes.push('attended-row')
-        }
-        if (row.date === moment().format('YYYY-MM-DD')) {
-          classes.push('today-row')
-        }
-        if (classes.indexOf('today-row') === -1 && ((row.startedAt && !row.endedAt) || (!row.startedAt && row.endedAt))) {
-          classes.push('error-row')
-        }
-        return classes.join(',').replace(/\,/g, ' ')
-      },
       handleCurrentChangeOfDate (date) {
         let context = {}
         if (date.from) {
@@ -140,19 +105,22 @@
         }
         return this.$router.push({query: context})
       },
-      handleDatePicker (date) {
-        const [from,to] = date
-        const context = {
-          from: moment(from).format('YYYY-MM-DD'),
-          to: moment(to).format('YYYY-MM-DD')
+      formatDays (str) {
+        return moment(str).format('DD')
+      },
+      formatTime (str) {
+        return moment(str).format('HH:mm')
+      },
+      onShow (day) {
+        if (day.attendances.length) {
+          this.$router.push('/report/' + day.date)
         }
-        return this.$router.push({query: context})
       }
     },
-    components: {
-      ContentsName
-    },
     computed: {
+      dayMap () {
+        return ['日','月','火','水','木','金','土',]
+      },
       attendances () {
         return this.$store.state.attendances
       },
@@ -162,44 +130,75 @@
         const step =  to.diff(from, 'days')
         return Number(step)
       },
-      // ここの設計うまくないかも 副作用がある
-      // ストアに依存している
+      displayToValue () {
+        const firstPadding = Array.from({length: this.firstDayOfTheMonth}, (_, i) => {
+          const date = moment(this.from).clone().subtract('days',this.firstDayOfTheMonth - i).format('YYYY-MM-DD')
+          return {
+            date,
+            attendances: [],
+            isAttend: false,
+            isPadding: true,
+            isSunday: moment(date).day() === 0,
+            isSaturday: moment(date).day() === 6
+          }
+        })
+        const lastPadding = Array.from({length: 6 - this.endDayOfTheMonth}, (_, i) => {
+          const date = moment(this.to).clone().add('days',i + 1).format('YYYY-MM-DD')
+          return {
+            date,
+            attendances: [],
+            isAttend: false,
+            isPadding: true,
+            isSunday: moment(date).day() === 0,
+            isSaturday: moment(date).day() === 6
+          }
+        })
+        return [
+          ...firstPadding,
+          ...this.toValue,
+          ...lastPadding
+        ]
+      },
       toValue() {
-        let attendances = []
+        let calendar = []
         let attendedDaysCount = 0
         let attendedTimesCount = 0
         for (let i = 0; i <= this.period; i++) {
+          let isAttend = false
           const date = moment(this.from).clone().add('days', i).format('YYYY-MM-DD')
-          const attendance = this.attendances.find((attendance) => {
-            if (attendance.started_at) {
-              return date === moment(attendance.started_at).format('YYYY-MM-DD')
-            }
-            if (attendance.ended_at) {
-              return date === moment(attendance.ended_at).format('YYYY-MM-DD')
-            }
+          const attendances = this.attendances.filter((attendance) => {
+            return date === moment(attendance.started_at).format('YYYY-MM-DD')
           })
-          if (attendance) {
-            attendedDaysCount++
+          if (attendances.length) {
+            attendedDaysCount += attendances.length
+            attendances.forEach(attendance => {
+              const startedAt = attendance ? moment(attendance.started_at) : null
+              const endedAt = attendance ? moment(attendance.ended_at) : null
+              const diff = startedAt ? endedAt ? endedAt.diff(startedAt) : null : null
+              if (diff) {
+                attendedTimesCount += diff
+              }
+              isAttend = true
+            });
           }
-          const startedAt = attendance ? moment(attendance.started_at) : null
-          const endedAt = attendance ? moment(attendance.ended_at) : null
-          const diff = startedAt ? endedAt ? endedAt.diff(startedAt) : null : null
-          const jobedAt = diff ? moment.duration(diff): null
-          if (diff) {
-            attendedTimesCount += diff
-          }
-          attendances.push({
-            id: attendance ? attendance.id : null,
+          calendar.push({
             date,
-            displayDate: `${date} ${moment(date).format('(ddd)')}`,
-            startedAt: startedAt ? startedAt.isValid() ? startedAt.format('HH:mm') : '' : '',
-            endedAt: endedAt ? endedAt.isValid() ? endedAt.format('HH:mm') : '' : '',
-            jobedAt: jobedAt ? `${('0'+jobedAt.hours()).slice(-2)}:${('0'+jobedAt.minutes()).slice(-2)}` : ''
+            attendances,
+            isAttend,
+            isPadding: false,
+            isSunday: moment(date).day() === 0,
+            isSaturday: moment(date).day() === 6
           })
         }
         this.attendedDaysCount = attendedDaysCount
         this.attendedTimesCount = attendedTimesCount
-        return attendances
+        return calendar
+      },
+      firstDayOfTheMonth () {
+        return moment(this.from).day()
+      },
+      endDayOfTheMonth () {
+        return moment(this.to).day()
       },
       nextMouthContext() {
         const from = moment(this.from).add(1, 'month').startOf('month').format('YYYY-MM-DD')
@@ -275,31 +274,48 @@
     color: #5a5e66;
   }
   .contents{
-      background: #fff;
-      padding:30px;
+    background: #fff;
   }
-  .el-tabs{
-      margin-bottom:10px;
-      background: #fff;
-      padding:10px 20px;
+  .calendar__body {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #DFDFDF;
+    border-right: none;
+    border-bottom: none;
   }
-  .el-card{
-      padding:40px 0px;
+  .calendar__body--item {
+    width: 14.28%;
+    border: 1px solid #DFDFDF;
+    border-left: none;
+    border-top: none;
+    padding: 10px;
+    height: 150px;
   }
-</style>
-
-<style>
-  .el-form--inline .el-form-item {
-    vertical-align: bottom;
-    margin-bottom: 0
+  .calendar__body--item--day {
+    margin-bottom: 5px;
   }
-  .el-table .error-row {
-    background-color: #ffe2e2;
+  .isSunday {
+    color: #F56C6C;
   }
-  .el-table .today-row {
-    background-color: #f5f7fb;
+  .isSaturday {
+    color: #409EFF;
   }
-  .el-table .attended-row {
+  .isPadding {
+    background: #f4f4f4;
+  }
+  .isAttend {
     cursor: pointer;
+  }
+  .isAttend:hover {
+    background: #ecf5ff;
+  }
+  .calendar__body--attendances {
+    margin-top: 10px;
+  }
+  .calendar__body--attendance {
+    background: #409EFF;
+    color: #fff;
+    padding: 3px;
+    font-size: 13px;
   }
 </style>
