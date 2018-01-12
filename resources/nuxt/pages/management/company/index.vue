@@ -98,10 +98,13 @@ export default {
 
 <style scoped>
   .btns{
+    background-color: #fff;
+    padding: 10px;
     margin-bottom:10px;
     position: relative;
     margin-top: 10px;
     text-align: right;
+    border-radius: 2px;
   }
   .page {
     border-radius: 2px;
