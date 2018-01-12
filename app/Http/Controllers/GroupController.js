@@ -9,6 +9,12 @@ class CompanyController {
     this.groupContext = new GroupContext()
   }
 
+  * fetchGroup(req, res) {
+    const loginUser = yield req.auth.getUser()
+    const group = yield this.groupService.getGroup(loginUser, req.param('id'))
+    return this.httpService.success(res, {group: group})
+  }
+
   * index (req, res) {
     const loginUser = yield req.auth.getUser()
     const groups = yield this.groupService.getGroups(loginUser)
@@ -21,7 +27,7 @@ class CompanyController {
     const context = this.groupContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
-      return this.httpService.failed(res, { error: validation.messages() }, 400)
+      return this.httpService.failed(res, {error: validation.messages()}, 400)
     }
     const group = yield this.groupService.store(loginUser, context)
     return this.httpService.success(res, {group: group})
@@ -33,6 +39,16 @@ class CompanyController {
     if (!isGroup) {
       return this.httpService.failed(res, {error: '削除対象のグループが存在しません'})
     }
+    return this.httpService.success(res)
+  }
+
+  * editDetail (req, res) {
+    const loginUser = yield req.auth.getUser()
+    const groupId = req.param('id')
+    const detail = req.input('detail')
+    const group = yield this.groupService.editDetail(loginUser,groupId,detail)
+    console.log(group)
+
     return this.httpService.success(res)
   }
 }

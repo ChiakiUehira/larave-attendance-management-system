@@ -5,11 +5,19 @@ class GroupService {
   constructor () {
     this.companyService = new CompanyService()
   }
+
+  * getGroup (user, id) {
+    const company = yield this.companyService.getCompanyFromUser(user)
+    const group = yield company.groups().where('id', id).first()
+    return group
+  }
+
   * getGroups (user) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const groups = yield company.groups().fetch()
     return groups
   }
+
   * isExitById (user, id) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const groups = yield company.groups().fetch()
@@ -17,12 +25,14 @@ class GroupService {
       return group.id === id
     })
   }
+
   * store (user, context) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const group = new Group(context)
     yield company.groups().save(group)
     return group
   }
+
   * destroy (user, id) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const group = yield company.groups().where('id', id).first()
@@ -36,6 +46,13 @@ class GroupService {
       return true
     }
     return false
+  }
+
+  * editDetail (user, id, detail) {
+    const company = yield this.companyService.getCompanyFromUser(user)
+    const group = yield company.groups().where('id', id).first()
+    group.detail = detail
+    return yield group.save()
   }
 }
 
