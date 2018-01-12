@@ -40,7 +40,7 @@ export default {
           href: '/management/company'
         },
         {
-          name: '打刻管理',
+          name: '勤怠管理',
           href: '/management/clockin'
         },
         {
