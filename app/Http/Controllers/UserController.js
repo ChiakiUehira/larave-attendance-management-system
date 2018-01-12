@@ -105,11 +105,12 @@ class UserController {
       return this.httpService.failed(res, { error: '権限がありません' }, 403)
     }
     const context = this.userContext.groupUpdateContext(req)
-    const user = yield this.userService.getById(context.userId)
-    const isExit = yield this.groupService.isExitById(user, context.groupId)
-    if (!isExit) {
-      return this.httpService.failed(res, { error: '存在しないグループです' }, 403)
-    }
+    // いる？
+    // const user = yield this.userService.getById(context.userId)
+    // const isExit = yield this.groupService.isExitById(user, context.groupId)
+    // if (!isExit) {
+    //   return this.httpService.failed(res, { error: '存在しないグループです' }, 403)
+    // }
     const updateUser = yield this.userService.update(context.userId, { group_id: context.groupId })
     return this.httpService.success(res, { user: updateUser })
   }

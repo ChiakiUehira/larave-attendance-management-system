@@ -60,6 +60,9 @@
               <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
             </div>
             <span class="users__body--name">{{user.last_name}} {{user.first_name}}</span>
+            <div class="users__body--not-affiliation">
+              <el-button type="danger" icon="el-icon-close" @click="displayUserDialog(user.id)"></el-button>
+            </div>
           </div>
         </div>
         <div v-else class="users__body">
@@ -68,6 +71,17 @@
             <icon scale="4" name="frown-o"></icon>
           </div>
         </div>
+        <el-dialog
+            title="ユーザをグループから削除しますか？"
+            :visible.sync="userDialogVisible"
+            width="30%"
+            center>
+          <span>削除すると未所属になります。</span>
+          <span slot="footer" class="dialog-footer">
+           <el-button @click="userDialogVisible = false">キャンセル</el-button>
+                 <el-button type="primary" @click="deleteAffiliationUser()">確認</el-button>
+             </span>
+        </el-dialog>
       </div>
     </div>
   </div>
@@ -118,7 +132,9 @@
         isDialogOpen: false,
         isSending: false,
         centerDialogVisible: false,
-        isEdit: false
+        userDialogVisible: false,
+        isEdit: false,
+        user_id: null
       }
     },
     components: {
@@ -179,10 +195,23 @@
       },
       async editDetail(){
         const {data} = await this.$http.put(`/group/${this.group.id}`, {detail: this.group.detail})
-        if(data.success){
+        if (data.success) {
           this.$message.success('グループの詳細を編集しました。')
           this.isEdit = false
         }
+      },
+      async deleteAffiliationUser(){
+        const { data } = await this.$http.put(`/user/group`,{user_id: this.user_id, group_id: null})
+        if(data.success){
+          this.$message.success('選択したユーザが未所属になりました。')
+          const {data} = await this.$http.get('user')
+          this.$store.commit('SET_USERS', data.users)
+          this.userDialogVisible = !this.userDialogVisible
+        }
+      },
+      displayUserDialog(id){
+        this.userDialogVisible = !this.userDialogVisible
+        this.user_id = id
       }
     }
   }
@@ -298,10 +327,15 @@
 
   .users__body--item {
     padding: 13px 20px;
-    display: block;
+    display: flex;
+    align-items: center;
     color: #5A5E66;
     transition: .2s;
     box-shadow: 0px 0px 0px 0px #efefef;
+  }
+
+  .users__body--not-affiliation {
+    margin-left: auto;
   }
 
   .users__body--item:not(:last-child) {
