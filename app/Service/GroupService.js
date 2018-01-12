@@ -49,10 +49,11 @@ class GroupService {
     return false
   }
 
-  * editDetail (user, id, detail) {
+  * edit (user, id, context) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const group = yield company.groups().where('id', id).first()
-    group.detail = detail
+    group.name = context.name
+    group.detail = context.detail
     return yield group.save()
   }
 }
