@@ -14,7 +14,7 @@
       <h1>{{`${user.last_name} ${user.first_name}`}}</h1>
       <hr>
       <div class="condition">
-        <el-tag class="tag" :type="type">{{state}}</el-tag>
+        <el-tag class="tag" :type="displayType">{{displayState}}</el-tag>
       </div>
     </div>
   </div>
@@ -24,24 +24,52 @@
   export default {
     props: ['user'],
     name: 'user-card',
-    data () {
-      return {
-        option: 2,
-        state: '退席中',
-        condition: '不調',
-        type: 'primary'
-      }
-    },
     mounted(){
       this.$client.on(this.user.id, (state) => {
         this.state = state
         if (state === '出勤中') {
           this.type = 'success'
+          this.isActive = true
         }
         if (state === '休憩中') {
+          this.type = 'warning'
+        }
+        if (state === '未出勤') {
           this.type = 'info'
         }
       })
+    },
+    data(){
+      return {
+        state: null,
+        type: null,
+        isActive: false
+      }
+    },
+    computed: {
+      displayState(){
+        this.state = '未出勤'
+        if (this.user.attendances[0] && this.user.attendances[0].ended_at == null) {
+          if(this.user.attendances[0].rest[0] && this.user.attendances[0].rest[0].ended_at == null){
+            this.state = '休憩中'
+          }else{
+            this.state = '出勤中'
+            this.isActive = true
+          }
+        }
+        return this.state
+      },
+      displayType(){
+        this.type = 'primary'
+        if (this.user.attendances[0] && this.user.attendances[0].ended_at == null) {
+          if(this.user.attendances[0].rest[0] && this.user.attendances[0].rest[0].ended_at == null) {
+            this.type = 'warning'
+          }else{
+            this.type = 'success'
+          }
+        }
+        return this.type
+      }
     }
   }
 </script>
