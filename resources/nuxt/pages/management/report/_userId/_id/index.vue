@@ -2,7 +2,9 @@
   <div>
     <contents-name >
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/report' }">レポート</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/report' }">勤怠管理</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/report/' + user.id }">{{fullname}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{title}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
@@ -104,6 +106,13 @@ export default {
     ContentsName
   },
   computed: {
+    user() {
+      const id = this.$route.params.userId
+      return this.$store.state.users.find(user => user.id === Number(id))
+    },
+    fullname () {
+      return `${this.user.last_name} ${this.user.first_name}`
+    },
     title () {
       return this.$route.params.id
     },

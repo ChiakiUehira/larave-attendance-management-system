@@ -76,7 +76,7 @@
         ? moment(query.to).format('YYYY-MM-DD')
         : moment().endOf('month').format('YYYY-MM-DD')
 
-      const id = params.id
+      const id = params.userId
       const { data } = await app.$http.get(`/manager/attendance/${id}`, {params: query})
       const { attendances } = data
 
@@ -116,7 +116,7 @@
     },
     computed: {
       user() {
-        const id = this.$route.params.id
+        const id = this.$route.params.userId
         return this.$store.state.users.find(user => user.id === Number(id))
       },
       fullname () {
