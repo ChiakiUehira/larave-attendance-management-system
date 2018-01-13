@@ -95,7 +95,7 @@
   }
 
   .feed .title {
-    font-size: 18px;
+    font-size: 16px;
     color: #5A5E66;
   }
 
@@ -128,7 +128,7 @@
   }
 
   .article .title {
-    font-size: 18px;
+    font-size: 16px;
     color: #5A5E66;
   }
 
