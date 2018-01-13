@@ -36,6 +36,12 @@ export const mutations = {
   SET_USERS (state, payload) {
     state.users = payload
   },
+  IS_ACTIVATE_USER(state, payload){
+    const index = state.users.findIndex((user) => {
+      return user.id == payload.id
+    })
+    state.users[index].isActive = payload.isActive
+  },
   SET_INVITING_USERS (state, payload) {
     state.invitingUsers = payload
   },
