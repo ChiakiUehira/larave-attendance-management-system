@@ -3,12 +3,12 @@
     <contents-name name="勤怠管理">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/management/attendance' }">勤怠管理</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/report' }">勤怠管理</el-breadcrumb-item>
         <el-breadcrumb-item>{{fullname}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
       <div class="controller">
-        <el-button class="btn" icon="el-icon-date" @click="$router.push('/report')" type="primary" >今月</el-button>
+        <el-button class="btn" icon="el-icon-date" @click="$router.push('/management/report')" type="primary" >今月</el-button>
         <el-button-group class="btn">
           <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
           <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
@@ -65,24 +65,23 @@
   import ContentsName from '~/components/ContentsName.vue'
   import moment from 'moment'
   export default{
-    data () {
-      return {
-        currentView: 'LineChart',
-        activeName: '',
-      }
-    },
-    asyncData ({app, store, route}) {
-      const params = route.query
+    async asyncData ({app, store, route, params}) {
+      const query = route.query
 
-      const from = (params.from && moment(params.from).isValid())
-        ? moment(params.from).format('YYYY-MM-DD')
+      const from = (query.from && moment(query.from).isValid())
+        ? moment(query.from).format('YYYY-MM-DD')
         : moment().startOf('month').format('YYYY-MM-DD')
 
-      const to = (params.to && moment(params.to).isValid())
-        ? moment(params.to).format('YYYY-MM-DD')
+      const to = (query.to && moment(query.to).isValid())
+        ? moment(query.to).format('YYYY-MM-DD')
         : moment().endOf('month').format('YYYY-MM-DD')
 
+      const id = params.id
+      const { data } = await app.$http.get(`/manager/attendance/${id}`, {params: query})
+      const { attendances } = data
+
       return {
+        attendances,
         from,
         to,
         attendedDaysCount: 0,
@@ -111,7 +110,7 @@
       },
       onShow (day) {
         if (day.attendances.length) {
-          this.$router.push('/report/' + day.date)
+          this.$router.push(`/management/report/${this.user.id}/${day.date}`)
         }
       }
     },
@@ -125,9 +124,6 @@
       },
       dayMap () {
         return ['日','月','火','水','木','金','土',]
-      },
-      attendances () {
-        return this.$store.state.attendances
       },
       period () {
         const from = moment(this.from)
@@ -229,11 +225,7 @@
         return `${hours}時間${min}分`
       }
     },
-    async fetch ({app, store, route}) {
-      const params = route.query
-      const { data } = await app.$http.get('/attendance', { params })
-      store.commit('SET_ATTENDANCES', data.attendances)
-
+    async fetch ({app, store, route, params}) {
       if (!store.state.users) {
         const { data } = await app.$http.get('/user')
         store.commit('SET_USERS', data.users)

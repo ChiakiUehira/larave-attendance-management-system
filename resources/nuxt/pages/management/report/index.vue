@@ -24,7 +24,7 @@
               </nuxt-link>
             </div>
             <div class="toList">
-              <nuxt-link to="/management/attendance/list" >
+              <nuxt-link to="/management/report/list" >
                 勤怠一覧へ
               </nuxt-link>
             </div>
@@ -62,7 +62,7 @@
           </el-form>
           <div v-if="displayUsers.length">
             <div v-for="user in displayUsers" :key="user.id">
-              <nuxt-link class="users__body--item" :to="`/management/attendance/${user.id}`">
+              <nuxt-link class="users__body--item" :to="`/management/report/${user.id}`">
                 <div class="users__body--img">
                   <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
                   <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>

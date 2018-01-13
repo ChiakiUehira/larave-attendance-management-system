@@ -3,6 +3,6 @@ const Route = use('Route')
 module.exports = Route.group('manager', () => {
   Route.post('/invite', '/Manager/InviteController.store')
   Route.get('/invite', '/Manager/InviteController.index')
-  Route.get('/attendance', 'AttendanceController.limited')
-  Route.get('/attendance/:id', 'AttendanceController.index')
+  Route.get('/attendance', 'ManagerAttendanceController.index')
+  Route.get('/attendance/:id', 'ManagerAttendanceController.byUser')
 }).prefix('api/v1/manager').middleware('auth')
