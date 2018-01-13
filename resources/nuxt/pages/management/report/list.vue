@@ -3,14 +3,15 @@
     <contents-name name="勤怠管理">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-        <el-breadcrumb-item>勤怠管理</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/report' }">勤怠管理</el-breadcrumb-item>
+        <el-breadcrumb-item>勤怠一覧</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
     <div class="page">
       <div class="users-info-container">
         <div class="contents">
           <div class="head">
-            <h1>最新勤怠</h1>
+            <h1>勤怠一覧</h1>
           </div>
           <div>
             <div v-for="attendance in attendances" :key="attendance.id">
