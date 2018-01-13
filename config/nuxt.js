@@ -58,7 +58,8 @@ module.exports = {
     ]
   },
   env: {
-    API_URL: process.env.API_URL || 'http://0.0.0.0:3333'
+    API_URL: process.env.API_URL || 'http://0.0.0.0:3333',
+    SOCKET_URL: process.env.SOCKET_URL || 'http://0.0.0.0:3333'
   },
   /*
    ** Global CSS
