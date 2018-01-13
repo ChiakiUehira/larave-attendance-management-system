@@ -41,7 +41,7 @@ export default {
         },
         {
           name: '勤怠管理',
-          href: '/management/clockin'
+          href: '/management/attendance'
         },
         {
           name: 'グループ管理',

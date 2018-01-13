@@ -10,7 +10,7 @@
       <div class="users-info-container">
         <div class="contents">
           <div class="head">
-            <h1>勤怠管理一覧</h1>
+            <h1>最新勤怠</h1>
           </div>
           <div v-if="displayUsers.length">
             <div v-for="attendance in displayAttendances" :key="attendance.id">
