@@ -7,10 +7,10 @@ class RestService {
     return rest
   }
 
-  * end (attedance, context){
+  * end (attendance, context){
     const lastRested = yield RestModel
       .query()
-      .where('attendance_id', attedance.id)
+      .where('attendance_id', attendance.id)
       .where('ended_at', null)
       .last()
     if (lastRested) {
@@ -19,7 +19,17 @@ class RestService {
       return lastRested
     }
     const rest = new RestModel(context)
-    yield attedance.rest().save(lastRested)
+    yield attendance.rest().save(lastRested)
+    return rest
+  }
+
+  * lastUpdated(attendance){
+    const rest = yield RestModel
+      .query()
+      .where('attendance_id', attendance.id)
+      .orderBy('updated_at', 'desc')
+      .first()
+
     return rest
   }
 }

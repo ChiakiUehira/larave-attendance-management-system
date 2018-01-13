@@ -26,6 +26,13 @@ class RestController {
     const rest = yield this.restService.end(attendance, endContext)
     return this.httpService.success(res, {rest})
   }
+
+  * lastUpdated(req, res){
+    const loginUser = yield req.auth.getUser()
+    const attendance = yield this.attendanceService.lastUpdated(loginUser)
+    const rest = yield this.restService.lastUpdated(attendance)
+    return this.httpService.success(res, {rest})
+  }
 }
 
 module.exports = RestController

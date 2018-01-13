@@ -83,13 +83,26 @@
     async asyncData ({app}){
       const {data} = await app.$http.get('/attendance/lastUpdated')
       if (data.attendance != null && data.attendance.ended_at == null) {
-        return {
-          attendance: {
-            startedAt: moment(data.attendance.started_at).format('HH:mm'),
-            endedAt: '',
-          },
-          active: 1,
-          time: moment().format("HH:mm:ss")
+        const obj = await app.$http.get('/rest/lastUpdated')
+        if(obj.data.rest.ended_at == null){
+          return {
+            attendance: {
+              startedAt: moment(data.attendance.started_at).format('HH:mm'),
+              endedAt: '',
+            },
+            active: 2,
+            time: moment().format("HH:mm:ss")
+          }
+        }
+        else{
+          return {
+            attendance: {
+              startedAt: moment(data.attendance.started_at).format('HH:mm'),
+              endedAt: '',
+            },
+            active: 1,
+            time: moment().format("HH:mm:ss")
+          }
         }
       }
       return {time: moment().format("HH:mm:ss")}
