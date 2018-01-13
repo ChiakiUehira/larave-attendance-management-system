@@ -136,8 +136,8 @@
         return users
       },
       displayAttendances (){
-        let attendances = this.$store.state.allUserAttendances
-        return attendances
+        const attendances = this.$store.state.allUserAttendances
+        return attendances.slice(0, 10)
       },
       toValueFormUsers () {
         const users = this.$store.state.users

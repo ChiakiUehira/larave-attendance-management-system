@@ -15,7 +15,10 @@ class AttendanceController {
 
   * index (req, res) {
     const limit = req.input('limit', 10)
-    const attendances = yield this.attendanceService.limited(limit)
+    const offset = req.input('offset', 0)
+    const loginUser = yield req.auth.getUser()
+    const company = yield this.companyService.getCompanyFromUser(loginUser)
+    const attendances = yield this.attendanceService.limited(company, offset, limit)
     return this.httpService.success(res, {attendances})
   }
 

@@ -68,6 +68,10 @@ export default {
     ContentsName
   },
   computed: {
+    user () {
+      const id = this.$route.params.id
+      return this.$store.state.users.find(user => user.id === Number(id))
+    },
     fullname () {
       return `${this.user.last_name} ${this.user.first_name}`
     },
@@ -94,10 +98,6 @@ export default {
     },
     birthday () {
       return moment(this.user.birthday).format('YYYY年MM月DD日')
-    },
-    user () {
-      const id = this.$route.params.id
-      return this.$store.state.users.find(user => user.id === Number(id))
     }
   },
   async fetch ({app, store}) {

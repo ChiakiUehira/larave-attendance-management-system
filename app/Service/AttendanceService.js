@@ -82,13 +82,16 @@ class AttendanceService {
     return attendance
   }
 
-  * limited (num) {
+  * limited (company, offset, limit) {
     const attendances = yield AttendanceModel
       .query()
-      .orderBy('updated_at', 'desc')
+      .orderBy('started_at', 'desc')
       .with('user')
-      .pick(num)
-
+      .whereHas('user', (builder) => {
+        builder.where('company_id', company.id)
+      })
+      .offset(offset)
+      .pick(limit)
     return attendances
   }
 }
