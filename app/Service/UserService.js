@@ -2,6 +2,7 @@
 
 const UserModel = use('App/Model/User')
 const Hash = use('Hash')
+const Database = use('Database')
 
 class UserService {
   * fetchInvitingUser (company) {
@@ -15,10 +16,28 @@ class UserService {
     return users
   }
 
+  * fetchUsersHasAttendance (user) {
+    const company = yield user.company().first()
+    const users = yield company
+      .users()
+      .registered()
+      .with('group', 'attendances')
+      .scope('attendances', (builder) => {
+        builder.orderBy('updated_at', 'desc') // todo 最新の一件だけ取得
+        builder.with('rest').scope('rest', (builder) => {
+          builder.orderBy('updated_at', 'desc') // todo　最新の一件だけ取得
+        })
+      })
+      .fetch()
+
+    return users
+  }
+
   * getById (id) {
     const user = yield UserModel.query().where('id', Number(id)).with('group').first()
     return user
   }
+
   * getByEmail (email) {
     const user = yield UserModel.findBy('email', email)
     return user
