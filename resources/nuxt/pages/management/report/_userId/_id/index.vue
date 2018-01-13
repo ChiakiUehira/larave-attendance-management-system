@@ -80,7 +80,8 @@ import moment from 'moment'
 export default {
   async asyncData ({app, store, route}) {
     const date = route.params.id
-    const { data } = await app.$http.get('/attendance/getByDate', { params: { date }})
+    const userId = route.params.userId
+    const { data } = await app.$http.get(`/manager/attendance/${userId}/getByDate`, { params: { date }})
     return {
       attendances: data.attendances,
       isErrors: false
@@ -160,6 +161,12 @@ export default {
       const hours = Math.floor(asMin / 60)
       const min = Math.floor(asMin - (hours * 60))
       return `${hours}時間${min}分`
+    }
+  },
+  async fetch ({app, store, route, params}) {
+    if (!store.state.users) {
+      const { data } = await app.$http.get('/user')
+      store.commit('SET_USERS', data.users)
     }
   }
 }

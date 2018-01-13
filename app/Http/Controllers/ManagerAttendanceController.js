@@ -31,6 +31,22 @@ class AttendanceController {
     const attendances = yield this.attendanceService.search(user, context)
     return this.httpService.success(res, {context, attendances})
   }
+
+  * getByDate (req, res) {
+    const id = req.param('id')
+    const loginUser = yield req.auth.getUser()
+    const isContain = yield this.companyService.contains(loginUser, id)
+    if (!isContain) {
+      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
+    }
+    const context = this.attendanceContext.getByDateContext(req)
+    if (!context.date) {
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
+    }
+    const user = yield this.userService.getById(id)
+    const attendances = yield this.attendanceService.getByDate(user, context)
+    return this.httpService.success(res, {attendances})
+  }
 }
 
 module.exports = AttendanceController
