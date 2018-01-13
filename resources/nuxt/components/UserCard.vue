@@ -29,13 +29,15 @@
         this.state = state
         if (state === '出勤中') {
           this.type = 'success'
-          this.isActive = true
+          this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: true})
         }
         if (state === '休憩中') {
           this.type = 'warning'
+          this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: false})
         }
         if (state === '未出勤') {
           this.type = 'info'
+          this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: false})
         }
       })
     },
@@ -54,7 +56,7 @@
             this.state = '休憩中'
           }else{
             this.state = '出勤中'
-            this.isActive = true
+            this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: true})
           }
         }
         return this.state

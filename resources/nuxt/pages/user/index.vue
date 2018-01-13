@@ -90,6 +90,11 @@
       },
       displayUsers () {
         let users = this.$store.state.users
+        if (this.search.active) {
+          users = users.filter((user) => {
+            return user.isActive
+          })
+        }
 
         users = users.filter((user) => {
           const fullName = this.fullName(user.first_name, user.last_name)
