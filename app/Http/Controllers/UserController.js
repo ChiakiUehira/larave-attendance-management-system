@@ -4,7 +4,6 @@ const UserContext = require('../Contexts/UserContext')
 const HttpService = require('../../Service/HttpService')
 const AuthService = require('../../Service/AuthService')
 const GroupService = require('../../Service/GroupService')
-const AttendanceService = require('../../Service/AttendanceService')
 const Validator = use('Validator')
 
 class UserController {
@@ -15,7 +14,6 @@ class UserController {
     this.httpService = new HttpService()
     this.authService = new AuthService()
     this.groupService = new GroupService()
-    this.attendanceService = new AttendanceService()
   }
 
   * me (req, res) {
@@ -27,12 +25,12 @@ class UserController {
   * index (req, res) {
     if(req.input('hasAttendance')){
       const loginUser = yield req.auth.getUser()
-      let users = yield this.userService.fetchUsersHasAttendance(loginUser)
+      const users = yield this.userService.fetchUsersHasAttendance(loginUser)
       return this.httpService.success(res, { users })
     }
 
     const loginUser = yield req.auth.getUser()
-    let users = yield this.userService.fetchUsersFromUser(loginUser)
+    const users = yield this.userService.fetchUsersFromUser(loginUser)
     return this.httpService.success(res, { users })
   }
 

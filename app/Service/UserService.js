@@ -2,7 +2,6 @@
 
 const UserModel = use('App/Model/User')
 const Hash = use('Hash')
-const Database = use('Database')
 
 class UserService {
   * fetchInvitingUser (company) {
