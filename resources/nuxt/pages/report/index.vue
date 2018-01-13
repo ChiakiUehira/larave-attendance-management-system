@@ -5,17 +5,13 @@
         <el-breadcrumb-item>レポート</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
-      <el-form :inline="true" class="controller">
-        <el-form-item>
-          <el-button icon="el-icon-date" @click="$router.push('/report')" type="primary" >今月</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button-group>
-            <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
-            <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
-          </el-button-group>
-        </el-form-item>
-      </el-form>
+      <div class="controller">
+        <el-button class="btn" icon="el-icon-date" @click="$router.push('/report')" type="primary" >今月</el-button>
+        <el-button-group class="btn">
+          <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
+          <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
+        </el-button-group>
+      </div>
       <div class="info">
         <div class="info__inner">
           <div class="info__period">
@@ -315,7 +311,12 @@
   .calendar__body--attendance {
     background: #409EFF;
     color: #fff;
-    padding: 3px;
+    padding: 3px 5px;
     font-size: 13px;
+    margin-bottom: 5px;
+  }
+  .btn {
+    margin-left: 10px;
+    vertical-align: top;
   }
 </style>
