@@ -10,18 +10,19 @@
 
     <div class="invite-wrapper">
       <el-form ref="form" label-width="150px" class="invite-form">
-        <el-collapse value="1">
-          <el-collapse-item title="招待フォーム" :name="String(i)" v-for="i in formQuantity" :key="i">
-            <invite-form :groups="groups" :context="users[i - 1]"></invite-form>
-          </el-collapse-item>
-        </el-collapse>
-        <div class="add-form">
-          <el-button @click="addForm" icon="el-icon-plus"></el-button>
+        <div class="collapse-bg">
+          <el-collapse value="1" v-for="i in formQuantity" :key="i" class="collapse">
+            <el-collapse-item title="招待フォーム" :name="String(i)">
+              <invite-form :groups="groups" :context="forms[i - 1]"></invite-form>
+              <el-button @click="deleteForm(i - 1)" icon="el-icon-delete" class="form-close" type="danger"></el-button>
+            </el-collapse-item>
+          </el-collapse>
         </div>
       </el-form>
     </div>
-    <div class="invite-button">
-      <el-button @click="invite" type="primary">招待</el-button>
+    <div class="btns">
+      <el-button @click="addForm" type="primary" class="add-form">フォーム追加</el-button>
+      <el-button @click="invite" type="primary" class="invite-button">招待</el-button>
     </div>
   </section>
 </template>
@@ -53,7 +54,7 @@
           'position': '',
           'group_id': ''
         },
-        users: []
+        forms: []
       }
     },
     created(){
@@ -62,12 +63,16 @@
     methods: {
       formInit(){
         this.formQuantity = 1
-        this.users = []
-        this.users.push(JSON.parse(JSON.stringify(this.context)))
+        this.forms = []
+        this.forms.push(JSON.parse(JSON.stringify(this.context)))
       },
       addForm(){
         this.formQuantity += 1
-        this.users.push(JSON.parse(JSON.stringify(this.context)))
+        this.forms.push(JSON.parse(JSON.stringify(this.context)))
+      },
+      deleteForm(index){
+        this.formQuantity -= 1
+        this.forms.splice(index, 1)
       },
       async invite () {
         if (!this.isSend) {
@@ -95,17 +100,31 @@
 </script>
 
 <style scoped>
-  .invite-wrapper{
-    padding:40px;
-    background: #fff;
-  }
   .invite-button {
-    text-align: right;
-    margin-top:20px;
+    margin-left: 10px;
   }
 
-  .add-form {
-    margin-top: 20px;
-    text-align: center;
+  .collapse-bg{
+    background: #fff;
+    padding:40px;
+  }
+  .collapse {
+    margin-bottom: 10px;
+  }
+
+  .collapse:last-child {
+    margin: 0;
+  }
+
+  .form-close {
+    display: block;
+    margin-left: auto;
+  }
+
+  .btns {
+    margin-top: 10px;
+    background: #fff;
+    padding: 10px;
+    text-align: right;
   }
 </style>
