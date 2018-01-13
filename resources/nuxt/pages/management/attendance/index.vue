@@ -1,6 +1,6 @@
 <template>
   <div>
-    <contents-name name="ユーザ一覧">
+    <contents-name name="勤怠管理">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
         <el-breadcrumb-item>勤怠管理</el-breadcrumb-item>
@@ -24,7 +24,7 @@
               </nuxt-link>
             </div>
             <div class="toList">
-              <nuxt-link to="/management/clockin/list" >
+              <nuxt-link to="/management/attendance/list" >
                 勤怠一覧へ
               </nuxt-link>
             </div>
@@ -62,7 +62,7 @@
           </el-form>
           <div v-if="displayUsers.length">
             <div v-for="user in displayUsers" :key="user.id">
-              <nuxt-link class="users__body--item" :to="`/management/user/${user.id}`">
+              <nuxt-link class="users__body--item" :to="`/management/attendance/${user.id}`">
                 <div class="users__body--img">
                   <span v-if="user.thumbnail"><img :src="user.thumbnail" alt=""></span>
                   <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
@@ -136,7 +136,7 @@
         return users
       },
       displayAttendances (){
-        let attendances = this.$store.state.attendances
+        let attendances = this.$store.state.allUserAttendances
         return attendances
       },
       toValueFormUsers () {
@@ -185,9 +185,10 @@
         const {data} = await app.$http.get('/manager/invite')
         store.commit('SET_INVITING_USERS', data.users)
       }
-
-      const { data } = await app.$http.get('/attendance/all?limit=10')
-      store.commit('SET_ATTENDANCES', data.attendances)
+      if (!store.state.allUserAttendances) {
+        const { data } = await app.$http.get('/manager/attendance?limit=10')
+        store.commit('SET_ALL_USER_ATTENDANCES', data.attendances)
+      }
     }
   }
 </script>

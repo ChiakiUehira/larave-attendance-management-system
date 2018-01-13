@@ -136,20 +136,13 @@
         })
       },
       async fetchUser() {
-        const {
-          data
-        } = await this.$http.get('user')
+        const { data } = await this.$http.get('user')
         this.$store.commit('SET_USERS', data.users)
       }
     },
-    async fetch({
-      app,
-      store
-    }) {
+    async fetch({app, store}) {
       if (!store.state.users) {
-        const {
-          data
-        } = await app.$http.get('/user')
+        const { data } = await app.$http.get('/user')
         store.commit('SET_USERS', data.users)
       }
     }

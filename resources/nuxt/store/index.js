@@ -10,7 +10,8 @@ export const state = () => ({
   news: null,
   groups: null,
   invitingUsers: null,
-  attendances: null
+  attendances: null,
+  allUserAttendances: null
 })
 
 export const mutations = {
@@ -55,5 +56,8 @@ export const mutations = {
   },
   SET_ATTENDANCES (state, payload) {
     state.attendances = payload
+  },
+  SET_ALL_USER_ATTENDANCES (state, payload) {
+    state.allUserAttendances = payload
   }
 }

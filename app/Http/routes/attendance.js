@@ -1,7 +1,6 @@
 const Route = use('Route')
 
 module.exports = Route.group('attendance', () => {
-  Route.get('/attendance/all', 'AttendanceController.limited')
   Route.get('/attendance', 'AttendanceController.index')
   Route.get('/attendance/lastUpdated', 'AttendanceController.lastUpdated')
   Route.get('/attendance/getByDate', 'AttendanceController.getByDate')
