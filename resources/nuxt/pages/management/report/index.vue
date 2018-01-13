@@ -262,6 +262,10 @@
     margin-left: auto;
   }
 
+  .toList a:hover {
+    color: #409eff;
+  }
+
   .err {
     text-align: center;
     color: #58a8ff;
