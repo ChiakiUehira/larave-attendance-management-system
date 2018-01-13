@@ -12,7 +12,8 @@
       <el-form ref="form" label-width="150px" class="invite-form">
         <el-collapse value="1">
           <el-collapse-item title="招待フォーム" :name="String(i)" v-for="i in formQuantity" :key="i">
-            <invite-form :groups="groups" :context="users[i - 1]"></invite-form>
+            <el-button icon="el-icon-close" @click="deleteForm(i - 1)"></el-button>
+            <invite-form :groups="groups" :context="forms[i - 1]"></invite-form>
           </el-collapse-item>
         </el-collapse>
         <div class="add-form">
@@ -53,7 +54,7 @@
           'position': '',
           'group_id': ''
         },
-        users: []
+        forms: []
       }
     },
     created(){
@@ -62,12 +63,16 @@
     methods: {
       formInit(){
         this.formQuantity = 1
-        this.users = []
-        this.users.push(JSON.parse(JSON.stringify(this.context)))
+        this.forms = []
+        this.forms.push(JSON.parse(JSON.stringify(this.context)))
       },
       addForm(){
         this.formQuantity += 1
-        this.users.push(JSON.parse(JSON.stringify(this.context)))
+        this.forms.push(JSON.parse(JSON.stringify(this.context)))
+      },
+      deleteForm(index){
+        this.formQuantity -= 1
+        this.forms.splice(index,1)
       },
       async invite () {
         if (!this.isSend) {
