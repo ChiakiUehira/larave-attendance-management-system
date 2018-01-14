@@ -41,11 +41,11 @@
       <div class="contents">
         <div class="calendar">
           <div class="calendar__body">
-            <div v-for="(day,index) in displayToValue" :key="day.id" @click="onShow(day)" :class="['calendar__body--item',day.isPadding ? 'isPadding' : '',day.isAttend ? 'isAttend' : '']">
+            <div v-for="(day,index) in displayToValue" :key="day.id" @click="onShow(day)" :class="['calendar__body--item',day.isPadding ? 'isPadding' : '',day.isAttend ? 'isAttend' : '', day.isToday ? 'isToday' : '',]">
               <div :class="['calendar__body--item--day',day.isSunday ? 'isSunday' : '',day.isSaturday ? 'isSaturday' : '',]" v-if="index < 7">
                 {{dayMap[index]}}
               </div>
-              <div :class="['calendar__body--item--day',day.isSunday ? 'isSunday' : '',day.isSaturday ? 'isSaturday' : '',]">
+              <div :class="['calendar__body--item--days',day.isSunday ? 'isSunday' : '',day.isSaturday ? 'isSaturday' : '']">
                 {{formatDays(day.date)}}
               </div>
               <div class="calendar__body--attendances">
@@ -139,6 +139,7 @@
             attendances: [],
             isAttend: false,
             isPadding: true,
+            isToday: false,
             isSunday: moment(date).day() === 0,
             isSaturday: moment(date).day() === 6
           }
@@ -150,6 +151,7 @@
             attendances: [],
             isAttend: false,
             isPadding: true,
+            isToday: false,
             isSunday: moment(date).day() === 0,
             isSaturday: moment(date).day() === 6
           }
@@ -164,6 +166,7 @@
         let calendar = []
         let attendedDaysCount = 0
         let attendedTimesCount = 0
+        const today = moment().format('YYYY-MM-DD')
         for (let i = 0; i <= this.period; i++) {
           let isAttend = false
           const date = moment(this.from).clone().add('days', i).format('YYYY-MM-DD')
@@ -187,6 +190,7 @@
             attendances,
             isAttend,
             isPadding: false,
+            isToday: today === date,
             isSunday: moment(date).day() === 0,
             isSaturday: moment(date).day() === 6
           })
@@ -304,6 +308,9 @@
   }
   .isPadding {
     background: #f4f4f4;
+  }
+  .isToday {
+    background: #ecf5ff;
   }
   .isAttend {
     cursor: pointer;
