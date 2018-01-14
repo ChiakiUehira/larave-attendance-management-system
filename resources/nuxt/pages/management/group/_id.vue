@@ -17,10 +17,10 @@
             <el-dialog title="グループの編集" :visible.sync="editDialogVisible" class="groups__body--dialog">
               <el-form>
                 <el-form-item label="グループ名">
-                  <el-input v-model="group.name"></el-input>
+                  <el-input v-model="newGroupName"></el-input>
                 </el-form-item>
                 <el-form-item label="説明">
-                  <el-input v-model="group.detail" type="textarea" :rows="3" resize="none"></el-input>
+                  <el-input v-model="newGroupDetail" type="textarea" :rows="3" resize="none"></el-input>
                 </el-form-item>
               </el-form>
               <span slot="footer" class="dialog-footer">
@@ -109,7 +109,7 @@
     },
     async asyncData ({app, params}){
       const {data} = await app.$http.get(`group/${params.id}`)
-      return {group: data.group}
+      return {group: data.group, newGroupName: data.group.name, newGroupDetail: data.group.detail}
     },
     computed: {
       users () {
@@ -146,7 +146,9 @@
         centerDialogVisible: false,
         userDialogVisible: false,
         editDialogVisible: false,
-        user_id: null
+        user_id: null,
+        newGroupName: null,
+        newGroupDetail: null
       }
     },
     components: {
@@ -206,8 +208,10 @@
         this.search.word = user.value
       },
       async editGroup(){
-        const {data} = await this.$http.put(`/group/${this.group.id}`, {name: this.group.name, detail: this.group.detail})
+        const {data} = await this.$http.put(`/group/${this.group.id}`, {name: this.newGroupName, detail: this.newGroupDetail})
         if (data.success) {
+          const {data} = await this.$http.get(`group/${this.group.id}`)
+          this.group = data.group
           this.$message.success('グループの詳細を編集しました。')
           this.editDialogVisible = !this.editDialogVisible
         }
