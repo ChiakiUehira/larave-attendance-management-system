@@ -43,8 +43,8 @@
           </p>
         </div>
       </div>
-      <div class="rests" v-for="rest in attendance.rest" :key="rest.id">
-        <div :class="['timeline', 'rest', 'border', {'err': !isValid(rest.started_at)}]">
+      <div class="rests border" v-for="rest in attendance.rest" :key="rest.id">
+        <div :class="['timeline', 'rest', {'err': !isValid(rest.started_at)}]">
           <div class="timeline__body">
             <p>
               休憩開始 -
@@ -52,7 +52,7 @@
             </p>
           </div>
         </div>
-        <div :class="['timeline', 'rest', 'border', {'err': !isValid(rest.ended_at)}]">
+        <div :class="['timeline', 'rest end', 'border', {'err': !isValid(rest.ended_at)}]">
           <div class="timeline__body">
             <p>
               休憩終了 -
@@ -180,6 +180,8 @@ export default {
   }
   .timelines {
     position: relative;
+    padding: 20px;
+    background: #f2f2f2;
   }
   .timelines:not(:last-child) {
     margin-bottom: 100px;
@@ -192,7 +194,7 @@ export default {
     height: 80px;
     background: #cdcdce;
     bottom: -90px;
-    left: 4px;
+    left: 25px;
   }
   .timeline {
     position: relative;
@@ -206,6 +208,7 @@ export default {
   }
   .timeline.end {
     border-left: #67C23A solid 15px;
+    margin-bottom: 0;
   }
   .timeline.rest {
     border-left: #E6A23C solid 15px;
@@ -225,5 +228,24 @@ export default {
   }
   .timeline__body span.err {
     color: #F56C6C;
+  }
+  .rests {
+    position: relative;
+    padding: 20px;
+    background: #eeeeee;
+    margin-bottom: 50px;
+  }
+  .rests.border:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 5px;
+    height: 30px;
+    background: #cdcdce;
+    top: -40px;
+    left: 5px;
+  }
+  .rest.end {
+    margin-bottom: 0;
   }
 </style>

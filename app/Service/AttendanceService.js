@@ -94,6 +94,17 @@ class AttendanceService {
       .pick(limit)
     return attendances
   }
+
+  * update (id, context) {
+    const attendance = yield this.getById(id)
+    if (attendance) {
+      attendance.fill(context)
+      yield attendance.save()
+      return attendance
+    } else {
+      return {}
+    }
+  }
 }
 
 module.exports = AttendanceService

@@ -6,4 +6,5 @@ module.exports = Route.group('manager', () => {
   Route.get('/attendance', 'ManagerAttendanceController.index')
   Route.get('/attendance/:id', 'ManagerAttendanceController.byUser')
   Route.get('/attendance/:id/getByDate', 'ManagerAttendanceController.getByDate')
+  Route.delete('/attendance/:userId/:id', 'ManagerAttendanceController.destroy')
 }).prefix('api/v1/manager').middleware('auth')
