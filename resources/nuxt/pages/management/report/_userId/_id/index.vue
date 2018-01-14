@@ -61,6 +61,10 @@
             </p>
           </div>
         </div>
+        <div class="btns">
+          <el-button type="primary" icon="el-icon-edit"></el-button>
+          <el-button type="danger" icon="el-icon-delete"></el-button>
+        </div>
       </div>
       <div :class="['timeline', 'end', 'border', {'err': !isValid(attendance.ended_at)}]">
         <div class="timeline__body">
@@ -69,6 +73,10 @@
             <span :class="[{'err': !isValid(attendance.ended_at)}]">{{toDisplayDate(attendance.ended_at)}}</span>
           </p>
         </div>
+      </div>
+      <div class="btns">
+        <el-button type="primary" icon="el-icon-edit"></el-button>
+        <el-button type="danger" icon="el-icon-delete"></el-button>
       </div>
     </div>
   </div>
@@ -262,5 +270,9 @@ export default {
   }
   .rest.end {
     margin-bottom: 0;
+  }
+  .btns {
+    text-align: right;
+    margin-top: 20px;
   }
 </style>
