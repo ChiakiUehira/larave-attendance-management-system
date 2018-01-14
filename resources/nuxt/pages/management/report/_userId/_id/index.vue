@@ -76,7 +76,7 @@
       </div>
       <div class="btns">
         <el-button type="primary" icon="el-icon-edit"></el-button>
-        <el-button type="danger" icon="el-icon-delete"></el-button>
+        <el-button type="danger" icon="el-icon-delete" @click="onAttendanceDelete(attendance.id)"></el-button>
       </div>
     </div>
   </div>
@@ -90,6 +90,8 @@ export default {
     const userId = route.params.userId
     const { data } = await app.$http.get(`/manager/attendance/${userId}/getByDate`, { params: { date }})
     return {
+      date,
+      userId,
       attendances: data.attendances,
       isErrors: false
     }
@@ -105,6 +107,23 @@ export default {
         this.isErrors = true
       }
       return isValid
+    },
+    async onAttendanceDelete (id) {
+      this.$confirm('削除すると勤怠記録が消えてしまいます', '削除しますか？', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then( async () => {
+        try {
+          await this.$http.delete(`/manager/attendance/${this.userId}/${id}`)
+          const { data } = await this.$http.get(`/manager/attendance/${this.userId}/getByDate`, { params: {date: this.date}})
+          this.attendances = data.attendances
+          this.$message({type: 'success',message: '削除しました'});
+        } catch (error) {
+
+        }
+      }).catch(() => {
+      })
     }
   },
   validate ({ params }) {
