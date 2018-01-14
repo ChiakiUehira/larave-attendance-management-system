@@ -1,8 +1,9 @@
 'use strict'
 
 const Group = exports = module.exports = {}
+const LogService = require('../Service/LogService')
 
-//todo 所属グループの変更情報
 Group.onEdit = function * (logData) {
-
+  const logService = new LogService()
+  yield logService.store(logData)
 }

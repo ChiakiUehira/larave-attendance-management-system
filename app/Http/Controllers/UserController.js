@@ -20,19 +20,19 @@ class UserController {
   * me (req, res) {
     const loginUser = yield req.auth.getUser()
     const context = this.userContext.returnMeContext(loginUser)
-    return this.httpService.success(res, { me: context })
+    return this.httpService.success(res, {me: context})
   }
 
   * index (req, res) {
-    if(req.input('hasAttendance')){
+    if (req.input('hasAttendance')) {
       const loginUser = yield req.auth.getUser()
       const users = yield this.userService.fetchUsersHasAttendance(loginUser)
-      return this.httpService.success(res, { users })
+      return this.httpService.success(res, {users})
     }
 
     const loginUser = yield req.auth.getUser()
     const users = yield this.userService.fetchUsersFromUser(loginUser)
-    return this.httpService.success(res, { users })
+    return this.httpService.success(res, {users})
   }
 
   * show (req, res) {
@@ -40,10 +40,10 @@ class UserController {
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
-      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
     const user = yield this.userService.getById(id)
-    return this.httpService.success(res, { user })
+    return this.httpService.success(res, {user})
   }
 
   * store (req, res) {
@@ -53,10 +53,10 @@ class UserController {
     const context = this.userContext.storeContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
-      return this.httpService.failed(res, { error: validation.messages() }, 403)
+      return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
     const user = yield this.userService.store(company, context)
-    return this.httpService.success(res, { user })
+    return this.httpService.success(res, {user})
   }
 
   * update (req, res) {
@@ -67,14 +67,14 @@ class UserController {
     const validation = yield Validator.validateAll(context, rules)
     const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
-      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
     if (validation.fails()) {
-      return this.httpService.failed(res, { error: validation.messages() }, 403)
+      return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
     const user = yield this.userService.update(id, context)
-    Event.fire('user.edit', {from: loginUser.toJSON(), to: user.toJSON()})
-    return this.httpService.success(res, { user })
+    Event.fire('user.edit', {userId: loginUser.id, type: 'user', from: loginUser.toJSON(), to: user.toJSON()})
+    return this.httpService.success(res, {user})
   }
 
   * destroy (req, res) {
@@ -82,7 +82,7 @@ class UserController {
     const loginUser = yield req.auth.getUser()
     const isContain = yield this.companyService.contains(loginUser, id)
     if (!isContain) {
-      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
+      return this.httpService.failed(res, {error: 'Forbidden'}, 403)
     }
     const user = yield this.userService.getById(id)
     yield user.delete()
@@ -96,31 +96,31 @@ class UserController {
     const context = this.userContext.passwordUpdateContext(req)
     const validation = yield Validator.validateAll(context, rules)
     if (validation.fails()) {
-      return this.httpService.failed(res, { error: validation.messages() }, 403)
+      return this.httpService.failed(res, {error: validation.messages()}, 403)
     }
     const isValid = yield this.authService.passwordCheck(req, loginUser.email, context.password)
     if (!isValid) {
-      return this.httpService.failed(res, { error: 'Password does not match' }, 403)
+      return this.httpService.failed(res, {error: 'Password does not match'}, 403)
     }
-    const user = yield this.userService.update(id, { password: context.newPassword })
-    return this.httpService.success(res, { user })
+    const user = yield this.userService.update(id, {password: context.newPassword})
+    return this.httpService.success(res, {user})
   }
 
   * groupUpdate (req, res) {
     const loginUser = yield req.auth.getUser()
     const isManager = loginUser.manager_flag === 'manager'
     if (!isManager) {
-      return this.httpService.failed(res, { error: '権限がありません' }, 403)
+      return this.httpService.failed(res, {error: '権限がありません'}, 403)
     }
     const context = this.userContext.groupUpdateContext(req)
 
     const user = yield this.userService.getById(context.userId)
     const isExit = yield this.groupService.isExitById(user, context.groupId)
     if (!isExit) {
-      return this.httpService.failed(res, { error: '存在しないグループです' }, 403)
+      return this.httpService.failed(res, {error: '存在しないグループです'}, 403)
     }
-    const updateUser = yield this.userService.update(context.userId, { group_id: context.groupId })
-    return this.httpService.success(res, { user: updateUser })
+    const updateUser = yield this.userService.update(context.userId, {group_id: context.groupId})
+    return this.httpService.success(res, {user: updateUser})
   }
 }
 
