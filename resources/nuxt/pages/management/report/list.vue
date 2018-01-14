@@ -15,13 +15,13 @@
           </div>
           <div>
             <div v-for="attendance in attendances" :key="attendance.id">
-              <nuxt-link class="users__body--item" :to="`/management/report/${attendance.id}`">
+              <nuxt-link class="users__body--item" :to="`/management/report/${attendance.user.id}/${formatDate(attendance.started_at)}`">
                 <div class="users__body--img">
                   <span v-if="attendance.user.thumbnail"><img :src="attendance.user.thumbnail" alt=""></span>
                   <span v-else><img src="~assets/imgs/noimage.png" alt=""></span>
                 </div>
                 <span class="users__body--name">{{attendance.user.last_name}} {{attendance.user.first_name}}</span>
-                <p class="users__body--time">{{updateTime(attendance.started_at)}}</p>
+                <p class="users__body--time">{{formatDisplayDate(attendance.started_at)}}</p>
               </nuxt-link>
             </div>
             <div class="padding" v-if="!isEnd">
@@ -60,8 +60,11 @@
       },
     },
     methods: {
-      updateTime(time){
-        return moment(time).format('YYYY年MM月DD日')
+      formatDisplayDate (str){
+        return moment(str).format('YYYY年MM月DD日')
+      },
+      formatDate (str) {
+        return moment(str).format('YYYY-MM-DD')
       },
       fullName (first, last) {
         return `${last}${first}`
