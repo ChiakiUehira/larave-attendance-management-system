@@ -5,6 +5,7 @@ const HttpService = require('../../Service/HttpService')
 const AuthService = require('../../Service/AuthService')
 const GroupService = require('../../Service/GroupService')
 const Validator = use('Validator')
+const Event = use('Event')
 
 class UserController {
   constructor () {
@@ -72,6 +73,7 @@ class UserController {
       return this.httpService.failed(res, { error: validation.messages() }, 403)
     }
     const user = yield this.userService.update(id, context)
+    Event.fire('user.edit', {from: loginUser.toJSON(), to: user.toJSON()})
     return this.httpService.success(res, { user })
   }
 
