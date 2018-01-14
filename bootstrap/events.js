@@ -19,3 +19,7 @@ const Event = use('Event')
 
 Event.when('Http.error.*', 'Http.handleError')
 Event.when('Http.start', 'Http.onStart')
+Event.when('user.edit', 'Job.onEdit')
+Event.when('company.edit', 'Job.onEdit')
+Event.when('group.edit', 'Job.onEdit')
+Event.when('attendance.edit', 'Job.onEdit')

@@ -54,7 +54,8 @@ class GroupService {
     const group = yield company.groups().where('id', id).first()
     group.name = context.name
     group.detail = context.detail
-    return yield group.save()
+    yield group.save()
+    return group
   }
 }
 
