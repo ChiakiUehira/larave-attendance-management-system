@@ -63,7 +63,7 @@
         </div>
         <div class="btns">
           <el-button type="primary" icon="el-icon-edit"></el-button>
-          <el-button type="danger" icon="el-icon-delete"></el-button>
+          <el-button type="danger" icon="el-icon-delete" @click="onRestDelete(rest.id)"></el-button>
         </div>
       </div>
       <div :class="['timeline', 'end', 'border', {'err': !isValid(attendance.ended_at)}]">
@@ -116,6 +116,23 @@ export default {
       }).then( async () => {
         try {
           await this.$http.delete(`/manager/attendance/${this.userId}/${id}`)
+          const { data } = await this.$http.get(`/manager/attendance/${this.userId}/getByDate`, { params: {date: this.date}})
+          this.attendances = data.attendances
+          this.$message({type: 'success',message: '削除しました'});
+        } catch (error) {
+
+        }
+      }).catch(() => {
+      })
+    },
+    async onRestDelete (id) {
+      this.$confirm('削除すると休憩記録が消えてしまいます', '削除しますか？', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning'
+      }).then( async () => {
+        try {
+          await this.$http.delete(`/manager/rest/${this.userId}/${id}`)
           const { data } = await this.$http.get(`/manager/attendance/${this.userId}/getByDate`, { params: {date: this.date}})
           this.attendances = data.attendances
           this.$message({type: 'success',message: '削除しました'});
