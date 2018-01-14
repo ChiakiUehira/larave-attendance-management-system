@@ -3,6 +3,7 @@ const CompanyService = require('../../Service/CompanyService')
 const CompanyContext = require('../Contexts/CompanyContext')
 const HttpService = require('../../Service/HttpService')
 const Validator = use('Validator')
+const Event = use('Event')
 
 class CompanyController {
   constructor () {
@@ -40,7 +41,9 @@ class CompanyController {
     if (validation.fails()) {
       return this.httpService.failed(res, { error: validation.messages() }, 400)
     }
+    const oldCompany = yield this.companyService.getCompanyFromUser(loginUser)
     const company = yield this.companyService.update(loginUser, context)
+    Event.fire('company.edit', {userId: loginUser.id, type:'company', from: oldCompany.toJSON(), to: company.toJSON()})
     return this.httpService.success(res, { company })
   }
 

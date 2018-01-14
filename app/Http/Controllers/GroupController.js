@@ -2,6 +2,8 @@ const HttpService = require('../../Service/HttpService')
 const GroupService = require('../../Service/GroupService')
 const GroupContext = require('../Contexts/GroupContext')
 const Validator = use('Validator')
+const Event = use('Event')
+
 class CompanyController {
   constructor () {
     this.groupService = new GroupService()
@@ -46,7 +48,9 @@ class CompanyController {
     const loginUser = yield req.auth.getUser()
     const groupId = req.param('id')
     const context = this.groupContext.editContext(req)
+    const oldGroup = yield this.groupService.getGroup(loginUser, groupId);
     const group = yield this.groupService.edit(loginUser, groupId, context)
+    Event.fire('group.edit', {userId: loginUser.id, type: 'group', from: oldGroup.toJSON(), to: group.toJSON()})
 
     return this.httpService.success(res)
   }
