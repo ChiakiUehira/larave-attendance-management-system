@@ -26,31 +26,32 @@
     name: 'user-card',
     mounted(){
       this.$client.on(this.user.id, (state) => {
-        this.state = state
-        if (state === '出勤中') {
-          this.type = 'success'
+        if (state === 1) {
+          this.type = 'primary'
+          this.state = '出勤中'
           this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: true})
         }
-        if (state === '休憩中') {
+        if (state === 2) {
           this.type = 'warning'
+          this.state = '休憩中'
           this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: false})
         }
-        if (state === '未出勤') {
-          this.type = 'info'
+        if (state === 3) {
+          this.type = 'success'
+          this.state = '退勤済み'
           this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: false})
         }
       })
     },
     data(){
       return {
-        state: null,
-        type: null,
+        state: '未出勤',
+        type: 'info',
         isActive: false
       }
     },
     computed: {
       displayState(){
-        this.state = '未出勤'
         if (this.user.attendances[0] && this.user.attendances[0].ended_at == null) {
           if(this.user.attendances[0].rest[0] && this.user.attendances[0].rest[0].ended_at == null){
             this.state = '休憩中'
@@ -62,12 +63,11 @@
         return this.state
       },
       displayType(){
-        this.type = 'primary'
         if (this.user.attendances[0] && this.user.attendances[0].ended_at == null) {
           if(this.user.attendances[0].rest[0] && this.user.attendances[0].rest[0].ended_at == null) {
             this.type = 'warning'
           }else{
-            this.type = 'success'
+            this.type = 'primary'
           }
         }
         return this.type

@@ -108,7 +108,7 @@
       return {time: moment().format("HH:mm:ss")}
     },
     mounted(){
-//      this.$client.emit('user', this.$store.state.me.id)
+      this.$client.emit('user', this.$store.state.me.id)
       setInterval(() => {
         this.time = moment().format("HH:mm:ss")
       }, 500)
@@ -156,7 +156,7 @@
         const {data} = await this.$http.post('/attendance/start')
         this.$notify.success('出勤しました')
         this.attendance.startedAt = moment(data.attendance.started_at).format('HH:mm')
-        this.$client.emit(this.$store.state.me.id, "出勤中")
+        this.$client.emit(this.$store.state.me.id, 1)
       },
       async restStart () {
         this.attendance.restEndedAt = ''
@@ -165,7 +165,7 @@
         const {data} = await this.$http.post('/rest/start')
         this.$notify.success('休憩に入りました')
         this.attendance.restStartedAt = moment(data.rest.started_at).format('HH:mm')
-        this.$client.emit(this.$store.state.me.id, "休憩中")
+        this.$client.emit(this.$store.state.me.id, 2)
       },
       async restEnd () {
         this.restEndFormVisible = false
@@ -173,7 +173,7 @@
         const {data} = await this.$http.post('/rest/end')
         this.$notify.success('復帰しました')
         this.attendance.restEndedAt = moment(data.rest.ended_at).format('HH:mm')
-        this.$client.emit(this.$store.state.me.id, "出勤中")
+        this.$client.emit(this.$store.state.me.id, 1)
       },
       async stop () {
         this.active = 3
@@ -181,7 +181,7 @@
         const {data} = await this.$http.post('/attendance/end')
         this.$notify.success('本日もお疲れ様でした')
         this.attendance.endedAt = moment(data.attendance.ended_at).format('HH:mm')
-        this.$client.emit(this.$store.state.me.id, "未出勤")
+        this.$client.emit(this.$store.state.me.id, 3)
       },
       reset (){
         this.active = 0
