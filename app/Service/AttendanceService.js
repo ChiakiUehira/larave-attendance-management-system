@@ -105,6 +105,12 @@ class AttendanceService {
       return {}
     }
   }
+
+  * store (user, context) {
+    const attendance = new AttendanceModel(context)
+    yield user.attendances().save(attendance)
+    return attendance
+  }
 }
 
 module.exports = AttendanceService

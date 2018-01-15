@@ -8,7 +8,8 @@
       </el-breadcrumb>
     </contents-name>
       <div class="controller">
-        <el-button class="btn" icon="el-icon-date" @click="$router.push('/management/report')" type="primary" >今月</el-button>
+        <el-button class="btn" icon="el-icon-plus" @click="isStore = true" type="primary" ></el-button>
+        <el-button class="btn" icon="el-icon-date" @click="$router.push(`/management/report/${user.id}`)" type="primary" >今月</el-button>
         <el-button-group class="btn">
           <el-button @click="handleCurrentChangeOfDate(prevMouthContext)" type="primary" icon="el-icon-arrow-left"></el-button>
           <el-button @click="handleCurrentChangeOfDate(nextMouthContext)" type="primary"><i class="el-icon-arrow-right el-icon-right"></i></el-button>
@@ -59,6 +60,47 @@
           </div>
         </div>
       </div>
+
+      <el-dialog title="勤怠の追加" :visible.sync="isStore">
+      <el-form :model="form">
+        <el-form-item label="日付">
+          <el-date-picker
+            v-model="form.date"
+            type="date"
+            placeholder="2018-01-15">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="開始時間">
+          <el-time-select
+            placeholder="10:00"
+            v-model="form.started_at"
+            :picker-options="{
+              start: '00:00',
+              end: '23:59',
+              step: '00:01'
+            }"
+          >
+          </el-time-select>
+        </el-form-item>
+        <el-form-item label="終了時間">
+          <el-time-select
+            placeholder="10:00"
+            v-model="form.ended_at"
+            :picker-options="{
+              start: '00:00',
+              end: '23:59',
+              step: '00:01',
+              minTime: form.started_at
+            }">
+          </el-time-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isStore = false">Cancel</el-button>
+        <el-button type="primary" @click="onStore">Store</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -86,6 +128,12 @@
         to,
         attendedDaysCount: 0,
         attendedTimesCount: 0,
+        isStore: false,
+        form: {
+          date: null,
+          started_at: null,
+          ended_at: null
+        }
       }
     },
     components: {
@@ -108,9 +156,31 @@
       formatTime (str) {
         return moment(str).format('HH:mm')
       },
+      initForm () {
+        this.form.date = ''
+        this.form.started_at = ''
+        this.form.ended_at = ''
+      },
       onShow (day) {
         if (day.attendances.length) {
           this.$router.push(`/management/report/${this.user.id}/${day.date}`)
+        }
+      },
+      async onStore () {
+        try {
+          const date = moment(this.form.date).format('YYYY-MM-DD')
+          await this.$http.post(`/manager/attendance/${this.user.id}`, {
+            started_at: `${date} ${this.form.started_at}`,
+            ended_at: `${date} ${this.form.ended_at}`,
+          })
+          const params = { from: this.from, to: this.to }
+          const { data } = await this.$http.get(`/manager/attendance/${this.user.id}`, {params})
+          this.attendances = data.attendances
+          this.isStore = false
+          this.initForm()
+          this.$message({type: 'success',message: '追加しました'});
+        } catch (error) {
+          console.log(error);
         }
       }
     },

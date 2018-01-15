@@ -8,7 +8,7 @@ class AttendanceContext {
   }
   indexContext (req) {
     const from = isAccept(req.input('from')) ? moment(req.input('from')).format(this.DEFAULT_FORMAT) : moment().startOf('month').format(this.DEFAULT_FORMAT)
-    const to = isAccept(req.input('to')) ? moment(req.input('to')).format(this.DEFAULT_FORMAT) : moment().format(this.DEFAULT_FORMAT)
+    const to = isAccept(req.input('to')) ? moment(req.input('to')).format(this.DEFAULT_FORMAT) : moment().endOf('month').format(this.DEFAULT_FORMAT)
     return {
       from: from,
       to: to
@@ -39,6 +39,19 @@ class AttendanceContext {
     }
   }
   updateContext (req) {
+    return {
+      started_at: moment(req.input('started_at')).format('YYYY-MM-DD HH:mm'),
+      ended_at: moment(req.input('ended_at')).format('YYYY-MM-DD HH:mm'),
+      memo: req.input('memo')
+    }
+  }
+  storeRules () {
+    return {
+      started_at: 'required',
+      ended_at: 'required'
+    }
+  }
+  storeContext (req) {
     return {
       started_at: moment(req.input('started_at')).format('YYYY-MM-DD HH:mm'),
       ended_at: moment(req.input('ended_at')).format('YYYY-MM-DD HH:mm'),

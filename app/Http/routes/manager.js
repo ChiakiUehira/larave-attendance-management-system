@@ -3,9 +3,11 @@ const Route = use('Route')
 module.exports = Route.group('manager', () => {
   Route.post('/invite', '/Manager/InviteController.store')
   Route.get('/invite', '/Manager/InviteController.index')
+
   Route.get('/attendance', 'ManagerAttendanceController.index')
   Route.get('/attendance/:id', 'ManagerAttendanceController.byUser')
   Route.get('/attendance/:id/getByDate', 'ManagerAttendanceController.getByDate')
+  Route.post('/attendance/:id', 'ManagerAttendanceController.store')
   Route.put('/attendance/:userId/:id', 'ManagerAttendanceController.update')
   Route.delete('/attendance/:userId/:id', 'ManagerAttendanceController.destroy')
 
