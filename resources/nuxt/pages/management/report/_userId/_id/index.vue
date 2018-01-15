@@ -75,6 +75,7 @@
         </div>
       </div>
       <div class="btns">
+        <el-button type="primary" icon="el-icon-plus" @click="onEdit('attendance', attendance)"></el-button>
         <el-button type="primary" icon="el-icon-edit" @click="onEdit('attendance', attendance)"></el-button>
         <el-button type="danger" icon="el-icon-delete" @click="onAttendanceDelete(attendance.id)"></el-button>
       </div>
