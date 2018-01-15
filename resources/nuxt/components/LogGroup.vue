@@ -3,14 +3,16 @@
     <div class="log">
       <div class="from">
         <h1 class="title">更新前</h1>
-        <div class="items">
+        <p v-if="isEmptyFrom()" class="empty">新しく作成されたレコードです</p>
+        <div class="items" v-else>
           <log-card title="名前" :body="from.name"></log-card>
           <log-card title="詳細" :body="from.detail"></log-card>
         </div>
       </div>
       <div class="to">
         <h1 class="title">更新後</h1>
-        <div class="items">
+        <p v-if="isEmptyTo()" class="empty">このレコードは削除されました</p>
+        <div class="items" v-else>
           <log-card title="名前" :body="to.name"></log-card>
           <log-card title="詳細" :body="to.detail"></log-card>
         </div>
@@ -32,6 +34,14 @@
       },
       to(){
         return JSON.parse(this.log.to)
+      }
+    },
+    methods:{
+      isEmptyTo(){
+        return JSON.stringify(this.to) === "{}"
+      },
+      isEmptyFrom(){
+        return JSON.stringify(this.from) === "{}"
       }
     }
   }
@@ -57,6 +67,11 @@
     position: relative;
     border-bottom:solid 1px #f5f5f5;
     margin-bottom:10px;
+  }
+  .empty{
+    background:#fff;
+    padding:15px;
+    font-size:16px;
   }
 
 </style>

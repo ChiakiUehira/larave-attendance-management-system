@@ -3,7 +3,8 @@
     <div class="log">
       <div class="from">
         <h1 class="title">更新前</h1>
-        <div class="items" v-if="from">
+        <p v-if="isEmptyFrom()" class="empty">新しく作成されたレコードです</p>
+        <div class="items" v-else>
           <log-card title="出勤日時" :body="formatTime(from.started_at)"></log-card>
           <log-card title="退勤日時" :body="formatTime(from.ended_at)"></log-card>
         </div>
@@ -43,6 +44,9 @@
       },
       isEmptyTo(){
         return JSON.stringify(this.to) === "{}"
+      },
+      isEmptyFrom(){
+        return JSON.stringify(this.from) === "{}"
       }
     }
   }
@@ -72,6 +76,7 @@
   .empty{
     background:#fff;
     padding:15px;
+    font-size:16px;
   }
 
 </style>

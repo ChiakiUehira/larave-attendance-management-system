@@ -5,7 +5,10 @@ const Lucid = use('Lucid')
 class Log extends Lucid {
 
   user () {
-    return this.hasOne('App/Model/User')
+    return this.belongsTo('App/Model/User')
+  }
+  company (){
+    return this.belongsTo('App/Model/Company')
   }
 }
 
