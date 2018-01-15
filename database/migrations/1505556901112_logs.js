@@ -7,6 +7,7 @@ class LogsTableSchema extends Schema {
     this.create('logs', (table) => {
       table.increments()
       table.string('type')
+      table.integer('company_id').unsigned()
       table.integer('user_id').unsigned()
       table.text('from')
       table.text('to')
