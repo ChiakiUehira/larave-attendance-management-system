@@ -17,6 +17,9 @@ export default async ({isServer, isClient, store, redirect, route, req, app}) =>
     store.commit('SET_IS_LOGIN', true)
     store.commit('SET_TOKEN', token)
 
+    const _user = await app.$http.get('user')
+    store.commit('SET_USERS', _user.data.users)
+
     const _me = await app.$http.get('me')
     store.commit('SET_ME', _me.data.me)
     store.commit('SET_IS_MANAGER', _me.data.me.manager_flag === 'manager')
