@@ -137,6 +137,8 @@ export default {
     vertical-align: top;
   }
   .btns {
+    background-color: #fff;
+    padding: 10px;
     margin-top: 10px;
     text-align: right;
   }
