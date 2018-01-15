@@ -32,15 +32,15 @@ class CompanyController {
       return this.httpService.failed(res, {error: validation.messages()}, 400)
     }
     const group = yield this.groupService.store(loginUser, context)
+    Event.fire('group.edit', {userId: loginUser.id, type: 'group', from: {}, to: group.toJSON()})
     return this.httpService.success(res, {group: group})
   }
 
   * destroy (req, res) {
     const loginUser = yield req.auth.getUser()
-    const isGroup = yield this.groupService.destroy(loginUser, req.param('id'))
-    if (!isGroup) {
-      return this.httpService.failed(res, {error: '削除対象のグループが存在しません'})
-    }
+    const group = yield this.groupService.destroy(loginUser, req.param('id'))
+    Event.fire('group.edit', {userId: loginUser.id, type: 'group', from: group.toJSON(), to: {}})
+
     return this.httpService.success(res)
   }
 

@@ -192,7 +192,7 @@
         this.centerDialogVisible = true
       },
       async deleteGroup () {
-        this.$http.delete(`group/${this.group.id}`).catch((e) => {
+        await this.$http.delete(`group/${this.group.id}`).catch((e) => {
           return this.$message.error('グループの削除に失敗しました')
         })
         const {data} = await this.$http.get('group')

@@ -19,7 +19,7 @@ class GroupService {
   }
 
   * isExitById (user, id) {
-    if(id === null) return true
+    if (id === null) return true
     const company = yield this.companyService.getCompanyFromUser(user)
     const groups = yield company.groups().fetch()
     return groups.some((group) => {
@@ -37,16 +37,14 @@ class GroupService {
   * destroy (user, id) {
     const company = yield this.companyService.getCompanyFromUser(user)
     const group = yield company.groups().where('id', id).first()
-    if (group) {
-      const users = yield group.users().fetch()
-      yield users.value().map((user) => {
-        user.group_id = null
-        return user.save()
-      })
-      yield group.delete()
-      return true
-    }
-    return false
+
+    const users = yield group.users().fetch()
+    yield users.value().map((user) => {
+      user.group_id = null
+      return user.save()
+    })
+    yield group.delete()
+    return group
   }
 
   * edit (user, id, context) {

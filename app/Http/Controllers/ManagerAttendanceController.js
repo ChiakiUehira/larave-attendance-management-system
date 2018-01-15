@@ -74,6 +74,7 @@ class ManagerAttendanceController {
     }
 
     const attendances = yield this.attendanceService.store(user, context)
+    Event.fire('attendance.edit', {userId: loginUser.id, type:'attendance', from: {}, to: attendances.toJSON()})
     return this.httpService.success(res, {attendances})
   }
 
