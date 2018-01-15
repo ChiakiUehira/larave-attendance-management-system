@@ -63,12 +63,6 @@
   import ContentsName from '~/components/ContentsName.vue'
   import moment from 'moment'
   export default{
-    data () {
-      return {
-        currentView: 'LineChart',
-        activeName: '',
-      }
-    },
     asyncData ({app, store, route}) {
       const params = route.query
 
@@ -83,7 +77,6 @@
       return {
         from,
         to,
-        attendedDaysCount: 0,
         attendedTimesCount: 0,
       }
     },
@@ -169,7 +162,6 @@
             return date === moment(attendance.started_at).format('YYYY-MM-DD')
           })
           if (attendances.length) {
-            attendedDaysCount += attendances.length
             attendances.forEach(attendance => {
               const startedAt = attendance ? moment(attendance.started_at) : null
               const endedAt = attendance ? moment(attendance.ended_at) : null
@@ -190,9 +182,17 @@
             isSaturday: moment(date).day() === 6
           })
         }
-        this.attendedDaysCount = attendedDaysCount
         this.attendedTimesCount = attendedTimesCount
         return calendar
+      },
+      attendedDaysCount () {
+        let num = 0
+        this.toValue.forEach(element => {
+          if (element.isAttend) {
+            num++
+          }
+        });
+        return num
       },
       firstDayOfTheMonth () {
         return moment(this.from).day()

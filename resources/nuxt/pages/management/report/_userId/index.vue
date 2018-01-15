@@ -126,7 +126,6 @@
         attendances,
         from,
         to,
-        attendedDaysCount: 0,
         attendedTimesCount: 0,
         isStore: false,
         form: {
@@ -268,6 +267,15 @@
         this.attendedDaysCount = attendedDaysCount
         this.attendedTimesCount = attendedTimesCount
         return calendar
+      },
+      attendedDaysCount () {
+        let num = 0
+        this.toValue.forEach(element => {
+          if (element.isAttend) {
+            num++
+          }
+        });
+        return num
       },
       firstDayOfTheMonth () {
         return moment(this.from).day()
