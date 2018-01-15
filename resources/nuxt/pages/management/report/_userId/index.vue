@@ -63,14 +63,14 @@
 
       <el-dialog title="勤怠の追加" :visible.sync="isStore">
       <el-form :model="form">
-        <el-form-item label="日付">
+        <el-form-item label="日付" label-width="120px">
           <el-date-picker
             v-model="form.date"
             type="date"
             placeholder="2018-01-15">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="開始時間">
+        <el-form-item label="開始時間" label-width="120px">
           <el-time-select
             placeholder="10:00"
             v-model="form.started_at"
@@ -82,7 +82,7 @@
           >
           </el-time-select>
         </el-form-item>
-        <el-form-item label="終了時間">
+        <el-form-item label="終了時間" label-width="120px">
           <el-time-select
             placeholder="10:00"
             v-model="form.ended_at"
