@@ -30,7 +30,10 @@ class LogService {
       .fetch()
 
     logs = logs.filter((log)=>{
-      return log.type === 'attendance' || log.type === 'company' || log.type === 'group' || log.type === 'user' && JSON.parse(log.to).id === loginUser.id
+      return log.type === 'attendance' && JSON.parse(log.to).user_id === loginUser.id ||
+        log.type === 'company' ||
+        log.type === 'group' ||
+        log.type === 'user' && JSON.parse(log.to).id === loginUser.id
     })
 
     return logs
