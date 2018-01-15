@@ -3,7 +3,8 @@
     <contents-name name="ユーザ詳細">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-        <el-breadcrumb-item>ユーザ詳細</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/user' }">ユーザ一覧</el-breadcrumb-item>
+        <el-breadcrumb-item>{{fullname}}</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
     <div class="page">
