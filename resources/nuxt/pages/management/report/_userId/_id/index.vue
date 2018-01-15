@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="btns">
-          <el-button type="primary" icon="el-icon-edit"></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="onEdit('rest', rest)"></el-button>
           <el-button type="danger" icon="el-icon-delete" @click="onRestDelete(rest.id)"></el-button>
         </div>
       </div>
@@ -75,10 +75,43 @@
         </div>
       </div>
       <div class="btns">
-        <el-button type="primary" icon="el-icon-edit"></el-button>
+        <el-button type="primary" icon="el-icon-edit" @click="onEdit('attendance', attendance)"></el-button>
         <el-button type="danger" icon="el-icon-delete" @click="onAttendanceDelete(attendance.id)"></el-button>
       </div>
     </div>
+
+    <el-dialog title="勤怠情報の編集" :visible.sync="isEdit">
+      <el-form :model="form">
+        <el-form-item label="開始時間">
+          <el-time-select
+            placeholder="10:00"
+            v-model="form.started_at"
+            :picker-options="{
+              start: '00:00',
+              end: '23:59',
+              step: '00:01'
+            }">
+          </el-time-select>
+        </el-form-item>
+        <el-form-item label="終了時間">
+          <el-time-select
+            placeholder="10:00"
+            v-model="form.ended_at"
+            :picker-options="{
+              start: '00:00',
+              end: '23:59',
+              step: '00:01',
+              minTime: form.started_at
+            }">
+          </el-time-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isEdit = false">Cancel</el-button>
+        <el-button type="primary" @click="onUpdate">Update</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -93,7 +126,14 @@ export default {
       date,
       userId,
       attendances: data.attendances,
-      isErrors: false
+      isErrors: false,
+      isEdit: false,
+      target: null,
+      form: {
+        started_at: null,
+        ended_at: null,
+        type: null
+      }
     }
   },
   methods: {
@@ -107,6 +147,31 @@ export default {
         this.isErrors = true
       }
       return isValid
+    },
+    onEdit (type, object) {
+      this.target = object
+      this.form.started_at = moment(object.started_at).format('HH:mm')
+      this.form.ended_at = moment(object.ended_at).format('HH:mm')
+      this.form.type = type
+      this.isEdit = true
+    },
+    async onUpdate () {
+      const startedDate = moment(this.target.started_at).format('YYYY-MM-DD')
+      const endedDate = moment(this.target.ended_at).format('YYYY-MM-DD')
+      if (this.form.type === 'attendance') {
+        try {
+          await this.$http.post(`/manager/attendance/${this.userId}/${this.target.id}`, {
+            started_at: `${startedDate} ${this.form.started_at}`,
+            ended_at: `${endedDate} ${this.form.ended_at}`,
+          })
+          const { data } = await this.$http.get(`/manager/attendance/${this.userId}/getByDate`, { params: {date: this.date}})
+          this.attendances = data.attendances
+          this.isEdit = false
+          this.$message({type: 'success',message: '編集しました'});
+        } catch (error) {
+          console.log(error);
+        }
+      }
     },
     async onAttendanceDelete (id) {
       this.$confirm('削除すると勤怠記録が消えてしまいます', '削除しますか？', {
@@ -242,17 +307,17 @@ export default {
     padding: 20px;
     background: #f2f2f2;
   }
-  .timelines:not(:last-child) {
-    margin-bottom: 100px;
+  .timelines + .timelines {
+    margin-top: 100px;
   }
-  .timelines:not(:last-child):after {
+  .timelines + .timelines::after {
     content: "";
     display: inline-block;
     position: absolute;
     width: 5px;
     height: 80px;
     background: #cdcdce;
-    bottom: -90px;
+    top: -90px;
     left: 25px;
   }
   .timeline {

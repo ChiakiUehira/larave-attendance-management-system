@@ -3,6 +3,7 @@ const AttendanceContext = require('../Contexts/AttendanceContext')
 const UserService = require('../../Service/UserService')
 const CompanyService = require('../../Service/CompanyService')
 const HttpService = require('../../Service/HttpService')
+const Validator = use('Validator')
 
 class AttendanceController {
   constructor () {
@@ -48,6 +49,31 @@ class AttendanceController {
     }
     const user = yield this.userService.getById(id)
     const attendances = yield this.attendanceService.getByDate(user, context)
+    return this.httpService.success(res, {attendances})
+  }
+
+  * update (req, res) {
+    const userId = req.param('userId')
+    const id = req.param('id')
+    const loginUser = yield req.auth.getUser()
+    const isContain = yield this.companyService.contains(loginUser, userId)
+    if (!isContain) {
+      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
+    }
+    const user = yield this.userService.getById(userId)
+    const isContainByUserId = yield this.attendanceService.contains(user, id)
+    if (!isContainByUserId) {
+      return this.httpService.failed(res, { error: 'Forbidden' }, 403)
+    }
+
+    const rules = this.attendanceContext.updateRules()
+    const context = this.attendanceContext.updateContext(req)
+    const validation = yield Validator.validateAll(context, rules)
+    if (validation.fails()) {
+      return this.httpService.failed(res, {error: validation.messages()}, 400)
+    }
+
+    const attendances = yield this.attendanceService.update(id, context)
     return this.httpService.success(res, {attendances})
   }
 

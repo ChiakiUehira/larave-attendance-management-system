@@ -6,6 +6,7 @@ module.exports = Route.group('manager', () => {
   Route.get('/attendance', 'ManagerAttendanceController.index')
   Route.get('/attendance/:id', 'ManagerAttendanceController.byUser')
   Route.get('/attendance/:id/getByDate', 'ManagerAttendanceController.getByDate')
+  Route.post('/attendance/:userId/:id', 'ManagerAttendanceController.update')
   Route.delete('/attendance/:userId/:id', 'ManagerAttendanceController.destroy')
 
   Route.delete('/rest/:userId/:id', 'ManagerRestController.destroy')

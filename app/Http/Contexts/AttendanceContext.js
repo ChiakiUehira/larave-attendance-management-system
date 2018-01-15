@@ -32,6 +32,19 @@ class AttendanceContext {
       memo: req.input('memo')
     }
   }
+  updateRules () {
+    return {
+      started_at: 'required',
+      ended_at: 'required'
+    }
+  }
+  updateContext (req) {
+    return {
+      started_at: moment(req.input('started_at')).format('YYYY-MM-DD HH:mm'),
+      ended_at: moment(req.input('ended_at')).format('YYYY-MM-DD HH:mm'),
+      memo: req.input('memo')
+    }
+  }
 }
 
 module.exports = AttendanceContext
