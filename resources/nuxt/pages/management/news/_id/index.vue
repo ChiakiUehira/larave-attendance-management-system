@@ -56,7 +56,7 @@
         this.open()
       },
       open () {
-        this.$confirm('削除するとこのニュースは見れなくなります', 'ニュースを削除しますか？', {
+        this.$confirm('削除するとみれなくなります', 'ニュースを削除しますか？', {
           confirmButtonText: 'OK',
           cancelButtonText: 'Cancel',
           type: 'warning'

@@ -4,7 +4,7 @@
         <el-breadcrumb separator="/">
           <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/management/company' }">企業詳細</el-breadcrumb-item>
-          <el-breadcrumb-item>企業編集</el-breadcrumb-item>
+          <el-breadcrumb-item>編集</el-breadcrumb-item>
         </el-breadcrumb>
     </contents-name>
     <div class="page">
@@ -29,8 +29,8 @@
           </el-form>
         </div>
         <div class="btns">
-          <el-button @click="onCancel">Cancel</el-button>
-          <el-button type="primary" @click="onSubmit">Update</el-button>
+          <el-button @click="onCancel">戻る</el-button>
+          <el-button type="primary" @click="onSubmit">更新</el-button>
         </div>
       </div>
     </div>
@@ -104,7 +104,9 @@ export default {
     padding: 20px;
   }
   .btns {
-    margin-top: 20px;
+    margin-top: 10px;
     text-align: right;
+    background: #fff;
+    padding: 10px;
   }
 </style>
