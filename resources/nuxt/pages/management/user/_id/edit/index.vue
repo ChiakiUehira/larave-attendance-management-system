@@ -48,6 +48,12 @@
             <el-form-item label="役職">
               <el-input placeholder="Please input" v-model="context.position"></el-input>
             </el-form-item>
+            <el-form-item label="マネージャ権限" required>
+              <el-radio-group v-model="context.manager_flag">
+                <el-radio label="manager">あり</el-radio>
+                <el-radio label="normal">なし</el-radio>
+              </el-radio-group>
+            </el-form-item>
           </el-form>
            <div class="btns">
             <el-button @click="onCancel">戻る</el-button>

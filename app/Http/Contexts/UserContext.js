@@ -15,7 +15,8 @@ class UserContext {
     return {
       last_name: 'required',
       first_name: 'required',
-      gender: 'required'
+      gender: 'required',
+      manager_flag: 'required'
     }
   }
 
@@ -67,7 +68,8 @@ class UserContext {
       position: req.input('position'),
       address: req.input('address'),
       postal_code: req.input('postal_code'),
-      password: req.input('password')
+      password: req.input('password'),
+      manager_flag: req.input('manager_flag')
     }
   }
 
