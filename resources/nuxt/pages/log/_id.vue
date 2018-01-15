@@ -11,6 +11,7 @@
       <log-user v-if="log.type === 'user'" :log="log"></log-user>
       <log-company v-if="log.type === 'company'" :log="log"></log-company>
       <log-group v-if="log.type === 'group'" :log="log"></log-group>
+      <log-attendance v-if="log.type === 'attendance'" :log="log"></log-attendance>
     </div>
   </div>
 </template>
@@ -19,13 +20,15 @@
   import LogUser from '~/components/LogUser.vue'
   import LogGroup from '~/components/LogGroup.vue'
   import LogCompany from '~/components/LogCompany.vue'
+  import LogAttendance from '~/components/LogAttendance.vue'
   import ContentsName from '~/components/ContentsName.vue'
   export default{
     components:{
       ContentsName,
       LogUser,
       LogGroup,
-      LogCompany
+      LogCompany,
+      LogAttendance
     },
     async asyncData({app, params}){
       const {data} = await app.$http.get(`log/${params.id}`)

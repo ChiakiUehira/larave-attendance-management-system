@@ -4,6 +4,7 @@ const UserService = require('../../Service/UserService')
 const CompanyService = require('../../Service/CompanyService')
 const HttpService = require('../../Service/HttpService')
 const Validator = use('Validator')
+const Event = use('Event')
 
 class ManagerAttendanceController {
   constructor () {
@@ -97,7 +98,10 @@ class ManagerAttendanceController {
       return this.httpService.failed(res, {error: validation.messages()}, 400)
     }
 
+    const oldAttendances = yield this.attendanceService.getById(id)
     const attendances = yield this.attendanceService.update(id, context)
+    Event.fire('attendance.edit', {userId: loginUser.id, type:'attendance', from: oldAttendances.toJSON(), to: attendances.toJSON()})
+
     return this.httpService.success(res, {attendances})
   }
 
@@ -116,6 +120,7 @@ class ManagerAttendanceController {
     }
     const attendances = yield this.attendanceService.getById(id)
     yield attendances.delete()
+    Event.fire('attendance.edit', {userId: loginUser.id, type:'attendance', from: attendances.toJSON(), to: {}})
     return this.httpService.success(res)
   }
 }

@@ -12,7 +12,8 @@
           <nuxt-link :to="`/log/${log.id}`">
             <h1 class="title" v-if="typeIsUser(log.type)">あなたのプロフィールが更新されました</h1>
             <h1 class="title" v-if="typeIsCompany(log.type)">企業の詳細情報が更新されました</h1>
-            <h1 class="title" v-if="typeIsGroup(log.type)">グループの詳細情報が更新されました</h1>
+            <h1 class="title" v-if="typeIsGroup(log.type)">グループの詳細情報がが管理者によって更新されました</h1>
+            <h1 class="title" v-if="typeIsAttendance(log.type)">あなたの勤怠情報が管理者によって更新されました</h1>
             <p class="posted">
               {{dateFormat(log.updated_at)}}
             </p>
@@ -81,6 +82,9 @@
       },
       typeIsGroup(type){
         return type === 'group'
+      },
+      typeIsAttendance(type){
+        return type === 'attendance'
       }
     },
     components: {
