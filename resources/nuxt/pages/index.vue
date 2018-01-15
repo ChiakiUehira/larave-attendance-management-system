@@ -66,7 +66,7 @@
         }).slice(0, 5)
       },
       displayLogs(){
-        const logs = this.$store.state.logs
+        const logs = this.$store.state.logs.slice(0, 5)
         return logs
       }
     },
