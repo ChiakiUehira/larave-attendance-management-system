@@ -21,6 +21,7 @@ const Company = use('App/Model/Company')
 const News = use('App/Model/News')
 const Group = use('App/Model/Group')
 const Attendance = use('App/Model/Attendance')
+const Log = use('App/Model/Log')
 
 class DatabaseSeeder {
   * run () {
@@ -29,6 +30,7 @@ class DatabaseSeeder {
     yield service.create(User, path.join('database/static/users.csv'))
     yield service.create(News, path.join('database/static/news.csv'))
     yield service.create(Attendance, path.join('database/static/attendance.csv'))
+    yield service.create(Log, path.join('database/static/logs.csv'))
   }
 }
 
