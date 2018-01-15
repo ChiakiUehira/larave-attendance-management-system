@@ -2,9 +2,10 @@
   <div>
     <contents-name name="ユーザ編集">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/management/user'}">ユーザ詳細</el-breadcrumb-item>
-        <el-breadcrumb-item>ユーザ編集</el-breadcrumb-item>
+         <el-breadcrumb-item :to="{ path: '/management' }">マネジメント</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/management/user' }">ユーザ一覧</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: `/management/user/${user.id}` }">{{fullname}}</el-breadcrumb-item>
+        <el-breadcrumb-item>編集</el-breadcrumb-item>
       </el-breadcrumb>
     </contents-name>
     <div class="page">
@@ -78,18 +79,19 @@
       ContentsName,
       Uploader
     },
-    async asyncData({
-      app,
-      params
-    }) {
-      const {
-        data
-      } = await app.$http.get(`/user/${params.id}`)
+    async asyncData({app, params}) {
+      const { data } = await app.$http.get(`/user/${params.id}`)
       let context = data.user
       context.birthday = moment(context.birthday).format('YYYY-MM-DD')
       return {
-        context
+        context,
+        user: data.user
       }
+    },
+    computed: {
+      fullname() {
+        return `${this.user.last_name} ${this.user.first_name}`
+      },
     },
     methods: {
       onSubmit() {
