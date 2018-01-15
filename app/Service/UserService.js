@@ -11,12 +11,6 @@ class UserService {
 
   * fetchUsersFromUser (user) {
     const company = yield user.company().first()
-    const users = yield company.users().registered().with('group').fetch()
-    return users
-  }
-
-  * fetchUsersHasAttendance (user) {
-    const company = yield user.company().first()
     const users = yield company
       .users()
       .registered()
