@@ -5,7 +5,7 @@ const CompanyService = require('../../Service/CompanyService')
 const HttpService = require('../../Service/HttpService')
 const Validator = use('Validator')
 
-class AttendanceController {
+class ManagerAttendanceController {
   constructor () {
     this.attendanceService = new AttendanceService()
     this.attendanceContext = new AttendanceContext()
@@ -96,4 +96,4 @@ class AttendanceController {
   }
 }
 
-module.exports = AttendanceController
+module.exports = ManagerAttendanceController

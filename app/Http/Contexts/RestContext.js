@@ -12,6 +12,18 @@ class RestContext {
       ended_at: moment().format('YYYY-MM-DD HH:mm')
     }
   }
+  storeRules () {
+    return {
+      started_at: 'required',
+      ended_at: 'required'
+    }
+  }
+  storeContext (req) {
+    return {
+      started_at: moment(req.input('started_at')).format('YYYY-MM-DD HH:mm'),
+      ended_at: moment(req.input('ended_at')).format('YYYY-MM-DD HH:mm')
+    }
+  }
   updateRules () {
     return {
       started_at: 'required',

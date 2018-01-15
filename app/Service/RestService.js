@@ -48,6 +48,12 @@ class RestService {
     }
   }
 
+  * store (attendance, context) {
+    const rest = new RestModel(context)
+    yield attendance.rest().save(rest)
+    return rest
+  }
+
   // * contains (user, id) {
   //   const rests = yield user.attendances().fetch()
   //   return rests.some((rest) => {

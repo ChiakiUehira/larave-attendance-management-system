@@ -62,7 +62,7 @@
           </div>
         </div>
         <div class="btns">
-          <el-button type="primary" icon="el-icon-edit" @click="onEdit('rest', rest)"></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="onUpdateDialog('rest', rest)"></el-button>
           <el-button type="danger" icon="el-icon-delete" @click="onRestDelete(rest.id)"></el-button>
         </div>
       </div>
@@ -75,8 +75,8 @@
         </div>
       </div>
       <div class="btns">
-        <el-button type="primary" icon="el-icon-plus" @click="onEdit('attendance', attendance)"></el-button>
-        <el-button type="primary" icon="el-icon-edit" @click="onEdit('attendance', attendance)"></el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="onStoreDialog(attendance)"></el-button>
+        <el-button type="primary" icon="el-icon-edit" @click="onUpdateDialog('attendance', attendance)"></el-button>
         <el-button type="danger" icon="el-icon-delete" @click="onAttendanceDelete(attendance.id)"></el-button>
       </div>
     </div>
@@ -113,6 +113,40 @@
       </span>
     </el-dialog>
 
+    <el-dialog title="休憩の追加" :visible.sync="isStore">
+      <el-form :model="form">
+        <el-form-item label="開始時間">
+          <el-time-select
+            placeholder="10:00"
+            v-model="form.started_at"
+            :picker-options="{
+              start: '00:00',
+              end: '23:59',
+              step: '00:01',
+              minTime: targetStartedAt
+            }"
+          >
+          </el-time-select>
+        </el-form-item>
+        <el-form-item label="終了時間">
+          <el-time-select
+            placeholder="10:00"
+            v-model="form.ended_at"
+            :picker-options="{
+              start: '00:00',
+              end: '23:59',
+              step: '00:01',
+              minTime: form.started_at
+            }">
+          </el-time-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isStore = false">Cancel</el-button>
+        <el-button type="primary" @click="onStore">Store</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -129,6 +163,8 @@ export default {
       attendances: data.attendances,
       isErrors: false,
       isEdit: false,
+      isStore: false,
+      target: null,
       form: {
         started_at: null,
         ended_at: null,
@@ -148,16 +184,36 @@ export default {
       }
       return isValid
     },
-    onEdit (type, object) {
+    onUpdateDialog (type, object) {
       this.target = object
       this.form.started_at = moment(object.started_at).format('HH:mm')
       this.form.ended_at = moment(object.ended_at).format('HH:mm')
       this.form.type = type
       this.isEdit = true
     },
+    onStoreDialog (object) {
+      this.target = object
+      this.form.started_at = moment(object.started_at).format('HH:mm')
+      this.form.ended_at = ''
+      this.isStore = true
+    },
+    async onStore () {
+      try {
+        await this.$http.post(`/manager/rest/${this.userId}/${this.target.id}`, {
+          started_at: `${this.date} ${this.form.started_at}`,
+          ended_at: `${this.date} ${this.form.ended_at}`,
+        })
+        const { data } = await this.$http.get(`/manager/attendance/${this.userId}/getByDate`, { params: {date: this.date}})
+        this.attendances = data.attendances
+        this.isStore = false
+        this.$message({type: 'success',message: '追加しました'});
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async onUpdate () {
       try {
-        await this.$http.post(`/manager/${this.form.type}/${this.userId}/${this.target.id}`, {
+        await this.$http.put(`/manager/${this.form.type}/${this.userId}/${this.target.id}`, {
           started_at: `${this.date} ${this.form.started_at}`,
           ended_at: `${this.date} ${this.form.ended_at}`,
         })
@@ -265,6 +321,11 @@ export default {
       const hours = Math.floor(asMin / 60)
       const min = Math.floor(asMin - (hours * 60))
       return `${hours}時間${min}分`
+    },
+    targetStartedAt () {
+      if (this.target) {
+        return moment(this.target.started_at).format('HH:mm')
+      }
     }
   },
   async fetch ({app, store, route, params}) {
