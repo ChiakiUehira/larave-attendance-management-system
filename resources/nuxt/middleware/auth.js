@@ -23,6 +23,9 @@ export default async ({isServer, isClient, store, redirect, route, req, app}) =>
 
     const _company = await app.$http.get('company')
     store.commit('SET_COMPANY', _company.data.company)
+
+    const _users = await app.$http.get('user?hasAttendance=true')
+    store.commit('SET_USERS', _users.data.users)
   }
   if (!store.state.isLogin) {
     return redirect('/login')

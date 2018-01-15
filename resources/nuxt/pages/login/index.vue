@@ -54,6 +54,9 @@
             setToken(data.token)
             this.$http.get('company').then(({data}) => {
               this.$store.commit('SET_COMPANY', data.company)
+              this.$http.get('user?hasAttendance=true').then(({data})=>{
+                this.$store.commit('SET_USERS', data.users)
+              })
               this.$http.get('me').then(({data}) => {
                 this.$store.commit('SET_ME', data.me)
                 this.isSend = false
