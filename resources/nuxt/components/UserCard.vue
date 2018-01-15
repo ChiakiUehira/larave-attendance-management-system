@@ -29,17 +29,23 @@
         if (state === 1) {
           this.type = 'primary'
           this.state = '出勤中'
+          this.$store.commit('SET_USER_TYPE',{id: this.user.id, type: 'primary'})
           this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: true})
         }
         if (state === 2) {
           this.type = 'warning'
           this.state = '休憩中'
+          this.$store.commit('SET_USER_TYPE',{id: this.user.id, type: 'warning'})
           this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: false})
         }
         if (state === 3) {
           this.type = 'success'
           this.state = '退勤済み'
+          this.$store.commit('SET_USER_TYPE',{id: this.user.id, type: 'success'})
           this.$store.commit('IS_ACTIVATE_USER', {id: this.user.id, isActive: false})
+        }
+        if(!state){
+          this.$store.commit('SET_USER_TYPE',{id: this.user.id, type: 'info'})
         }
       })
     },
@@ -63,11 +69,14 @@
         return this.state
       },
       displayType(){
+        this.$store.commit('SET_USER_TYPE',{id: this.user.id, type: 'info'})
         if (this.user.attendances[0] && this.user.attendances[0].ended_at == null) {
           if(this.user.attendances[0].rest[0] && this.user.attendances[0].rest[0].ended_at == null) {
             this.type = 'warning'
+            this.$store.commit('SET_USER_TYPE',{id: this.user.id, type: 'warning'})
           }else{
             this.type = 'primary'
+            this.$store.commit('SET_USER_TYPE',{id: this.user.id, type: 'primary'})
           }
         }
         return this.type

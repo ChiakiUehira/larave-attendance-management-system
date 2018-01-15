@@ -140,7 +140,7 @@
     },
     async fetch ({app, store}) {
 
-      const {data} = await app.$http.get('/user?hasAttendance=true')
+      const {data} = await app.$http.get('/user')
       store.commit('SET_USERS', data.users)
 
       if (!store.state.groups) {

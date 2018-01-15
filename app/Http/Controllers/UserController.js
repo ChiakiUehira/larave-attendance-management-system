@@ -24,12 +24,6 @@ class UserController {
   }
 
   * index (req, res) {
-    if (req.input('hasAttendance')) {
-      const loginUser = yield req.auth.getUser()
-      const users = yield this.userService.fetchUsersHasAttendance(loginUser)
-      return this.httpService.success(res, {users})
-    }
-
     const loginUser = yield req.auth.getUser()
     const users = yield this.userService.fetchUsersFromUser(loginUser)
     return this.httpService.success(res, {users})

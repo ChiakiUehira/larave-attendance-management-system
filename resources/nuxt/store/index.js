@@ -1,3 +1,6 @@
+import { getToken, hasToken } from '../../../utils/Token'
+
+
 export const state = () => ({
   device: 'pc',
   token: null,
@@ -36,6 +39,18 @@ export const mutations = {
   },
   SET_USERS (state, payload) {
     state.users = payload
+  },
+  SET_USER_TYPE (state, payload){
+    const index = state.users.findIndex((user)=>{
+      return user.id == payload.id
+    })
+    state.users[index].type = payload.type
+  },
+  SET_USER_STATE (state, payload){
+    const index = state.users.findIndex((user)=>{
+      return user.id == payload.id
+    })
+    state.users[index].state = payload.state
   },
   IS_ACTIVATE_USER(state, payload){
     const index = state.users.findIndex((user) => {
