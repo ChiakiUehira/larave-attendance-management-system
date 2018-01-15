@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-    <div class="timelines" v-for="attendance in attendances" :key="attendance.id">
+    <div class="timelines" v-for="attendance in displayAttendances" :key="attendance.id">
       <div :class="['timeline', 'start', {'err': !isValid(attendance.started_at)}]">
         <div class="timeline__body">
           <p>
@@ -106,6 +106,17 @@ export default {
   computed: {
     title () {
       return this.$route.params.id
+    },
+    displayAttendances () {
+      let attendances = JSON.parse(JSON.stringify(this.attendances)).sort((a, b) => {
+        return (a.started_at < b.started_at) ? -1 : 1
+      })
+      return attendances.map((attendance) => {
+        attendance.rest = JSON.parse(JSON.stringify(attendance.rest)).sort((a, b) => {
+          return (a.started_at < b.started_at) ? -1 : 1
+        })
+        return attendance
+      })
     },
     displayIsErrors () {
       return this.isErrors ? '有' : '無'
