@@ -37,6 +37,17 @@ class RestService {
     return rest
   }
 
+  * update (id, context) {
+    const rest = yield this.getById(id)
+    if (rest) {
+      rest.fill(context)
+      yield rest.save()
+      return rest
+    } else {
+      return {}
+    }
+  }
+
   // * contains (user, id) {
   //   const rests = yield user.attendances().fetch()
   //   return rests.some((rest) => {

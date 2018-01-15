@@ -9,5 +9,6 @@ module.exports = Route.group('manager', () => {
   Route.post('/attendance/:userId/:id', 'ManagerAttendanceController.update')
   Route.delete('/attendance/:userId/:id', 'ManagerAttendanceController.destroy')
 
+  Route.post('/rest/:userId/:id', 'ManagerRestController.update')
   Route.delete('/rest/:userId/:id', 'ManagerRestController.destroy')
 }).prefix('api/v1/manager').middleware('auth')

@@ -129,7 +129,6 @@ export default {
       attendances: data.attendances,
       isErrors: false,
       isEdit: false,
-      target: null,
       form: {
         started_at: null,
         ended_at: null,
@@ -157,21 +156,17 @@ export default {
       this.isEdit = true
     },
     async onUpdate () {
-      const startedDate = moment(this.target.started_at).format('YYYY-MM-DD')
-      const endedDate = moment(this.target.ended_at).format('YYYY-MM-DD')
-      if (this.form.type === 'attendance') {
-        try {
-          await this.$http.post(`/manager/attendance/${this.userId}/${this.target.id}`, {
-            started_at: `${startedDate} ${this.form.started_at}`,
-            ended_at: `${endedDate} ${this.form.ended_at}`,
-          })
-          const { data } = await this.$http.get(`/manager/attendance/${this.userId}/getByDate`, { params: {date: this.date}})
-          this.attendances = data.attendances
-          this.isEdit = false
-          this.$message({type: 'success',message: '編集しました'});
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        await this.$http.post(`/manager/${this.form.type}/${this.userId}/${this.target.id}`, {
+          started_at: `${this.date} ${this.form.started_at}`,
+          ended_at: `${this.date} ${this.form.ended_at}`,
+        })
+        const { data } = await this.$http.get(`/manager/attendance/${this.userId}/getByDate`, { params: {date: this.date}})
+        this.attendances = data.attendances
+        this.isEdit = false
+        this.$message({type: 'success',message: '編集しました'});
+      } catch (error) {
+        console.log(error);
       }
     },
     async onAttendanceDelete (id) {
