@@ -34,10 +34,10 @@
               </el-input>
             </el-form-item>
           </el-form>
-        </div>
-        <div class="btns">
-          <el-button @click="onCancel">戻る</el-button>
-          <el-button type="primary" @click="onSubmit">更新</el-button>
+          <div class="btns">
+            <el-button @click="onCancel">戻る</el-button>
+            <el-button type="primary" @click="onSubmit">更新</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -174,11 +174,15 @@ export default {
     display: inline-block;
     width: calc(100% - 300px - 10px);
     vertical-align: top;
+  }
+  .profile form{
     background: #fff;
     padding: 20px;
   }
   .btns {
-    margin-top: 20px;
+    background-color: #fff;
+    padding: 10px;
+    margin-top: 10px;
     text-align: right;
   }
 </style>
