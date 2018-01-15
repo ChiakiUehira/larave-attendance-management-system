@@ -1,21 +1,32 @@
 'use strict'
 
 const Log = require('../Model/Log')
+const CompanyService = require('../Service/CompanyService')
+const UserService = require('../Service/UserService')
 
 class LogService {
+  constructor () {
+    this.companyService = new CompanyService()
+    this.userService = new UserService()
+  }
+
   * store (logData) {
-    console.log(logData)
+    const user = yield this.userService.getById(logData.userId)
+    const company = yield this.companyService.getCompanyFromUser(user)
+
     const log = new Log()
+    log.company_id = company.id
     log.type = logData.type
     log.user_id = logData.userId
     log.from  = logData.from ? logData.from : {}
     log.to = logData.to ? logData.to : {}
     yield log.save()
   }
-  * fetchLogs (loginUser){
+  * fetchLogs (company,loginUser){
     let logs = yield Log
       .query()
       .orderBy('updated_at','desc')
+      .where('company_id', company.id)
       .fetch()
 
     logs = logs.filter((log)=>{
