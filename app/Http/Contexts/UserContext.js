@@ -27,7 +27,6 @@ class UserContext {
     }
   }
 
-  //どこで使ってる？
   storeContext (req) {
     return {
       email: req.input('email'),
@@ -68,7 +67,6 @@ class UserContext {
       position: req.input('position'),
       address: req.input('address'),
       postal_code: req.input('postal_code'),
-      password: req.input('password'),
       manager_flag: req.input('manager_flag')
     }
   }

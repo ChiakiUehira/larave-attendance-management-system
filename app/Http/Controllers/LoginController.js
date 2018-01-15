@@ -24,7 +24,7 @@ class LoginController {
       }
       return this.httpService.failed(res, {error: 'NO'}, 401)
     } catch (e) {
-      return this.httpService.failed(res, {error: 'NO'}, 401)
+      return this.httpService.failed(res, {error: e}, 401)
     }
   }
 }

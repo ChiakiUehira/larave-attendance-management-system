@@ -44,7 +44,6 @@ class UserService {
 
   * update (id, context) {
     const user = yield this.getById(id)
-
     if (!context.password) {
       context.password = user.password
     } else {
