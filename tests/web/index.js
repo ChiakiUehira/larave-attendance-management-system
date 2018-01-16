@@ -95,8 +95,8 @@ test('企業管理編集画面', async t => {
   const { status } = await http.get('/management/company/edit')
   t.is(status, 200)
 })
-test('打刻管理', async t => {
-  const { status } = await http.get('/management/clockin')
+test('勤怠管理', async t => {
+  const { status } = await http.get('/management/attendance')
   t.is(status, 200)
 })
 

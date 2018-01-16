@@ -42,35 +42,20 @@
         this.context.email = ''
         this.context.password = ''
       },
-      submit () {
-        // @todo asyncに書き換える
+      async submit () {
         if (!this.isSend) {
           this.isSend = true
-          this.$http.post('login', this.context).then(({data}) => {
-            this.$store.commit('SET_IS_LOGIN', true)
-            this.$store.commit('SET_ME', data.me)
-            this.$store.commit('SET_TOKEN', data.token)
-            this.$store.commit('SET_IS_MANAGER', data.user.manager_flag === 'manager')
-            setToken(data.token)
-            this.$http.get('company').then(({data}) => {
-              this.$store.commit('SET_COMPANY', data.company)
-              this.$http.get('user').then(({data})=>{
-                this.$store.commit('SET_USERS', data.users)
-              })
-              this.$http.get('me').then(({data}) => {
-                this.$store.commit('SET_ME', data.me)
-                this.isSend = false
-                this.$notify.success('ログインしました')
-                this.$router.push('/')
-              })
-            })
-          }).catch((err) => {
-            if (err.response.data.message === 'notRegistered') { // 仮登録時は登録ホームにリダイレクト
+          try {
+            const res = await this.$http.post('login', this.context)
+            setToken(res.data.token)
+            location.href = '/'
+          } catch (err) {
+            if (err.response.data.message === 'notRegistered') {
               location.href = `/register?t=${err.response.data.t}&id=${err.response.data.id}`
             }
-            this.isSend = false
             this.$notify.error('メールアドレスかパスワードが間違っています')
-          })
+            this.isSend = false
+          }
         }
       }
     }
