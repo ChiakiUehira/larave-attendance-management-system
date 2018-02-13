@@ -8,27 +8,10 @@ export default async ({isServer, isClient, store, redirect, route, req, app}) =>
   if (isClient && hasToken(window.document.cookie)) {
     token = getToken(window.document.cookie)
   }
-
   if (!store.state.isLogin && token) {
     if (route.name === 'login') {
       return redirect('/')
     }
-
-    store.commit('SET_IS_LOGIN', true)
-    store.commit('SET_TOKEN', token)
-
-    const _user = await app.$http.get('user')
-    store.commit('SET_USERS', _user.data.users)
-
-    const _me = await app.$http.get('me')
-    store.commit('SET_ME', _me.data.me)
-    store.commit('SET_IS_MANAGER', _me.data.me.manager_flag === 'manager')
-
-    const _company = await app.$http.get('company')
-    store.commit('SET_COMPANY', _company.data.company)
-
-    const _users = await app.$http.get('user')
-    store.commit('SET_USERS', _users.data.users)
   }
   if (!store.state.isLogin) {
     return redirect('/login')

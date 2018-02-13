@@ -21,18 +21,6 @@ class CompanyController {
     return this.httpService.success(res, { company })
   }
 
-  // apiではいらない
-  // * store (req, res) {
-  //   const rules = this.companyContext.storeRules()
-  //   const context = this.companyContext.storeContext(req)
-  //   const validation = yield Validator.validateAll(context, rules)
-  //   if (validation.fails()) {
-  //     return this.httpService.failed(res, {error: validation.messages()}, 400)
-  //   }
-  //   const company = yield this.companyService.store(context)
-  //   return this.httpService.success(res, {company})
-  // }
-
   * update (req, res) {
     const loginUser = yield req.auth.getUser()
     const rules = this.companyContext.storeRules()

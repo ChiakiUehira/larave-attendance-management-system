@@ -1,5 +1,42 @@
-import { getToken, hasToken } from '../../../utils/Token'
 
+import { getToken, hasToken } from '../../../utils/Token'
+import axios from 'axios'
+
+export const actions = {
+  async nuxtServerInit ({ app, commit }, { req }) {
+    let token
+    if (hasToken(req.headers.cookie)) {
+      token = getToken(req.headers.cookie)
+    }
+    if (token) {
+      const http = axios.create({
+        baseURL: `${process.env.API_URL}/api/v1/`
+      })
+      http.interceptors.request.use((config) => {
+        config.headers.Authorization = `Bearer ${token}`
+        return config
+      }, function (error) {
+        return Promise.reject(error)
+      })
+
+      commit('SET_IS_LOGIN', true)
+      commit('SET_TOKEN', token)
+
+      const _user = await http.get('user')
+      commit('SET_USERS', _user.data.users)
+
+      const _me = await http.get('me')
+      commit('SET_ME', _me.data.me)
+      commit('SET_IS_MANAGER', _me.data.me.manager_flag === 'manager')
+
+      const _company = await http.get('company')
+      commit('SET_COMPANY', _company.data.company)
+
+      const _users = await http.get('user')
+      commit('SET_USERS', _users.data.users)
+    }
+  }
+}
 
 export const state = () => ({
   device: 'pc',
@@ -15,7 +52,7 @@ export const state = () => ({
   invitingUsers: null,
   attendances: null,
   allUserAttendances: null,
-  logs:null
+  logs: null
 })
 
 export const mutations = {
@@ -40,19 +77,19 @@ export const mutations = {
   SET_USERS (state, payload) {
     state.users = payload
   },
-  SET_USER_TYPE (state, payload){
-    const index = state.users.findIndex((user)=>{
+  SET_USER_TYPE (state, payload) {
+    const index = state.users.findIndex((user) => {
       return user.id == payload.id
     })
     state.users[index].type = payload.type
   },
-  SET_USER_STATE (state, payload){
-    const index = state.users.findIndex((user)=>{
+  SET_USER_STATE (state, payload) {
+    const index = state.users.findIndex((user) => {
       return user.id == payload.id
     })
     state.users[index].state = payload.state
   },
-  IS_ACTIVATE_USER(state, payload){
+  IS_ACTIVATE_USER (state, payload) {
     const index = state.users.findIndex((user) => {
       return user.id == payload.id
     })
@@ -82,7 +119,7 @@ export const mutations = {
   SET_ALL_USER_ATTENDANCES (state, payload) {
     state.allUserAttendances = payload
   },
-  SET_LOGS (state, payload){
+  SET_LOGS (state, payload) {
     state.logs = payload
   }
 }
