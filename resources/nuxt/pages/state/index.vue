@@ -82,7 +82,6 @@
     },
     async asyncData ({app}){
       const {data} = await app.$http.get('/attendance/lastUpdated')
-      console.log(data.attendance)
       if (data.attendance != null && data.attendance.ended_at === null) {
         const obj = await app.$http.get('/rest/lastUpdated')
         if(obj.data.rest != null && obj.data.rest.ended_at === null){
