@@ -65,11 +65,12 @@
           this.$store.commit('IS_ACTIVATE_USER', {id: this.me.id, isActive: false})
         }
         if (state === 3) {
-          this.Color = this.type['primary']
+          this.Color = this.type['success']
           this.$store.commit('SET_USER_TYPE',{id: this.me.id, type: 'success'})
           this.$store.commit('IS_ACTIVATE_USER', {id: this.me.id, isActive: false})
         }
-        if(!state){
+        if(!state || state === 0){
+          this.Color = this.type['info']
           this.$store.commit('SET_USER_TYPE',{id: this.me.id, type: 'info'})
         }
       })

@@ -21,10 +21,10 @@
       <div class="attendance">
         <el-card class="contents">
           <div class="time-elm">
-            <div class="start_time" v-if="attendance.startedAt"><strong
+            <div class="start_time" v-if="attendance.startedAt && active != 0"><strong
                 class="el-icon-time">出勤：{{attendance.startedAt}}</strong></div>
             <div class="start_time" v-else><strong class="el-icon-time">出勤：--:-- </strong></div>
-            <div class="end_time" v-if="attendance.endedAt"><strong
+            <div class="end_time" v-if="attendance.endedAt && active != 0"><strong
                 class="el-icon-time">退勤：{{attendance.endedAt}}</strong></div>
             <div class="end_time" v-else><strong class="el-icon-time">退勤：--:-- </strong></div>
           </div>
@@ -105,10 +105,11 @@
           }
         }
       }
-      return {time: moment().format("HH:mm:ss")}
+      return {time: moment().format("HH:mm:ss"),active:0}
     },
     mounted(){
       this.$client.emit('user', this.$store.state.me.id)
+      this.$client.emit(this.$store.state.me.id, this.active)
       setInterval(() => {
         this.time = moment().format("HH:mm:ss")
       }, 500)
